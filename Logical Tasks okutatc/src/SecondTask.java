@@ -30,14 +30,14 @@ public class SecondTask
 	{
 		System.out.print("\nResult is:");
 		for (int i = 1; i < mn; i++)
-        {
-            if ((m != 0) && (i % m) == 0)
-            {
-                if ((n != 0) && (i % n) == 0)
-                {
-                    System.out.print("  " + i);
-                }
-            }
-        }
+		{
+			if ((m != 0) && (i % m) == 0)
+			{
+				if ((n != 0) && (i % n) == 0)
+				{
+					System.out.print("  " + i);
+				}
+			}
+		}
 	}
 }
