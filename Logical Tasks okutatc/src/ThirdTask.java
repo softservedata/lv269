@@ -18,4 +18,6 @@ public class ThirdTask
 		
 		System.out.print("\n");
 	}
+	
+	// TO DO
 }
