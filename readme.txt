@@ -1,4 +1,4 @@
-﻿Oleknsadr Kutaiev branch.
+﻿Oleksandr Kutaiev branch.
 
 Tasks description:
 
