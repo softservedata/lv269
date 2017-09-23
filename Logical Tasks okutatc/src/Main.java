@@ -10,7 +10,7 @@ public class Main
 		{
 		case 1:  
 			FirstTask FT = new FirstTask();
-			System.out.println("Sum is: " + FT.GetTaskResult());
+			FT.GetResult();
 			break;
 			
 		case 2:
@@ -20,7 +20,7 @@ public class Main
 			
 		case 3:
 			ThirdTask TT = new ThirdTask();
-			
+			TT.GetResult();
 			break;
 			
 			default :

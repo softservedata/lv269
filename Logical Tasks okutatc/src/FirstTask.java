@@ -25,12 +25,12 @@ public class FirstTask
 		System.out.print("\n");
 	}
 	
-	public int GetTaskResult()
+	public void GetResult()
 	{
 		if (getDigits(this.n) < this.m)
 		{
 			System.out.println("Entered n value should contains more digits than entered m value");
-			return -1;
+			return;
 		}
 		
 		for (int i = 1; i <= m; i++)
@@ -39,7 +39,7 @@ public class FirstTask
 			n = (int) (n/10);
 		}
 		
-		return this.digitsSum;
+		System.out.println("Sum is: " + this.digitsSum);
 	}
 	
 	private int getDigits(int n) //get count of digits from number
