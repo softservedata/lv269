@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 public class InputData {
     private Scanner scanner;
@@ -23,6 +22,7 @@ public class InputData {
             System.out.println("Numbers must be positive!");
             System.exit(2);
         }
+        scanner.close();
         return number;
     }
 }

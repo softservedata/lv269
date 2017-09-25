@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class Run {
     public static void main(String[] args) {
@@ -10,5 +9,6 @@ public class Run {
         int maxDivisor = MaxDivisor.findMaxDivisor(firstNumber, secondNumber);
         System.out.println("The lowest multiple from " + firstNumber + " and " + secondNumber +
                 " is " + (firstNumber/maxDivisor*secondNumber));
+        inputNumbers.closeScanner();
     }
 }

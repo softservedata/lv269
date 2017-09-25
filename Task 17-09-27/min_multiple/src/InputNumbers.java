@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputNumbers {
@@ -21,5 +20,9 @@ public class InputNumbers {
             System.exit(1);
         }
         return number;
+    }
+
+    public void closeScanner () {
+        scanner.close();
     }
 }
