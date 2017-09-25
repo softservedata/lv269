@@ -14,12 +14,12 @@ public class FirstTask {
 	private int m;
 	private int digitsSum = 0;
 	
-	/**Initialize n and m numbers */
+	/** Initialize n and m numbers */
 	public FirstTask() {
 		initializeItems(); //Get n and m values
 	}
 	
-	/**Initialize n and m numbers */
+	/** Initialize n and m numbers */
 	private void initializeItems() {
 		System.out.print("\tEnter n value: ");
 		this.n = UserInterface.getValue();
@@ -46,6 +46,7 @@ public class FirstTask {
 	}
 	
 	/** Get count of digits from number
+	 * @param n - number
 	 * @return count of digits */
 	public int getDigits(int n) {
 		int counter = 0;		

@@ -45,6 +45,7 @@ public class ThirdTask {
 	}
 	
 	/** Check whether some number is prime 
+	 * @param number - Number
 	 * @return true if number is prime*/
 	private boolean IsPrime(int number) {
 		for (int i = 2; i < number; i++) {

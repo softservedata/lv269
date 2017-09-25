@@ -5,9 +5,8 @@ package home.olex.task1;
 
 import java.util.Scanner;
 
-
 /**
-* Class UserInterface implements interface for application #559
+* Class UserInterface implements interface for application
 *
 * @version 25 Sep 2017
 * @author Oleksandr Kutaiev
