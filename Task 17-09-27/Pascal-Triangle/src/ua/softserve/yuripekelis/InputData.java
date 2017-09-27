@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * This class is for work with Scanner and entering data.
  */
-class InputNumbers {
+class InputData {
     /**
      * Variable for Scanner object.
      */
@@ -14,7 +14,7 @@ class InputNumbers {
     /**
      * Creating Scanner object.
      */
-    InputNumbers() {
+    InputData() {
         scanner = new Scanner(System.in);
     }
 
@@ -26,7 +26,7 @@ class InputNumbers {
      *                 typing by user.
      * @return String that was typed.
      */
-     String getText(final String question) {
+    String getText(final String question) {
         String enteredString = "";
         System.out.println(question);
         if (scanner.hasNext()) {

@@ -1,13 +1,25 @@
 package ua.softserve.yuripekelis;
 
-public class MaxDivisor {
+/**
+ * This class is for calculation of the maximum divisor for 2 numbers,
+ * using Euclid`s algorithm.
+ */
+final class MaxDivisor {
+
     /**
-     * This method counts the maximum common divisor
-     *
-     * @param firstNumber, secondNumber entered numbers
-     * @return the common divisor
+     * The blank constructor.
      */
-    public static int findMaxDivisor(Integer firstNumber, Integer secondNumber) {
+    private MaxDivisor() {
+    }
+    /**
+     * This method counts the maximum common divisor.
+     *
+     * @param firstNumber  - the first number
+     * @param secondNumber - the second entered numbers
+     * @return the maximum common divisor
+     */
+    static int findMaxDivisor(
+            final Integer firstNumber, final Integer secondNumber) {
         int[] nod = {firstNumber, secondNumber};
         int temp;
         do {

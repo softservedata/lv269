@@ -1,20 +1,45 @@
 package ua.softserve.yuripekelis;
 
-public class OperationWithNumbers {
+/**
+ * This class is for check of entered numbers.
+ */
+final class OperationWithNumbers {
 
     /**
-     * This method is for checking numbers (they must be positive  and not equal
-     *
-     * @param firstNumber, secondNumber - entered numbers
-     *  if not positive exit with status
+     * The blank constructor.
      */
-    static void checkNumbers(Integer firstNumber, Integer secondNumber) {
+    private OperationWithNumbers() {
+    }
+
+    /**
+     * This constant consists of text for error,
+     * when user entered negative number or 0 .
+     */
+    private static final String ERROR_NEGATIVE_NUMBER
+            = "Numbers must be positive!";
+
+    /**
+     * This constant consists of text for error,
+     * when user didn't used only digits.
+     */
+    private static final String MESSAGE_EQUAL_NUMBER
+            = "This numbers are equal.";
+
+    /**
+     * This method is for checking numbers (they must be positive and not
+     * equal). If conditions are false then exit with code.
+     *
+     * @param firstNumber - entered the first number
+     * @param secondNumber - entered numbers
+     */
+    static void checkNumbers(
+            final Integer firstNumber, final Integer secondNumber) {
         if (firstNumber <= 0 || secondNumber <= 0) {
-            System.out.println("Numbers must be positive!");
+            System.out.println(ERROR_NEGATIVE_NUMBER);
             System.exit(2);
         }
-        if (secondNumber == firstNumber) {
-            System.out.println("This numbers are equal.");
+        if (secondNumber.equals(firstNumber)) {
+            System.out.println(MESSAGE_EQUAL_NUMBER);
             System.exit(0);
         }
     }
