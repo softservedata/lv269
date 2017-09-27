@@ -32,6 +32,7 @@ hs_err_pid*
 /.externalToolBuilders/
 /.settings/
 /.metadata/
+/.idea/
 /.recommenders/
 /target/
 /bin/
