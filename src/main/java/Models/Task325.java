@@ -13,7 +13,7 @@ public class Task325 extends TaskModel {
         ArrayList<Integer> arrayList = new ArrayList<Integer>();
         for (int i = 2; i <= number; i++) {
             if ((number % i == 0) &&
-                    ((Factorial.factorial(i) - 1) % i == 0) | ((i * i - 1) % 24) == 0) // Wilson's theorem  ((p-1)! -1)%p==0
+                    ((Factorial.factorialFromNMinusOne(i) - 1) % i == 0) | ((i * i - 1) % 24) == 0) // Wilson's theorem  ((p-1)! -1)%p==0
             {
                 arrayList.add(i);
             }
