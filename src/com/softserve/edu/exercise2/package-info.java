@@ -1,5 +1,6 @@
 /**
- * Simple numbers.
+ * Simple numbers. ƒано натуральное число n. ѕолучить все натуральные
+ * числа, меньшие n и взаимно простые с ним.
  */
 /**
  * @author Andrii Kravtsov

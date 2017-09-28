@@ -9,14 +9,18 @@ import java.util.Scanner;
  *
  */
 public class Input1 {
-
+	/**
+	 * Method scan for take input data.
+	 * @return mas with integers.
+	 */
 	public int[] scan() {
 		Scanner in = new Scanner(System.in);
 		int quantity = 0;
-		int integers[] = { 0 };
+		int[] integers = {0};
 		System.out.println("Input quantity of number's");
-		if (in.hasNextInt())
+		if (in.hasNextInt()) {
 			quantity = in.nextInt();
+		}
 		else {
 			System.out.println("This is not natural number!");
 			scan();
