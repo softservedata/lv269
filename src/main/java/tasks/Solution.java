@@ -19,11 +19,11 @@ public class Solution {
 
         Task331 task331=new Task331();
         outputData.outputToConsole(task331.getClass().getSimpleName());
-        outputData.outputToConsole(String.valueOf(String.valueOf(task331.calc(n))));
+        outputData.outputToConsole(task331.calc(n));
 
         Task554 task554=new Task554();
         outputData.outputToConsole(task554.getClass().getSimpleName());
-        //task554.calc(n);
+        outputData.outputToConsole(task554.calc(n));
 
     }
 }

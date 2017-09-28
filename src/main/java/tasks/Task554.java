@@ -1,6 +1,8 @@
 package tasks;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class for task 554.
@@ -15,21 +17,20 @@ public class Task554 {
      * @param n
      * @throws IOException
      */
-    public void calc (int n) throws IOException {
+    public List<Integer[]> calc (int n) throws IOException {
 
-            int count = 0;
+        ArrayList<Integer[]> rez = new ArrayList<Integer[]>();
             for (int a = 1; a <= n; a++) {
                 for (int b = 1; b <= n; b++) {
                     for (int c = 1; c <= n; c++) {
-                        if (a * a + b * b == c * c) {
-                            System.out.println(a + " " + b + " " + c);
-                            count++;
+                        if (((a * a) + (b * b)) == (c * c)) {
+                            rez.add(new Integer[]{a, b, c});
                         }
                     }
                 }
             }
 
-            if (count == 0) System.out.println("It is no possible.");
+        return rez;
         }
 
 }

@@ -14,28 +14,22 @@ public class Task331 {
 
     /**
      * Calculation method.
-     *
      * @param n
      * @throws IOException
      */
     public List<Integer[]> calc(int n) throws IOException {
 
-        //int count = 0;
-
         ArrayList<Integer[]> rez = new ArrayList<Integer[]>();
         for (int x = 1; x <= n; x++) {
             for (int y = 1; y <= x; y++) {
                 for (int z = 1; z <= y; z++) {
-                    if (x * x + y * y + z * z == n) {
-                        //System.out.println(x + " " + y + " " + z);
-                        //count++;
+                    if (((x * x) + (y * y) + (z * z)) == n) {
                         rez.add(new Integer[]{x, y, z});
                     }
                 }
             }
         }
 
-        //if (count == 0) System.out.println("It is no possible.");
         return rez;
     }
 }
