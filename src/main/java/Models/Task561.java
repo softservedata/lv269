@@ -1,6 +1,7 @@
 package Models;
 
 import java.util.ArrayList;
+
 /**
  * 561. Дано натуральное число n. Среди чисел 1, ..., n найти все такие,
  * запись которых совпадает с последними цифрами записи их квадрата
@@ -8,10 +9,13 @@ import java.util.ArrayList;
  */
 public class Task561 extends TaskModel {
 
+
+    /**
+     * @param number
+     * @return arrayList of  n, where last digits of square of n equal  n.
+     */
     public ArrayList<Integer> numberOperation(Integer number) {
-
         ArrayList<Integer> arrayList = new ArrayList<Integer>();
-
         for (int i = 0; i <= number; i++) {
             if (returnLastTwoNumbers(i).equals(Integer.valueOf(i))) {
                 arrayList.add(i);
@@ -20,16 +24,20 @@ public class Task561 extends TaskModel {
         return arrayList;
     }
 
+    /**
+     * @param n
+     * @return This method returns last digits from square n.
+     */
     private Integer returnLastTwoNumbers(Integer n) {
         String[] nTemp = String.valueOf(n).split("");
-        String[] s = String.valueOf(n * n).split("");
+        String[] square = String.valueOf(n * n).split("");
         String temp;
         if (nTemp.length < 2) {
-            temp = s[s.length - 1];
+            temp = square[square.length - 1];
         } else if (nTemp.length < 3) {
-            temp = String.format("%s%s", s[s.length - 2], s[s.length - 1]);
+            temp = String.format("%square%square", square[square.length - 2], square[square.length - 1]);
         } else {
-            temp = String.format("%s%s", s[s.length - 3], s[s.length - 2], s[s.length - 1]);
+            temp = String.format("%square%square", square[square.length - 3], square[square.length - 2], square[square.length - 1]);
         }
         return Integer.valueOf(temp);
     }

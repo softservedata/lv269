@@ -5,10 +5,13 @@ import java.util.ArrayList;
 /**
  * 325. Дано натуральное число n. Получить все простые делители этого числа.
  */
-
 public class Task325 extends TaskModel {
 
-
+    /**
+     *
+     * @param number
+     * @return arrayList of simple divisors for n.
+     */
     public ArrayList<Integer> numberOperation(Integer number) {
         ArrayList<Integer> arrayList = new ArrayList<Integer>();
         for (int i = 2; i <= number; i++) {
