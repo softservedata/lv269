@@ -58,12 +58,11 @@ class Run {
      */
     public static void main(String[] args) {
         InputNumber inputNumbers = new InputNumber(INPUT_STREAM);
-        Integer firstNumber = inputNumbers.getNumber(FIRST_NUMBER_TEXT);
-        Integer secondNumber = inputNumbers.getNumber(SECOND_NUMBER_TEXT);
-        int maxDivisor = MaxDivisor.findMaxDivisor(firstNumber, secondNumber);
+        int firstNumber = inputNumbers.getNumber(FIRST_NUMBER_TEXT);
+        int secondNumber = inputNumbers.getNumber(SECOND_NUMBER_TEXT);
         System.out.println(LOWEST_MULTIPLE_TEXT + firstNumber + AND_TEXT
-                + secondNumber + IS_TEXT + (firstNumber
-                * secondNumber / maxDivisor));
+                + secondNumber + IS_TEXT + Operations.minMultipleCount(
+                        firstNumber, secondNumber));
         inputNumbers.closeScanner();
     }
 }

@@ -44,7 +44,7 @@ final class Runner {
         PascalTriangleArray pascalTriangleArray = new PascalTriangleArray(
                 numberRows);
         int maxNumberSize = MaxNumberSize.countMaxNumberSize(
-                pascalTriangleArray, numberRows);
+                pascalTriangleArray);
         pascalTriangleArray.printTriangle(maxNumberSize);
         inputNumber.closeScanner();
     }

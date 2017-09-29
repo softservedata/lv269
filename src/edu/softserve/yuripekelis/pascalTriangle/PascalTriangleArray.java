@@ -62,6 +62,10 @@ public class PascalTriangleArray {
         }
     }
 
+    public int getRowsQuantity() {
+        return rowsQuantity;
+    }
+
     /**
      * Returns element that was placed in the given row and column.
      *

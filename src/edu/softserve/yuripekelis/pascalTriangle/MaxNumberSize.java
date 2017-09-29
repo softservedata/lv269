@@ -9,11 +9,10 @@ class MaxNumberSize {
     /**
      * This method calculates digits of the biggest element in triangle's array.
      * @param pascalTriangleArray - array with the Pascal triangle
-     * @param rowsQuantity - number of rows for printing
      * @return the biggest number's size in the triangle
      */
-    static int countMaxNumberSize(PascalTriangleArray pascalTriangleArray,
-                                  int rowsQuantity) {
+    static int countMaxNumberSize(PascalTriangleArray pascalTriangleArray) {
+        int rowsQuantity = pascalTriangleArray.getRowsQuantity();
         int maxElement = 0;
         for (int j = 0; j < (rowsQuantity * 2 - 1); j++) {
             if (pascalTriangleArray.

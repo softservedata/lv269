@@ -1,7 +1,7 @@
 package edu.softserve.yuripekelis.numbersWithMaxDivisors;
 
 public interface ICountNumberDivisors {
-    static int countDivisors(final int number) {
+    public static int countDivisors(int number) {
         return 0;
     }
 }

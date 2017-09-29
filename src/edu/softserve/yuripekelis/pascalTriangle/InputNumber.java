@@ -65,6 +65,7 @@ public class InputNumber {
                 }
             } else {
                 if (scanner.next().equals(QUIT_COMMAND)) {
+                    scanner.close();
                     System.exit(1);
                 }
                 System.out.println(ERROR_NOT_NUMBER);
