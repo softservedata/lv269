@@ -9,6 +9,7 @@ public class OutputData {
 
     /**
      * Output data to console.
+     *
      * @param s
      */
     void outputToConsole(String s) {
@@ -17,6 +18,7 @@ public class OutputData {
 
     /**
      * Output array data to console.
+     *
      * @param arr
      */
     void outputToConsole(List<Integer[]> arr) {

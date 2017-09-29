@@ -11,6 +11,7 @@ public class InputData {
 
     /**
      * Input data from console.
+     *
      * @return
      * @throws IOException
      */
