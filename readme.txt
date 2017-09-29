@@ -1,5 +1,5 @@
 224 325 561
-	Mykola Shevchuk mshevchtc
+	Mykola Shevchuk
 
 
 224. Дано натуральное число n. Получить все его натуральные
