@@ -1,4 +1,4 @@
-package tasks;
+package tasks.dataInputOutput;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class OutputData {
      *
      * @param s
      */
-    void outputToConsole(String s) {
+    public void outputToConsole(String s) {
         System.out.println(s);
     }
 
@@ -21,7 +21,7 @@ public class OutputData {
      *
      * @param arr
      */
-    void outputToConsole(List<Integer[]> arr) {
+    public void outputToConsole(List<Integer[]> arr) {
         if (arr.size() == 0) {
             System.out.println("It is no possible.");
         } else {

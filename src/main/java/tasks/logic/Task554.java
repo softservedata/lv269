@@ -1,4 +1,4 @@
-package tasks;
+package tasks.logic;
 
 import java.io.IOException;
 import java.util.ArrayList;

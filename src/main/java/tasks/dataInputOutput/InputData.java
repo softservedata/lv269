@@ -1,4 +1,4 @@
-package tasks;
+package tasks.dataInputOutput;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class InputData {
      * @return
      * @throws IOException
      */
-    int inputFromConsole() throws IOException {
+    public int inputFromConsole() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter the natural number.");
         String s = reader.readLine();
