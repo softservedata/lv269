@@ -1,12 +1,10 @@
 package com.softserve.edu.exercise1;
 /**
  * Class for know quantity and sum.
- * @author Andrii
+ * @author Andrii Kravtsov.
  *
  */
 public class Work1 {
-	public int quantity;
-	public int sum;
 	private final int seven = 7;
 	private final int five = 5;
 	/**
@@ -15,6 +13,8 @@ public class Work1 {
 	 */
 	public void outwork(final int[] mas) {
 		int i = 0;
+		int quantity=0;
+		int sum=0;
 		while (i < mas.length) {
 			if ((mas[i] % five == 0) && (mas[i] % seven != 0)) {
 				quantity++;
@@ -22,5 +22,7 @@ public class Work1 {
 			}
 			i++;
 		}
+		System.out.println("Quantity of number = " + quantity
+				+ " and their sum = " + sum);
 	}
 }
