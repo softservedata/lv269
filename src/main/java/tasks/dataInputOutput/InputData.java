@@ -19,6 +19,10 @@ public class InputData {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter the natural number.");
         String s = reader.readLine();
-        return Integer.parseInt(s);
+        try {
+            return Integer.parseInt(s);
+        } catch (Exception e) {
+            return inputFromConsole();
+        }
     }
 }

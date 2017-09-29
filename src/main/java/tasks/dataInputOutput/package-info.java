@@ -1,4 +1,4 @@
 /**
- * Package for input-output dta.
+ * Package for input-output data.
  */
 package tasks.dataInputOutput;
