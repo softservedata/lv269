@@ -1,7 +1,5 @@
 package tasks.logic;
 
-import java.io.IOException;
-
 /**
  * Class for task 108.
  */
@@ -12,9 +10,8 @@ public class Task108 {
      * Calculation method.
      *
      * @param n
-     * @throws IOException
      */
-    public int calc(int n) throws IOException {
+    public int calc(int n) {
         int i = 0;
         int x = (int) Math.pow(2, i);
 

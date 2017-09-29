@@ -1,8 +1,6 @@
 package tasks.logic;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,9 +15,8 @@ public class Task554 {
      * Calculation method.
      *
      * @param n
-     * @throws IOException
      */
-    public List<Integer[]> calc(int n) throws IOException {
+    public List<Integer[]> calc(int n) {
 
         ArrayList<Integer[]> rez = new ArrayList<Integer[]>();
         for (int c = 1; c <= n; c++) {
@@ -31,8 +28,6 @@ public class Task554 {
                 }
             }
         }
-
         return rez;
     }
-
 }
