@@ -10,27 +10,20 @@ public final class Main3 {
 	/**
 	 * Constructor for main.
 	 */
-	public Main3() {
+	private Main3() {
 	}
-
+	/**
+	 * Constant's with min and max value of massive.
+	 */
 	final static int min = 200;
 	final static int max = 300;
-
-	public static void main(String[] args) {
-		int a = min;
-		int b = a + 1;
-		sumDIV Summer = new sumDIV();
-		while (a < max) {
-			while (b <= max) {
-				if ((a == Summer.findDivSum(b)) && (b == Summer.findDivSum(a))) {
-					System.out.println("Number " + a + " and number " + b + " are friendly");
-				}
-				b++;
-			}
-			a++;
-			b = a + 1;
-		}
-
+	/**
+	 * main method of third program.
+	 * @param args const string from cmd
+	 */
+	public static void main(final String[] args) {
+		CheckerSimple Check1=new CheckerSimple();
+		Check1.Checking(min, max);
 	}
 
 }
