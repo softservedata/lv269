@@ -46,8 +46,8 @@ public class UserInterface {
 				reader.close();
 		}
 
-		if (result < 0) {
-			System.out.println("Entered value is less than 0, so it's not a natural value, changed this value to 1");
+		if (result <= 0) {
+			System.out.println("Entered value is less or equals 0, so it's not a natural value, changed this value to 1");
 			result = 1;
 		}
 
