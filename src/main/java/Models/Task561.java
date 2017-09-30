@@ -35,9 +35,9 @@ public class Task561 extends TaskModel {
         if (nTemp.length < 2) {
             temp = square[square.length - 1];
         } else if (nTemp.length < 3) {
-            temp = String.format("%square%square", square[square.length - 2], square[square.length - 1]);
+            temp = String.format("%s%s", square[square.length - 2], square[square.length - 1]);
         } else {
-            temp = String.format("%square%square", square[square.length - 3], square[square.length - 2], square[square.length - 1]);
+            temp = String.format("%s%s%s", square[square.length - 3], square[square.length - 2], square[square.length - 1]);
         }
         return Integer.valueOf(temp);
     }
