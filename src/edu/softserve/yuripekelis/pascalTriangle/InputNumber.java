@@ -14,16 +14,16 @@ public class InputNumber {
 
     /**
      * This constant consists of text for error,
-     * when user didn't used only digits.
+     * when user entered something else except digits.
      */
-    private static final String ERROR_NOT_NUMBER
+    public static final String ERROR_NOT_NUMBER
             = "Wrong input, please enter the number";
 
     /**
-     * This constant consists of text for error,
-     * when user entered negative number or 0 .
+     * This constant consists of a text for the error,
+     * when a user entered a negative number or 0 .
      */
-    private static final String ERROR_NEGATIVE_NUMBER
+    public static final String ERROR_NEGATIVE_NUMBER
             = "Numbers must be positive!";
 
     /**
@@ -51,7 +51,7 @@ public class InputNumber {
      *                 typing by user.
      * @return The typed number.
      */
-    public int getNumber (String question) {
+    public int getNumberFromSource (String question) {
         System.out.println(question);
         int number = 0;
         boolean enteredRight = false;
@@ -75,7 +75,7 @@ public class InputNumber {
     }
 
     /**
-     * This method is used for closing Scanner.
+     * This method closes Scanner.
      */
     public void closeScanner() {
         scanner.close();

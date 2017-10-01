@@ -5,6 +5,7 @@ package edu.softserve.yuripekelis.pascalTriangle;
  * triangle and printing it.
  */
 public class PascalTriangleArray {
+
     /**
      * The number of rows. User entered it.
      */

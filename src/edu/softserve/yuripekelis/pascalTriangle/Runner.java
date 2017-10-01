@@ -40,7 +40,7 @@ final class Runner {
      */
     public static void main(final String[] args) {
         InputNumber inputNumber = new InputNumber(INPUT_STREAM);
-        int numberRows = inputNumber.getNumber(ENTER_ROWS_TEXT);
+        int numberRows = inputNumber.getNumberFromSource(ENTER_ROWS_TEXT);
         PascalTriangleArray pascalTriangleArray = new PascalTriangleArray(
                 numberRows);
         int maxNumberSize = MaxNumberSize.countMaxNumberSize(

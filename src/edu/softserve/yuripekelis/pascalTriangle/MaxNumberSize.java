@@ -2,19 +2,20 @@ package edu.softserve.yuripekelis.pascalTriangle;
 
 /**
  * This utility is for searching the biggest element in triangle and
- * returning its size.
+ * returning its size (the number of digits).
  */
-class MaxNumberSize {
+public class MaxNumberSize {
 
     /**
      * This method calculates digits of the biggest element in triangle's array.
+     *
      * @param pascalTriangleArray - array with the Pascal triangle
      * @return the biggest number's size in the triangle
      */
-    static int countMaxNumberSize(PascalTriangleArray pascalTriangleArray) {
+    public static int countMaxNumberSize(PascalTriangleArray pascalTriangleArray) {
         int rowsQuantity = pascalTriangleArray.getRowsQuantity();
         int maxElement = 0;
-        for (int j = 0; j < (rowsQuantity * 2 - 1); j++) {
+        for (int j = (rowsQuantity - 1); j < rowsQuantity; j++) {
             if (pascalTriangleArray.
                     getElement(rowsQuantity - 1, j) > maxElement) {
                 maxElement = pascalTriangleArray.

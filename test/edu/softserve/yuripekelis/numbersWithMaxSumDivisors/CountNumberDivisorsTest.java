@@ -1,17 +1,16 @@
-package edu.softserve.yuripekelis.numbersWithMaxDivisors;
+package edu.softserve.yuripekelis.numbersWithMaxSumDivisors;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class CountNumberDivisorsTest {
     @Test
     public void countDivisors() throws Exception {
         int testNumber = 20;
-        int expectedResult = 6;
 
-        int realResult = CountNumberDivisors.countDivisors(testNumber);
+        int expectedResult = 42;
+
+        int realResult = CountDivisorsSum.countDivisorsSum(testNumber);
 
         Assert.assertEquals(realResult, expectedResult);
     }

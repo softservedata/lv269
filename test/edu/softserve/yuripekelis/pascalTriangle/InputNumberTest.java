@@ -18,13 +18,13 @@ public class InputNumberTest {
         int expectedResult = Integer.parseInt(inputString);
 
         InputNumber inputNumber = new InputNumber(new ByteArrayInputStream(inputString.getBytes()));
-        int realResult = inputNumber.getNumber("input");
+        int realResult = inputNumber.getNumberFromSource("input");
 
         Assert.assertEquals(realResult, expectedResult);
 
         inputNumber.closeScanner();
         try {
-            inputNumber.getNumber("input");
+            inputNumber.getNumberFromSource("input");
             fail ();
         } catch (IllegalStateException e) {
             Assert.assertTrue(e.getMessage().contains( "Scanner closed"));
@@ -36,7 +36,7 @@ public class InputNumberTest {
         String inputString = "5q6";
 
         InputNumber inputNumber = new InputNumber(new ByteArrayInputStream(inputString.getBytes()));
-        inputNumber.getNumber("input");
+        inputNumber.getNumberFromSource("input");
         inputNumber.closeScanner();
     }
 

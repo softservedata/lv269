@@ -1,11 +1,11 @@
 /*
  * <h1>Calculation of the common divisor</h1>
  * The Calculation of the common divisor program implements an application that
- * finds the minimum multiply of two positive numbers and prints
- * the output on the screen.
+ * finds the minimal multiple for two positive numbers and prints
+ * the result on the screen.
  *
  * @author Yuri Pekelis
- * @version 1.01
+ * @version 1.02
  * @since 2017-09-21
  */
 package edu.softserve.yuripekelis.minMultiple;
@@ -15,7 +15,7 @@ import java.io.InputStream;
 /**
  * This class is for running Software.
  */
-class Run {
+public class Run {
 
     /**
      * The constant with text for the entering the first number.
@@ -30,22 +30,6 @@ class Run {
             "Enter the second positive number:";
 
     /**
-     * The constant with text for a part of the answer.
-     */
-    public static final String LOWEST_MULTIPLE_TEXT =
-            "The lowest multiple for ";
-
-    /**
-     * The constant with text for a part of the answer.
-     */
-    public static final String AND_TEXT = " and ";
-
-    /**
-     * The constant with text for a part of the answer.
-     */
-    public static final String IS_TEXT = " is ";
-
-    /**
      * This constant shows where data will be entered from.
      */
     public static final InputStream INPUT_STREAM = System.in;
@@ -57,12 +41,12 @@ class Run {
      * @param args Unused.
      */
     public static void main(String[] args) {
-        InputNumber inputNumbers = new InputNumber(INPUT_STREAM);
-        int firstNumber = inputNumbers.getNumber(FIRST_NUMBER_TEXT);
-        int secondNumber = inputNumbers.getNumber(SECOND_NUMBER_TEXT);
-        System.out.println(LOWEST_MULTIPLE_TEXT + firstNumber + AND_TEXT
-                + secondNumber + IS_TEXT + Operations.minMultipleCount(
-                        firstNumber, secondNumber));
-        inputNumbers.closeScanner();
+        InputFromSource inputFromSource = new InputFromSource(INPUT_STREAM);
+        InputOutputData inputOutputData = new InputOutputData(inputFromSource);
+        int firstNumber = inputOutputData.getNumberFromSource(FIRST_NUMBER_TEXT);
+        int secondNumber = inputOutputData.getNumberFromSource(SECOND_NUMBER_TEXT);
+        inputOutputData.printResult(firstNumber, secondNumber,
+                Operations.minMultipleCount(firstNumber, secondNumber));
+        inputFromSource.closeSource();
     }
 }
