@@ -7,9 +7,10 @@ import java.util.List;
  * Class for task 554.
  */
 public class Task554 {
-    /*Дано натуральное число n. Получить все пифагоровы тройки натуральных чисел, каждое из которых
-    не превосходит n, т.е. все такие тройки натуральных чисел a, b, c, что
-    а^2 + b^2 = с^2 (а<=b<=c<=n).*/
+
+    /* Given a natural number n. Get all Pythagorean triples of natural numbers, each of which
+     does not exceed n; all such triples of natural numbers a, b, c such that
+     a ^ 2 + b ^ 2 = c ^ 2 (a <= b <c <= n). */
 
     /**
      * Calculation method.
@@ -18,7 +19,7 @@ public class Task554 {
      */
     public List<Integer[]> calc(int n) {
 
-        ArrayList<Integer[]> rez = new ArrayList<Integer[]>();
+        List<Integer[]> rez = new ArrayList<Integer[]>();
         for (int c = 1; c <= n; c++) {
             for (int a = 1; a <= c; a++) {
                 for (int b = 1; b <= a; b++) {
