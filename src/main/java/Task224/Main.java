@@ -1,3 +1,5 @@
+package Task224;
+
 import java.io.IOException;
 
 public class Main {

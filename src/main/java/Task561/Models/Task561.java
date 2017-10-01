@@ -1,6 +1,7 @@
-package Models;
+package Task561.Models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 561. Дано натуральное число n. Среди чисел 1, ..., n найти все такие,
@@ -14,8 +15,8 @@ public class Task561 extends TaskModel {
      * @param number
      * @return arrayList of  n, where last digits of square of n equal  n.
      */
-    public ArrayList<Integer> numberOperation(Integer number) {
-        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+    public List<Integer> numberOperation(Integer number) {
+        List<Integer> arrayList = new ArrayList<Integer>();
         for (int i = 0; i <= number; i++) {
             if (returnLastTwoNumbers(i).equals(Integer.valueOf(i))) {
                 arrayList.add(i);

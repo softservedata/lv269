@@ -1,13 +1,12 @@
-package Models;
+package Task325.Models;
 
 /**
  * class made for counting Factorial
  */
 public class Factorial {
     /**
-     *
      * @param number
-     * @return  (n-1)!
+     * @return (n-1)!
      */
     public static Integer factorialFromNMinusOne(Integer number) {
         Integer n = 1;
