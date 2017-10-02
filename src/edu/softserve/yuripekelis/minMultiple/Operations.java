@@ -14,8 +14,12 @@ public class Operations {
      * @return the minimal multiple
      */
     public static int minMultipleCount(int firstNumber, int secondNumber) {
-        return (firstNumber * secondNumber
-                / findMaxDivisor(firstNumber, secondNumber));
+        int minMultiple = 0;
+        if ((firstNumber + secondNumber > 0)) {
+            minMultiple = firstNumber * secondNumber
+                    / findMaxDivisor(firstNumber, secondNumber);
+        }
+        return minMultiple;
     }
 
     /**

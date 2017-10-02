@@ -1,16 +1,15 @@
 package edu.softserve.yuripekelis.pascalTriangle;
 
-import java.io.InputStream;
-import java.util.Scanner;
 
 /**
- * This class is for work with Scanner and entering data.
+ * This class is for operations with Scanner, checking a type of data.
  */
-public class InputNumber {
+public class InputData {
+
     /**
-     * Variable for Scanner object.
+     * This variable is for recieving data from source.
      */
-    private Scanner scanner;
+    private IInputFromSource source;
 
     /**
      * This constant consists of text for error,
@@ -40,8 +39,8 @@ public class InputNumber {
     /**
      * Creating Scanner object.
      */
-    InputNumber(InputStream stream) {
-        scanner = new Scanner(stream);
+    public InputData(IInputFromSource source) {
+        this.source = source;
     }
 
     /**
@@ -53,31 +52,26 @@ public class InputNumber {
      */
     public int getNumberFromSource (String question) {
         System.out.println(question);
+        System.out.println(MESSAGE_QUIT);
         int number = 0;
         boolean enteredRight = false;
         do {
-            if (scanner.hasNextInt()) {
-                number = scanner.nextInt();
+            if (source.isNextNumber()) {
+                number = source.nextIntFromScanner();
                 if (number > 0) {
                     enteredRight = true;
                 } else {
                     System.out.println(ERROR_NEGATIVE_NUMBER);
                 }
             } else {
-                if (scanner.next().equals(QUIT_COMMAND)) {
-                    scanner.close();
-                    System.exit(1);
+                if (source.nextStringFromScanner().equals(QUIT_COMMAND)) {
+                    source.closeSource();
+                    System.exit(0);
                 }
                 System.out.println(ERROR_NOT_NUMBER);
+                System.out.println(MESSAGE_QUIT);
             }
         } while (!enteredRight);
         return number;
-    }
-
-    /**
-     * This method closes Scanner.
-     */
-    public void closeScanner() {
-        scanner.close();
     }
 }

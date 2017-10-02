@@ -4,7 +4,7 @@ package edu.softserve.yuripekelis.pascalTriangle;
  * This class is for creation, filling array of the Pascal
  * triangle and printing it.
  */
-public class PascalTriangleArray {
+public class PascalTriangleArray implements IPascalTriangleArray{
 
     /**
      * The number of rows. User entered it.
@@ -74,7 +74,7 @@ public class PascalTriangleArray {
      * @param column - column, where element is placed.
      * @return element
      */
-    int getElement(final int row, final int column) {
+    public int getElement(final int row, final int column) {
         return pyramid[row][column];
     }
 
@@ -83,7 +83,7 @@ public class PascalTriangleArray {
      *
      * @param maxElementSize - Quantity of digits in the biggest element
      */
-    void printTriangle(final int maxElementSize) {
+    public void printTriangle(int maxElementSize) {
         /* Element for filling empty places. */
         StringBuilder delimitersGroup = new StringBuilder();
         for (int i = 0; i < maxElementSize; i++) {

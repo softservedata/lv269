@@ -9,8 +9,11 @@ import java.util.Scanner;
  */
 public class InputOutputData {
 
-
+    /**
+     * This variable is for recieving data from source.
+     */
     private IInputFromSource source;
+
     /**
      * This constant consists of text for error,
      * when user entered something else except digits.
@@ -75,7 +78,7 @@ public class InputOutputData {
         do {
             if (source.isNextNumber()) {
                 number = source.nextIntFromScanner();
-                if (number > 0) {
+                if (number >= 0) {
                     enteredRight = true;
                 } else {
                     System.out.println(ERROR_NEGATIVE_NUMBER);

@@ -6,12 +6,27 @@ import org.junit.Test;
 public class CountNumberDivisorsTest {
     @Test
     public void countDivisors() throws Exception {
-        int testNumber = 20;
+        /*
+        The first element in a row - input data;
+        The second element - expected result.
+        */
+        /*
+        Every row is a test case. Description of cases:
+        1 - a regular positive number;
+        2 - a prime integer;
+        3 - a number that has a divisor and its power of a number (e.g.  powers
+            of two);
+        4 - number is 0.
+         */
 
-        int expectedResult = 42;
+        int[][] testNumber = {{20, 42}, {13, 14}, {16, 2}, {0, 0}};
 
-        int realResult = CountDivisorsSum.countDivisorsSum(testNumber);
+        int realResult;
+        for (int i = 0; i < testNumber.length; i++) {
+            realResult = CountDivisorsSum.countDivisorsSum(testNumber[i][0]);
+            Assert.assertEquals(realResult, testNumber[i][1]);
+        }
 
-        Assert.assertEquals(realResult, expectedResult);
+
     }
 }

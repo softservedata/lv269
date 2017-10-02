@@ -39,13 +39,14 @@ final class Runner {
      * @param args Unused.
      */
     public static void main(final String[] args) {
-        InputNumber inputNumber = new InputNumber(INPUT_STREAM);
-        int numberRows = inputNumber.getNumberFromSource(ENTER_ROWS_TEXT);
-        PascalTriangleArray pascalTriangleArray = new PascalTriangleArray(
+        InputFromSource inputFromSource = new InputFromSource(INPUT_STREAM);
+        InputData inputData = new InputData(inputFromSource);
+        int numberRows = inputData.getNumberFromSource(ENTER_ROWS_TEXT);
+        IPascalTriangleArray pascalTriangleArray = new PascalTriangleArray(
                 numberRows);
         int maxNumberSize = MaxNumberSize.countMaxNumberSize(
                 pascalTriangleArray);
         pascalTriangleArray.printTriangle(maxNumberSize);
-        inputNumber.closeScanner();
+        inputFromSource.closeSource();
     }
 }

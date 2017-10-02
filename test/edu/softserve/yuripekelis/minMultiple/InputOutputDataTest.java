@@ -2,33 +2,51 @@ package edu.softserve.yuripekelis.minMultiple;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.util.NoSuchElementException;
 
-
+/**
+ * This class is for testing analyzing entered data.
+ */
 public class InputOutputDataTest {
 
-    private InputFromSourceStub inputFromParameters;
+    /**
+     * This variable is used instead of Scanner class.
+     */
+    private InputFromSourceStub inputFromStub;
+
+    /**
+     * This variable of the class that is being tested.
+     */
     private InputOutputData inputOutputData;
 
 
     @Before
     public void preparation() {
-        inputFromParameters = new InputFromSourceStub();
-        inputOutputData = new InputOutputData(inputFromParameters);
+        inputFromStub = new InputFromSourceStub();
+        inputOutputData = new InputOutputData(inputFromStub);
     }
 
+    /**
+     * Test when non-negative number was enetered
+     *
+     * @throws Exception none
+     */
     @Test
-    public void getNumber() throws Exception {
-        String inputString = "56";
-        int expectedResult = Integer.parseInt(inputString);
+    public void getNumberIntegerEntered() throws Exception {
+        String[] inputData = {"56", "0"};
 
-        inputFromParameters.setParameters(inputString);
-        int realResult = inputOutputData.getNumberFromSource("test question");
-        Assert.assertEquals(realResult, expectedResult);
+        int[] expectedResult = {56, 0};
+
+        int realResult;
+        for (int i = 0; i < inputData.length; i++) {
+            inputFromStub.setParameters(inputData[i]);
+            realResult = inputOutputData.getNumberFromSource("test question");
+            Assert.assertEquals(realResult, expectedResult[i]);
+        }
+
 
     }
 

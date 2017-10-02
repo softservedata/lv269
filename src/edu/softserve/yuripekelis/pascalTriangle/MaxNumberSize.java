@@ -12,16 +12,9 @@ public class MaxNumberSize {
      * @param pascalTriangleArray - array with the Pascal triangle
      * @return the biggest number's size in the triangle
      */
-    public static int countMaxNumberSize(PascalTriangleArray pascalTriangleArray) {
+    public static int countMaxNumberSize(IPascalTriangleArray pascalTriangleArray) {
         int rowsQuantity = pascalTriangleArray.getRowsQuantity();
-        int maxElement = 0;
-        for (int j = (rowsQuantity - 1); j < rowsQuantity; j++) {
-            if (pascalTriangleArray.
-                    getElement(rowsQuantity - 1, j) > maxElement) {
-                maxElement = pascalTriangleArray.
-                        getElement(rowsQuantity - 1, j);
-            }
-        }
+        int maxElement = pascalTriangleArray.getElement(rowsQuantity - 1, (rowsQuantity/2)*2);
         return String.valueOf(maxElement).length();
     }
 }

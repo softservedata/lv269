@@ -12,9 +12,9 @@ public class CountDivisorsSum implements ICountDivisorsSum {
      * @return the sum of divisors
      */
     public static int countDivisorsSum(int number) {
-        int divisorsSumForThisNumber = number + 1;
+        int divisorsSumForThisNumber = number;
         /* There is no sense to count after number/2 */
-        for (int i = 2; i < (number / 2 + 1); i++) {
+        for (int i = 0; i < (number / 2 + 1); i++) {
             if (number % i == 0) {
                 divisorsSumForThisNumber += i;
             }
