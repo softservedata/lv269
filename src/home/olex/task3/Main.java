@@ -2,12 +2,12 @@
 * @Main.java 2017/09/25 
 */
 
-package home.olex.task1;
+package home.olex.task3;
 
 import home.olex.tools.UI;
 
 /**
- * Class Main has entry point of first task application.
+ * Class Main has entry point of application
  *
  * @version 25 Sep 2017
  * @author Oleksandr Kutaiev
@@ -21,13 +21,11 @@ public class Main {
 	 *            - input arguments.
 	 */
 	public static void main(String[] args) {
-		System.out.print("Enter number n: ");
+		System.out.print("Enter n value: ");
 		int n = UI.getValueFromKeyboard();
-		System.out.print("Enter number m: ");
-		int m = UI.getValueFromKeyboard();		
 		
-		FirstTask ft = new FirstTask(n, m);
+		ThirdTask tt = new ThirdTask(n);	
 		
-		UI.showResult(ft.getTaskResult());
+		UI.showResult(tt.getTaskResult());
 	}
 }

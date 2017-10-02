@@ -12,53 +12,90 @@ package home.olex.task1;
 public class FirstTask {
 	private int n;
 	private int m;
-	private int digitsSum = 0;
 
-	/** Initialize n and m numbers */
-	public FirstTask() {
-		initializeItems(); // Get n and m values
+	/**
+	 * Initialize n and m numbers
+	 * 
+	 * @param n
+	 *            - first number
+	 * @param m
+	 *            - second number
+	 */
+	public FirstTask(int n, int m) {
+		this.n = n;
+		this.m = m;
 	}
 
-	/** Initialize n and m numbers */
-	private void initializeItems() {
-		System.out.print("\tEnter n value: ");
-		this.n = UserInterface.getValue();
-
-		System.out.print("\tEnter m value: ");
-		this.m = UserInterface.getValue();
-
-		System.out.print("\n");
+	/**
+	 * Get sum of last digits
+	 * 
+	 * @return - Sum of M last digits in number N
+	 */
+	public int getTaskResult() {
+		return getSum(this.n, this.m);
 	}
 
-	/** Get sum of last digits */
-	public void getResult() {
-		if (getDigits(this.n) < this.m) {
-			System.out.println("Entered n value should contains more digits than entered m value");
-			return;
+	/**
+	 * Get sum of last digits of number.
+	 * 
+	 * @param number
+	 *            - number.
+	 * @param lastDigitCount
+	 *            - count of last digits.
+	 * @return sum of last digits of number.
+	 */
+	public int getSum(int number, int lastDigitCount) {
+		int digitsSum = 0;
+		
+		if(number < 0) {
+			number *= -1;
 		}
-
-		for (int i = 1; i <= m; i++) {
-			digitsSum += n % 10;
-			n = (int) (n / 10);
+		
+		if (getDigitsCount(number) >= lastDigitCount) {
+			for (int i = 1; i <= lastDigitCount; i++) {
+				digitsSum += number % 10;
+				number = (int) (number / 10);
+			}
 		}
-
-		System.out.println("Sum is: " + this.digitsSum);
+		return digitsSum;
 	}
 
 	/**
 	 * Get count of digits from number.
 	 * 
-	 * @param n
+	 * @param number
 	 *            - number.
 	 * @return count of digits.
 	 */
-	public int getDigits(int n) {
+	public int getDigitsCount(int number) {
+		if(number < 0) {
+			number *= -1;
+		}
+		
 		int counter = 0;
-		while (n > 0) {
-			n = (int) (n / 10);
+		while (number > 0) {
+			number = (int) (number / 10);
 			counter++;
 		}
 
 		return counter;
+	}
+
+	/**
+	 * Getter for n value.
+	 * 
+	 * @return - n.
+	 */
+	public int getN() {
+		return this.n;
+	}
+
+	/**
+	 * Getter for m value.
+	 * 
+	 * @return - m.
+	 */
+	public int getM() {
+		return this.m;
 	}
 }
