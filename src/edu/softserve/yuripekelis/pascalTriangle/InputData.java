@@ -11,30 +11,6 @@ public class InputData {
      */
     private IInputFromSource source;
 
-    /**
-     * This constant consists of text for error,
-     * when user entered something else except digits.
-     */
-    public static final String ERROR_NOT_NUMBER
-            = "Wrong input, please enter the number";
-
-    /**
-     * This constant consists of a text for the error,
-     * when a user entered a negative number or 0 .
-     */
-    public static final String ERROR_NEGATIVE_NUMBER
-            = "Numbers must be positive!";
-
-    /**
-     * Message with command for exit.
-     */
-    public static final String MESSAGE_QUIT
-            = "Or type 'quit' for exit.";
-
-    /**
-     * This constant is command for exit
-     */
-    public static final String QUIT_COMMAND = "quit";
 
     /**
      * Creating Scanner object.
@@ -52,7 +28,7 @@ public class InputData {
      */
     public int getNumberFromSource (String question) {
         System.out.println(question);
-        System.out.println(MESSAGE_QUIT);
+        System.out.println(Messages.MESSAGE_QUIT.getMessage());
         int number = 0;
         boolean enteredRight = false;
         do {
@@ -61,15 +37,17 @@ public class InputData {
                 if (number > 0) {
                     enteredRight = true;
                 } else {
-                    System.out.println(ERROR_NEGATIVE_NUMBER);
+                    System.out.println(Messages.ERROR_NEGATIVE_NUMBER
+                            .getMessage());
                 }
             } else {
-                if (source.nextStringFromScanner().equals(QUIT_COMMAND)) {
+                if (source.nextStringFromScanner().equals(Messages
+                        .QUIT_COMMAND.getMessage())) {
                     source.closeSource();
                     System.exit(0);
                 }
-                System.out.println(ERROR_NOT_NUMBER);
-                System.out.println(MESSAGE_QUIT);
+                System.out.println(Messages.ERROR_NOT_NUMBER.getMessage());
+                System.out.println(Messages.MESSAGE_QUIT.getMessage());
             }
         } while (!enteredRight);
         return number;

@@ -2,30 +2,34 @@ package edu.softserve.yuripekelis.numbersWithMaxSumDivisors;
 
 import java.util.List;
 
+/**
+ * This class is for printing a result.
+ */
 public class OutputAnswer {
-    /**
-     * The constants with text for the answer.
-     */
-    private static final String ANSWER_BETWEEN_NUMBERS
-            = "Between numbers from 0 to ";
-    private static final String ANSWER_WINNER = " the winner";
-    private static final String IS = " is ";
-    private static final String ARE = "s are ";
-    private static final String WITH = "with ";
-    private static final String DIVISORS = " divisors' sum.";
 
-    public static void printAnswer (List<Integer>  numbersWithMaxDivisorsSum,
-                                    int maxDivisorsSum) {
-        System.out.print(ANSWER_BETWEEN_NUMBERS + Runner.UPPER_RANGE);
-        System.out.print(ANSWER_WINNER);
+    /**
+     * This method prints result
+     *
+     * @param numbersWithMaxDivisorsSum - array with numbers that have the
+     *                                  maximal divisor sum
+     * @param maxDivisorsSum            - the maximal divisors' sum
+     * @param upperRange                - upper range where the result has
+     *                                  been found
+     */
+    public static void printAnswer(List<Integer> numbersWithMaxDivisorsSum,
+                                   int maxDivisorsSum, int upperRange) {
+        System.out.print(Messages.ANSWER_BETWEEN_NUMBERS.getMessage()
+                + upperRange);
+        System.out.print(Messages.ANSWER_WINNER.getMessage());
         if (numbersWithMaxDivisorsSum.size() == 1) {
-            System.out.print(IS);
+            System.out.print(Messages.IS.getMessage());
         } else {
-            System.out.print(ARE);
+            System.out.print(Messages.ARE.getMessage());
         }
         for (Integer number : numbersWithMaxDivisorsSum) {
             System.out.print(number + " ");
         }
-        System.out.println(WITH + maxDivisorsSum + DIVISORS);
+        System.out.println(Messages.WITH.getMessage() + maxDivisorsSum
+                + Messages.DIVISORS.getMessage());
     }
 }

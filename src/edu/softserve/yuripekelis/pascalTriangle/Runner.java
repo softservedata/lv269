@@ -22,12 +22,6 @@ final class Runner {
     }
 
     /**
-     * The constant with text for the entering number of rows.
-     */
-    private static final String ENTER_ROWS_TEXT
-            = "Enter number of rows to show:";
-
-    /**
      * This constant shows where data will be entered from.
      */
     public static final InputStream INPUT_STREAM = System.in;
@@ -41,7 +35,8 @@ final class Runner {
     public static void main(final String[] args) {
         InputFromSource inputFromSource = new InputFromSource(INPUT_STREAM);
         InputData inputData = new InputData(inputFromSource);
-        int numberRows = inputData.getNumberFromSource(ENTER_ROWS_TEXT);
+        int numberRows = inputData.getNumberFromSource(Messages.ENTER_ROWS_TEXT
+                .getMessage());
         IPascalTriangleArray pascalTriangleArray = new PascalTriangleArray(
                 numberRows);
         int maxNumberSize = MaxNumberSize.countMaxNumberSize(

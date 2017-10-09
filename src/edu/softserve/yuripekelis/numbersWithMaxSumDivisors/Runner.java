@@ -31,6 +31,7 @@ public class Runner {
         List<Integer> numbersWithMaxDivisorsSum = new ArrayList<>();
         int maxDivisors = LoopForNumbers.loopForNumbers(
                 UPPER_RANGE, numbersWithMaxDivisorsSum);
-        OutputAnswer.printAnswer(numbersWithMaxDivisorsSum, maxDivisors);
+        OutputAnswer.printAnswer(numbersWithMaxDivisorsSum, maxDivisors,
+                UPPER_RANGE);
     }
 }

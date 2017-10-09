@@ -18,18 +18,6 @@ import java.io.InputStream;
 public class Run {
 
     /**
-     * The constant with text for the entering the first number.
-     */
-    public static final String FIRST_NUMBER_TEXT =
-            "Enter the first positive number:";
-
-    /**
-     * The constant with text for the entering the second number.
-     */
-    public static final String SECOND_NUMBER_TEXT =
-            "Enter the second positive number:";
-
-    /**
      * This constant shows where data will be entered from.
      */
     public static final InputStream INPUT_STREAM = System.in;
@@ -43,10 +31,15 @@ public class Run {
     public static void main(String[] args) {
         InputFromSource inputFromSource = new InputFromSource(INPUT_STREAM);
         InputOutputData inputOutputData = new InputOutputData(inputFromSource);
-        int firstNumber = inputOutputData.getNumberFromSource(FIRST_NUMBER_TEXT);
-        int secondNumber = inputOutputData.getNumberFromSource(SECOND_NUMBER_TEXT);
-        inputOutputData.printResult(firstNumber, secondNumber,
-                Operations.minMultipleCount(firstNumber, secondNumber));
+        int firstNumber = inputOutputData.getNumberFromSource(
+                Messages.FIRST_NUMBER_TEXT.getMessage());
+        int secondNumber = inputOutputData.getNumberFromSource(
+                Messages.SECOND_NUMBER_TEXT.getMessage());
+        OperationsWithNumbers operationsWithNumbers
+                = new OperationsWithNumbers();
+        int result = operationsWithNumbers.minMultipleCount(firstNumber,
+                secondNumber);
+        inputOutputData.printResult(firstNumber, secondNumber, result);
         inputFromSource.closeSource();
     }
 }

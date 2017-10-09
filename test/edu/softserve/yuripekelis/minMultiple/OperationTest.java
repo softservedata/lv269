@@ -1,12 +1,21 @@
 package edu.softserve.yuripekelis.minMultiple;
 
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  * This class is for testing Operations class.
  */
 public class OperationTest {
+
+    OperationsWithNumbers operationsWithNumbers;
+
+    @Before
+    public void createOperations() {
+        operationsWithNumbers = new OperationsWithNumbers();
+    }
 
     /**
      * This test for testing positive cases for the method, that calculate
@@ -36,8 +45,8 @@ public class OperationTest {
                 {50, 50, 50}, {0, 8, 0}, {8, 0, 0}, {0, 0, 0}};
         int realResult;
         for (int i = 0; i < inputData.length; i++) {
-            realResult = Operations.minMultipleCount(inputData[i][0],
-                    inputData[i][1]);
+            realResult = operationsWithNumbers.minMultipleCount(
+                    inputData[i][0], inputData[i][1]);
             Assert.assertEquals(realResult, inputData[i][2]);
         }
     }

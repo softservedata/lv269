@@ -1,8 +1,5 @@
 package edu.softserve.yuripekelis.minMultiple;
 
-import java.io.InputStream;
-import java.util.Scanner;
-
 /**
  * This class is for operations with Scanner, checking a type of data and for
  * output a result.
@@ -13,48 +10,6 @@ public class InputOutputData {
      * This variable is for recieving data from source.
      */
     private IInputFromSource source;
-
-    /**
-     * This constant consists of text for error,
-     * when user entered something else except digits.
-     */
-    public static final String ERROR_NOT_NUMBER
-            = "Wrong input, please enter the number";
-
-    /**
-     * This constant consists of a text for the error,
-     * when a user entered a negative number or 0 .
-     */
-    public static final String ERROR_NEGATIVE_NUMBER
-            = "Numbers must be positive!";
-
-    /**
-     * Message with command for exit.
-     */
-    public static final String MESSAGE_QUIT
-            = "Or type 'quit' for exit.";
-
-    /**
-     * This constant is a command for exit
-     */
-    public static final String QUIT_COMMAND = "quit";
-
-    /**
-     * The constant with text for a part of the answer.
-     */
-    public static final String LOWEST_MULTIPLE_TEXT =
-            "The lowest multiple for ";
-
-    /**
-     * The constant with text for a part of the answer.
-     */
-    public static final String AND_TEXT = " and ";
-
-    /**
-     * The constant with text for a part of the answer.
-     */
-    public static final String IS_TEXT = " is ";
-
 
     /**
      * This constructor creates Scanner object.
@@ -72,7 +27,7 @@ public class InputOutputData {
      */
     public int getNumberFromSource(String question) {
         System.out.println(question);
-        System.out.println(MESSAGE_QUIT);
+        System.out.println(Messages.MESSAGE_QUIT.getMessage());
         int number = 0;
         boolean enteredRight = false;
         do {
@@ -81,15 +36,17 @@ public class InputOutputData {
                 if (number >= 0) {
                     enteredRight = true;
                 } else {
-                    System.out.println(ERROR_NEGATIVE_NUMBER);
+                    System.out.println(Messages.ERROR_NEGATIVE_NUMBER
+                            .getMessage());
                 }
             } else {
-                if (source.nextStringFromScanner().equals(QUIT_COMMAND)) {
+                if (source.nextStringFromScanner().equals(Messages
+                        .QUIT_COMMAND.getMessage())) {
                     source.closeSource();
                     System.exit(0);
                 }
-                System.out.println(ERROR_NOT_NUMBER);
-                System.out.println(MESSAGE_QUIT);
+                System.out.println(Messages.ERROR_NOT_NUMBER.getMessage());
+                System.out.println(Messages.MESSAGE_QUIT.getMessage());
             }
         } while (!enteredRight);
         return number;
@@ -103,8 +60,9 @@ public class InputOutputData {
      * @param result       - calculated result
      */
     public void printResult(int firstNumber, int secondNumber, int result) {
-        System.out.println(LOWEST_MULTIPLE_TEXT + firstNumber + AND_TEXT
-                + secondNumber + IS_TEXT + result);
+        System.out.println(Messages.LOWEST_MULTIPLE_TEXT.getMessage()
+                + firstNumber + Messages.AND_TEXT.getMessage() + secondNumber
+                + Messages.IS_TEXT.getMessage() + result);
     }
 }
 

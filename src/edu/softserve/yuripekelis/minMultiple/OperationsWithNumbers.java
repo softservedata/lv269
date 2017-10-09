@@ -4,7 +4,7 @@ package edu.softserve.yuripekelis.minMultiple;
  * This class is for calculation of the maximal divisor for 2 numbers
  * using Euclid`s algorithm.
  */
-public class Operations {
+public class OperationsWithNumbers {
 
     /**
      * This method counts the minimal multiple.
@@ -13,7 +13,7 @@ public class Operations {
      * @param secondNumber - the second positive number
      * @return the minimal multiple
      */
-    public static int minMultipleCount(int firstNumber, int secondNumber) {
+    public int minMultipleCount(int firstNumber, int secondNumber) {
         int minMultiple = 0;
         if ((firstNumber + secondNumber > 0)) {
             minMultiple = firstNumber * secondNumber
@@ -29,7 +29,7 @@ public class Operations {
      * @param secondNumber - the second positive number
      * @return the maximal common divisor
      */
-    private static int findMaxDivisor(
+    private int findMaxDivisor(
             int firstNumber, int secondNumber) {
         if (firstNumber < secondNumber) {
             int temp = secondNumber;
