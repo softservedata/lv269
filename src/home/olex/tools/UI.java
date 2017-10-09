@@ -20,12 +20,13 @@ public class UI {
 	 * 
 	 * @return integer natural number.
 	 */
-	public static int getValueFromKeyboard() {
+	public int getValueFromKeyboard() {
 		@SuppressWarnings("resource")
 		Scanner reader = new Scanner(System.in);
 		int result = 0;
 		while (true) {
 			try {
+				System.out.print("Enter natural number: ");
 				result = reader.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.print("\nEntered value isn't integer. Try again.");
@@ -45,11 +46,11 @@ public class UI {
 		}
 	}
 	
-	public static void showResult(int result) {
+	public void showResult(int result) {
 		System.out.print("\nResult is: " + result);
 	}
 
-	public static void showResult(List<Integer> result) {
+	public void showResult(List<Integer> result) {
 		System.out.print("\nResult is:");
 		for (Integer data : result) {
 			System.out.print(" " + data);

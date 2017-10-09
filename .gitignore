@@ -82,9 +82,9 @@ hs_err_pid*
 # doc/**/*.txt
 
 # Ignore .doc .pfd .docx
-*.doc
-*.docx
-*.pdf
+#*.doc
+#*.docx
+#*.pdf
 
 # bower
 /bower_components/

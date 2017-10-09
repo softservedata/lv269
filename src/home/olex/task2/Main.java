@@ -21,13 +21,12 @@ public class Main {
 	 *            - input arguments.
 	 */
 	public static void main(String[] args) {
-		System.out.print("Enter n value: ");
-		int n = UI.getValueFromKeyboard();
-		System.out.print("Enter m value: ");
-		int m = UI.getValueFromKeyboard();
-		
-		SecondTask st = new SecondTask(n, m);
-		
-		UI.showResult(st.getTaskResult());
+		UI ui = new UI();
+		Multiple multiple = new Multiple();
+
+		int n = ui.getValueFromKeyboard();
+		int m = ui.getValueFromKeyboard();
+
+		ui.showResult(multiple.getMultipleItems(n, m));
 	}
 }

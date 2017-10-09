@@ -21,13 +21,12 @@ public class Main {
 	 *            - input arguments.
 	 */
 	public static void main(String[] args) {
-		System.out.print("Enter number n: ");
-		int n = UI.getValueFromKeyboard();
-		System.out.print("Enter number m: ");
-		int m = UI.getValueFromKeyboard();		
+		UI ui = new UI();
+		DigitsSum digSum = new DigitsSum();
 		
-		FirstTask ft = new FirstTask(n, m);
+		int n = ui.getValueFromKeyboard();
+		int m = ui.getValueFromKeyboard();
 		
-		UI.showResult(ft.getTaskResult());
+		ui.showResult(digSum.getSum(n, m));
 	}
 }

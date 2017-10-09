@@ -20,12 +20,12 @@ public class Main {
 	 * @param args
 	 *            - input arguments.
 	 */
-	public static void main(String[] args) {
-		System.out.print("Enter n value: ");
-		int n = UI.getValueFromKeyboard();
+	public static void main(String[] args) {		
+		MersennePrime mp = new MersennePrime();	
+		UI ui = new UI();
 		
-		ThirdTask tt = new ThirdTask(n);	
+		int n = ui.getValueFromKeyboard();			
 		
-		UI.showResult(tt.getTaskResult());
+		ui.showResult(mp.getMersennNumbers(n));
 	}
 }

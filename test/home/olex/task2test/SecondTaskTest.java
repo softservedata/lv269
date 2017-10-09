@@ -6,26 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import home.olex.task2.SecondTask;
+import home.olex.task2.Multiple;
 
 public class SecondTaskTest {
 
 	@Test
-	public void testSecondTask() {
-		int n = 99;
-		int m = 111;
-		SecondTask st = new SecondTask(n, m);
-
-		assertTrue(st.getN() == n);
-		assertTrue(st.getM() == m);
-		assertTrue(st.getMN() == m * n);
-	}
-
-	@Test
-	public void testGetTaskResult() {
-		SecondTask st1 = new SecondTask(3, 9);
-		SecondTask st2 = new SecondTask(3, 0);
-		SecondTask st3 = new SecondTask(3, 4);
+	public void testGetMultipleItems() {
+		Multiple mult1 = new Multiple();
+		Multiple mult2 = new Multiple();
+		Multiple mult3 = new Multiple();
 
 		List<Integer> result1 = new ArrayList<Integer>();
 		List<Integer> result2 = new ArrayList<Integer>();
@@ -33,8 +22,25 @@ public class SecondTaskTest {
 		
 		result1.add(9);
 		result1.add(18);
-		assertEquals(st1.getTaskResult(), result1);
-		assertEquals(st2.getTaskResult(), result2);
-		assertEquals(st3.getTaskResult(), result3);
+		assertEquals(mult1.getMultipleItems(3, 9), result1);
+		assertEquals(mult2.getMultipleItems(3, 0), result2);
+		assertEquals(mult3.getMultipleItems(3, 4), result3);		
+	}
+	
+	@Test(expected = ArithmeticException.class)
+	public void exceptionTestGetMultipleItems() { 
+		Multiple mult = new Multiple();
+		
+		mult.getMultipleItems(20000, 200000);
+	}
+	
+	@Test
+	public void testIsMulSafe() {
+		Multiple mult = new Multiple();
+		
+		//EP technique
+		assertTrue(mult.isMulSafe(3, 3) == true);
+		assertTrue(mult.isMulSafe(Integer.MAX_VALUE, 2) == false);
+		assertTrue(mult.isMulSafe(Integer.MIN_VALUE, 2) == false);			
 	}
 }
