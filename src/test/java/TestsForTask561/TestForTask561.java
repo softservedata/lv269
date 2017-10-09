@@ -34,7 +34,7 @@ public class TestForTask561 {
         assertEquals(actual,expected);
         actual = (Integer) method.invoke(task224, -8);
         act = actual;
-        expected = 4;
+        expected = -1;
         assertEquals(actual,expected);
 
     }
