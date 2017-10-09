@@ -17,14 +17,14 @@ public class Task554 {
      *
      * @param n
      */
-    public List<Integer[]> calc(int n) {
+    public List<ArrayObject> calc(int n) {
 
-        List<Integer[]> rez = new ArrayList<Integer[]>();
+        List<ArrayObject> rez = new ArrayList<ArrayObject>();
         for (int c = 1; c <= n; c++) {
             for (int a = 1; a <= c; a++) {
                 for (int b = 1; b <= a; b++) {
                     if (((a * a) + (b * b)) == (c * c)) {
-                        rez.add(new Integer[]{a, b, c});
+                        rez.add(new ArrayObject(a, b, c));
                     }
                 }
             }

@@ -14,13 +14,11 @@ public class Task554Test {
     @Test
     public void calc() throws Exception {
         Task554 task554 = new Task554();
-        Integer[] mas = new Integer[]{4, 3, 5};
-        Integer[] mas2 = new Integer[]{8, 6, 10};
-        List<Integer[]> arr = new ArrayList<Integer[]>();
-        arr.add(mas);
-        arr.add(mas2);
-        assertArrayEquals(arr.get(0), task554.calc(10).get(0));
-        assertArrayEquals(arr.get(1), task554.calc(10).get(1));
+        ArrayObject obj = new ArrayObject(4, 3, 5);
+        ArrayObject obj2 = new ArrayObject(8, 6, 10);
+
+        assertEquals(obj, task554.calc(10).get(0));
+        assertEquals(obj2, task554.calc(10).get(1));
     }
 
     @Test

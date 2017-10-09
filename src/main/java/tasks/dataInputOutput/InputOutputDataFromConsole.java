@@ -1,5 +1,7 @@
 package tasks.dataInputOutput;
 
+import tasks.logic.ArrayObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -42,12 +44,12 @@ public class InputOutputDataFromConsole {
      *
      * @param arr
      */
-    public void outputToConsole (List<Integer[]> arr) {
+    public void outputToConsole (List<ArrayObject> arr) {
         if (arr.size() == 0) {
             outputToConsole("It is no possible.");
         } else {
-            for (Integer[] mas : arr) {
-                System.out.println(mas[0] + " " + mas[1] + " " + mas[2]);
+            for (ArrayObject obj : arr) {
+                System.out.println(obj.getX() + " " + obj.getY() + " " + obj.getZ());
             }
         }
     }

@@ -17,14 +17,14 @@ public class Task331 {
      *
      * @param n
      */
-    public List<Integer[]> calc(int n) {
+    public List<ArrayObject> calc(int n) {
 
-        List<Integer[]> rez = new ArrayList<Integer[]>();
+        List<ArrayObject> rez = new ArrayList<ArrayObject>();
         for (int x = 1; x <= n; x++) {
             for (int y = 1; y <= x; y++) {
                 for (int z = 1; z <= y; z++) {
                     if (((x * x) + (y * y) + (z * z)) == n) {
-                        rez.add(new Integer[]{x, y, z});
+                        rez.add(new ArrayObject(x, y, z));
                     }
                 }
             }
