@@ -19,12 +19,12 @@ public class CountNumberDivisorsTest {
         4 - number is 0.
          */
 
-        int[][] testNumber = {{20, 42}, {13, 14}, {16, 2}, {0, 0}};
+        int[][] testNumber = {{20, 42}, {13, 14}, {16, 31}, {0, 0}};
 
         int realResult;
         for (int i = 0; i < testNumber.length; i++) {
             realResult = CountDivisorsSum.countDivisorsSum(testNumber[i][0]);
-            Assert.assertEquals(realResult, testNumber[i][1]);
+            Assert.assertEquals(testNumber[i][1], realResult);
         }
 
 
