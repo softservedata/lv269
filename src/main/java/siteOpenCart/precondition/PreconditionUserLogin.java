@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Class include methods for tests when User login.
  */
@@ -13,12 +15,14 @@ public class PreconditionUserLogin {
 
         // Firefox for classRoom
         //System.setProperty("webdriver.gecko.driver","C:/Program Files/Java/Selenium360/geckodriver.exe");
+        //WebDriver driver = new FirefoxDriver();
 
         System.setProperty("webdriver.chrome.driver",
                 "D:/ATQA/selen/chromedriver_win32/chromedriver.exe");
-        //        "D:/ATQA/selen/geckodriver-v0.19.0-win64/geckodriver.exe");
 
         WebDriver driver = new ChromeDriver();
+
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         driver.get("http://server7.pp.ua");
         driver.findElement(By.xpath("html/body/nav/div/div[2]/ul/li[2]/a")).click();
