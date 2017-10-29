@@ -16,9 +16,9 @@ public class WishListForDemo {
 
 	@BeforeClass
 	public static void beforeClass() {
-		System.setProperty("webdriver.gecko.driver", "C:/Users/Olex/Documents/Selenium/geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver", "C:/geckodriver.exe");
 		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(160, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		module = new WishListModules(driver);
 	}
 
@@ -50,16 +50,6 @@ public class WishListForDemo {
 	}
 
 	@Test
-	public void testNegative() {
-		module.logIn();
-		module.addItem(40);
-		items.add(40);
-		module.logOut();
-		module.openWishList();
-		Assert.assertTrue("This is not login page.", driver.getCurrentUrl().contains("/login"));
-	}
-
-	@Test
 	public void testAddDeleteItem() {
 		module.logIn();
 		module.addItem(40);
@@ -74,9 +64,9 @@ public class WishListForDemo {
 		module.addItem(40);
 		items.add(40);
 		module.logOut();
-		module.addItem(42);
+		module.addItem(41);
 		module.logIn();
-		items.add(42);
+		items.add(41);
 		module.openWishList();
 		Assert.assertEquals("Elements are not equals", items, module.getItemsFromWishList());
 	}
@@ -84,7 +74,7 @@ public class WishListForDemo {
 	@Test
 	public void testWhishListIndicator() {
 		module.logIn();
-		for (int id = 40; id < 50; id++) {
+		for (int id = 43; id < 50; id++) {
 			module.addItem(id);
 			items.add(id);
 		}

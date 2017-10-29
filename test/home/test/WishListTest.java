@@ -18,9 +18,9 @@ public class WishListTest {
 
 	@BeforeClass
 	public static void beforeClass() {
-		System.setProperty("webdriver.gecko.driver", "C:/Users/Olex/Documents/Selenium/geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver", "C:/geckodriver.exe");
 		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		module = new WishListModules(driver);
 	}
 
@@ -102,9 +102,9 @@ public class WishListTest {
 		module.addItem(40);
 		items.add(40);
 		module.logOut();
-		module.addItem(42);
+		module.addItem(41);
 		module.logIn();
-		items.add(42);
+		items.add(41);
 		module.openWishList();
 
 		Assert.assertEquals("Elements are not equals", items, module.getItemsFromWishList());
@@ -125,5 +125,16 @@ public class WishListTest {
 		module.openWishList();
 
 		Assert.assertEquals("Elements are not equals", items, module.getItemsFromWishList());
+	}
+	
+	@Test
+	public void testWhishListIndicator() {
+		module.logIn();
+		for (int id = 43; id < 50; id++) {
+			module.addItem(id);
+			items.add(id);
+		}
+
+		Assert.assertEquals("Wish List header counter incorrect", items.size(), module.getWishListItemsCount());
 	}
 }

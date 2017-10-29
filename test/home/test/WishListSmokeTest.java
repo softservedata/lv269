@@ -15,7 +15,7 @@ public class WishListSmokeTest {
 
 	@BeforeClass
 	public static void beforeClass() {
-		System.setProperty("webdriver.gecko.driver", "C:/Users/Olex/Documents/Selenium/geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver", "C:/geckodriver.exe");
 
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
