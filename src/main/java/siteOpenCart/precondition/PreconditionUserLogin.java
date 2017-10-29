@@ -1,8 +1,10 @@
 package siteOpenCart.precondition;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,29 +22,29 @@ public class PreconditionUserLogin {
         System.setProperty("webdriver.chrome.driver",
                 "D:/ATQA/selen/chromedriver_win32/chromedriver.exe");
 
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        //options.addArguments("--headless");
+        WebDriver driver = new ChromeDriver(options);
 
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
+
         driver.get("http://server7.pp.ua");
-        driver.findElement(By.xpath("html/body/nav/div/div[2]/ul/li[2]/a")).click();
-        driver.findElement(By.xpath("html/body/nav/div/div[2]/ul/li[2]/ul/li[2]/a")).click();
+        driver.findElement(By.cssSelector("a[href$='account/account']")).click();
+        driver.findElement(By.cssSelector("a[href$='account/login']")).click();
 
-        driver.findElement(By.id("input-email")).clear();
-        driver.findElement(By.id("input-email")).click();
-        driver.findElement(By.id("input-email")).sendKeys("wnb58892@sqoai.com");
+        Util.inputInField(driver.findElement(By.id("input-email"))).sendKeys("wnb58892@sqoai.com");
+        Util.inputInField(driver.findElement(By.id("input-password"))).sendKeys("password"+ Keys.ENTER);
 
-        driver.findElement(By.id("input-password")).clear();
-        driver.findElement(By.id("input-password")).click();
-        driver.findElement(By.id("input-password")).sendKeys("password");
-
-        driver.findElement(By.xpath("html/body/div[2]/div/div/div/div[2]/div/form/input")).click();
+        driver.get("http://server7.pp.ua/index.php?route=product/product&path=57&product_id=49");
+        driver.findElement(By.partialLinkText("review")).click();
         return driver;
     }
 
     public static void logOut(WebDriver driver) {
-        driver.findElement(By.xpath("html/body/nav/div/div[2]/ul/li[2]/a")).click();
-        driver.findElement(By.xpath("html/body/nav/div/div[2]/ul/li[2]/ul/li[5]/a")).click();
+        driver.findElement(By.cssSelector("a[href$='account/account']")).click();
+        driver.findElement(By.cssSelector("a[href$='account/logout']")).click();
+
         driver.quit();
     }
 }
