@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import siteOpenCart.precondition.PreconditionUserLogin;
 import siteOpenCart.precondition.Util;
 
+
 /**
  * Positive tests for site http://server7.pp.ua when User login.
  */

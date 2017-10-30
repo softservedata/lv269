@@ -21,7 +21,7 @@ public class NegativeUserLogout {
         System.setProperty("webdriver.chrome.driver",
                 "D:/ATQA/selen/chromedriver_win32/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--headless");
+        options.addArguments("--headless");
         driver = new ChromeDriver(options);
 
         // Firefox for classRoom

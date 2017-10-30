@@ -23,6 +23,13 @@ public class NegativeUserLogin {
         PreconditionUserLogin.logOut(driver);
     }
 
+    //@Before
+    public void met(){
+        //driver.navigate().refresh();
+        //driver.get("http://server7.pp.ua/index.php?route=product/product&path=57&product_id=49");
+        //driver.findElement(By.partialLinkText("review")).click();
+    }
+
     @Test
     public void onlyName() {
         Util.inputInField(driver.findElement(By.id("input-name"))).sendKeys("Name");
