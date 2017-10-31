@@ -6,6 +6,9 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class consists Product list with elements
+ */
 public class ProductList {
 
     private List<ProductShort> productList;
@@ -19,6 +22,11 @@ public class ProductList {
         addElementsFromTable(listElements);
     }
 
+    /**
+     * It adds new Product to the list by analizing WebElemet of row
+     * @param listElements - webElements, every row - item with
+     *                     characteristics
+     */
     public void addElementsFromTable(List<WebElement> listElements) {
         for (WebElement currentProductElement : listElements) {
             ProductShort currentProduct = new ProductShort();
@@ -33,10 +41,17 @@ public class ProductList {
         }
     }
 
+    /**
+     * @return the list's size
+     */
     public int getSize() {
         return productList.size();
     }
 
+    /**
+     * Next methods extract necessary data from elemets in the table.
+     * @return
+     */
     private Boolean extractStatus() {
         String statusInTable = webDriverCreator.findElementInsideElement(
                 currentProductElement, By.xpath(ElementsSelectors

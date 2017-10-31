@@ -11,9 +11,9 @@ public class SettingPg {
         loginLogoutAdmin = new LoginLogoutAdmin(webDriverCreator);
     }
 
-    public void changeItemsPerPage (String numberOfItems) {
+    public void changeItemsPerPage (int numberOfItems) {
         opengPage();
-        changeItemsOnPg(numberOfItems);
+        changeItemsOnPg(String.valueOf(numberOfItems));
     }
 
     public void opengPage() {

@@ -1,7 +1,8 @@
 package test.edu.softserve.server7Test;
 
 /**
- * enum with url, credentials, paths and parameters for drivers
+ * enum with url, credentials, paths,  parameters for drivers,
+ * values...
  */
 public enum Credentials {
     GECKO_WEBDRIVER_PARAMETER("webdriver.gecko.driver"),

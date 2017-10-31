@@ -1,5 +1,9 @@
 package test.edu.softserve.server7Test;
 
+/**
+ * This class describes Product from the admin product list.
+ * Every field represents a column.
+ */
 public class ProductShort {
     private String name;
     private String model;

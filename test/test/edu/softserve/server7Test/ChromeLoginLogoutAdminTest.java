@@ -2,6 +2,10 @@ package test.edu.softserve.server7Test;
 
 import org.junit.*;
 
+/**
+ * This class checks login (using buttons and Enter) and logout
+ * process on Chrome.
+ */
 public class ChromeLoginLogoutAdminTest {
 
     static WebDriverCreator webDriverCreator;

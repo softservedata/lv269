@@ -82,8 +82,14 @@ public class ProductPg {
         webDriverCreator.clickElement(By.id(
                 ElementsSelectors.ADM_SBAR_FOLD_CATALOG_BTN_FOLD_ID
                         .getElement()));
-        webDriverCreator.clickAndHoldElement(By.id(
+//        webDriverCreator.clickAndHoldElement(By.id(
+//                ElementsSelectors.ADM_SBAR_FOLD_CATALOG_BTN_FOLD_ID
+//                        .getElement()));
+        webDriverCreator.clickElement(By.id(
                 ElementsSelectors.ADM_SBAR_FOLD_CATALOG_BTN_FOLD_ID
+                        .getElement()));
+        webDriverCreator.waitToBeDisplayed(By.xpath(
+                ElementsSelectors.ADM_SBAR_PRODUCT_BTN_FOLD_XPTH
                         .getElement()));
         webDriverCreator.clickElement(By.xpath(
                 ElementsSelectors.ADM_SBAR_PRODUCT_BTN_FOLD_XPTH
@@ -139,8 +145,8 @@ public class ProductPg {
     public List<WebElement> readTable() {
         return webDriverCreator.findElementsInsideElement(
                 webDriverCreator.getElement(By.cssSelector(
-                ElementsSelectors.ADM_PRODUCT_PG_ITEM_TABLE_TBODY_CSS
-                        .getElement())),
+                        ElementsSelectors.ADM_PRODUCT_PG_ITEM_TABLE_TBODY_CSS
+                                .getElement())),
                 By.tagName("tr"));
     }
 
@@ -163,9 +169,19 @@ public class ProductPg {
     }
 
 
-    public String getNumberOfPages() {
+    public String getNumberOfLastPage() {
         return webDriverCreator.getTextFromElement(By.cssSelector(
                 ElementsSelectors.ADM_PRODUCT_PG_LAST_PG_CHOSEN_TXT_CSS
                         .getElement()));
+    }
+
+    public int getNumberOfPages() {
+        String numberOfPages = "1";
+        if (webDriverCreator.getElements(By.className(ElementsSelectors
+                .ADM_PRODUCT_PG_PAGINATION_CLS.getElement())).size() > 0) {
+            PaginationClickLastPgBtn();
+            numberOfPages = getNumberOfLastPage();
+        }
+        return Integer.parseInt(numberOfPages);
     }
 }

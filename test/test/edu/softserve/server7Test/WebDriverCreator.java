@@ -12,7 +12,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-
+/**
+ * This class operates with a browser and all its elements.
+ */
 public class WebDriverCreator {
 
     private WebDriver webDriver;

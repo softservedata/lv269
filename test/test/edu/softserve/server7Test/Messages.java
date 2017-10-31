@@ -27,7 +27,9 @@ public enum Messages {
     FAIL_ENTER_PRODUCTS_CHROME_UNFOLD_SIDEBAR("Fail admin enter to the " +
             "products window on Chrome with unfolded sidebar"),
     FAIL_ENTER_PRODUCTS_FIREFOX_UNFOLD_SIDEBAR("Fail admin enter to the " +
-            "products window on Firefox with unfolded sidebar");
+            "products window on Firefox with unfolded sidebar"),
+    FAIL_PAGINATION_NUMBER_OF_PAGES ("Number of pages is wrong"),
+    FAIL_PAGINATION_NUMBER_OF_ITEMS_PER_PAGE ("Wrong number of items per page");
 
     private String chosenMessage;
 
