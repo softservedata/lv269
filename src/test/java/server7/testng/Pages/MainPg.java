@@ -1,0 +1,54 @@
+package server7.testng.Pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import server7.testng.Credentials;
+import server7.testng.ElementsSelectors;
+import server7.testng.WebDriverCreator;
+
+public class MainPg {
+    private WebDriverCreator webDriverCreator;
+
+    public MainPg (WebDriverCreator webDriverCreator) {
+        this.webDriverCreator = webDriverCreator;
+    }
+
+    public void setMainPage() {
+        webDriverCreator.openAddress(Credentials.URL_SERVER.getChosenConstant()
+                + Credentials.URL_ADMIN_PAGE.getChosenConstant());
+    }
+
+    public void loginIfOpened (String buttonOrEnter) {
+        if (isOpened()) {
+            login(buttonOrEnter);
+        }
+    }
+
+    private void login(String buttonOrEnter) {
+        webDriverCreator.fillInputField(By.id(
+                ElementsSelectors.ADM_LGN_PG_LGN_FLD_ID.getElement()),
+                Credentials.ADMINISTRATOR_LOGIN.getChosenConstant());
+
+        if (buttonOrEnter.equals("enter")) {
+            webDriverCreator.fillInputField(By.id(
+                    ElementsSelectors.ADM_LGN_PG_PSWD_FLD_ID.getElement()),
+                    Credentials.ADMINISTRATOR_PASSWORD.getChosenConstant()
+                            + Keys.ENTER);
+        }
+
+        if (buttonOrEnter.equals("button")) {
+            webDriverCreator.fillInputField(By.id(
+                    ElementsSelectors.ADM_LGN_PG_PSWD_FLD_ID.getElement()),
+                    Credentials.ADMINISTRATOR_PASSWORD.getChosenConstant());
+            webDriverCreator.clickElement(By.cssSelector(
+                    ElementsSelectors.ADM_LGN_PG_LGN_BTN_CSS_.getElement()));
+        }
+    }
+
+    public boolean isOpened() {
+        return webDriverCreator.isElementPresent(By.id(
+                ElementsSelectors.ADM_LGN_PG_LGN_FLD_ID
+                        .getElement()));
+    }
+
+}
