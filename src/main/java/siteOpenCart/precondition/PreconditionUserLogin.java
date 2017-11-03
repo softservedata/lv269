@@ -23,7 +23,7 @@ public class PreconditionUserLogin {
                 "D:/ATQA/selen/chromedriver_win32/chromedriver.exe");
 
         ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--headless");
+        options.addArguments("--headless");
         WebDriver driver = new ChromeDriver(options);
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
