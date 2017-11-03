@@ -41,7 +41,7 @@ public class TestAppFirefox {
 	 */
 	@BeforeClass
 	public static void before() {
-		System.setProperty("webdriver.gecko.driver", "D:/eclipse/geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver", "C://selenium/geckodriver.exe");
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.get("http://server7.pp.ua/");
