@@ -32,15 +32,14 @@ public class Task561 extends  TaskModel {
     private Integer returnLastTwoNumbers(Integer n) {
         String[] nTemp = String.valueOf(n).split("");
         String[] square = String.valueOf(n * n).split("");
-        String temp = "";
+        String temp = "-1";
         int count;
         if (n >= 0) {
             count = nTemp.length;
-        } else {
-            count = nTemp.length - 1;
-        }
-        for (int i = 0; count > i; count--) {
-            temp += square[square.length - count];
+            temp = "";
+            for (int i = 0; count > i; count--) {
+                temp += square[square.length - count];
+            }
         }
 
         return Integer.valueOf(temp);

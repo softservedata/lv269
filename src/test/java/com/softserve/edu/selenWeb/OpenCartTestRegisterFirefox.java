@@ -18,7 +18,7 @@ public class OpenCartTestRegisterFirefox {
     private static Connection connection = null;
     private static final String FIRSTNAME = "TEST_FIRSTNAME";
     private static final String LASTNAME = "TEST_LASTNAME";
-    private static final String EMAIL = "test_test@mail.com";
+    private static final String EMAIL = "test_test1@mail.com";
     private static final String TELEPHONE = "380511223344";
     private static final String ADDRESS = "TEST_ADDRESS";
     private static final String CITY = "LVIV";
@@ -44,32 +44,31 @@ public class OpenCartTestRegisterFirefox {
 
     }
 
-    @AfterClass
-    public static void closeWebDriver() {
-        driver.quit();
-    }
+
 
 
     @After
-    public void deleteFromDatabase() {
+    public   void deleteFromDatabase() {
 
 
         try {
             connectToDB();
-            String query1 = "DELETE oc,oe FROM oc_customer oc INNER JOIN oc_address oe ON oc.customer_id = oe.customer_id  WHERE email = ?;";
+//            String query1 = "DELETE oc,oe FROM oc_customer oc INNER JOIN oc_address oe ON oc.customer_id = oe.customer_id  WHERE email = ?;";
+            String query1 = String.format("DELETE oc,oe FROM oc_customer oc INNER JOIN oc_address oe ON oc.customer_id = oe.customer_id  WHERE email = '%s';",EMAIL);
             PreparedStatement pst1 = connection.prepareStatement(query1);
-            pst1.setString(1, EMAIL);
+//            pst1.setString(1, EMAIL);
             pst1.executeUpdate();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        driver.quit();
 
     }
 
 
     @Test
-    public void testOpenCartLogInBySubmitMozilla() {
+    public void testOpenCartRegisterInBySubmitMozilla() throws InterruptedException {
 
         driver.get("http://server7.pp.ua/");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -135,8 +134,7 @@ public class OpenCartTestRegisterFirefox {
         driver.findElement(By.name("agree")).click();
 
         driver.findElement(By.xpath("//*[@type='submit'][@value='Continue']")).click();
-
-
+        driver.findElement(By.xpath("//h1")).click();
         Assert.assertEquals("Your Account Has Been Created!", driver.findElement(By.xpath("//h1")).getText());
         driver.findElement(By.partialLinkText("My Account")).click();
 

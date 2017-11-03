@@ -15,7 +15,7 @@ public class OpenCartCheckFiveWrongLoginings {
 
 
     private static WebDriver driver;
-    private static final String EMAIL = "test_five_wrong_inputs@email.com";
+    private static final String EMAIL = "test_five_w_inputs@email.com";
     //    private static final String EMAIL = "fiwertyve_wrong_inputs@email.com";
     private static final String PASSWORD = "269lv269lv";
     private static final String WRONGPASSWORD = "1111111111";
