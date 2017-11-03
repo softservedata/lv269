@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import server7.testng.ElementsSelectors;
 import server7.testng.WebDriverCreator;
 
+
 public class MainAdmPg {
 
 
@@ -27,6 +28,14 @@ public class MainAdmPg {
         webDriverCreator.clickElement(By.className(
                 ElementsSelectors.ADM_PROFILE_PG_HOME_BTN_CLS
                         .getElement()));
+    }
+
+    public void openProductPg(boolean withSbarFold) {
+        if (withSbarFold) {
+            openProductPgFoldSbar();
+        } else {
+            openProductPgUnfoldSbar();
+        }
     }
 
     public void openProductPgUnfoldSbar() {
@@ -64,14 +73,6 @@ public class MainAdmPg {
         webDriverCreator.clickElement(By.xpath(
                 ElementsSelectors.ADM_SBAR_PRODUCT_BTN_FOLD_XPTH
                         .getElement()));
-    }
-
-    public void openProductPg(boolean withSbarFold) {
-        if (withSbarFold) {
-            openProductPgFoldSbar();
-        } else {
-            openProductPgUnfoldSbar();
-        }
     }
 
 //    public void openfoldSideBarMozilla() {
