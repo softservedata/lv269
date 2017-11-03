@@ -1,6 +1,6 @@
-package TestsForTask325;
+package com.softserve.edu.TestsForTask325;
 
-import Task325.Models.Task325;
+import com.softserve.edu.Task325.Models.Task325;
 import org.junit.Test;
 
 import java.util.ArrayList;

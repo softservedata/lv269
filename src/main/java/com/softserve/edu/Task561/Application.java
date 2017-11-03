@@ -1,9 +1,10 @@
-package Task561;
+package com.softserve.edu.Task561;
 
-import Task561.Models.Task561;
-import Task561.Models.TaskModel;
-import Task561.Services.ConsoleWorker;
-import Task561.Services.InputOutput;
+
+
+import  com.softserve.edu.Task561.Models.*;
+import  com.softserve.edu.Task561.Models.TaskModel;
+import com.softserve.edu.Task561.Services.*;
 
 import java.io.IOException;
 import java.util.List;

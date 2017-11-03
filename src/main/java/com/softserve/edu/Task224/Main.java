@@ -1,4 +1,4 @@
-package Task224;
+package com.softserve.edu.Task224;
 
 import java.io.IOException;
 

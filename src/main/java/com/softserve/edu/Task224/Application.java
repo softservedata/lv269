@@ -1,9 +1,9 @@
-package Task224;
+package com.softserve.edu.Task224;
 
-import Task224.Models.Task224;
-import Task224.Models.TaskModel;
-import Task224.Services.ConsoleWorker;
-import Task224.Services.InputOutput;
+import com.softserve.edu.Task224.Models.Task224;
+import com.softserve.edu.Task224.Models.TaskModel;
+import com.softserve.edu.Task224.Services.ConsoleWorker;
+import com.softserve.edu.Task224.Services.InputOutput;
 
 import java.io.IOException;
 import java.util.List;

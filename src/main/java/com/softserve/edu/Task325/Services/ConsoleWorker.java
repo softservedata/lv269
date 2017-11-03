@@ -1,4 +1,4 @@
-package Task325.Services;
+package com.softserve.edu.Task325.Services;
 
 import java.io.BufferedReader;
 import java.io.IOException;

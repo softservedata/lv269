@@ -1,5 +1,5 @@
 /**
  * Here ir programing realisation jf tasks, which are represented in readme.txt
  */
-package Task325.Models;
+package com.softserve.edu.Task325.Models;
 

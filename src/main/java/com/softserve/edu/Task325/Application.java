@@ -1,9 +1,9 @@
-package Task325;
+package com.softserve.edu.Task325;
 
-import Task325.Models.Task325;
-import Task325.Models.TaskModel;
-import Task325.Services.ConsoleWorker;
-import Task325.Services.InputOutput;
+import com.softserve.edu.Task325.Models.Task325;
+import com.softserve.edu.Task325.Models.TaskModel;
+import com.softserve.edu.Task325.Services.ConsoleWorker;
+import com.softserve.edu.Task325.Services.InputOutput;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package Task561.Models;
+package com.softserve.edu.Task561.Models;
 
 
 import java.util.List;

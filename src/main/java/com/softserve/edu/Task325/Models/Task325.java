@@ -1,4 +1,4 @@
-package Task325.Models;
+package com.softserve.edu.Task325.Models;
 
 import java.util.ArrayList;
 import java.util.List;

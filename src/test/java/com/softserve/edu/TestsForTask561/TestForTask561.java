@@ -1,8 +1,7 @@
-package TestsForTask561;
+package com.softserve.edu.TestsForTask561;
 
-import Task561.Models.Task561;
 import org.junit.Test;
-
+import com.softserve.edu.Task561.Models.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public class TestForTask561 {
 
     @Test
     public void testReturnLastTwoNumbers() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Task561 task224 = new Task561();
+       Task561 task224 = new Task561();
         Method method = task224.getClass().getDeclaredMethod("returnLastTwoNumbers", Integer.class);
         method.setAccessible(true);
         Integer actual = (Integer) method.invoke(task224, 25);

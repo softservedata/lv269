@@ -1,4 +1,4 @@
-package Task224.Models;
+package com.softserve.edu.Task224.Models;
 
 
 import java.util.List;
