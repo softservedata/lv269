@@ -32,7 +32,6 @@ hs_err_pid*
 /.externalToolBuilders/
 /.settings/
 /.metadata/
-/.idea/
 /.recommenders/
 /target/
 /bin/
@@ -49,7 +48,6 @@ hs_err_pid*
 # Multi Modules Project
 /**/.externalToolBuilders/
 /**/.settings/
-/**/.idea/
 /**/target/
 /**/doc/
 /**/bin/
@@ -85,7 +83,7 @@ hs_err_pid*
 
 # Ignore .doc .pfd .docx
 *.doc
-
+*.docx
 *.pdf
 
 # bower
