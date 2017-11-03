@@ -53,10 +53,9 @@ public class OpenCartTestRegisterFirefox {
 
         try {
             connectToDB();
-//            String query1 = "DELETE oc,oe FROM oc_customer oc INNER JOIN oc_address oe ON oc.customer_id = oe.customer_id  WHERE email = ?;";
-            String query1 = String.format("DELETE oc,oe FROM oc_customer oc INNER JOIN oc_address oe ON oc.customer_id = oe.customer_id  WHERE email = '%s';",EMAIL);
+            String query1 = "DELETE oc,oe FROM oc_customer oc INNER JOIN oc_address oe ON oc.customer_id = oe.customer_id  WHERE email = ?;";
             PreparedStatement pst1 = connection.prepareStatement(query1);
-//            pst1.setString(1, EMAIL);
+            pst1.setString(1, EMAIL);
             pst1.executeUpdate();
             connection.close();
         } catch (SQLException e) {
