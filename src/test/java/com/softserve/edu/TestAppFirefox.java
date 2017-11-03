@@ -134,7 +134,6 @@ public class TestAppFirefox {
 		expected = expected.substring(0, expected.indexOf("€"));
 		double expectValue = Double.parseDouble(expected) * EUROPOUND;
 		expected = String.format("%.2f", expectValue);
-		System.out.println(expected);
 		driver.findElement(By.xpath(".//*[@id='form-currency']//button")).click();
 		driver.findElement(By.name("GBP")).click();
 		String actual = driver.findElement(By.xpath(".//*[@id='content']//p[2]")).getText();
