@@ -6,6 +6,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WishListModules {
 	private boolean isLoggedIn;
@@ -33,9 +35,8 @@ public class WishListModules {
 		driver.findElement(By.xpath(
 				".//ul[@class='dropdown-menu dropdown-menu-right']/li/a[@href='http://server7.pp.ua/index.php?route=account/account']"))
 				.click();
-		driver
-				.findElement(By.xpath(
-						".//a[@class='list-group-item'][@href='http://server7.pp.ua/index.php?route=account/logout']"))
+		driver.findElement(
+				By.xpath(".//a[@class='list-group-item'][@href='http://server7.pp.ua/index.php?route=account/logout']"))
 				.click();
 
 		this.isLoggedIn = false;
@@ -49,10 +50,12 @@ public class WishListModules {
 		driver.get("http://server7.pp.ua/index.php?route=product/product&product_id=" + id);
 		driver.findElement(By.xpath(".//button[@class='btn btn-default']/i[@class='fa fa-heart']"))
 				.click();
+		new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".alert.alert-success")));
 	}
 
 	public void deleteItem() {
 		driver.findElement(By.cssSelector(".btn.btn-danger")).click();
+		new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".alert.alert-success")));
 	}
 
 	public boolean isWishListOpened() {

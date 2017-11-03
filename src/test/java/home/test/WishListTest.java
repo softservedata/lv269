@@ -20,6 +20,8 @@ public class WishListTest {
 	public static void beforeClass() {
 		System.setProperty("webdriver.gecko.driver", "C:/geckodriver.exe");
 		driver = new FirefoxDriver();
+		//System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
+		//driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		module = new WishListModules(driver);
 	}

@@ -8,7 +8,7 @@ import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class WishListForDemo {
+public class WishListForDemoTest {
 	static WebDriver driver;
 	private static WishListModules module;
 	private String testPage = "http://server7.pp.ua/";
@@ -16,8 +16,10 @@ public class WishListForDemo {
 
 	@BeforeClass
 	public static void beforeClass() {
-		System.setProperty("webdriver.gecko.driver", "C:/geckodriver.exe");
-		driver = new FirefoxDriver();
+		 System.setProperty("webdriver.gecko.driver", "C:/geckodriver.exe");
+		 driver = new FirefoxDriver();
+		//System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
+		//driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		module = new WishListModules(driver);
 	}
