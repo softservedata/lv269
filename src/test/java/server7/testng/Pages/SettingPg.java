@@ -3,10 +3,13 @@ package server7.testng.Pages;
 
 import org.openqa.selenium.By;
 import server7.testng.Credentials;
-import server7.testng.ElementsSelectors;
 import server7.testng.WebDriverCreator;
 
 public class SettingPg {
+
+    final private static String ADM_SETTING_PG_EDIT_SETTING_BTN_XPTH =
+            "//a[@class='btn btn-primary'][contains(@href, 'server7')]"
+                    + "[ancestor::table[@class='table table-bordered table-hover']]";
     private WebDriverCreator webDriverCreator;
 
     public SettingPg(WebDriverCreator webDriverCreator) {
@@ -24,10 +27,9 @@ public class SettingPg {
         }
     }
 
-    public void enterDefaultStore () {
+    public void enterDefaultStore() {
         webDriverCreator.clickElement(By.xpath(
-                ElementsSelectors.ADM_SETTING_PG_EDIT_SETTING_BTN_XPTH
-                        .getElement()));
+                ADM_SETTING_PG_EDIT_SETTING_BTN_XPTH));
     }
 
 }

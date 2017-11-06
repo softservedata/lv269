@@ -3,6 +3,9 @@ package server7.testng;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
+import org.testng.reporters.jq.Main;
+import server7.testng.Pages.MainAdmPg;
+import server7.testng.Pages.MainPg;
 
 /**
  * This class checks login (using buttons and Enter) and logout
@@ -11,7 +14,6 @@ import org.testng.annotations.*;
 public class ChromeLoginLogoutAdminTest {
 
     public WebDriverCreator webDriverCreator;
-    public LoginLogoutAdmin loginLogoutAdmin;
 
     @DataProvider
     public Object[][] TypeOfEntrance () {
@@ -25,21 +27,20 @@ public class ChromeLoginLogoutAdminTest {
     public void createDrivers() {
         webDriverCreator = new WebDriverCreator();
         webDriverCreator.setWebdriverChrome();
-        loginLogoutAdmin = new LoginLogoutAdmin(webDriverCreator);
     }
 
     @BeforeMethod
     public void setMainPage() {
-        loginLogoutAdmin.setMainPage();
+        new MainPg(webDriverCreator).setMainPage();
     }
 
     @Test(dataProvider = "TypeOfEntrance")
     public void LoginChromeTest(String typeOfEntrance) {
-        loginLogoutAdmin.login(typeOfEntrance);
-        Assert.assertTrue(loginLogoutAdmin.isLogined(),
+        new MainPg(webDriverCreator).loginIfOpened(typeOfEntrance);
+        Assert.assertTrue(new MainAdmPg(webDriverCreator).isOpened(),
                 Messages.FAIL_LOGIN_ADMIN_CHROME_CLICK.getMessage());
-        loginLogoutAdmin.logout();
-        Assert.assertTrue(loginLogoutAdmin.isLogouted(),
+        new MainAdmPg(webDriverCreator).logout();
+        Assert.assertTrue(new MainPg(webDriverCreator).isOpened(),
                 Messages.FAIL_LOGOUT_ADMIN_CHROME_CLICK.getMessage());
     }
 
