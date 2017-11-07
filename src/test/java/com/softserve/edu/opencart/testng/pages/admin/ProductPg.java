@@ -6,7 +6,13 @@ import com.softserve.edu.opencart.testng.*;
 
 import java.util.List;
 
-public class ProductPg {
+public class ProductPg extends AHeaderComponent {
+
+
+    public ProductPg(WebDriverCreator webDriverCreator) {
+        super(webDriverCreator);
+    }
+
     private enum Selectors {
 
         ADM_PRODUCT_PG_PRODUCT_NAME_FLD_ID("input-name"),
@@ -47,11 +53,6 @@ public class ProductPg {
     private WebDriverCreator webDriverCreator;
     private LoginLogoutAdmin loginLogoutAdmin;
 
-
-    public ProductPg(WebDriverCreator webDriverCreator) {
-        this.webDriverCreator = webDriverCreator;
-        loginLogoutAdmin = new LoginLogoutAdmin(webDriverCreator);
-    }
 
     public void login_admin() {
         loginLogoutAdmin.setMainPage();

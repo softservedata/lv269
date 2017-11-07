@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import com.softserve.edu.opencart.testng.Credentials;
 import com.softserve.edu.opencart.testng.WebDriverCreator;
 
-public class SettingPg {
+public class SettingPg extends AHeaderComponent {
 
     final private static String ADM_SETTING_PG_EDIT_SETTING_BTN_XPTH =
             "//a[@class='btn btn-primary'][contains(@href, 'com.softserve.edu.opencart')]"
@@ -14,8 +14,9 @@ public class SettingPg {
     private WebDriverCreator webDriverCreator;
 
     public SettingPg(WebDriverCreator webDriverCreator) {
-        this.webDriverCreator = webDriverCreator;
+        super(webDriverCreator);
     }
+
 
     public void opengPageByAddress() {
         webDriverCreator.openAddress(

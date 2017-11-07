@@ -4,7 +4,7 @@ import com.softserve.edu.opencart.testng.WebDriverCreator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-abstract public class AHeaderComponent {
+abstract public class AMainPageFold {
     private enum Selectors {
         SBAR_BTN_ID("button-menu"),
         LOGO_CLS(".navbar-brand"),
@@ -34,7 +34,7 @@ abstract public class AHeaderComponent {
     private WebElement logoutBtn;
 
 
-    public AHeaderComponent(WebDriverCreator webDriverCreator) {
+    public AMainPageFold(WebDriverCreator webDriverCreator) {
         this.webDriverCreator = webDriverCreator;
         sBarBtn = webDriverCreator.getElement(By.id(Selectors.SBAR_BTN_ID
                 .getElement()));

@@ -6,7 +6,11 @@ import com.softserve.edu.opencart.junit.Credentials;
 import com.softserve.edu.opencart.testng.WebDriverCreator;
 
 
-public class MainAdmPg {
+public class MainAdmPg extends AHeaderComponent{
+
+    public MainAdmPg(WebDriverCreator webDriverCreator) {
+        super(webDriverCreator);
+    }
 
     private enum Selectors {
 
@@ -37,11 +41,7 @@ public class MainAdmPg {
     }
 
 
-    private WebDriverCreator webDriverCreator;
-
-    public MainAdmPg(WebDriverCreator webDriverCreator) {
-        this.webDriverCreator = webDriverCreator;
-    }
+//    private WebDriverCreator webDriverCreator = super.webDriverCreator;
 
     public void logout() {
         webDriverCreator.clickElement(By.xpath(

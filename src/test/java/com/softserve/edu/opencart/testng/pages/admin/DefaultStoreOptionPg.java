@@ -36,10 +36,8 @@ public class DefaultStoreOptionPg extends AHeaderComponent {
         }
     }
 
-    private WebDriverCreator webDriverCreator;
-
     public DefaultStoreOptionPg(WebDriverCreator webDriverCreator) {
-        this.webDriverCreator = webDriverCreator;
+        super(webDriverCreator);
     }
 
     public void changeItemsPerPage(int numberOfItems) {

@@ -1,6 +1,13 @@
 package com.softserve.edu.opencart.testng.pages.admin;
 
-public class NewProductPg {
+import com.softserve.edu.opencart.testng.WebDriverCreator;
+
+public class NewProductPg extends AHeaderComponent {
+
+    public NewProductPg(WebDriverCreator webDriverCreator) {
+        super(webDriverCreator);
+    }
+
     private enum Selectors {
 
         ADD_PRODUCT_UBAR_GENERAL_BTN_CSS("a[href='#tab-general']"),
