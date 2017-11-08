@@ -7,17 +7,69 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.pages.GeneralLocators;
+import com.softserve.edu.opencart.pages.RegexPatterns;
+import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.NumberUtils;
 
 public abstract class AHeaderComponent {
 
-    public static final String ATTRIBUTE_VALUE = "value";
-    //
-    public static final String FIRST_ANCHOR_CSS = "a:first-child";
-    //
-    private final String REGEX_ALL_DIGITS = "\\d+";
-    private final String REGEX_FIRST_DIGITS = "^\\d+";
-    private final String REGEX_LAST_DOUBLE = "\\d+\\.\\d+$";
+    private class DropdownOptions {
+
+        private List<WebElement> listOptions;
+
+        public DropdownOptions(By searchLocator) {
+            initListOptions(searchLocator);
+        }
+
+        public DropdownOptions(By searchLocator, By lastLocator) {
+            initListOptions(searchLocator);
+            listOptions.add(driver.findElement(lastLocator));
+        }
+        
+        private void initListOptions(By searchLocator){
+            listOptions = driver.findElements(searchLocator);
+            //listOptions = driver.findElements(By.cssSelector(".list-inline > li > a.dropdown-toggle + ul > li > a"));
+            //listOptions = myAccount.findElements(By.cssSelector("+ ul > li > a"));
+        }
+        
+        public List<WebElement> getListOptions() {
+            return listOptions;
+        }
+
+        public WebElement getDropdownOptionByPartialName(String optionName) {
+            WebElement result = null;
+            for (WebElement current : getListOptions()) {
+                if (current.getText().toLowerCase().contains(optionName.toLowerCase())) {
+                    result = current;
+                    break;
+                }
+            }
+            return result;
+        }
+        
+        public List<String> getListOptionByPartialNameTexts() {
+            List<String> result = new ArrayList<>();
+            for (WebElement current : getListOptions()) {
+                result.add(current.getText());
+            }
+            return result;
+        }
+        
+        public void clickDropdownOptionByPartialName(String optionName) {
+            getDropdownOptionByPartialName(optionName).click();
+        }
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    
+    private final String CART_TOTAL_ID = "cart-total";
+    private final String MY_ACCOUNT_OPTIONS_CSS = ".list-inline > li > a.dropdown-toggle + ul > li > a";
+    private final String CURRENCY_OPTIONS_CSS = ".btn.btn-link.dropdown-toggle + ul > li > button";
+    private final String MENUTOP_OPTIONS_CSS = "li:has(a:contains('%s')) li > a";
+    private final String MENUTOP_LAST_OPTION_CSS = "li:has(a:contains('%s')) div > a";
+
+    private final String OPTION_NOT_FOUND_MESSAGE = "Option %s not found in %s";
 
     // Fields
 
@@ -33,6 +85,10 @@ public abstract class AHeaderComponent {
     private WebElement searchProductButton;
     private WebElement cart;
     private List<WebElement> menuTop;
+    //
+    //private DropdownOptions currencyOptions;
+    //private DropdownOptions myAccountOptions;
+    //private DropdownOptions menuTopOptions;
 
     protected AHeaderComponent(WebDriver driver) {
         this.driver = driver;
@@ -92,7 +148,7 @@ public abstract class AHeaderComponent {
     }
 
     public WebElement getCartTotal() {
-        return getCart().findElement(By.id("cart-total"));
+        return getCart().findElement(By.id(CART_TOTAL_ID));
     }
 
     public List<WebElement> getMenuTop() {
@@ -102,7 +158,7 @@ public abstract class AHeaderComponent {
     public WebElement getMenuTopByCategoryPartialName(String categoryName) {
         WebElement result = null;
         for (WebElement current : getMenuTop()) {
-            if (current.findElement(By.cssSelector("a:first-child")).getText()
+            if (current.findElement(By.cssSelector(GeneralLocators.FIRST_ANCHOR_CSS.toString())).getText()
                     .toLowerCase().contains(categoryName.toLowerCase())) {
                 result = current;
                 break;
@@ -111,7 +167,7 @@ public abstract class AHeaderComponent {
         return result;
     }
 
-    // Functional
+    // get Functional
 
     public String getCurrencyText() {
         return getCurrency().getText().substring(0, 1);
@@ -126,7 +182,7 @@ public abstract class AHeaderComponent {
     }
 
     public int getWishListNumber() {
-        return NumberUtils.extractNumber("\\d+", getWishListText());
+        return NumberUtils.extractNumber(RegexPatterns.ALL_DIGITS.toString(), getWishListText());
     }
 
     public String getShoppingCartText() {
@@ -138,7 +194,7 @@ public abstract class AHeaderComponent {
     }
 
     public String getSearchProductFieldText() {
-        return getSearchProductField().getAttribute("value");
+        return getSearchProductField().getAttribute(TagAttribute.VALUE.toString());
     }
 
     public String getCartText() {
@@ -150,35 +206,127 @@ public abstract class AHeaderComponent {
     }
 
     public int getCartAmount() {
-        return NumberUtils.extractNumber("^\\d+", getCartTotalText());
+        return NumberUtils.extractNumber(RegexPatterns.FIRST_DIGITS.toString(), getCartTotalText());
     }
 
     public int getCartSum() {
-        return NumberUtils.extractNumber("\\d+\\.\\d+$", getCartTotalText());
+        return NumberUtils.extractNumber(RegexPatterns.LAST_DOUBLE.toString(), getCartTotalText());
     }
 
     public List<String> getMenuTopTexts() {
         List<String> result = new ArrayList<>();
         for (WebElement current : getMenuTop()) {
             result.add(current
-                    .findElement(By.cssSelector("a:first-child")).getText());
+                    .findElement(By.cssSelector(GeneralLocators.FIRST_ANCHOR_CSS.toString())).getText());
         }
         return result;
     }
 
     // set Data
 
-    // public void setLoginInput(String login) {
-    // getLoginInput().sendKeys(login);
-    // }
-    //
-    // public void clearLoginInput() {
-    // getLoginInput().clear();
-    // }
-    //
-    // public void clickLoginAccount() {
-    // getLoginAccount().click();
-    // }
+     public void setSearchProductField(String text) {
+         getSearchProductField().sendKeys(text);
+     }
+    
+     public void clearSearchProductField() {
+         getSearchProductField().clear();
+     }
+    
+     public void clickCurrency() {
+         getCurrency().click();
+     }
+
+     public void clickMyAccount() {
+         getMyAccount().click();
+     }
+
+     public void clickWishList() {
+         getWishList().click();
+     }
+
+     public void clickShoppingCart() {
+         getShoppingCart().click();
+     }
+
+     public void clickCheckout() {
+         getCheckout().click();
+     }
+
+     public void clickLogo() {
+         getLogo().click();
+     }
+
+     public void clickSearchProductField() {
+         getSearchProductField().click();
+     }
+
+     public void clickSearchProductButton() {
+         getSearchProductButton().click();
+     }
+
+     public void clickCart() {
+         getCart().click();
+     }
+
+     // set Functional
+
+     private List<String> getDropdownOptionsByPartialNameTexts(String optionName, By searchLocator, By lastLocator) {
+         // TODO +++++++++++++++
+         return null;
+     }
+     
+     private void clickDropdownOptionByPartialName(String optionName, By searchLocator, By lastLocator) {
+         boolean isClickable = false;
+         DropdownOptions dropdownOptions;
+         if (lastLocator == null) { 
+             dropdownOptions = new DropdownOptions(searchLocator);
+         } else {
+             dropdownOptions = new DropdownOptions(searchLocator, lastLocator);
+         }
+         for (String current : dropdownOptions.getListOptionByPartialNameTexts()) {
+             if (current.toLowerCase().contains(optionName.toLowerCase())) {
+                 isClickable = true;
+             }
+         }
+         if (!isClickable) {
+             // TODO Develop Custom Exception
+             throw new RuntimeException(String.format(OPTION_NOT_FOUND_MESSAGE,
+                     optionName, dropdownOptions.getListOptionByPartialNameTexts().toString()));
+         }
+         dropdownOptions.clickDropdownOptionByPartialName(optionName);
+     }
+     
+     public void clickMenuTopByCategoryPartialName(String categoryName) {
+         boolean isClickable = false; 
+         for (String current : getMenuTopTexts()) {
+             if (current.toLowerCase().contains(categoryName.toLowerCase())) {
+                 isClickable = true;
+             }
+         }
+         if (!isClickable) {
+             // TODO Develop Custom Exception
+             throw new RuntimeException(String.format(OPTION_NOT_FOUND_MESSAGE,
+                     categoryName, getMenuTopTexts().toString()));
+         }
+         getMenuTopByCategoryPartialName(categoryName).click();
+     }
+
+     public void clickCurrencyByPartialName(String optionName) {
+         clickCurrency();
+         clickDropdownOptionByPartialName(optionName, By.cssSelector(CURRENCY_OPTIONS_CSS), null);
+     }
+
+     public void clickMyAccountByPartialName(String optionName) {
+         clickMyAccount();
+         clickDropdownOptionByPartialName(optionName, By.cssSelector(MY_ACCOUNT_OPTIONS_CSS), null);
+     }
+
+     public void clickMenuTopByPartialName(String categoryName, String optionName) {
+         clickMenuTopByCategoryPartialName(categoryName);
+         clickDropdownOptionByPartialName(optionName,
+                 By.cssSelector(String.format(MENUTOP_OPTIONS_CSS, categoryName)),
+                 By.cssSelector(String.format(MENUTOP_LAST_OPTION_CSS, categoryName)));
+     }
 
     // Business Logic
 
