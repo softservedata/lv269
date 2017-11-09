@@ -3,7 +3,8 @@ package com.softserve.edu.opencart.pages;
 public enum RegexPatterns {
     ALL_DIGITS("\\d+"),
     FIRST_DIGITS("^\\d+"),
-    LAST_DOUBLE("\\d+\\.\\d+$");
+    LAST_DOUBLE("\\d+\\.\\d+$"),
+    NUMBER_DOUBLE("\\d+\\.\\d+");
     //
     private String field;
 

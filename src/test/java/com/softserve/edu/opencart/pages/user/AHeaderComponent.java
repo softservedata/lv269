@@ -12,7 +12,7 @@ import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.NumberUtils;
 
-public abstract class AHeaderComponent {
+abstract class AHeaderComponent {
 
     private class DropdownOptions {
 
@@ -62,12 +62,39 @@ public abstract class AHeaderComponent {
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    private class DropdownCart {
+        // TODO
+    }
     
-    private final String CART_TOTAL_ID = "cart-total";
-    private final String MY_ACCOUNT_OPTIONS_CSS = ".list-inline > li > a.dropdown-toggle + ul > li > a";
-    private final String CURRENCY_OPTIONS_CSS = ".btn.btn-link.dropdown-toggle + ul > li > button";
-    private final String MENUTOP_OPTIONS_CSS = "li:has(a:contains('%s')) li > a";
-    private final String MENUTOP_LAST_OPTION_CSS = "li:has(a:contains('%s')) div > a";
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    
+    private enum AHeaderComponentLocators {
+        CART_TOTAL_ID ("cart-total"),
+        MY_ACCOUNT_OPTIONS_CSS (".list-inline > li > a.dropdown-toggle + ul > li > a"),
+        CURRENCY_OPTIONS_CSS (".btn.btn-link.dropdown-toggle + ul > li > button"),
+        MENUTOP_OPTIONS_CSS ("li:has(a:contains('%s')) li > a"),
+        MENUTOP_LAST_OPTION_CSS ("li:has(a:contains('%s')) div > a");
+        //
+        private String field;
+
+        private AHeaderComponentLocators(String field) {
+            this.field = field;
+        }
+
+        @Override
+        public String toString() {
+            return field;
+        }
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    //private final String CART_TOTAL_ID = "cart-total";
+    //private final String MY_ACCOUNT_OPTIONS_CSS = ".list-inline > li > a.dropdown-toggle + ul > li > a";
+    //private final String CURRENCY_OPTIONS_CSS = ".btn.btn-link.dropdown-toggle + ul > li > button";
+    //private final String MENUTOP_OPTIONS_CSS = "li:has(a:contains('%s')) li > a";
+    //private final String MENUTOP_LAST_OPTION_CSS = "li:has(a:contains('%s')) div > a";
 
     private final String OPTION_NOT_FOUND_MESSAGE = "Option %s not found in %s";
 
@@ -86,9 +113,8 @@ public abstract class AHeaderComponent {
     private WebElement cart;
     private List<WebElement> menuTop;
     //
-    //private DropdownOptions currencyOptions;
-    //private DropdownOptions myAccountOptions;
-    //private DropdownOptions menuTopOptions;
+    private DropdownOptions dropdownOptions;
+    //private DropdownCart dropdownCart;
 
     protected AHeaderComponent(WebDriver driver) {
         this.driver = driver;
@@ -148,7 +174,7 @@ public abstract class AHeaderComponent {
     }
 
     public WebElement getCartTotal() {
-        return getCart().findElement(By.id(CART_TOTAL_ID));
+        return getCart().findElement(By.id(AHeaderComponentLocators.CART_TOTAL_ID.toString()));
     }
 
     public List<WebElement> getMenuTop() {
@@ -209,15 +235,15 @@ public abstract class AHeaderComponent {
         return NumberUtils.extractNumber(RegexPatterns.FIRST_DIGITS.toString(), getCartTotalText());
     }
 
-    public int getCartSum() {
-        return NumberUtils.extractNumber(RegexPatterns.LAST_DOUBLE.toString(), getCartTotalText());
+    public double getCartSum() {
+        return NumberUtils.extractDouble(RegexPatterns.LAST_DOUBLE.toString(), getCartTotalText());
     }
 
     public List<String> getMenuTopTexts() {
         List<String> result = new ArrayList<>();
         for (WebElement current : getMenuTop()) {
-            result.add(current
-                    .findElement(By.cssSelector(GeneralLocators.FIRST_ANCHOR_CSS.toString())).getText());
+            result.add(current.findElement(By
+                    .cssSelector(GeneralLocators.FIRST_ANCHOR_CSS.toString())).getText());
         }
         return result;
     }
@@ -270,19 +296,17 @@ public abstract class AHeaderComponent {
 
      // set Functional
 
-     private List<String> getDropdownOptionsByPartialNameTexts(String optionName, By searchLocator, By lastLocator) {
-         // TODO +++++++++++++++
-         return null;
-     }
-     
-     private void clickDropdownOptionByPartialName(String optionName, By searchLocator, By lastLocator) {
-         boolean isClickable = false;
-         DropdownOptions dropdownOptions;
+     private void createDropdownOptions(By searchLocator, By lastLocator) {
          if (lastLocator == null) { 
              dropdownOptions = new DropdownOptions(searchLocator);
          } else {
              dropdownOptions = new DropdownOptions(searchLocator, lastLocator);
          }
+     }
+
+     private void clickDropdownOptionByPartialName(String optionName, By searchLocator, By lastLocator) {
+         boolean isClickable = false;
+         createDropdownOptions(searchLocator, lastLocator);
          for (String current : dropdownOptions.getListOptionByPartialNameTexts()) {
              if (current.toLowerCase().contains(optionName.toLowerCase())) {
                  isClickable = true;
@@ -313,20 +337,43 @@ public abstract class AHeaderComponent {
 
      public void clickCurrencyByPartialName(String optionName) {
          clickCurrency();
-         clickDropdownOptionByPartialName(optionName, By.cssSelector(CURRENCY_OPTIONS_CSS), null);
+         clickDropdownOptionByPartialName(optionName,
+                 By.cssSelector(AHeaderComponentLocators.CURRENCY_OPTIONS_CSS.toString()), null);
      }
 
      public void clickMyAccountByPartialName(String optionName) {
          clickMyAccount();
-         clickDropdownOptionByPartialName(optionName, By.cssSelector(MY_ACCOUNT_OPTIONS_CSS), null);
+         clickDropdownOptionByPartialName(optionName,
+                 By.cssSelector(AHeaderComponentLocators.MY_ACCOUNT_OPTIONS_CSS.toString()), null);
      }
 
      public void clickMenuTopByPartialName(String categoryName, String optionName) {
          clickMenuTopByCategoryPartialName(categoryName);
          clickDropdownOptionByPartialName(optionName,
-                 By.cssSelector(String.format(MENUTOP_OPTIONS_CSS, categoryName)),
-                 By.cssSelector(String.format(MENUTOP_LAST_OPTION_CSS, categoryName)));
+                 By.cssSelector(String.format(AHeaderComponentLocators.MENUTOP_OPTIONS_CSS.toString(), categoryName)),
+                 By.cssSelector(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_CSS.toString(), categoryName)));
      }
+
+     public List<String> getCurrencyOptions() {
+         clickCurrency();
+         createDropdownOptions(By.cssSelector(AHeaderComponentLocators.CURRENCY_OPTIONS_CSS.toString()), null);
+         
+         return dropdownOptions.getListOptionByPartialNameTexts();
+     }
+     
+     public List<String> getMyAccountOptions() {
+         clickMyAccount();
+         createDropdownOptions(By.cssSelector(AHeaderComponentLocators.MY_ACCOUNT_OPTIONS_CSS.toString()), null);
+         return dropdownOptions.getListOptionByPartialNameTexts();
+     }
+
+     public List<String> getMenuTopOptionsByPartialNameTexts(String categoryName) {
+         clickMenuTopByCategoryPartialName(categoryName);
+         createDropdownOptions(By.cssSelector(String.format(AHeaderComponentLocators.MENUTOP_OPTIONS_CSS.toString(), categoryName)),
+                 By.cssSelector(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_CSS.toString(), categoryName)));
+         return dropdownOptions.getListOptionByPartialNameTexts();
+     }
+
 
     // Business Logic
 
