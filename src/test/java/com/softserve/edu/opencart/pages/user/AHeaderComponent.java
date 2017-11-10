@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
+import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.NumberUtils;
 
 abstract class AHeaderComponent {
@@ -73,6 +74,7 @@ abstract class AHeaderComponent {
         CART_TOTAL_ID ("cart-total"),
         MY_ACCOUNT_OPTIONS_CSS (".list-inline > li > a.dropdown-toggle + ul > li > a"),
         CURRENCY_OPTIONS_CSS (".btn.btn-link.dropdown-toggle + ul > li > button"),
+        // TODO
         MENUTOP_OPTIONS_CSS ("li:has(a:contains('%s')) li > a"),
         MENUTOP_LAST_OPTION_CSS ("li:has(a:contains('%s')) div > a");
         //
@@ -90,13 +92,8 @@ abstract class AHeaderComponent {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    //private final String CART_TOTAL_ID = "cart-total";
-    //private final String MY_ACCOUNT_OPTIONS_CSS = ".list-inline > li > a.dropdown-toggle + ul > li > a";
-    //private final String CURRENCY_OPTIONS_CSS = ".btn.btn-link.dropdown-toggle + ul > li > button";
-    //private final String MENUTOP_OPTIONS_CSS = "li:has(a:contains('%s')) li > a";
-    //private final String MENUTOP_LAST_OPTION_CSS = "li:has(a:contains('%s')) div > a";
-
     private final String OPTION_NOT_FOUND_MESSAGE = "Option %s not found in %s";
+    private final String PRODUCT_NAME_NOT_FOUND_MESSAGE = "Product name %s not found in %s";
 
     // Fields
 
@@ -113,6 +110,7 @@ abstract class AHeaderComponent {
     private WebElement cart;
     private List<WebElement> menuTop;
     //
+    protected List<ProductComponent> productComponents;
     private DropdownOptions dropdownOptions;
     //private DropdownCart dropdownCart;
 
@@ -123,14 +121,23 @@ abstract class AHeaderComponent {
         myAccount = driver.findElement(By.cssSelector(".list-inline > li > a.dropdown-toggle"));
         wishList = driver.findElement(By.id("wishlist-total"));
         // shoppingCart=driver.findElement(By.partialLinkText("Shopping Cart"));
-        shoppingCart = driver.findElement(By.cssSelector("a:has('.fa.fa-shopping-cart')"));
+        // TODO
+        shoppingCart = null;//driver.findElement(By.cssSelector("a:has('.fa.fa-shopping-cart')"));
         // checkout=driver.findElement(By.partialLinkText("Checkout"));
-        checkout = driver.findElement(By.cssSelector("a:has('.fa.fa-share')"));
+        checkout = null; //driver.findElement(By.cssSelector("a:has('.fa.fa-share')"));
         logo = driver.findElement(By.cssSelector("#logo > a"));
         searchProductField = driver.findElement(By.name("search"));
         searchProductButton = driver.findElement(By.cssSelector(".btn.btn-default.btn-lg"));
         cart = driver.findElement(By.cssSelector("#cart > button"));
         menuTop = driver.findElements(By.cssSelector("ul.nav.navbar-nav > li"));
+    }
+
+    protected void initProductComponents(By searchLocator) {
+        productComponents = new ArrayList<>();
+        List<WebElement> productWebElements = driver.findElements(searchLocator);
+        for (WebElement current : productWebElements) {
+            productComponents.add(new ProductComponent(current));
+        }
     }
 
     // PageObject
@@ -193,6 +200,23 @@ abstract class AHeaderComponent {
         return result;
     }
 
+    protected List<ProductComponent> getProductComponent() {
+        return productComponents;
+    }
+
+    private ProductComponent getProductComponentByProductName(String productName) {
+        ProductComponent result = null;
+        for (ProductComponent current : getProductComponent()) {
+            if (current.getNameText().toLowerCase().contains(productName.toLowerCase())) {
+                result = current;
+                break;
+            }
+        }
+        ErrorUtils.createCustomException((result == null),
+                String.format(PRODUCT_NAME_NOT_FOUND_MESSAGE, productName, getProductComponentTexts().toString()));
+        return result;
+    }
+
     // get Functional
 
     public String getCurrencyText() {
@@ -248,6 +272,22 @@ abstract class AHeaderComponent {
         return result;
     }
 
+    protected List<String> getProductComponentTexts() {
+        List<String> result = new ArrayList<>();
+        for (ProductComponent current : getProductComponent()) {
+            result.add(current.getNameText());
+        }
+        return result;
+    }
+
+    protected String getPriceTextByProductName(String productName) {
+        return getProductComponentByProductName(productName).getPriceText();
+    }
+
+    protected double getPriceAmountByProductName(String productName) {
+        return getProductComponentByProductName(productName).getPriceAmount();
+    }
+
     // set Data
 
      public void setSearchProductField(String text) {
@@ -294,6 +334,14 @@ abstract class AHeaderComponent {
          getCart().click();
      }
 
+     protected void clickAddToCartByProductName(String productName) {
+         getProductComponentByProductName(productName).clickAddToCart();
+     }
+
+     protected void clickAddToWishByProductName(String productName) {
+         getProductComponentByProductName(productName).clickAddToWish();
+     }
+
      // set Functional
 
      private void createDropdownOptions(By searchLocator, By lastLocator) {
@@ -312,11 +360,9 @@ abstract class AHeaderComponent {
                  isClickable = true;
              }
          }
-         if (!isClickable) {
-             // TODO Develop Custom Exception
-             throw new RuntimeException(String.format(OPTION_NOT_FOUND_MESSAGE,
-                     optionName, dropdownOptions.getListOptionByPartialNameTexts().toString()));
-         }
+         ErrorUtils.createCustomException(!isClickable,
+                 String.format(OPTION_NOT_FOUND_MESSAGE,
+                         optionName, dropdownOptions.getListOptionByPartialNameTexts().toString()));
          dropdownOptions.clickDropdownOptionByPartialName(optionName);
      }
      
@@ -327,11 +373,9 @@ abstract class AHeaderComponent {
                  isClickable = true;
              }
          }
-         if (!isClickable) {
-             // TODO Develop Custom Exception
-             throw new RuntimeException(String.format(OPTION_NOT_FOUND_MESSAGE,
-                     categoryName, getMenuTopTexts().toString()));
-         }
+         ErrorUtils.createCustomException(!isClickable,
+                 String.format(OPTION_NOT_FOUND_MESSAGE,
+                         categoryName, getMenuTopTexts().toString()));
          getMenuTopByCategoryPartialName(categoryName).click();
      }
 

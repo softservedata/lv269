@@ -20,10 +20,11 @@ public class ProductComponent {
     public ProductComponent(WebElement productLayout) {
         this.productLayout = productLayout;
         //
-        name = productLayout.findElement(By.cssSelector(""));
-        price = productLayout.findElement(By.cssSelector(""));
-        addToCart = productLayout.findElement(By.cssSelector(""));
-        addToWish = productLayout.findElement(By.cssSelector(""));
+        name = productLayout.findElement(By.cssSelector("h4 a"));
+        price = productLayout.findElement(By.cssSelector(".price"));
+        // TODO
+        addToCart = null; //productLayout.findElement(By.cssSelector("button:has(.fa.fa-shopping-cart)"));
+        addToWish = null; //productLayout.findElement(By.cssSelector("button:has(.fa.fa-heart)"));
     }
 
     // PageObject
@@ -65,6 +66,18 @@ public class ProductComponent {
     }
 
     // set Data
+
+    public void clickName() {
+        getName().click();
+    }
+
+    public void clickAddToCart() {
+        getAddToCart().click();
+    }
+
+    public void clickAddToWish() {
+        getAddToWish().click();
+    }
 
     // set Functional
 
