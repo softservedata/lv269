@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.testng;
 
+import com.softserve.edu.opencart.testng.constants.Credentials;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,17 +43,17 @@ public class ProductShort {
     public Boolean isEnable() {
         return getFlag(product.get(status),
                 Credentials.ADM_PRODUCT_PG_STATUS_SLCT_VALUE_TRUE_TXT
-                        .getChosenConstant(),
+                        .get(),
                 Credentials.ADM_PRODUCT_PG_STATUS_SLCT_VALUE_FALSE_TXT
-                        .getChosenConstant());
+                        .get());
     }
 
     public Boolean isImage() {
         return getFlag(product.get(image),
                 Credentials.ADM_PRODUCT_PG_IMG_SLCT_VALUE_TRUE_TXT
-                        .getChosenConstant(),
+                        .get(),
                 Credentials.ADM_PRODUCT_PG_IMG_SLCT_VALUE_FALSE_TXT
-                        .getChosenConstant());
+                        .get());
     }
 
     public void setName(String nameValue) {
@@ -73,17 +75,17 @@ public class ProductShort {
     public void setStatusFlag(Boolean statusFlag) {
         product.put(status, setFlagText(statusFlag,
                 Credentials.ADM_PRODUCT_PG_STATUS_SLCT_VALUE_TRUE_TXT
-                        .getChosenConstant(),
+                        .get(),
                 Credentials.ADM_PRODUCT_PG_STATUS_SLCT_VALUE_FALSE_TXT
-                        .getChosenConstant()));
+                        .get()));
     }
 
     public void setImageFlag(Boolean imgFlag) {
         product.put(image, setFlagText(imgFlag,
                 Credentials.ADM_PRODUCT_PG_IMG_SLCT_VALUE_TRUE_TXT
-                        .getChosenConstant(),
+                        .get(),
                 Credentials.ADM_PRODUCT_PG_IMG_SLCT_VALUE_FALSE_TXT
-                        .getChosenConstant()));
+                        .get()));
     }
 
     public void setAllData(String name, String model,

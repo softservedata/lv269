@@ -1,11 +1,11 @@
 package com.softserve.edu.opencart.testng.pages.admin;
 
-import com.softserve.edu.opencart.testng.WebDriverCreator;
+import com.softserve.edu.opencart.testng.WebDriverManager;
 
 public class NewProductPg extends AHeaderComponent {
 
-    public NewProductPg(WebDriverCreator webDriverCreator) {
-        super(webDriverCreator);
+    public NewProductPg(WebDriverManager webDriverManager) {
+        super(webDriverManager);
     }
 
     private enum Selectors {

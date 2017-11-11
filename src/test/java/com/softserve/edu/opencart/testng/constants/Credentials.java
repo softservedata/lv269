@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.testng;
+package com.softserve.edu.opencart.testng.constants;
 
 /**
  * enum with url, credentials, paths,  parameters for drivers,
@@ -30,16 +30,17 @@ public enum Credentials {
     ADM_PRODUCT_PG_IMG_SLCT_VALUE_TRUE_TXT("Enabled"),
     ADM_PRODUCT_PG_IMG_SLCT_VALUE_FALSE_TXT("Disabled"),
     ADM_PRODUCT_PG_DFLT_IMAGE_ADDRESS_SMALL ("image/cache/no_image-40x40.png"),
+    ATTRIBUTE_VALUE ("value"),
     TEST_USER_LOGIN("q2098007@mvrht.net"),
     TEST_USER_PASSWORD("temporary");
 
-    private String chosenConstant;
+    private String chosen;
 
     Credentials(String choice) {
-        chosenConstant = choice;
+        chosen = choice;
     }
 
-    public String getChosenConstant() {
-        return chosenConstant;
+    public String get() {
+        return chosen;
     }
     }

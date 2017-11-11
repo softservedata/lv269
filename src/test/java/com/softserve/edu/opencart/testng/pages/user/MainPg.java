@@ -1,9 +1,10 @@
 package com.softserve.edu.opencart.testng.pages.user;
 
+import com.softserve.edu.opencart.testng.pages.admin.MainAdmPg;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import com.softserve.edu.opencart.testng.Credentials;
-import com.softserve.edu.opencart.testng.WebDriverCreator;
+import com.softserve.edu.opencart.testng.constants.Credentials;
+import com.softserve.edu.opencart.testng.WebDriverManager;
 
 public class MainPg {
     private enum Selectors {
@@ -22,46 +23,47 @@ public class MainPg {
         }
     }
 
-    private WebDriverCreator webDriverCreator;
+    private WebDriverManager webDriverManager;
 
-    public MainPg (WebDriverCreator webDriverCreator) {
-        this.webDriverCreator = webDriverCreator;
+    public MainPg (WebDriverManager webDriverManager) {
+        this.webDriverManager = webDriverManager;
     }
 
     public void setMainPage() {
-        webDriverCreator.openAddress(Credentials.URL_SERVER.getChosenConstant()
-                + Credentials.URL_ADMIN_PAGE.getChosenConstant());
+        webDriverManager.openAddress(Credentials.URL_SERVER.get()
+                + Credentials.URL_ADMIN_PAGE.get());
     }
 
     public void loginIfOpened (String buttonOrEnter) {
         if (isOpened()) {
-            login(buttonOrEnter);
+            loginSuccessful(buttonOrEnter);
         }
     }
 
-    private void login(String buttonOrEnter) {
-        webDriverCreator.fillInputField(By.id(
+    private MainAdmPg loginSuccessful(String buttonOrEnter) {
+        webDriverManager.fillInputField(By.id(
                 Selectors.ADM_LGN_PG_LGN_FLD_ID.getElement()),
-                Credentials.ADMINISTRATOR_LOGIN.getChosenConstant());
+                Credentials.ADMINISTRATOR_LOGIN.get());
 
-        if (buttonOrEnter.equals("enter")) {
-            webDriverCreator.fillInputField(By.id(
+        if (buttonOrEnter.equals(Credentials.ENTER.get())) {
+            webDriverManager.fillInputField(By.id(
                     Selectors.ADM_LGN_PG_PSWD_FLD_ID.getElement()),
-                    Credentials.ADMINISTRATOR_PASSWORD.getChosenConstant()
+                    Credentials.ADMINISTRATOR_PASSWORD.get()
                             + Keys.ENTER);
         }
 
-        if (buttonOrEnter.equals("button")) {
-            webDriverCreator.fillInputField(By.id(
+        if (buttonOrEnter.equals(Credentials.BUTTON.get())) {
+            webDriverManager.fillInputField(By.id(
                     Selectors.ADM_LGN_PG_PSWD_FLD_ID.getElement()),
-                    Credentials.ADMINISTRATOR_PASSWORD.getChosenConstant());
-            webDriverCreator.clickElement(By.cssSelector(
+                    Credentials.ADMINISTRATOR_PASSWORD.get());
+            webDriverManager.clickElement(By.cssSelector(
                     Selectors.ADM_LGN_PG_LGN_BTN_CSS_.getElement()));
         }
+        return new MainAdmPg(webDriverManager);
     }
 
     public boolean isOpened() {
-        return webDriverCreator.isElementPresent(By.id(
+        return webDriverManager.isElementPresent(By.id(
                 Selectors.ADM_LGN_PG_LGN_FLD_ID
                         .getElement()));
     }

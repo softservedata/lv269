@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.testng.pages.admin;
 
+import com.softserve.edu.opencart.testng.constants.Credentials;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import com.softserve.edu.opencart.testng.*;
@@ -9,8 +10,8 @@ import java.util.List;
 public class ProductPg extends AHeaderComponent {
 
 
-    public ProductPg(WebDriverCreator webDriverCreator) {
-        super(webDriverCreator);
+    public ProductPg(WebDriverManager webDriverManager) {
+        super(webDriverManager);
     }
 
     private enum Selectors {
@@ -50,111 +51,111 @@ public class ProductPg extends AHeaderComponent {
         }
     }
 
-    private WebDriverCreator webDriverCreator;
+    private WebDriverManager webDriverManager;
     private LoginLogoutAdmin loginLogoutAdmin;
 
 
     public void login_admin() {
         loginLogoutAdmin.setMainPage();
-        loginLogoutAdmin.login(Credentials.ENTER.getChosenConstant());
+        loginLogoutAdmin.login(Credentials.ENTER.get());
     }
 
     public void openByAddress() {
-        webDriverCreator.openAddress(
-                Credentials.URL_SERVER.getChosenConstant()
-                        + Credentials.URL_ADMIN_PAGE.getChosenConstant()
-                        + Credentials.URL_PRODUCT_PG.getChosenConstant());
+        webDriverManager.openAddress(
+                Credentials.URL_SERVER.get()
+                        + Credentials.URL_ADMIN_PAGE.get()
+                        + Credentials.URL_PRODUCT_PG.get());
         loginLogoutAdmin.loginIfLogouted();
     }
 
     public void setFilterFields(ProductShort product) {
-        webDriverCreator.fillInputField(By.id(
+        webDriverManager.fillInputField(By.id(
                 Selectors.ADM_PRODUCT_PG_PRODUCT_NAME_FLD_ID
                         .getElement()), product.getName());
-        webDriverCreator.fillInputField(By.id(
+        webDriverManager.fillInputField(By.id(
                 Selectors.ADM_PRODUCT_PG_MODEL_FLD_ID
                         .getElement()), product.getModel());
-        webDriverCreator.fillInputField(By.id(
+        webDriverManager.fillInputField(By.id(
                 Selectors.ADM_PRODUCT_PG_PRICE_FLD_ID
                         .getElement()), product.getPrice());
-        webDriverCreator.fillInputField(By.id(
+        webDriverManager.fillInputField(By.id(
                 Selectors.ADM_PRODUCT_PG_QUANTITY_FLD_ID
                         .getElement()), product.getQuantity());
-        webDriverCreator.selectByVisibleText(By.id(
+        webDriverManager.selectByVisibleText(By.id(
                 Selectors.ADM_PRODUCT_PG_STATUS_DRPD_ID
                         .getElement()), product.getQuantity());
-        webDriverCreator.selectByVisibleText(By.id(
+        webDriverManager.selectByVisibleText(By.id(
                 Selectors.ADM_PRODUCT_PG_IMAGE_DRPD_ID
                         .getElement()), product.getQuantity());
     }
 
     public void cleanFilter() {
-        webDriverCreator.cleanField(By.id(
+        webDriverManager.cleanField(By.id(
                 Selectors.ADM_PRODUCT_PG_PRODUCT_NAME_FLD_ID
                         .getElement()));
-        webDriverCreator.cleanField(By.id(
+        webDriverManager.cleanField(By.id(
                 Selectors.ADM_PRODUCT_PG_MODEL_FLD_ID
                         .getElement()));
-        webDriverCreator.cleanField(By.id(
+        webDriverManager.cleanField(By.id(
                 Selectors.ADM_PRODUCT_PG_PRICE_FLD_ID
                         .getElement()));
-        webDriverCreator.cleanField(By.id(
+        webDriverManager.cleanField(By.id(
                 Selectors.ADM_PRODUCT_PG_QUANTITY_FLD_ID
                         .getElement()));
-        webDriverCreator.selectByVisibleText(By.id(
+        webDriverManager.selectByVisibleText(By.id(
                 Selectors.ADM_PRODUCT_PG_STATUS_DRPD_ID
                         .getElement()), Credentials
-                .ADM_PRODUCT_PG_STATUS_SLCT_NONVALUE_TXT.getChosenConstant());
-        webDriverCreator.selectByVisibleText(By.id(
+                .ADM_PRODUCT_PG_STATUS_SLCT_NONVALUE_TXT.get());
+        webDriverManager.selectByVisibleText(By.id(
                 Selectors.ADM_PRODUCT_PG_IMAGE_DRPD_ID
                         .getElement()), Credentials
-                .ADM_PRODUCT_PG_IMG_SLCT_NONVALUE_TXT.getChosenConstant());
-        webDriverCreator.clickElement(By.id(
+                .ADM_PRODUCT_PG_IMG_SLCT_NONVALUE_TXT.get());
+        webDriverManager.clickElement(By.id(
                 Selectors.ADM_PRODUCT_PG_FILTER_BTN_ID.getElement()));
     }
 
     public List<WebElement> readTable() {
-        return webDriverCreator.findElementsInsideElement(
-                webDriverCreator.getElement(By.cssSelector(
+        return webDriverManager.findElementsInsideElement(
+                webDriverManager.getElement(By.cssSelector(
                         Selectors.ADM_PRODUCT_PG_ITEM_TABLE_TBODY_CSS
                                 .getElement())),
                 By.tagName("tr"));
     }
 
     public boolean isOpened() {
-        return webDriverCreator.isElementPresent(By.id(
+        return webDriverManager.isElementPresent(By.id(
                 Selectors.ADM_PRODUCT_PG_PRODUCT_NAME_FLD_ID
                         .getElement()));
     }
 
     public boolean isPaginationPresent() {
-        return webDriverCreator.isElementPresent(By.className(
+        return webDriverManager.isElementPresent(By.className(
                 Selectors.ADM_PRODUCT_PG_PAGINATION_CLS
                         .getElement()));
     }
 
     public void paginationClickLastPgBtn() {
-        webDriverCreator.clickElement(By.cssSelector(Selectors
+        webDriverManager.clickElement(By.cssSelector(Selectors
                 .ADM_PRODUCT_PAGINATION_LAST_PG_BTN_CSS
                 .getElement()));
     }
 
     public void paginationClickFrstPgBtn() {
-        webDriverCreator.clickElement(By.cssSelector(Selectors
+        webDriverManager.clickElement(By.cssSelector(Selectors
                 .ADM_PRODUCT_PAGINATION_FIRST_PG_BTN_CSS
                 .getElement()));
     }
 
 
     public String getNumberOfLastPage() {
-        return webDriverCreator.getTextFromElement(By.cssSelector(
+        return webDriverManager.getTextFromElement(By.cssSelector(
                 Selectors.ADM_PRODUCT_PG_LAST_PG_CHOSEN_TXT_CSS
                         .getElement()));
     }
 
     public int getNumberOfPages() {
         String numberOfPages = "1";
-        if (webDriverCreator.getElements(By.className(Selectors
+        if (webDriverManager.getElements(By.className(Selectors
                 .ADM_PRODUCT_PG_PAGINATION_CLS.getElement())).size() > 0) {
             paginationClickLastPgBtn();
             numberOfPages = getNumberOfLastPage();

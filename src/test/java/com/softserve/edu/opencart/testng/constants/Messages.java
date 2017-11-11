@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.testng;
+package com.softserve.edu.opencart.testng.constants;
 
 /**
  * enum with url, credentials, paths and parameters for drivers

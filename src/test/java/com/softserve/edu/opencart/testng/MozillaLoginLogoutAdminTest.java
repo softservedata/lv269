@@ -1,6 +1,8 @@
 package com.softserve.edu.opencart.testng;
 
 
+import com.softserve.edu.opencart.testng.constants.Credentials;
+import com.softserve.edu.opencart.testng.constants.Messages;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -10,22 +12,22 @@ import org.testng.annotations.*;
  */
 public class MozillaLoginLogoutAdminTest {
 
-    public WebDriverCreator webDriverCreator;
+    public WebDriverManager webDriverManager;
     public LoginLogoutAdmin loginLogoutAdmin;
 
     @DataProvider
     public Object[][] TypeOfEntrance () {
         return new Object[][] {
-                {Credentials.BUTTON.getChosenConstant()},
-                {Credentials.BUTTON.getChosenConstant()},
+                {Credentials.BUTTON.get()},
+                {Credentials.BUTTON.get()},
         };
     }
 
     @BeforeClass
     public void createDrivers() {
-        webDriverCreator = new WebDriverCreator();
-        webDriverCreator.setWebdriverFirefox();
-        loginLogoutAdmin = new LoginLogoutAdmin(webDriverCreator);
+        webDriverManager = new WebDriverManager();
+        webDriverManager.setWebdriverFirefox();
+        loginLogoutAdmin = new LoginLogoutAdmin(webDriverManager);
     }
 
     @BeforeMethod
@@ -45,7 +47,7 @@ public class MozillaLoginLogoutAdminTest {
 
     @AfterClass
     public void driverQuit() {
-        webDriverCreator.quitDriver();
+        webDriverManager.quitDriver();
     }
 
 }

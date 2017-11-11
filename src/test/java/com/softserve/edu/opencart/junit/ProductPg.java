@@ -82,9 +82,9 @@ public class ProductPg {
         webDriverCreator.clickElement(By.id(
                 ElementsSelectors.ADM_SBAR_FOLD_CATALOG_BTN_FOLD_ID
                         .getElement()));
-//        webDriverCreator.clickAndHoldElement(By.id(
+//        webDriverManager.clickAndHoldElement(By.id(
 //                ElementsSelectors.ADM_SBAR_FOLD_CATALOG_BTN_FOLD_ID
-//                        .getElement()));
+//                        .get()));
         webDriverCreator.clickElement(By.id(
                 ElementsSelectors.ADM_SBAR_FOLD_CATALOG_BTN_FOLD_ID
                         .getElement()));

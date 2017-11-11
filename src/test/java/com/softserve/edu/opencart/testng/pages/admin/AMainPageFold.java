@@ -1,6 +1,6 @@
 package com.softserve.edu.opencart.testng.pages.admin;
 
-import com.softserve.edu.opencart.testng.WebDriverCreator;
+import com.softserve.edu.opencart.testng.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -24,7 +24,7 @@ abstract public class AMainPageFold {
         }
     }
 
-    protected WebDriverCreator webDriverCreator;
+    protected WebDriverManager webDriverManager;
     //Fields
     private WebElement sBarBtn;
     private WebElement logo;
@@ -34,19 +34,19 @@ abstract public class AMainPageFold {
     private WebElement logoutBtn;
 
 
-    public AMainPageFold(WebDriverCreator webDriverCreator) {
-        this.webDriverCreator = webDriverCreator;
-        sBarBtn = webDriverCreator.getElement(By.id(Selectors.SBAR_BTN_ID
+    public AMainPageFold(WebDriverManager webDriverManager) {
+        this.webDriverManager = webDriverManager;
+        sBarBtn = webDriverManager.getElement(By.id(Selectors.SBAR_BTN_ID
                 .getElement()));
-        logo = webDriverCreator.getElement(By.className(Selectors.LOGO_CLS
+        logo = webDriverManager.getElement(By.className(Selectors.LOGO_CLS
                 .getElement()));
-        actionsListBtn = webDriverCreator.getElement(By.cssSelector(Selectors
+        actionsListBtn = webDriverManager.getElement(By.cssSelector(Selectors
                 .ACTIONS_LIST_BTN_CSS.getElement()));
-        toStoreBtn = webDriverCreator.getElement(By.cssSelector(Selectors
+        toStoreBtn = webDriverManager.getElement(By.cssSelector(Selectors
                 .TO_STORE_BTN_CSS.getElement()));
-        helpBtn = webDriverCreator.getElement(By.cssSelector(Selectors
+        helpBtn = webDriverManager.getElement(By.cssSelector(Selectors
                 .HELP_BTN_CSS.getElement()));
-        logoutBtn = webDriverCreator.getElement(By.cssSelector(Selectors
+        logoutBtn = webDriverManager.getElement(By.cssSelector(Selectors
                 .LOGOUT_BTN_CSS.getElement()));
     }
 
@@ -75,21 +75,21 @@ abstract public class AMainPageFold {
     }
 
     public boolean isSBarFold () {
-        return (webDriverCreator.getElements(By.className(
+        return (webDriverManager.getElements(By.className(
                 Selectors.SBAR_FOLD_ICON_CLS.getElement())).size() > 0);
     }
 
     //Function
 
     public void switchSBarFoldUnfold () {
-        webDriverCreator.clickElement(sBarBtn);
+        webDriverManager.clickElement(sBarBtn);
     }
 
     public void mainAdmPg () {
-        webDriverCreator.clickElement(logo);
+        webDriverManager.clickElement(logo);
     }
 
     public void logoutFromAdm () {
-        webDriverCreator.clickElement(logoutBtn);
+        webDriverManager.clickElement(logoutBtn);
     }
 }

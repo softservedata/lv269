@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.testng;
 
+import com.softserve.edu.opencart.testng.constants.Credentials;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * This class operates with a browser and all its elements.
  */
-public class WebDriverCreator {
+public class WebDriverManager {
 
     private WebDriver webDriver;
     private WebDriverWait webDriverWait;
@@ -24,16 +25,16 @@ public class WebDriverCreator {
 
     public void setWebdriverChrome() {
         System.setProperty(
-                Credentials.CHROME_WEBDRIVER_PARAMETER.getChosenConstant(),
-                Credentials.GOOGLE_WEBDRIVER_PATH.getChosenConstant());
+                Credentials.CHROME_WEBDRIVER_PARAMETER.get(),
+                Credentials.GOOGLE_WEBDRIVER_PATH.get());
         webDriver = new ChromeDriver();
         setWaitsAndActions();
     }
 
     public void setWebdriverFirefox() {
         System.setProperty(
-                Credentials.GECKO_WEBDRIVER_PARAMETER.getChosenConstant(),
-                Credentials.GECKO_WEBDRIVER_PATH.getChosenConstant());
+                Credentials.GECKO_WEBDRIVER_PARAMETER.get(),
+                Credentials.GECKO_WEBDRIVER_PATH.get());
         webDriver = new FirefoxDriver();
         setWaitsAndActions();
     }
@@ -123,4 +124,8 @@ public class WebDriverCreator {
     public List<WebElement> findElementsInsideElement(WebElement element, By bySubElement) {
         return element.findElements(bySubElement);
     }
+    public List<WebElement> findElementsInsideElement(By byElement, By bySubElement) {
+        return getElement(byElement).findElements(bySubElement);
+    }
+
 }

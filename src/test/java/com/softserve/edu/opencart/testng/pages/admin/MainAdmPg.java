@@ -1,15 +1,15 @@
 package com.softserve.edu.opencart.testng.pages.admin;
 
+import com.softserve.edu.opencart.testng.WebDriverManager;
 import com.softserve.edu.opencart.testng.pages.user.MainPg;
 import org.openqa.selenium.By;
 import com.softserve.edu.opencart.junit.Credentials;
-import com.softserve.edu.opencart.testng.WebDriverCreator;
 
 
 public class MainAdmPg extends AHeaderComponent{
 
-    public MainAdmPg(WebDriverCreator webDriverCreator) {
-        super(webDriverCreator);
+    public MainAdmPg(WebDriverManager webDriverManager) {
+        super(webDriverManager);
     }
 
     private enum Selectors {
@@ -41,20 +41,20 @@ public class MainAdmPg extends AHeaderComponent{
     }
 
 
-//    private WebDriverCreator webDriverCreator = super.webDriverCreator;
+//    private WebDriverManager webDriverManager = super.webDriverManager;
 
     public void logout() {
-        webDriverCreator.clickElement(By.xpath(
+        webDriverManager.clickElement(By.xpath(
                 Selectors.LGOUT_BTN_XPATH.getElement()));
     }
 
     public boolean isOpened() {
-        return webDriverCreator.isElementDisplayed(By.xpath(
+        return webDriverManager.isElementDisplayed(By.xpath(
                 Selectors.LGOUT_BTN_XPATH.getElement()));
     }
 
     public void openFromAdmPgs() {
-        webDriverCreator.clickElement(By.className(
+        webDriverManager.clickElement(By.className(
                 Selectors.HOME_BTN_CLS
                         .getElement()));
     }
@@ -68,70 +68,70 @@ public class MainAdmPg extends AHeaderComponent{
     }
 
     public void openProductPgUnfoldSbar() {
-        if (!webDriverCreator.isElementPresent(By.className(
+        if (!webDriverManager.isElementPresent(By.className(
                 Selectors.SBAR_UNFOLD_ICON_CLS
                         .getElement()))) {
-            webDriverCreator.clickElement(By.id(
+            webDriverManager.clickElement(By.id(
                     Selectors.SBAR_MENU_BTN_ID.getElement()));
         }
-        if (!webDriverCreator.isElementPresent(By.cssSelector(
+        if (!webDriverManager.isElementPresent(By.cssSelector(
                 Selectors.SBAR_UNFOLD_CATALOG_LI_OPEN_STATE_CSS
                         .getElement()))) {
-            webDriverCreator.clickElement(By.cssSelector(
+            webDriverManager.clickElement(By.cssSelector(
                     Selectors.SBAR_UNFOLD_CATALOG_BTN_CSS
                             .getElement()));
         }
-        webDriverCreator.waitToBeDisplayed(By.cssSelector(
+        webDriverManager.waitToBeDisplayed(By.cssSelector(
                 Selectors.SBAR_UNFOLD_CATALOG_PRODUCT_BTN_CSS
                         .getElement()));
-        webDriverCreator.clickElement(By.cssSelector(
+        webDriverManager.clickElement(By.cssSelector(
                 Selectors.SBAR_UNFOLD_CATALOG_PRODUCT_BTN_CSS
                         .getElement()));
     }
 
     public void openProductPgFoldSbar() {
-        if (!webDriverCreator.isElementPresent(By.className(
+        if (!webDriverManager.isElementPresent(By.className(
                 Selectors.SBAR_FOLD_ICON_CLS
                         .getElement()))) {
-            webDriverCreator.clickElement(By.id(
+            webDriverManager.clickElement(By.id(
                     Selectors.SBAR_MENU_BTN_ID.getElement()));
         }
-        webDriverCreator.clickElement(By.cssSelector(
+        webDriverManager.clickElement(By.cssSelector(
                 Selectors.SBAR_FOLD_CATALOG_BTN_FOLD_CSS
                         .getElement()));
-        webDriverCreator.clickElement(By.xpath(
+        webDriverManager.clickElement(By.xpath(
                 Selectors.SBAR_PRODUCT_BTN_FOLD_XPTH
                         .getElement()));
     }
 
     public void openPgAddress() {
-        webDriverCreator.openAddress(Credentials.URL_SERVER.getChosenConstant()
+        webDriverManager.openAddress(Credentials.URL_SERVER.getChosenConstant()
                 + Credentials.URL_ADMIN_PAGE.getChosenConstant());
-        new MainPg(webDriverCreator).loginIfOpened(Credentials.ENTER
+        new MainPg(webDriverManager).loginIfOpened(Credentials.ENTER
                 .getChosenConstant());
     }
 
 //    public void openfoldSideBarMozilla() {
-//        if (!webDriverCreator.isElementPresent(By.className(
+//        if (!webDriverManager.isElementPresent(By.className(
 //                Selectors.SBAR_FOLD_ICON_CLS
-//                        .getElement()))) {
-//            webDriverCreator.clickElement(By.id(
-//                    Selectors.SBAR_MENU_BTN_ID.getElement()));
+//                        .toString()))) {
+//            webDriverManager.clickElement(By.id(
+//                    Selectors.SBAR_MENU_BTN_ID.toString()));
 //        }
-//        webDriverCreator.clickElement(By.id(
+//        webDriverManager.clickElement(By.id(
 //                Selectors.SBAR_FOLD_CATALOG_BTN_FOLD_ID
-//                        .getElement()));
-////        webDriverCreator.clickAndHoldElement(By.id(
+//                        .toString()));
+////        webDriverManager.clickAndHoldElement(By.id(
 ////                Selectors.SBAR_FOLD_CATALOG_BTN_FOLD_ID
-////                        .getElement()));
-//        webDriverCreator.clickElement(By.id(
+////                        .toString()));
+//        webDriverManager.clickElement(By.id(
 //                Selectors.SBAR_FOLD_CATALOG_BTN_FOLD_ID
-//                        .getElement()));
-//        webDriverCreator.waitToBeDisplayed(By.xpath(
+//                        .toString()));
+//        webDriverManager.waitToBeDisplayed(By.xpath(
 //                Selectors.SBAR_PRODUCT_BTN_FOLD_XPTH
-//                        .getElement()));
-//        webDriverCreator.clickElement(By.xpath(
+//                        .toString()));
+//        webDriverManager.clickElement(By.xpath(
 //                Selectors.SBAR_PRODUCT_BTN_FOLD_XPTH
-//                        .getElement()));
+//                        .toString()));
 //    }
 }

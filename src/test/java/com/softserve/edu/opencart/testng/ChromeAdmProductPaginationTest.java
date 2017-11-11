@@ -1,6 +1,8 @@
 package com.softserve.edu.opencart.testng;
 
 
+import com.softserve.edu.opencart.testng.constants.Credentials;
+import com.softserve.edu.opencart.testng.constants.Messages;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -14,7 +16,7 @@ import com.softserve.edu.opencart.testng.pages.admin.ProductPg;
  */
 public class ChromeAdmProductPaginationTest {
 
-    public WebDriverCreator webDriverCreator;
+    public WebDriverManager webDriverManager;
     public int numberOfItems;
 
     /**
@@ -24,13 +26,13 @@ public class ChromeAdmProductPaginationTest {
      */
     @BeforeClass
     public void preparation() {
-        webDriverCreator = new WebDriverCreator();
-        webDriverCreator.setWebdriverChrome();
-        new DefaultStoreOptionPg(webDriverCreator).changeItemsPerPage(Integer.parseInt(
-                Credentials.ITEMS_PER_PAGE_GREAT.getChosenConstant()));
-        new ProductPg(webDriverCreator).openByAddress();
-        new ProductPg(webDriverCreator).cleanFilter();
-        numberOfItems = new ProductPg(webDriverCreator).readTable().size();
+        webDriverManager = new WebDriverManager();
+        webDriverManager.setWebdriverChrome();
+        new DefaultStoreOptionPg(webDriverManager).changeItemsPerPage(Integer.parseInt(
+                Credentials.ITEMS_PER_PAGE_GREAT.get()));
+        new ProductPg(webDriverManager).openByAddress();
+        new ProductPg(webDriverManager).cleanFilter();
+        numberOfItems = new ProductPg(webDriverManager).readTable().size();
     }
 
     @DataProvider
@@ -47,13 +49,13 @@ public class ChromeAdmProductPaginationTest {
      */
     @Test(dataProvider = "getParameters")
     public void paginationPerPage(int itemsPerPage) {
-        new DefaultStoreOptionPg(webDriverCreator).changeItemsPerPage(itemsPerPage);
-        new ProductPg(webDriverCreator).openByAddress();
-        new ProductPg(webDriverCreator).cleanFilter();
+        new DefaultStoreOptionPg(webDriverManager).changeItemsPerPage(itemsPerPage);
+        new ProductPg(webDriverManager).openByAddress();
+        new ProductPg(webDriverManager).cleanFilter();
         int expectedItems = (itemsPerPage > numberOfItems) ? numberOfItems : itemsPerPage;
         int expectedPages = (numberOfItems + itemsPerPage - 1) / itemsPerPage;
-        int actualItems = new ProductPg(webDriverCreator).readTable().size();
-        int actualPages = new ProductPg(webDriverCreator).getNumberOfPages();
+        int actualItems = new ProductPg(webDriverManager).readTable().size();
+        int actualPages = new ProductPg(webDriverManager).getNumberOfPages();
         Assert.assertEquals(actualItems, expectedItems,
                 Messages.FAIL_PAGINATION_NUMBER_OF_ITEMS_PER_PAGE
                         .getMessage());
@@ -65,10 +67,10 @@ public class ChromeAdmProductPaginationTest {
 
     @AfterClass
     public void returnParameters() {
-        new DefaultStoreOptionPg(webDriverCreator).changeItemsPerPage(
+        new DefaultStoreOptionPg(webDriverManager).changeItemsPerPage(
                 Integer.parseInt(Credentials.ITEMS_PER_PAGE_DFLT
-                        .getChosenConstant()));
-        webDriverCreator.quitDriver();
+                        .get()));
+        webDriverManager.quitDriver();
     }
 
 

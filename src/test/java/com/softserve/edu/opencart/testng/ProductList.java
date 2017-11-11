@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.testng;
 
+import com.softserve.edu.opencart.testng.constants.Credentials;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -12,12 +13,12 @@ import java.util.List;
 public class ProductList {
 
     private List<ProductShort> productList;
-    private WebDriverCreator webDriverCreator;
+    private WebDriverManager webDriverManager;
     WebElement currentProductElement;
 
-    ProductList(WebDriverCreator webDriverCreator,
+    ProductList(WebDriverManager webDriverManager,
                 List<WebElement> listElements) {
-        this.webDriverCreator = webDriverCreator;
+        this.webDriverManager = webDriverManager;
         productList = new ArrayList<>();
         addElementsFromTable(listElements);
     }
@@ -53,31 +54,31 @@ public class ProductList {
      * @return
      */
     private Boolean extractStatus() {
-        String statusInTable = webDriverCreator.findElementInsideElement(
+        String statusInTable = webDriverManager.findElementInsideElement(
                 currentProductElement, By.xpath(ElementsSelectors
                         .ITEMS_TABLE_MODEL_TD_XPTH.getElement()))
                 .getAttribute("innerHTML");
         return (statusInTable.equals(
                 Credentials.ADM_PRODUCT_PG_STATUS_SLCT_VALUE_TRUE_TXT
-                        .getChosenConstant()));
+                        .get()));
     }
 
     private String extractQuantity() {
-        return webDriverCreator.findElementInsideElement(currentProductElement,
+        return webDriverManager.findElementInsideElement(currentProductElement,
                 By.xpath(ElementsSelectors.ITEMS_TABLE_QUANTITY_SPAN_XPTH
                         .getElement())).getText();
     }
 
     private String extractPrice() {
         String price;
-        if (webDriverCreator.findElementsInsideElement(currentProductElement,
+        if (webDriverManager.findElementsInsideElement(currentProductElement,
                 By.xpath(ElementsSelectors.ITEMS_TABLE_PRICE_SPAN_2PRICES_XPTH
                         .getElement())).size() > 0) {
-            price = webDriverCreator.findElementInsideElement(currentProductElement,
+            price = webDriverManager.findElementInsideElement(currentProductElement,
                     By.xpath(ElementsSelectors.ITEMS_TABLE_PRICE_SPAN_2PRICES_XPTH
                             .getElement())).getText();
         } else {
-            price = webDriverCreator.findElementInsideElement(currentProductElement,
+            price = webDriverManager.findElementInsideElement(currentProductElement,
                     By.xpath(ElementsSelectors.ITEMS_TABLE_PRICE_TD_1PRICE_XPTH
                             .getElement())).getAttribute("innerHTML");
         }
@@ -86,7 +87,7 @@ public class ProductList {
     }
 
     private String extractModel() {
-        String temp = webDriverCreator.findElementInsideElement(currentProductElement,
+        String temp = webDriverManager.findElementInsideElement(currentProductElement,
                 By.xpath(ElementsSelectors.ITEMS_TABLE_MODEL_TD_XPTH
                         .getElement())).getAttribute("innerHTML");
         System.out.println(temp);
@@ -94,17 +95,17 @@ public class ProductList {
     }
 
     private String extractProductName() {
-        return webDriverCreator.findElementInsideElement(currentProductElement,
+        return webDriverManager.findElementInsideElement(currentProductElement,
                 By.xpath(ElementsSelectors.ITEMS_TABLE_NAME_TD_XPTH
                         .getElement())).getAttribute("innerHTML");
     }
 
     private Boolean extractImageLogoFlag() {
-        String currentProductImgURL = webDriverCreator.findElementInsideElement(
+        String currentProductImgURL = webDriverManager.findElementInsideElement(
                 currentProductElement, By.xpath(
                         ElementsSelectors.ADM_ITEMS_TABLE_IMG_XPTH.getElement()))
                 .getAttribute("src");
         return (currentProductImgURL.equals(Credentials
-                .ADM_PRODUCT_PG_DFLT_IMAGE_ADDRESS_SMALL.getChosenConstant()));
+                .ADM_PRODUCT_PG_DFLT_IMAGE_ADDRESS_SMALL.get()));
     }
 }

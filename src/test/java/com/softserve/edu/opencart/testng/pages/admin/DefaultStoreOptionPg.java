@@ -2,7 +2,7 @@ package com.softserve.edu.opencart.testng.pages.admin;
 
 
 import org.openqa.selenium.By;
-import com.softserve.edu.opencart.testng.WebDriverCreator;
+import com.softserve.edu.opencart.testng.WebDriverManager;
 
 public class DefaultStoreOptionPg extends AHeaderComponent {
 
@@ -36,30 +36,30 @@ public class DefaultStoreOptionPg extends AHeaderComponent {
         }
     }
 
-    public DefaultStoreOptionPg(WebDriverCreator webDriverCreator) {
-        super(webDriverCreator);
+    public DefaultStoreOptionPg(WebDriverManager webDriverManager) {
+        super(webDriverManager);
     }
 
     public void changeItemsPerPage(int numberOfItems) {
-        new SettingPg(webDriverCreator).opengPageByAddress();
-        new SettingPg(webDriverCreator).enterDefaultStore();
+        new SettingPg(webDriverManager).opengPageByAddress();
+        new SettingPg(webDriverManager).enterDefaultStore();
         openOptionTab();
         changeItemsOnPg(String.valueOf(numberOfItems));
         saveOption();
     }
 
     public void changeItemsOnPg(String numberOfItems) {
-        webDriverCreator.fillInputField(By.id(Selectors.DFLT_ITEMS_FLD_ID
+        webDriverManager.fillInputField(By.id(Selectors.DFLT_ITEMS_FLD_ID
                 .getElement()), numberOfItems);
     }
 
     private void openOptionTab() {
-        webDriverCreator.clickElement(By.cssSelector(Selectors
+        webDriverManager.clickElement(By.cssSelector(Selectors
                 .OPTION_BTN_CSS.getElement()));
     }
 
     private void saveOption() {
-        webDriverCreator.clickElement(By.id(Selectors.SAVE_BTN_ID
+        webDriverManager.clickElement(By.id(Selectors.SAVE_BTN_ID
                 .getElement()));
     }
 

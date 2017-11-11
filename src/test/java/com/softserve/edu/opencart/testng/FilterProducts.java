@@ -13,12 +13,12 @@ public class FilterProducts {
 
 
     private ProductPg productPg;
-    private WebDriverCreator webDriverCreator;
+    private WebDriverManager webDriverManager;
     private String numberOfPages;
     private ProductList actualList;
 
-    FilterProducts(WebDriverCreator webDriverCreator, ProductPg productPg) {
-        this.webDriverCreator = webDriverCreator;
+    FilterProducts(WebDriverManager webDriverManager, ProductPg productPg) {
+        this.webDriverManager = webDriverManager;
         this.productPg = productPg;
     }
 
@@ -42,7 +42,7 @@ public class FilterProducts {
      * @param productElements - list of rows from the table.
      */
     public void createActualProductList(List<WebElement> productElements) {
-        actualList = new ProductList(webDriverCreator, productElements);
+        actualList = new ProductList(webDriverManager, productElements);
     }
 
     public ProductList getActualList() {
