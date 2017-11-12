@@ -81,8 +81,9 @@ hs_err_pid*
 # Ignore all .txt files in the directory doc/
 # doc/**/*.txt
 
-# Ignore .doc .pfd
+# Ignore .doc .pfd .docx
 *.doc
+*.docx
 *.pdf
 
 # bower
