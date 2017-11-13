@@ -10,6 +10,36 @@ import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 
 public class CartPage extends ANavigatePanelComponent{
+	
+    private class UseCoupon {
+    	private WebElement couponName;
+    	private WebElement couponAply;
+    	
+        public UseCoupon(WebElement couponLayout) {
+            couponName = couponLayout.findElement(By.id("input-coupon"));
+            couponAply = couponLayout.findElement(By.id("button-coupon"));
+        }
+        
+        // PageObject
+
+        // get Data
+        public WebElement getCouponName() {
+            return couponName;
+        }
+        
+        public WebElement getCouponAply() {
+            return couponAply;
+        }
+        
+        public String getCouponNameText() {
+        	return getCouponName().getAttribute(TagAttribute.VALUE.toString());
+        }
+        
+        //set Data
+
+    }
+    
+	
 	//Constants
 	private final String EMPTY_CART_MESSAGE = "Your shopping cart is empty!";
 	private final String ORDER_NAME_NOT_FOUND_MESSAGE = "Order name %s not found in %s";
@@ -18,9 +48,10 @@ public class CartPage extends ANavigatePanelComponent{
 	//Fields
 	private WebElement continueBtn;
 	private WebElement checkoutBtn;
+	private WebElement couponBtn;
 	//
 	private List<OrderComponent> orderComponents;
-	
+	private UseCoupon useCoupon;
 	//Constructor
     public CartPage(WebDriver driver) {
         super(driver);
@@ -31,6 +62,8 @@ public class CartPage extends ANavigatePanelComponent{
         } else {
         	continueBtn=driver.findElement(By.cssSelector("a.btn.btn-default"));
         	checkoutBtn=driver.findElement(By.cssSelector("a.btn.btn-primary"));
+        	//x.//td[preceding-sibling::td[starts-with(.,'Total:')]]
+        	couponBtn=driver.findElement(By.xpath(".//a[starts-with(.,'Use Coupon')]"));
         	initOrderComponents(By.cssSelector("div.table-responsive>table.table.table-bordered>tbody tr"));
         	System.out.println("SOME PRODUCTS CHECKING \n");
         }  
@@ -56,6 +89,10 @@ public class CartPage extends ANavigatePanelComponent{
 
     public WebElement getCheckoutBtn() {
         return checkoutBtn;
+    }
+    
+    public WebElement getCouponBtn() {
+        return couponBtn;
     }
     
     protected List<OrderComponent> getOrderComponent() {
@@ -108,6 +145,15 @@ public class CartPage extends ANavigatePanelComponent{
 
     public void clickContinueBtn() {
     	getContinueBtn().click();
+    }
+    
+    public void clickCouponBtn() {
+    	getCouponBtn().click();
+    	useCoupon = new UseCoupon(driver.findElement(By.id("collapse-coupon")));
+    }
+    
+    public void clickCouponAply() {
+    	useCoupon.getCouponAply().click();
     }
     
     public void clickUpdateByOrderName(String orderName) {

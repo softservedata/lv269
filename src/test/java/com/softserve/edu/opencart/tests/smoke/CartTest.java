@@ -19,8 +19,8 @@ public class CartTest {
         // Read from ...
         return new Object[][] { 
             { "MacBook", 500.00,"$500.00",43 },
-            { "iPhone", 101.00,"$101.00",40 },
-            { "Canon EOS 5D", 80.00,"$80.00",30 },
+            //{ "iPhone", 101.00,"$101.00",40 },
+            //{ "Canon EOS 5D", 80.00,"$80.00",30 },
             };
     }
     
@@ -65,6 +65,9 @@ public class CartTest {
         Assert.assertEquals(actualTotalPriceText, expectedTotalPriceText);
         Thread.sleep(1000);
         //cartPage.clickUpdateByOrderName(orderName);
+        Thread.sleep(2000);
+        cartPage.clickCouponBtn();
+        cartPage.clickCouponAply();
         Thread.sleep(2000);
         cartPage.clickRemoveByOrderName(orderName);
         Thread.sleep(2000);
