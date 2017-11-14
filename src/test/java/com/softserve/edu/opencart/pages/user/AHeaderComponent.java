@@ -1,17 +1,16 @@
 package com.softserve.edu.opencart.pages.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
 import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.NumberUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 abstract class AHeaderComponent {
 
@@ -426,4 +425,8 @@ abstract class AHeaderComponent {
     // return new CommonPage();
     // }
 
+    public LoginPage gotoLoginPageFromMyAccountByPartialName(  ) {
+        clickMyAccountByPartialName(  "login");
+        return new LoginPage(driver);
+    }
 }

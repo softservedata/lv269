@@ -1,9 +1,9 @@
 package com.softserve.edu.opencart.pages.user;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
+import java.util.List;
 
 public class HomePage extends AHeaderComponent {
 
@@ -50,5 +50,7 @@ public class HomePage extends AHeaderComponent {
     // set Functional
 
     // Business Logic
+
+
 
 }
