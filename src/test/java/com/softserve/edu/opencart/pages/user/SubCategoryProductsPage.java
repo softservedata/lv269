@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.data.DetailCategory;
+
 public class SubCategoryProductsPage extends AColumnLeftComponent {
 
     // Fields
@@ -54,5 +56,10 @@ public class SubCategoryProductsPage extends AColumnLeftComponent {
     // set Functional
 
     // Business Logic
+
+    public SubCategoryProductsPage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
+        clickCurrencyByPartialName(detailCategory.getOptionName());
+        return new SubCategoryProductsPage(driver); 
+    }
 
 }
