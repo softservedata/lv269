@@ -2,6 +2,7 @@ package com.softserve.edu.opencart.tests.smoke;
 
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
+import com.softserve.edu.opencart.pages.user.LogoutPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
@@ -26,7 +27,8 @@ public class LoginTest {
 
 
 
-        loginPage.gotoLoginUserPage().clickMyAccountByPartialName("logout");
+        loginPage.gotoLoginUserPage();
+        new LogoutPage(driver).gotoLogoutPage();
 //        Assert.assertEquals( , );
 
 
