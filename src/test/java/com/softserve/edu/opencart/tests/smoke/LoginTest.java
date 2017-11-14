@@ -12,7 +12,7 @@ public class LoginTest {
 
 
     @Test
-    public void checkTopMenu() throws Exception {
+    public void checkLogin() throws Exception {
 
         System.setProperty("webdriver.gecko.driver",
                 "D:/Eclipse/geckodriver-v0.19.0-win64/geckodriver.exe");
