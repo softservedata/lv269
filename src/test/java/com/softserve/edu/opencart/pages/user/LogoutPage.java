@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LogoutPage extends ARightColumnGuestComponent {
+public class LogoutPage extends AColumnRightGuestComponent {
 	private WebElement continueButton;
 
 	public LogoutPage(WebDriver driver) {

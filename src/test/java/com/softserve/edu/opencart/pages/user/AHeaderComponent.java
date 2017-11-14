@@ -433,6 +433,10 @@ abstract class AHeaderComponent {
     // return new CommonPage();
     // }
 
+    public LoginPage gotoLoginPageFromMyAccountByPartialName(  ) {
+        clickMyAccountByPartialName(  "login");
+        return new LoginPage(driver);
+    }
      public SubCategoryProductsPage gotoMenuTopByPartialName(String categoryName, String optionName) {
          clickMenuTopByPartialName(categoryName, optionName);
          return new SubCategoryProductsPage(driver);

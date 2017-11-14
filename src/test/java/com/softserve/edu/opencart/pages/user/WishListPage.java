@@ -11,7 +11,7 @@ import org.openqa.selenium.WebElement;
 import com.softserve.edu.data.Product;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 	//TODO replace extended class to ARightColumnUserComponent
-public class WishListPage extends ARightColumnUserComponent {
+public class WishListPage extends AColumnRightUserComponent {
 
 	private class TableRow {
 		private class Action {
