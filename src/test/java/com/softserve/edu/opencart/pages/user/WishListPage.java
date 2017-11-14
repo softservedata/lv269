@@ -8,6 +8,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.data.Product;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 	//TODO replace extended class to ARightColumnUserComponent
 public class WishListPage extends ARightColumnUserComponent {
@@ -274,7 +275,7 @@ public class WishListPage extends ARightColumnUserComponent {
 	
 	public String getContentDataText() {
 		return getContentData().getText();
-	}	
+	}
 	
 	//----------------------------------------------------------------------------
 	// set Data
@@ -288,7 +289,7 @@ public class WishListPage extends ARightColumnUserComponent {
 	// set Functional
 	//----------------------------------------------------------------------------
 	
-	private TableRow getItemByName (String productName) {
+	private TableRow getProductByName (String productName) {
 		TableRow result = null;
 		for (TableRow current : getTableBody()) {
 			if (current.getProductNameText().equals(productName)) {
@@ -300,13 +301,18 @@ public class WishListPage extends ARightColumnUserComponent {
 	}
 	
 	public void clickDeleteButton(String productName) {
-		getItemByName(productName).clickActionDelete();
+		getProductByName(productName).clickActionDelete();
 	}
 	
 	public void clickAddToCartButton(String productName) {
-		getItemByName(productName).clickActionAddToCart();
+		getProductByName(productName).clickActionAddToCart();
 	}
 
 	// Business Logic
-
+	
+	public WishListPage clickDeleteProductFromWishList(Product product) {
+		clickDeleteButton(product.getName());
+		return new WishListPage(driver);
+	}
+	
 }

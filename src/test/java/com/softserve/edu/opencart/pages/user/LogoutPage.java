@@ -19,8 +19,9 @@ public class LogoutPage extends ARightColumnGuestComponent {
 	public void clickContinueButton() {
 		getContinueButton().click();
 	}
-	
-	//Business logic
-	
-	// TODO click on continueButton should return HomePage
+
+	public HomePage gotoHomePage() {
+		clickContinueButton();
+		return new HomePage(driver);
+	}
 }

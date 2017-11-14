@@ -11,7 +11,7 @@ import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.WishListPage;
 
 public class WishListTest {
-	WebDriver driver = new ChromeDriver();
+	
 	@Test
     public void checkWishListPage() throws Exception {
         //
@@ -19,8 +19,7 @@ public class WishListTest {
         //
         System.setProperty("webdriver.chrome.driver",
                 "C:/Program Files/Java/Selenium360/chromedriver.exe");
-        
-        //WebDriver driver = new ChromeDriver();
+    	WebDriver driver = new ChromeDriver();        
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         //
         driver.get("http://server7.pp.ua");
@@ -40,7 +39,6 @@ public class WishListTest {
         //
         // Check
         //
-        //Thread.sleep(500);
         //
         // Return to previous state
         //
