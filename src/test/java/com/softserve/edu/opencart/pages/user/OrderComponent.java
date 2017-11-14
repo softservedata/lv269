@@ -7,7 +7,7 @@ import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.NumberUtils;
 
-public class OrderComponent {
+class OrderComponent {
 	
 	//Fields
 	private WebElement orderLayout;

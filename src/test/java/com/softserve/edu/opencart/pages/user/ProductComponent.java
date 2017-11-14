@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.tools.NumberUtils;
 
-public class ProductComponent {
+class ProductComponent {
 
     // Fields
 
