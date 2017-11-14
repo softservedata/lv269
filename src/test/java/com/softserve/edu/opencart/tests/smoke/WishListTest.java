@@ -24,7 +24,7 @@ public class WishListTest {
         //
         driver.get("http://server7.pp.ua");
         //
-        logIn();
+        logIn(driver);
         driver.get("http://server7.pp.ua");            
         //
         // Steps
@@ -45,7 +45,7 @@ public class WishListTest {
         driver.quit();
     }
 	
-	public void logIn() {
+	public void logIn(WebDriver driver) {
 		driver.findElement(By.cssSelector(".caret")).click();
 		driver.findElement(By.linkText("Login")).click();
 		driver.findElement(By.id("input-email")).clear();
