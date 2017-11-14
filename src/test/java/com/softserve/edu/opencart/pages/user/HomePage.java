@@ -50,5 +50,5 @@ public class HomePage extends AHeaderComponent {
     // set Functional
 
     // Business Logic
-
+    
 }

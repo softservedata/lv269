@@ -9,6 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.softserve.edu.opencart.pages.user.HomePage;
+import com.softserve.edu.opencart.pages.user.SubCategoryProductsPage;
 
 public class HomeTest {
 
@@ -16,9 +17,9 @@ public class HomeTest {
     public Object[][] productData() {
         // Read from ...
         return new Object[][] { 
-            { "MacBook", 602.0 },
-            { "iPhone", 123.2 },
-            { "Canon EOS 5D", 98.00 },
+            { "MacBook", 500.0 },
+            { "iPhone", 101.0 },
+            { "Canon EOS 5D", 80.00 },
             };
     }
 
@@ -53,7 +54,7 @@ public class HomeTest {
         driver.quit();
     }
     
-    @Test
+    //@Test
     public void checkTopMenu() throws Exception {
         //
         // Precondition
@@ -80,6 +81,37 @@ public class HomeTest {
         //
         // Check
         //
+        Thread.sleep(1000);
+        //
+        // Return to previous state
+        //
+        //Thread.sleep(2000);
+        driver.quit();
+    }
+
+    @Test
+    public void checkSubMenu() throws Exception {
+        //
+        // Precondition
+        //
+        System.setProperty("webdriver.chrome.driver",
+                "C:/Program Files/Java/Selenium360/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //
+        driver.get("http://server7.pp.ua");
+        Thread.sleep(1000);
+        //
+        // Steps
+        //
+        SubCategoryProductsPage subCategoryProductsPage = new HomePage(driver)
+                    .gotoMenuTopByPartialName("Desktops", "Mac");
+        Thread.sleep(1000);
+        //
+        // Check
+        //
+        Assert.assertEquals(subCategoryProductsPage.getPriceAmountByProductName("iMac"),
+                122.0, 0.001);
         Thread.sleep(1000);
         //
         // Return to previous state
