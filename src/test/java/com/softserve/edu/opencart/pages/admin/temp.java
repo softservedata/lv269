@@ -16,7 +16,7 @@ public class temp {
 //
 //        //Get Data
 //
-//        public List<AHeaderComponent.OptionsList> getMainSBarOptionsList() {
+//        public List<AHeaderComponentAdmin.OptionsList> getMainSBarOptionsList() {
 //            return mainSBarOptionsList;
 //        }
 //
@@ -43,7 +43,7 @@ public class temp {
 //                    sBarPanel, By.xpath(MAIN_OPTIONS_SELECTOR_XPTH));
 //            mainSBarOptionsList = new ArrayList<>();
 //            for (WebElement current : sBarOptionsElement) {
-//                mainSBarOptionsList.add(new AHeaderComponent.OptionsList(current));
+//                mainSBarOptionsList.add(new AHeaderComponentAdmin.OptionsList(current));
 //            }
 //        }
 //
@@ -54,9 +54,9 @@ public class temp {
 //            getElementByPartialName(optionsPathname.toString(0)).option | Chosen(optionsPathname);
 //        }
 //
-//        private AHeaderComponent.OptionsList getElementByPartialName(String value) {
-//            AHeaderComponent.OptionsList result = null;
-//            for (AHeaderComponent.OptionsList current : mainSBarOptionsList) {
+//        private AHeaderComponentAdmin.OptionsList getElementByPartialName(String value) {
+//            AHeaderComponentAdmin.OptionsList result = null;
+//            for (AHeaderComponentAdmin.OptionsList current : mainSBarOptionsList) {
 //                if (current.isOptionContainsText(value)) {
 //                    result = current;
 //                    break;

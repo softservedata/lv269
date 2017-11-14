@@ -1,16 +1,22 @@
 package com.softserve.edu.opencart.pages;
 
+/**
+ * enum with url, credentials, paths,  parameters for drivers,
+ * values...
+ */
 public enum TagAttribute {
+
+    VALUE("value"),
     HREF("href"),
-    VALUE("value");
-    //
+    ENABLED("Enabled"),
+    DISABLED("Disabled");
+
     private String field;
 
-    private TagAttribute(String field) {
+    TagAttribute(String field) {
         this.field = field;
     }
 
-    @Override
     public String toString() {
         return field;
     }

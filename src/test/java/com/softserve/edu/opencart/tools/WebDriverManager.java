@@ -1,5 +1,8 @@
 package com.softserve.edu.opencart.tools;
 
+import com.softserve.edu.opencart.constants.URLs;
+import com.softserve.edu.opencart.pages.admin.LoginAdminPage;
+import com.softserve.edu.opencart.pages.user.HomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
@@ -18,11 +22,15 @@ public class WebDriverManager {
     private static final String GECKO_WEBDRIVER_PATH = "C:/AutomationTools/geckodriver.exe";
     private static final String GOOGLE_WEBDRIVER_PATH = "C:/AutomationTools/chromedriver.exe";
     private static final String ELEMENT_IS_NOT_DISPLAYED_MESSAGE = "Element is not visible on the page";
+    private static final String VALUE_NOT_FOUND_MESSAGE = "For select, value = %s was not found.";
 
     private WebDriver webDriver;
     private WebDriverWait webDriverWait;
     private Actions action;
     private static final int MAX_DRIVER_PAUSE = 5;
+
+    public WebDriverManager() {
+    }
 
     public void setWebdriverChrome() {
         System.setProperty(CHROME_WEBDRIVER_PARAMETER, GOOGLE_WEBDRIVER_PATH);
@@ -43,13 +51,14 @@ public class WebDriverManager {
     public void cleanField(By elementLocator) {
         webDriver.findElement(elementLocator).clear();
     }
+
     public void cleanField(WebElement webElement) {
         webElement.clear();
     }
 
     public WebElement findElement(By elementLocator) {
-        List <WebElement> result = findElements(elementLocator);
-        ErrorUtils.createElementIsNotDisplayedException ((result.size() ==0), ELEMENT_IS_NOT_DISPLAYED_MESSAGE);
+        List<WebElement> result = findElements(elementLocator);
+        ErrorUtils.createElementIsNotDisplayedException((result.size() == 0), ELEMENT_IS_NOT_DISPLAYED_MESSAGE);
         return result.get(0);
     }
 
@@ -58,8 +67,8 @@ public class WebDriverManager {
     }
 
     public WebElement findElementInsideElement(WebElement element, By subElementLocator) {
-        List <WebElement> result = findElementsInsideElement(element, subElementLocator);
-        ErrorUtils.createElementIsNotDisplayedException ((result.size() ==0), ELEMENT_IS_NOT_DISPLAYED_MESSAGE);
+        List<WebElement> result = findElementsInsideElement(element, subElementLocator);
+        ErrorUtils.createElementIsNotDisplayedException((result.size() == 0), ELEMENT_IS_NOT_DISPLAYED_MESSAGE);
         return result.get(0);
     }
 
@@ -86,13 +95,14 @@ public class WebDriverManager {
         cleanField(elementLocator);
         webDriver.findElement(elementLocator).sendKeys(text);
     }
+
     public void fillInputField(WebElement webElement, String text) {
         clickElement(webElement);
         webElement.clear();
         webElement.sendKeys(text);
     }
 
-    public boolean isElementDisplayed (WebElement webElement) {
+    public boolean isElementDisplayed(WebElement webElement) {
         return (webElement.isDisplayed());
     }
 
@@ -112,11 +122,34 @@ public class WebDriverManager {
     private void waitToBeDisplayed(By elementLocator) {
         webDriverWait.until(ExpectedConditions.
                 visibilityOfElementLocated((elementLocator)));
-        
     }
 
     public WebDriver getWebDriver() {
         return webDriver;
     }
 
+    public void selectByVisibleText(Select selectElement, String valueText) {
+        boolean flag = false;
+        int selectedValueNumber = -1;
+        for (WebElement current : selectElement.getOptions()) {
+            if (current.getText().toLowerCase().contains(valueText.toLowerCase())) {
+                valueText = current.getText();
+                flag = true;
+                break;
+            }
+        }
+        ErrorUtils.createValueNotFoundException(!flag,
+                String.format(VALUE_NOT_FOUND_MESSAGE, valueText));
+        selectElement.selectByVisibleText(valueText);
+    }
+
+    public LoginAdminPage openLoginAdminPage () {
+        openAddress(URLs.URL_SERVER.toString() + URLs.URL_ADMIN_PAGE.toString());
+        return new LoginAdminPage(this);
+    }
+
+    public HomePage openHomePage () {
+        openAddress(URLs.URL_SERVER.toString());
+        return new HomePage(getWebDriver());
+    }
 }

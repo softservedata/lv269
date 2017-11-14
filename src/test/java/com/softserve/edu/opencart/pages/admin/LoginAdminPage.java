@@ -1,6 +1,5 @@
 package com.softserve.edu.opencart.pages.admin;//package server7.testng;
 
-import com.softserve.edu.opencart.constants.Credentials;
 import com.softserve.edu.opencart.constants.URLs;
 import com.softserve.edu.opencart.tools.WebDriverManager;
 import org.openqa.selenium.By;
@@ -74,9 +73,9 @@ public class LoginAdminPage {
         webDriverManager.openAddress(URLs.URL_SERVER.toString() + URLs.URL_ADMIN_PAGE.toString());
     }
 
-    public MainAdminPage validEnterAdminProfile (String login, String password){
+    public DashboardAdmin validEnterAdminProfile (String login, String password){
         setCredentials (login, password);
-        return new MainAdminPage(webDriverManager);
+        return new DashboardAdmin(webDriverManager);
     }
 
     public WrongLoginAdminPage invalidEnterAdminProfile (String login, String password) {
