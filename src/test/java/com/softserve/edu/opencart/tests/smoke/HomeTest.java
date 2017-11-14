@@ -24,7 +24,7 @@ public class HomeTest {
         macBookPrices.put("Pound Sterling", 379.02);
         macBookPrices.put("US Dollar", 500.0);
         // Read from ...
-        return new Object[][] { 
+        return new Object[][] {
             //{ "MacBook", 500.0 },
             //{ "iPhone", 101.0 },
             //{ "Canon EOS 5D", 80.00 },

@@ -59,7 +59,7 @@ public class SubCategoryProductsPage extends AColumnLeftComponent {
 
     public SubCategoryProductsPage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
         clickCurrencyByPartialName(detailCategory.getOptionName());
-        return new SubCategoryProductsPage(driver); 
+        return new SubCategoryProductsPage(driver);
     }
 
 }
