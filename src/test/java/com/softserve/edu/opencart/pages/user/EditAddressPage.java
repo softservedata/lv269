@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.pages.user;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 /**
  * Created by ${Mirek}
@@ -15,8 +16,8 @@ public class EditAddressPage extends MyAccountPage {
     private WebElement company;
     private WebElement city;
     private WebElement postCode;
-    private WebElement country;
-    private WebElement region;
+    private Select country;
+    private Select region;
     private WebElement continueButton;
     private WebElement backButton;
 
@@ -30,8 +31,8 @@ public class EditAddressPage extends MyAccountPage {
         company = driver.findElement(By.id("input-company"));
         city = driver.findElement(By.id("input-city"));
         postCode = driver.findElement(By.id("input-postcode"));
-        country = driver.findElement(By.id("input-country"));
-        region = driver.findElement(By.id("input-zone"));
+        country = new Select(driver.findElement(By.id("input-country")));
+        region = new Select(driver.findElement(By.id("input-zone")));
         continueButton = driver.findElement(By.cssSelector(".btn.btn-primary"));
         backButton = driver.findElement(By.xpath(".//a[contains( text(),'Back')]"));
 
@@ -68,11 +69,11 @@ public class EditAddressPage extends MyAccountPage {
         return postCode;
     }
 
-    public WebElement getCountry() {
+    public Select getCountry() {
         return country;
     }
 
-    public WebElement getRegion() {
+    public Select getRegion() {
         return region;
     }
 
@@ -90,4 +91,31 @@ public class EditAddressPage extends MyAccountPage {
     public void clickFieldFirstName(){
         getFieldFirstName().click();
     }
+
+    public void clickFieldLastName(){
+        getFieldLastName().click();
+    }
+    public void clickFieldFirstAddress(){
+        getFieldFirstAddress().click();
+    }
+    public void clickFieldSecondAddress(){
+        getFieldSecondAddress().click();
+    }
+    public void clickCompany(){
+        getCompany().click();
+    }
+    public void clickCity(){
+        getCity().click();
+    }
+    public void clickPostCode(){
+        getPostCode().click();
+    }
+    public void selectCountry(String text){
+        country.deselectByVisibleText(text);
+    }
+    public void selectRegion(String text){
+        region.deselectByVisibleText(text);
+    }
+    //* Business Logic
+
 }
