@@ -10,8 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.softserve.edu.data.DetailCategory;
-import com.softserve.edu.data.Product;
+import com.softserve.edu.opencart.data.DetailCategory;
+import com.softserve.edu.opencart.data.Product;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.MyAccountPage;
