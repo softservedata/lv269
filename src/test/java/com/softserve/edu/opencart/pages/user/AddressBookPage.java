@@ -65,5 +65,8 @@ public class AddressBookPage extends MyAccountPage {
         return new MyAccountPage(driver);
     }
 
-    public
+    public EditAddressPage gotoEditAddress(){
+        clickEditButton();
+        return new EditAddressPage(driver);
+    }
 }
