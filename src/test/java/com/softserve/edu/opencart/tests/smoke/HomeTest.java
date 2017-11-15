@@ -1,14 +1,13 @@
 package com.softserve.edu.opencart.tests.smoke;
 
+
+import org.testng.*;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
 import com.softserve.edu.data.DetailCategory;
 import com.softserve.edu.data.Product;
@@ -66,7 +65,7 @@ public class HomeTest {
         //Assert.assertEquals(actualPrice, expectedPrice, 0.001);
         // TODO getPrices(detailCurency)
         double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
-        Assert.assertEquals(actualPrice, expectedPrice, 0.001);
+        AssertJUnit.assertEquals(actualPrice, expectedPrice, 0.001);
         Thread.sleep(1000);
         //
         // Return to previous state
@@ -131,7 +130,7 @@ public class HomeTest {
         //
         // Check
         //
-        Assert.assertEquals(subCategoryProductsPage.getPriceAmountByProductName("iMac"),
+        AssertJUnit.assertEquals(subCategoryProductsPage.getPriceAmountByProductName("iMac"),
                 122.0, 0.001);
         Thread.sleep(1000);
         //
