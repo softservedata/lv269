@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.softserve.edu.data.DetailCategory;
+import com.softserve.edu.opencart.data.DetailCategory;
 
 public class SubCategoryProductsPage extends AColumnLeftComponent {
 
@@ -59,7 +59,7 @@ public class SubCategoryProductsPage extends AColumnLeftComponent {
 
     public SubCategoryProductsPage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
         clickCurrencyByPartialName(detailCategory.getOptionName());
-        return new SubCategoryProductsPage(driver);
+        return new SubCategoryProductsPage(driver); 
     }
 
 }
