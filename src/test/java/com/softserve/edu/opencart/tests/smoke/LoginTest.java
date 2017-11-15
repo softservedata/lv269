@@ -1,8 +1,8 @@
 package com.softserve.edu.opencart.tests.smoke;
 
 import com.softserve.edu.opencart.pages.user.HomePage;
-import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
+import com.softserve.edu.opencart.pages.user.MyAccountPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
@@ -22,19 +22,11 @@ public class LoginTest {
         driver.get("http://server7.pp.ua");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-        LoginPage loginPage = new HomePage(driver).gotoLoginPageFromMyAccountByPartialName()
-                .inputCredentialsUserPage("lv_269_test@ukr.net","269lv269lv");
+         new HomePage(driver).gotoLoginPageFromMyAccountByPartialName()
+                .loginForLoginPageToUserPage("lv_269_test@ukr.net", "269lv269lv")
+                 .gotoLogoutPage().clickContinueButton();
 
-
-
-        loginPage.gotoLoginUserPage();
-        new LogoutPage(driver).gotoLogoutPage();
-//        Assert.assertEquals( , );
-
-
-
-        Thread.sleep(1000);
-
+  
         driver.quit();
     }
 }
