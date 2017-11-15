@@ -1,13 +1,93 @@
 package com.softserve.edu.opencart.pages.user;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 /**
- * Created by ${Mirek} on 15.11.2017.
+ * Created by ${Mirek}
  */
 public class EditAddressPage extends MyAccountPage {
+    private WebElement fieldFirstName;
+    private WebElement fieldLastName;
+    private WebElement fieldFirstAddress;
+    private WebElement fieldSecondAddress;
+    private WebElement company;
+    private WebElement city;
+    private WebElement postCode;
+    private WebElement country;
+    private WebElement region;
+    private WebElement continueButton;
+    private WebElement backButton;
 
-    public EditAddressPage(WebDriver driver){
+
+    public EditAddressPage(WebDriver driver) {
         super(driver);
+        fieldFirstName = driver.findElement(By.id("input-firstname"));
+        fieldLastName = driver.findElement(By.id("input-lastname"));
+        fieldFirstAddress = driver.findElement(By.id("input-address-1"));
+        fieldSecondAddress = driver.findElement(By.id("input-address-2"));
+        company = driver.findElement(By.id("input-company"));
+        city = driver.findElement(By.id("input-city"));
+        postCode = driver.findElement(By.id("input-postcode"));
+        country = driver.findElement(By.id("input-country"));
+        region = driver.findElement(By.id("input-zone"));
+        continueButton = driver.findElement(By.cssSelector(".btn.btn-primary"));
+        backButton = driver.findElement(By.xpath(".//a[contains( text(),'Back')]"));
+
+    }
+    // PageObject
+
+    // get Data
+
+    public WebElement getFieldFirstName() {
+        return fieldFirstName;
+    }
+
+    public WebElement getFieldLastName() {
+        return fieldLastName;
+    }
+
+    public WebElement getFieldFirstAddress() {
+        return fieldFirstAddress;
+    }
+
+    public WebElement getFieldSecondAddress() {
+        return fieldSecondAddress;
+    }
+
+    public WebElement getCompany() {
+        return company;
+    }
+
+    public WebElement getCity() {
+        return city;
+    }
+
+    public WebElement getPostCode() {
+        return postCode;
+    }
+
+    public WebElement getCountry() {
+        return country;
+    }
+
+    public WebElement getRegion() {
+        return region;
+    }
+
+    public WebElement getContinueButton() {
+        return continueButton;
+    }
+
+    public WebElement getBackButton() {
+        return backButton;
+    }
+    // get Functional
+
+    // set Data
+
+    public void clickFieldFirstName(){
+        getFieldFirstName().click();
     }
 }
