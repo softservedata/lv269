@@ -85,14 +85,12 @@ public class LoginPage extends AColumnRightGuestComponent {
     }
 
     // Business Logic
-    public UserPage gotoLoginUserPage() {
-        clickLoginButton();
-        return new UserPage(driver);
-    }
-    public LoginPage inputCredentialsUserPage(String email, String password) {
+
+    public MyAccountPage loginForLoginPageToUserPage(String email, String password) {
         inputEMailAdress(email);
         inputPassword(password);
-        return new LoginPage(driver);
+        clickLoginButton();
+        return new MyAccountPage(driver);
     }
 
 
