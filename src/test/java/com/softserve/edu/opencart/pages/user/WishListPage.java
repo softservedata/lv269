@@ -310,6 +310,19 @@ public class WishListPage extends AColumnRightUserComponent {
 
 	// Business Logic
 	
+	public List<String> getProductNamesFromWishList() {
+		List<String> productNames = new ArrayList<>();
+		for(TableRow current : getTableBody()) {
+			productNames.add(current.getProductNameText());
+		}
+		return productNames;
+	}
+	
+	public MyAccountPage gotoMyAccountPageByClickContinueButton() {
+		clickContinueButton();
+		return new MyAccountPage(driver);
+	}
+	
 	public WishListPage clickDeleteProductFromWishList(Product product) {
 		clickDeleteButton(product.getName());
 		return new WishListPage(driver);
