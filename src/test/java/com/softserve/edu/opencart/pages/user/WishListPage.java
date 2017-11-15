@@ -8,7 +8,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.softserve.edu.data.Product;
+import com.softserve.edu.opencart.data.Product;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 	//TODO replace extended class to ARightColumnUserComponent
 public class WishListPage extends AColumnRightUserComponent {
