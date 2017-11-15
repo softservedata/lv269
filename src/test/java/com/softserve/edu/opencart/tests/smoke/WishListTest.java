@@ -1,19 +1,36 @@
 package com.softserve.edu.opencart.tests.smoke;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.softserve.edu.data.DetailCategory;
+import com.softserve.edu.data.Product;
 import com.softserve.edu.opencart.pages.user.HomePage;
+import com.softserve.edu.opencart.pages.user.LoginPage;
+import com.softserve.edu.opencart.pages.user.MyAccountPage;
 import com.softserve.edu.opencart.pages.user.WishListPage;
 
 public class WishListTest {
 	
-	@Test
-    public void checkWishListPage() throws Exception {
+	@DataProvider//(parallel = true)
+    public Object[] productData() {
+        // Read from ...
+        return new Object[] {
+              new Product("MacBook", null, null ),
+              new Product("iPhone", null, null),
+              new Product("Canon EOS 5D", null, null)
+            };
+    }
+	
+	@Test(dataProvider = "productData")
+    public void checkWishListPage(Product product) throws Exception {
         //
         // Precondition
         //
@@ -22,20 +39,20 @@ public class WishListTest {
     	WebDriver driver = new ChromeDriver();        
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         //
-        driver.get("http://server7.pp.ua");
-        //
-        logIn(driver);
         driver.get("http://server7.pp.ua");            
         //
         // Steps
         //
+        //HomePage homePage = new HomePage(driver);
+        //LoginPage loginPage = homePage.gotoLoginPageFromMyAccountByPartialName();
+        //MyAccountPage myAccountPage = loginPage.inputCredentialsUserPage("mfj14401@sqoai.com", "qwerty123456");        
+        //MyAccountPage myAccountPage = new MyAccountPage(driver);
+        logIn(driver);
         HomePage homePage = new HomePage(driver);
-        //homePage.clickAddToWishByProductName("iPhone");
-        //Thread.sleep(500);
         homePage.clickWishList();
-        Thread.sleep(500);
+        //Thread.sleep(500);
         WishListPage wishListPage = new WishListPage(driver);
-        //wishListPage.clickDeleteButton("iPhone");   
+        wishListPage.clickDeleteButton(product.getName());   
         //
         // Check
         //
