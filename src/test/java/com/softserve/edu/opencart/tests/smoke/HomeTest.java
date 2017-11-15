@@ -1,13 +1,15 @@
 package com.softserve.edu.opencart.tests.smoke;
 
 
-import org.testng.*;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.AssertJUnit;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import com.softserve.edu.data.DetailCategory;
 import com.softserve.edu.data.Product;
