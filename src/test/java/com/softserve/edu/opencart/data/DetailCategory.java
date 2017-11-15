@@ -1,4 +1,4 @@
-package com.softserve.edu.data;
+package com.softserve.edu.opencart.data;
 
 public class DetailCategory {
 
