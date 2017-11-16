@@ -288,8 +288,8 @@ public class ProductPage extends ANavigatePanelComponent {
                 break;
             }
         }
-         ErrorUtils.createCustomException((result == null),
-                 String.format(ITEM_FROM_NAVTAB_NOT_FOUND_MESSAGE, item, getNameText()));
+        ErrorUtils.createCustomException((result == null),
+                String.format(ITEM_FROM_NAVTAB_NOT_FOUND_MESSAGE, item, getNameText()));
 
         return result;
     }
@@ -338,8 +338,62 @@ public class ProductPage extends ANavigatePanelComponent {
     }*/
 
 
-    // Business Logic
+    // Warning.
 
+    private AlertSuccess alertSuccess;
+    private AlertDanger alertDanger;
+
+    private class AlertSuccess {
+
+        private WebElement alertSuccessBody;
+
+        public AlertSuccess() {
+            alertSuccessBody = driver.findElement(By.className("alert alert-success"));
+        }
+
+        public WebElement getAlertSuccessBody() {
+            return alertSuccessBody;
+        }
+    }
+
+    private class AlertDanger {
+
+        private WebElement alertDangerBody;
+
+        public AlertDanger() {
+            alertDangerBody = driver.findElement(By.className("alert alert-danger"));
+        }
+
+        public WebElement getAlertDangerBody() {
+            return alertDangerBody;
+        }
+    }
+
+    public void createAlertSuccess() {
+        alertSuccess = new AlertSuccess();
+    }
+
+    public void createAlertDanger() {
+        alertDanger = new AlertDanger();
+    }
+
+    public AlertSuccess getAlertSuccess() {
+        return alertSuccess;
+    }
+
+    public AlertDanger getAlertDanger() {
+        return alertDanger;
+    }
+
+    public String getAlertSuccessText() {
+        return getAlertSuccess().getAlertSuccessBody().getText();
+    }
+
+    public String getAlertDangerText() {
+        return getAlertDanger().getAlertDangerBody().getText();
+    }
+
+    // Business Logic
 
 
 }
