@@ -11,28 +11,28 @@ import com.softserve.edu.opencart.tools.ErrorUtils;
 
 public class CartPage extends ANavigatePanelComponent{
 	
-    private class UseCoupon {
-    	private WebElement couponName;
-    	private WebElement couponAply;
+    private class DiscountDropDown {
+    	private WebElement inputField;
+    	private WebElement aplyBtn;
     	
-        public UseCoupon(WebElement couponLayout) {
-            couponName = couponLayout.findElement(By.id("input-coupon"));
-            couponAply = couponLayout.findElement(By.id("button-coupon"));
+        public DiscountDropDown(WebElement blockLayout) {
+        	inputField = blockLayout.findElement(By.cssSelector("input[type='text']"));
+            aplyBtn = blockLayout.findElement(By.cssSelector("input[type='button']"));
         }
         
         // PageObject
 
         // get Data
-        public WebElement getCouponName() {
-            return couponName;
+        public WebElement getInputField() {
+            return inputField;
         }
         
-        public WebElement getCouponAply() {
-            return couponAply;
+        public WebElement getAplyBtn() {
+            return aplyBtn;
         }
         
-        public String getCouponNameText() {
-        	return getCouponName().getAttribute(TagAttribute.VALUE.toString());
+        public String getInputFieldText() {
+        	return getInputField().getAttribute(TagAttribute.VALUE.toString());
         }
         
         //set Data
@@ -49,9 +49,10 @@ public class CartPage extends ANavigatePanelComponent{
 	private WebElement continueBtn;
 	private WebElement checkoutBtn;
 	private WebElement couponBtn;
+	private WebElement giftBtn;
 	//
 	private List<OrderComponent> orderComponents;
-	private UseCoupon useCoupon;
+	private DiscountDropDown useCoupon;
 	//Constructor
     public CartPage(WebDriver driver) {
         super(driver);
@@ -64,6 +65,7 @@ public class CartPage extends ANavigatePanelComponent{
         	checkoutBtn=driver.findElement(By.cssSelector("a.btn.btn-primary"));
         	//x.//td[preceding-sibling::td[starts-with(.,'Total:')]]
         	couponBtn=driver.findElement(By.xpath(".//a[starts-with(.,'Use Coupon')]"));
+        	giftBtn=driver.findElement(By.xpath(".//a[starts-with(.,'Use Gift')]"));
         	initOrderComponents(By.cssSelector("div.table-responsive>table.table.table-bordered>tbody tr"));
         	System.out.println("SOME PRODUCTS CHECKING \n");
         }  
@@ -149,11 +151,11 @@ public class CartPage extends ANavigatePanelComponent{
     
     public void clickCouponBtn() {
     	getCouponBtn().click();
-    	useCoupon = new UseCoupon(driver.findElement(By.id("collapse-coupon")));
+    	useCoupon = new DiscountDropDown(driver.findElement(By.id("collapse-coupon")));
     }
     
     public void clickCouponAply() {
-    	useCoupon.getCouponAply().click();
+    	useCoupon.getAplyBtn().click();
     }
     
     public void clickUpdateByOrderName(String orderName) {

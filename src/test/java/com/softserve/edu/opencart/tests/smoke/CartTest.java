@@ -19,8 +19,8 @@ public class CartTest {
         // Read from ...
         return new Object[][] { 
             { "MacBook", 500.00,"$500.00",43 },
-            //{ "iPhone", 101.00,"$101.00",40 },
-            //{ "Canon EOS 5D", 80.00,"$80.00",30 },
+            { "iPhone", 101.00,"$101.00",40 },
+            { "Canon EOS 5D", 80.00,"$80.00",30 },
             };
     }
     
@@ -30,8 +30,10 @@ public class CartTest {
         //
         // Precondition
         //
-        System.setProperty("webdriver.chrome.driver",
-                "D:/eclipse/chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver",
+        //        "D:/eclipse/chromedriver.exe");
+    	System.setProperty("webdriver.chrome.driver",
+    	                "C:/Program Files/Java/Selenium360/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         Thread.sleep(2000);
