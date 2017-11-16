@@ -63,12 +63,14 @@ public class SearchPage extends ANavigatePanelComponent {
     }
 
     public WebElement getDescriptionSearchCheckbox() {
+
         return descriptionSearchCheckbox;
     }
 
 
 
     public List<WebElement> getCategoriesSelectList() {
+
         return subCategoriesSelectList;
     }
 
@@ -152,6 +154,7 @@ public class SearchPage extends ANavigatePanelComponent {
     public void clickSearchCriteriaButton() {
         getSearchCriteriaButton().click();
     }
+
     public void setInputSearch(String text) {
         getInputSearch().sendKeys(text);
     }
