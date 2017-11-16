@@ -328,4 +328,9 @@ public class WishListPage extends AColumnRightUserComponent {
 		return new WishListPage(driver);
 	}
 	
+	public WishListPage clickDeleteProductFromWishList(String productName) {
+		clickDeleteButton(productName);
+		return new WishListPage(driver);
+	}
+	
 }
