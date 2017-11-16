@@ -53,8 +53,8 @@ public class WishListTest {
 		homePage.clickAddToWishByProductName("Canon EOS 5D");
 		homePage = new HomePage(driver);
 		Thread.sleep(500);
-		LoginPage loginPage = homePage.gotoLoginPageFromMyAccountByPartialName();
-		MyAccountPage myAccountPage = loginPage.loginForLoginPageMyAccountPage("mfj14401@sqoai.com", "qwerty123456");
+		LoginPage loginPage = homePage.gotoLoginPageFromMyAccount();
+		MyAccountPage myAccountPage = loginPage.loginForLoginPageToMyAccountPage("mfj14401@sqoai.com", "qwerty123456");
 		myAccountPage.clickWishList();
 		WishListPage wishListPage = new WishListPage(driver);
 		wishListPage = wishListPage.clickDeleteProductFromWishList("iPhone");
