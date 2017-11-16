@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.pages.user;
 
+import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import org.openqa.selenium.By;
@@ -9,6 +10,8 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SearchPage extends ANavigatePanelComponent {
 
@@ -163,6 +166,7 @@ public class SearchPage extends ANavigatePanelComponent {
 
     public void setCategorySearchSelect(String categoryName){
         boolean isSelectable = false;
+        clickCategorySearchSelect();
         for(String current : getCategorySearchSelectTexts()){
             if(current.toLowerCase().contains(categoryName.toLowerCase())) {
                 isSelectable = true;
@@ -185,21 +189,65 @@ public class SearchPage extends ANavigatePanelComponent {
             getDescriptionSearchCheckbox().click();
         }
     }
-
-    //business logic
     public void sendKeysToInputSearch(String text){
         clickInputSearch();
         clearInputSearch();
         getInputSearch().sendKeys(text);
     }
 
+    //business logic
+    public SearchPage findElementByName(String productName){
+        sendKeysToInputSearch(productName);
+        clickSearchCriteriaButton();
+        return new SearchPage(driver);
+    }
+
+    public SearchPage findElementUsingCategorySelect(String productName, String category){
+        sendKeysToInputSearch(productName);
+        setCategorySearchSelect(category);
+        clickSearchCriteriaButton();
+        return new SearchPage(driver);
+    }
+
+    public SearchPage findElementUsingCategorySelectCheckSubcategory(String productName, String category){
+        sendKeysToInputSearch(productName);
+        setCategorySearchSelect(category);
+        selectCategorySearchCheckbox();
+        clickSearchCriteriaButton();
+        return new SearchPage(driver);
+    }
+
+    public SearchPage findElementUsingCategorySelectCheckDescription(String productName, String category){
+        sendKeysToInputSearch(productName);
+        setCategorySearchSelect(category);
+        selectDescriptionSearchCheckbox();
+        clickSearchCriteriaButton();
+        return new SearchPage(driver);
+    }
+
+    public SearchPage findElementUsingCategorySelectCheckSubcategoryDescription(String productName, String category){
+        selectDescriptionSearchCheckbox();
+        findElementUsingCategorySelectCheckSubcategory(productName, category);
+        return new SearchPage(driver);
+    }
+
+    public boolean isFound(List<String> foundProducts, String elementName){
+        Pattern pattern = Pattern.compile(RegexPatterns.ANY_NUMBER_OF_SYMBOLS +
+                elementName + RegexPatterns.ANY_NUMBER_OF_SYMBOLS);
+        Matcher m;
+        boolean checker = false;
+        for (String current : foundProducts){
+            m = pattern.matcher(current);
+            if(m.matches()){
+                checker = m.matches();
+                break;
+            }
+        }
+        return checker;
+    }
 
     //help methods
     public boolean isCheckboxSelected(WebElement checkbox){
-        boolean check = false;
-        if (checkbox.isSelected()){
-            check = true;
-        }
-        return check;
+        return checkbox.isSelected();
     }
 }

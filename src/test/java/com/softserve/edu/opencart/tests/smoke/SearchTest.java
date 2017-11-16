@@ -7,12 +7,22 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class SearchTest {
 
-    @Test
-    public void checkProduct() throws Exception {
+    @DataProvider (name = "DataProvider-for-Smoke")
+    public Object[ ][ ] parameterIntTestProvider() {
+
+        return new Object[][]{
+                {"MacBook", "Laptops & Notebooks"},
+                {"MacBook Pro", "Laptops & Notebooks"},
+                {"MacBook Air", "Laptops & Notebooks"}
+        };
+    }
+    @Test (dataProvider = "DataProvider-for-Smoke")
+    public void checkProduct(String productName, String category) throws Exception {
         //
         // Precondition
         //
@@ -33,16 +43,9 @@ public class SearchTest {
         Assert.assertEquals(actual, expected, "Element is not found");
         Thread.sleep(1000);
         //
-        expected = "MacBook Pro";
-        searchPage.sendKeysToInputSearch("MacBook Pro");
-        searchPage.setCategorySearchSelect("Laptops & Notebooks");
-        searchPage.selectCategorySearchCheckbox();
-        searchPage.clickSearchCriteriaButton();
-        SearchPage searchPageTwo = new SearchPage(driver);
-        for (String current : searchPageTwo.getProductComponentTexts()){
-            actual = current;
-            Assert.assertEquals(actual, expected);
-        }
+        SearchPage searchPageTwo = searchPage.findElementUsingCategorySelectCheckSubcategory(productName, category);
+        List<String> productList = searchPageTwo.getProductComponentTexts();
+        Assert.assertTrue(searchPageTwo.isFound(productList, productName));
         // Return to previous state
         driver.get("http://server7.pp.ua/index.php?route=product/search");
         //Thread.sleep(2000);
