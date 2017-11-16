@@ -1,17 +1,17 @@
 package com.softserve.edu.opencart.tests.smoke;
 
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.collections4.map.HashedMap;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.softserve.edu.opencart.data.DetailCategory;
-import com.softserve.edu.opencart.data.Product;
+import com.softserve.edu.opencart.data.categories.CurrencyRepository;
+import com.softserve.edu.opencart.data.categories.DetailCategory;
+import com.softserve.edu.opencart.data.products.Product;
+import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.SubCategoryProductsPage;
 
@@ -19,17 +19,13 @@ public class HomeTest {
 
     @DataProvider//(parallel = true)
     public Object[][] productData() {
-        Map<String, Double> macBookPrices = new HashedMap<>();
-        macBookPrices.put("Euro", 430.06);
-        macBookPrices.put("Pound Sterling", 379.02);
-        macBookPrices.put("US Dollar", 500.0);
         // Read from ...
         return new Object[][] {
             //{ "MacBook", 500.0 },
             //{ "iPhone", 101.0 },
             //{ "Canon EOS 5D", 80.00 },
-            { new DetailCategory("Currency", "US Dollar"),
-                new Product("MacBook", "", macBookPrices )},
+            { CurrencyRepository.get().euro(), ProductRepository.get().macBook() },
+            { CurrencyRepository.get().dollar(), ProductRepository.get().macBook() },
             };
     }
 
