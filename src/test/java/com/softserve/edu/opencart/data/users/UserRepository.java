@@ -57,6 +57,25 @@ public final class UserRepository {
                 .setSubscribe(true)
                 .build();
     }
+    
+    public IUser userKutaiev() {
+        return User.get()
+                .setFirstname("Olex")
+                .setLastname("Really")
+                .setEmail("mfj14401@sqoai.com")
+                .setPhoneNumber("12345667890")
+                .setAddressFirst("qwe/wqe/qwe")
+                .setCity("Lviv")
+                .setPostCode("12345")
+                .setCountry("United Kingdom")
+                .setRegion("Conwy")
+                .setPassword("qwerty123456")
+                .setAddressSecond("-")
+                .setCompany("-")
+                .setFax("-")
+                .setSubscribe(false)
+                .build();
+    }
 
     public IUser newUser() {
         // TODO

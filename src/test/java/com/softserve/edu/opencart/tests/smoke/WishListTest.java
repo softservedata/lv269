@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 
 import com.softserve.edu.opencart.data.categories.DetailCategory;
 import com.softserve.edu.opencart.data.products.Product;
+import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.MyAccountPage;
@@ -43,18 +44,20 @@ public class WishListTest {
 		// Steps
 		//
 		HomePage homePage = new HomePage(driver);
-		Thread.sleep(500);
+		//Thread.sleep(500);
 		homePage.clickAddToWishByProductName("iPhone");
 		homePage = new HomePage(driver);
-		Thread.sleep(500);
+		//Thread.sleep(500);
 		homePage.clickAddToWishByProductName("MacBook");
 		homePage = new HomePage(driver);
-		Thread.sleep(500);
+		//Thread.sleep(500);
 		homePage.clickAddToWishByProductName("Canon EOS 5D");
 		homePage = new HomePage(driver);
-		Thread.sleep(500);
+		//Thread.sleep(500);
 		LoginPage loginPage = homePage.gotoLoginPageFromMyAccount();
-		MyAccountPage myAccountPage = loginPage.loginForLoginPageToMyAccountPage("mfj14401@sqoai.com", "qwerty123456");
+		MyAccountPage myAccountPage = loginPage.loginForLoginPageToMyAccountPage(
+				UserRepository.get().userKutaiev().getEmail(), 
+				UserRepository.get().userKutaiev().getPassword());
 		myAccountPage.clickWishList();
 		WishListPage wishListPage = new WishListPage(driver);
 		wishListPage = wishListPage.clickDeleteProductFromWishList("iPhone");
