@@ -5,8 +5,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import com.softserve.edu.opencart.data.DetailCategory;
-import com.softserve.edu.opencart.data.Product;
+import com.softserve.edu.opencart.data.categories.DetailCategory;
+import com.softserve.edu.opencart.data.products.Product;
 
 public class HomePage extends AHeaderComponent {
 
