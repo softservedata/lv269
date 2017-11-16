@@ -27,7 +27,7 @@ public class SearchTest {
         // Precondition
         //
         System.setProperty("webdriver.chrome.driver",
-                "chromedriver");
+                "lib/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://server7.pp.ua/index.php?route=product/search");
