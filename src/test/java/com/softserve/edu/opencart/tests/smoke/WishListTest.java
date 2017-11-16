@@ -29,38 +29,52 @@ public class WishListTest {
             };
     }
 	
-	@Test(dataProvider = "productData")
-    public void checkWishListPage(Product product) throws Exception {
-        //
-        // Precondition
-        //
-        System.setProperty("webdriver.chrome.driver",
-                "C:/Program Files/Java/Selenium360/chromedriver.exe");
-    	WebDriver driver = new ChromeDriver();        
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        //
-        driver.get("http://server7.pp.ua");            
-        //
-        // Steps
-        //
-        //HomePage homePage = new HomePage(driver);
-        //LoginPage loginPage = homePage.gotoLoginPageFromMyAccountByPartialName();
-        //MyAccountPage myAccountPage = loginPage.inputCredentialsUserPage("mfj14401@sqoai.com", "qwerty123456");        
-        //MyAccountPage myAccountPage = new MyAccountPage(driver);
-        logIn(driver);
-        HomePage homePage = new HomePage(driver);
-        homePage.clickWishList();
-        //Thread.sleep(500);
-        WishListPage wishListPage = new WishListPage(driver);
-        wishListPage.clickDeleteButton(product.getName());   
-        //
-        // Check
-        //
-        //
-        // Return to previous state
-        //
-        driver.quit();
-    }
+	@Test //(dataProvider = "productData")
+	public void checkWishListPage() throws Exception {
+		//
+		// Precondition
+		//
+		System.setProperty("webdriver.chrome.driver", "C:/Program Files/Java/Selenium360/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		//
+		driver.get("http://server7.pp.ua");
+		//
+		// Steps
+		//
+		HomePage homePage = new HomePage(driver);
+		Thread.sleep(500);
+		homePage.clickAddToWishByProductName("iPhone");
+		homePage = new HomePage(driver);
+		Thread.sleep(500);
+		homePage.clickAddToWishByProductName("MacBook");
+		homePage = new HomePage(driver);
+		Thread.sleep(500);
+		homePage.clickAddToWishByProductName("Canon EOS 5D");
+		homePage = new HomePage(driver);
+		Thread.sleep(500);
+		LoginPage loginPage = homePage.gotoLoginPageFromMyAccountByPartialName();
+		MyAccountPage myAccountPage = loginPage.loginForLoginPageMyAccountPage("mfj14401@sqoai.com", "qwerty123456");
+		myAccountPage.clickWishList();
+		WishListPage wishListPage = new WishListPage(driver);
+		wishListPage = wishListPage.clickDeleteProductFromWishList("iPhone");
+		wishListPage = wishListPage.clickDeleteProductFromWishList("MacBook");
+		wishListPage = wishListPage.clickDeleteProductFromWishList("Canon EOS 5D");
+		// MyAccountPage myAccountPage = new MyAccountPage(driver);
+		// logIn(driver);
+		// HomePage homePage = new HomePage(driver);
+		// homePage.clickWishList();
+		// Thread.sleep(500);
+		// WishListPage wishListPage = new WishListPage(driver);
+		// wishListPage.clickDeleteButton(product.getName());
+		//
+		// Check
+		//
+		//
+		// Return to previous state
+		//
+		driver.quit();
+	}
 	
 	public void logIn(WebDriver driver) {
 		driver.findElement(By.cssSelector(".caret")).click();
