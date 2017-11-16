@@ -44,7 +44,7 @@ public class WishListTest {
         // Steps
         //
         //HomePage homePage = new HomePage(driver);
-        //LoginPage loginPage = homePage.gotoLoginPageFromMyAccountByPartialName();
+        //LoginPage loginPage = homePage.gotoLoginPageFromMyAccount();
         //MyAccountPage myAccountPage = loginPage.inputCredentialsUserPage("mfj14401@sqoai.com", "qwerty123456");        
         //MyAccountPage myAccountPage = new MyAccountPage(driver);
         logIn(driver);
