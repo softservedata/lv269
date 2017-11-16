@@ -20,8 +20,8 @@ public class LoginTest {
         driver.get("http://server7.pp.ua");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-         new HomePage(driver).gotoLoginPageFromMyAccountByPartialName()
-                .loginForLoginPageMyAccountPage("lv_269_test@ukr.net", "269lv269lv")
+         new HomePage(driver).gotoLoginPageFromMyAccount()
+                .loginForLoginPageToMyAccountPage("lv_269_test@ukr.net", "269lv269lv")
                  .gotoLogoutPage().clickContinueButton();
 
 

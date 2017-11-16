@@ -86,7 +86,7 @@ public class LoginPage extends AColumnRightGuestComponent {
 
     // Business Logic
 
-    public MyAccountPage loginForLoginPageMyAccountPage(String email, String password) {
+    public MyAccountPage loginForLoginPageToMyAccountPage(String email, String password) {
         inputEMailAdress(email);
         inputPassword(password);
         clickLoginButton();
