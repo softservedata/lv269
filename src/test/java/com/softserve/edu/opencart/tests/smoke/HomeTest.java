@@ -5,18 +5,33 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.categories.CurrencyRepository;
 import com.softserve.edu.opencart.data.categories.DetailCategory;
 import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.data.products.ProductRepository;
+import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.SubCategoryProductsPage;
 
 public class HomeTest {
 
+    @BeforeClass
+    public void beforeClass() {
+        Application.get(ApplicationSourceRepository.get().chromeServer7());
+        //Application.get(ApplicationSourceRepository.get().firefoxServer7());
+    }
+
+    @AfterClass
+    public void afterClass() {
+        Application.remove();
+    }
+    
     @DataProvider//(parallel = true)
     public Object[][] productData() {
         // Read from ...
@@ -35,13 +50,13 @@ public class HomeTest {
         //
         // Precondition
         //
-        System.setProperty("webdriver.chrome.driver",
-                "C:/Program Files/Java/Selenium360/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //System.setProperty("webdriver.chrome.driver",
+        //        "C:/Program Files/Java/Selenium360/chromedriver.exe");
+        //WebDriver driver = new ChromeDriver();
+        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //
-        driver.get("http://server7.pp.ua");
-        Thread.sleep(1000);
+        //driver.get("http://server7.pp.ua");
+        //Thread.sleep(1000);
         //
         //HomePage homePage = new HomePage(driver);
         //Thread.sleep(1000);
@@ -53,7 +68,9 @@ public class HomeTest {
         //double actualPrice = homePage.getPriceAmountByProductName(productName);
         //double actualPrice = homePage.getPriceAmountByProduct(product);
         //Thread.sleep(1000);
-        double actualPrice = new HomePage(driver)
+        //
+        //double actualPrice = new HomePage(driver)
+        double actualPrice = Application.get().loadHomePage()
                 .chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceAmountByProduct(product);
         //
@@ -68,7 +85,7 @@ public class HomeTest {
         // Return to previous state
         //
         //Thread.sleep(2000);
-        driver.quit();
+        //driver.quit();
     }
     
     //@Test

@@ -62,5 +62,13 @@ public class HomePage extends AHeaderComponent {
     public double getPriceAmountByProduct(Product product) {
         return getPriceAmountByProductName(product.getName());
     }
-    
+
+    public SuccesSearchPage succesSearchProduct(String partialProductName) {
+        clickSearchProductField();
+        clearSearchProductField();
+        setSearchProductField(partialProductName);
+        clickSearchProductButton();
+        return new SuccesSearchPage(driver); 
+    }
+
 }
