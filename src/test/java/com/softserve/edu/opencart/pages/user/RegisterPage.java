@@ -99,13 +99,13 @@ public class RegisterPage extends AColumnRightGuestComponent {
 
 	// Business Logic
 
-	public LoginPage clickLinkToLogin() {
+	public LoginPage gotoLinkToLogin() {
 		getLinkToLogin().click();
 		return new LoginPage(driver);
 	}
 
-	public UserPage gotoRegisteredUserPage() {
+	public RegisterSuccessPage gotoRegisterSuccessPage() {
 		clickSubmitButton();
-		return new UserPage(driver);
+		return new RegisterSuccessPage(driver);
 	}
 }
