@@ -33,6 +33,7 @@ public class BlockLoginTest {
     public void unblockInDatabase(String emailToUnlock) {
         try {
             connectToDB();
+
             String query1 = " UPDATE oc_customer_login SET total = '0' WHERE email  = ?;";
             PreparedStatement pst1 = connection.prepareStatement(query1);
             pst1.setString(1, emailToUnlock);
@@ -62,16 +63,15 @@ public class BlockLoginTest {
     @DataProvider(name = "Authentication")
     public static Object[][] credentials() {
 
-        return new Object[][]{{
-                UserRepository.get().userTestWrongPassword().getEmail()
-                , UserRepository.get().userTestWrongPassword().getPassword()}};
+        return new Object[][]{
+        {UserRepository.get().userTestWrongPassword().getEmail(), UserRepository.get().userTestWrongPassword().getPassword()}};
 
     }
 
 
     @Test(dataProvider = "Authentication")
     public void checkSuccessfulLogin(String sUsername, String sPassword) throws Exception {
-
+        unblockInDatabase(sUsername);
         String actual;
         String expectedFirstWarning = "Warning: No match for E-Mail Address and/or Password.";
         String expectedSecondWarning = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
@@ -79,20 +79,23 @@ public class BlockLoginTest {
 //      "Warning: No match for E-Mail Address and/or Password."
         LoginPage loginPage = new HomePage(driver).gotoLoginPageFromMyAccount();
         for (int i = 0; i < 5; i++) {
-            actual = loginPage
-                    .loginForLoginPageToWarning(sUsername, sPassword).getWarningDangerText();
-            loginPage = new LoginPage(driver);
+            loginPage = loginPage
+                    .loginForLoginPageToWarning(sUsername, sPassword);
+            actual = loginPage.getWarningDangerText();
+
             Assert.assertEquals(actual, expectedFirstWarning);
         }
-        actual = loginPage
-                .loginForLoginPageToWarning(sUsername, sPassword).getWarningDangerText();
-        loginPage = new LoginPage(driver);
+        loginPage = loginPage
+                .loginForLoginPageToWarning(sUsername, sPassword);
+        actual = loginPage.getWarningDangerText();
         Assert.assertEquals(actual, expectedSecondWarning);
 
-        actual = loginPage
-                .loginForLoginPageToWarning(sUsername, sPassword).getWarningDangerText();
+//TODO change to correct password
+        loginPage = loginPage
+                .loginForLoginPageToWarning(sUsername, sPassword);
+        actual = loginPage.getWarningDangerText();
         Assert.assertEquals(actual, expectedSecondWarning);
 
-        unblockInDatabase(UserRepository.get().userTestWrongPassword().getEmail());
+        unblockInDatabase(sUsername);
     }
 }
