@@ -1,8 +1,8 @@
 package com.softserve.edu.opencart.pages.user;
 
-import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
+import com.softserve.edu.opencart.tools.TextUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,35 +10,35 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SearchPage extends ANavigatePanelComponent {
 
     private final String OPTION_NOT_FOUND_MESSAGE = "Option %s not found in %s";
+    private final String XPATH_FOR_OPTIONS = "select[name = %s] > option";
 
     private WebElement searchHeaderName;
     private WebElement inputSearch;
-    private WebElement categorySearchSelect;
+    private WebElement selectCategorySearch;
     private WebElement categorySearchCheckbox;
     private WebElement descriptionSearchCheckbox;
     private WebElement searchCriteriaButton;
+    private WebElement selectInputSort;
+    private WebElement selectInputLimit;
     private WebElement noElementsMeetingCriteria;
-    private List<WebElement> subCategoriesSelectList;
+
 
     public SearchPage(WebDriver driver) {
         super(driver);
 
         searchHeaderName = driver.findElement(By.cssSelector("#content > h1"));
         inputSearch = driver.findElement(By.id("input-search"));
-        categorySearchSelect = driver.findElement(By.cssSelector("select[name = 'category_id']"));
+        selectCategorySearch = driver.findElement(By.cssSelector("select[name = 'category_id']"));
         categorySearchCheckbox = driver.findElement(By.cssSelector(".checkbox-inline > input[name = 'sub_category']"));
         descriptionSearchCheckbox = driver.findElement(By.
                 cssSelector(".checkbox-inline > input[name = 'description']"));
         searchCriteriaButton = driver.findElement(By.id("button-search"));
-        noElementsMeetingCriteria = driver.findElement(By.cssSelector("#content > p:last-of-type"));
-        subCategoriesSelectList = driver.findElements(By.cssSelector("select[name = 'category_id'] > option"));
-        initProductComponents(By.cssSelector(".product-layout"));
+
+        initSearchResults();
     }
 
     //getters
@@ -52,11 +52,6 @@ public class SearchPage extends ANavigatePanelComponent {
         return inputSearch;
     }
 
-    public WebElement getCategorySearchSelect() {
-
-        return categorySearchSelect;
-    }
-
     public WebElement getCategorySearchCheckbox() {
 
         return categorySearchCheckbox;
@@ -65,13 +60,6 @@ public class SearchPage extends ANavigatePanelComponent {
     public WebElement getDescriptionSearchCheckbox() {
 
         return descriptionSearchCheckbox;
-    }
-
-
-
-    public List<WebElement> getCategoriesSelectList() {
-
-        return subCategoriesSelectList;
     }
 
     public WebElement getSearchCriteriaButton() {
@@ -84,10 +72,27 @@ public class SearchPage extends ANavigatePanelComponent {
         return noElementsMeetingCriteria;
     }
 
-    public WebElement getSelectOptionByPartialName(String categoryName){
+    public WebElement getSelectCategorySearch() {
+
+        return selectCategorySearch;
+    }
+
+    public WebElement getSelectInputLimit() {
+        return selectInputLimit;
+    }
+
+    public WebElement getSelectInputSort() {
+        return selectInputSort;
+    }
+
+    public List<WebElement> getOptionList(WebElement select){
+        return driver.findElements(By.xpath(String.format(XPATH_FOR_OPTIONS, select)));
+    }
+
+    public WebElement getSelectOptionByPartialName(String categoryName, List<WebElement> selectOptions){
         WebElement result = null;
-        for (WebElement current : getCategoriesSelectList()) {
-            if (current.getText().toLowerCase().contains(categoryName.toLowerCase())) {
+        for (WebElement current : selectOptions) {
+            if (current.getText().toLowerCase().trim().contains(categoryName.toLowerCase().trim())) {
                 result = current;
                 break;
             }
@@ -104,8 +109,8 @@ public class SearchPage extends ANavigatePanelComponent {
         return getInputSearch().getAttribute(TagAttribute.VALUE.toString());
     }
 
-    public String getSelectedCategoryText() {
-        Select select = new Select(categorySearchSelect);
+    public String getSelectedText(WebElement selectOption) {
+        Select select = new Select(selectOption);
         return select.getFirstSelectedOption().getText().trim();
     }
 
@@ -142,9 +147,9 @@ public class SearchPage extends ANavigatePanelComponent {
     }
 
     //get special text
-    protected List<String> getCategorySearchSelectTexts() {
+    protected List<String> getSelectTexts(WebElement selectOption) {
         List<String> result = new ArrayList<>();
-        for (WebElement current : getCategoriesSelectList()) {
+        for (WebElement current : getOptionList(selectOption)) {
             result.add(current.getText());
         }
         return result;
@@ -165,29 +170,61 @@ public class SearchPage extends ANavigatePanelComponent {
 
     public void clickInputSearch() { getInputSearch().click(); }
 
-    public void clickCategorySearchSelect() { getCategorySearchSelect().click(); }
+    public void clickSelectCategorySearch() { getSelectCategorySearch().click(); }
 
-    public void setCategorySearchSelect(String categoryName){
+    public void clickSelectInputLimit() { getSelectInputLimit().click(); }
+
+    public void clickSelectInputSort() { getSelectInputSort().click(); }
+
+    public void setSelectCategorySearch(String categoryName){
         boolean isSelectable = false;
-        clickCategorySearchSelect();
-        for(String current : getCategorySearchSelectTexts()){
+        clickSelectCategorySearch();
+        for(String current : getSelectTexts(getSelectCategorySearch())){
             if(current.toLowerCase().contains(categoryName.toLowerCase())) {
                 isSelectable = true;
             }
         }
         ErrorUtils.createCustomException(!isSelectable,
                 String.format(OPTION_NOT_FOUND_MESSAGE,
-                        categoryName, getCategorySearchSelectTexts().toString()));
-        getSelectOptionByPartialName(categoryName).click();
+                        categoryName, getSelectTexts(getSelectCategorySearch()).toString()));
+        getSelectOptionByPartialName(categoryName, getOptionList(getSelectCategorySearch())).click();
     }
 
-    public void selectCategorySearchCheckbox() {
+    public void setSelectInputSort(String categoryName){
+        boolean isSelectable = false;
+        clickSelectInputSort();
+        for(String current : getSelectTexts(getSelectInputSort())){
+            if(current.toLowerCase().contains(categoryName.toLowerCase())) {
+                isSelectable = true;
+            }
+        }
+        ErrorUtils.createCustomException(!isSelectable,
+                String.format(OPTION_NOT_FOUND_MESSAGE,
+                        categoryName, getSelectTexts(getSelectInputSort()).toString()));
+        getSelectOptionByPartialName(categoryName, getOptionList(getSelectInputSort())).click();
+    }
+
+    public void setSelectInputLimit(String categoryName){
+        boolean isSelectable = false;
+        clickSelectInputLimit();
+        for(String current : getSelectTexts(getSelectInputLimit())){
+            if(current.toLowerCase().contains(categoryName.toLowerCase())) {
+                isSelectable = true;
+            }
+        }
+        ErrorUtils.createCustomException(!isSelectable,
+                String.format(OPTION_NOT_FOUND_MESSAGE,
+                        categoryName, getSelectTexts(getSelectInputLimit()).toString()));
+        getSelectOptionByPartialName(categoryName, getOptionList(getSelectInputLimit())).click();
+    }
+
+    public void checkCategorySearchCheckbox() {
         if(!isCheckboxSelected(getCategorySearchCheckbox())){
             getCategorySearchCheckbox().click();
         }
     }
 
-    public void selectDescriptionSearchCheckbox() {
+    public void checkDescriptionSearchCheckbox() {
         if(!isCheckboxSelected(getDescriptionSearchCheckbox())){
             getDescriptionSearchCheckbox().click();
         }
@@ -195,7 +232,7 @@ public class SearchPage extends ANavigatePanelComponent {
     public void sendKeysToInputSearch(String text){
         clickInputSearch();
         clearInputSearch();
-        getInputSearch().sendKeys(text);
+        setInputSearch(text);
     }
 
     //business logic
@@ -207,50 +244,58 @@ public class SearchPage extends ANavigatePanelComponent {
 
     public SearchPage findElementUsingCategorySelect(String productName, String category){
         sendKeysToInputSearch(productName);
-        setCategorySearchSelect(category);
+        setSelectCategorySearch(category);
         clickSearchCriteriaButton();
         return new SearchPage(driver);
     }
 
     public SearchPage findElementUsingCategorySelectCheckSubcategory(String productName, String category){
         sendKeysToInputSearch(productName);
-        setCategorySearchSelect(category);
-        selectCategorySearchCheckbox();
+        setSelectCategorySearch(category);
+        checkCategorySearchCheckbox();
         clickSearchCriteriaButton();
         return new SearchPage(driver);
     }
 
     public SearchPage findElementUsingCategorySelectCheckDescription(String productName, String category){
         sendKeysToInputSearch(productName);
-        setCategorySearchSelect(category);
-        selectDescriptionSearchCheckbox();
+        setSelectCategorySearch(category);
+        checkDescriptionSearchCheckbox();
         clickSearchCriteriaButton();
         return new SearchPage(driver);
     }
 
     public SearchPage findElementUsingCategorySelectCheckSubcategoryDescription(String productName, String category){
-        selectDescriptionSearchCheckbox();
+        checkDescriptionSearchCheckbox();
         findElementUsingCategorySelectCheckSubcategory(productName, category);
         return new SearchPage(driver);
     }
 
     public boolean isFound(List<String> foundProducts, String elementName){
-        Pattern pattern = Pattern.compile(RegexPatterns.ANY_NUMBER_OF_SYMBOLS +
-                elementName + RegexPatterns.ANY_NUMBER_OF_SYMBOLS);
-        Matcher m;
-        boolean checker = false;
         for (String current : foundProducts){
-            m = pattern.matcher(current);
-            if(m.matches()){
-                checker = m.matches();
-                break;
+            if(TextUtils.respondsPattern(current, elementName)){
+                return true;
             }
         }
-        return checker;
+        return false;
     }
 
-    //help methods
+    public boolean nothingFound(){
+        return getProductComponentTexts().isEmpty();
+    }
+
+    //additional methods
     public boolean isCheckboxSelected(WebElement checkbox){
         return checkbox.isSelected();
+    }
+
+    public void initSearchResults(){
+        initProductComponents(By.cssSelector(".product-layout"));
+        if(getProductComponentTexts().isEmpty()){
+            noElementsMeetingCriteria = driver.findElement(By.cssSelector("#content > p:last-of-type"));
+        } else {
+            selectInputSort = driver.findElement(By.id("#input-sort"));
+            selectInputLimit = driver.findElement(By.id("#input-limit"));
+        }
     }
 }

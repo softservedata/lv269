@@ -21,13 +21,13 @@ public class SearchTest {
                 {"MacBook Air", "Laptops & Notebooks"}
         };
     }
-    @Test (dataProvider = "DataProvider-for-Smoke")
+    //@Test (dataProvider = "DataProvider-for-Smoke")
     public void checkProduct(String productName, String category) throws Exception {
         //
         // Precondition
         //
         System.setProperty("webdriver.chrome.driver",
-                "lib/chromedriver");
+                "src/test/resources/lib/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://server7.pp.ua/index.php?route=product/search");
@@ -50,5 +50,16 @@ public class SearchTest {
         driver.get("http://server7.pp.ua/index.php?route=product/search");
         //Thread.sleep(2000);
         driver.quit();
+    }
+
+    @Test
+    public void check(){
+        System.setProperty("webdriver.chrome.driver",
+                "src/test/resources/lib/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get("http://server7.pp.ua/index.php?route=product/search");
+        SearchPage sp = new SearchPage(driver);
+        System.out.print("TestRes: " + sp.getNoElementsMeetingCriteriaText() + "TheEnd");
     }
 }
