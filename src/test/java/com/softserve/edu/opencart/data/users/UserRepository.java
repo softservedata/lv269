@@ -77,6 +77,45 @@ public final class UserRepository {
                 .build();
     }
 
+    public IUser userTestLogin() {
+        return User.get()
+                .setFirstname("FIRSTNAME")
+                .setLastname("LASTNAME")
+                .setEmail("lv_269_test@ukr.net")
+                .setPhoneNumber("380511223344")
+                .setAddressFirst("TEST_ADDRESS")
+                .setCity("Lviv")
+                .setPostCode("79000")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("269lv269lv")
+                .setAddressSecond("-")
+                .setCompany("-")
+                .setFax("-")
+                .setSubscribe(false)
+                .build();
+    }
+    public IUser userTestWrongPassword() {
+        return User.get()
+                .setFirstname("FIRSTNAME")
+                .setLastname("LASTNAME")
+                .setEmail("test_wrong_login@email.com")
+                .setPhoneNumber("380511223344")
+                .setAddressFirst("TEST_ADDRESS")
+                .setCity("Lviv")
+                .setPostCode("79000")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("269lv269lvs")
+                .setAddressSecond("-")
+                .setCompany("-")
+                .setFax("-")
+                .setSubscribe(false)
+                .build();
+    }
+
+
+
     public IUser newUser() {
         // TODO
         return null;
