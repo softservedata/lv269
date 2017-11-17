@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.pages.user;
 
+import com.softserve.edu.opencart.tools.ErrorUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,7 @@ public class AddressBookPage extends MyAccountPage {
     private List<AddressBookEntries> addressBookEntries;
     private WebElement newAddressBook;
     private WebElement backButton;
+    private final String STREET_NOT_FOUND_MESSAGE = "Street %s not found ";
 
     public AddressBookPage(WebDriver driver){
         super(driver);
@@ -30,6 +32,11 @@ public class AddressBookPage extends MyAccountPage {
     // PageObject
 
     // get Data
+
+
+    public List<AddressBookEntries> getAddressBookEntries() {
+        return addressBookEntries;
+    }
 
     public WebElement getNewAddressBook() {
         return newAddressBook;
@@ -53,6 +60,19 @@ public class AddressBookPage extends MyAccountPage {
         getBackButton().click();
     }
     // set Functional
+
+    private AddressBookEntries getAddressBookEntriesByStreetName(String streetName) {
+        AddressBookEntries result = null;
+        for (AddressBookEntries current : getAddressBookEntries()) {
+            if (current.getAddressDataText().toLowerCase().contains(streetName.toLowerCase())) {
+                result = current;
+                break;
+            }
+        }
+        ErrorUtils.createCustomException((result == null),
+                String.format(STREET_NOT_FOUND_MESSAGE, streetName));
+        return result;
+    }
 
     // Business Logic
     public MyAccountPage gotoMyAccountPage(){

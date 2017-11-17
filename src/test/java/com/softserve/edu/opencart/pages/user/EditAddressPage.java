@@ -175,9 +175,11 @@ public class EditAddressPage extends MyAccountPage {
         getFieldCompany().sendKeys(text);
     }
 
-    public void setFieldCity(String text){getFieldCity().sendKeys(text);}
+    public void setFieldCity(String text){
+        getFieldCity().sendKeys(text);}
 
-    public void setFieldPostCode(String text){getFieldPostCode().sendKeys(text);}
+    public void setFieldPostCode(String text){
+        getFieldPostCode().sendKeys(text);}
 
 
     //* Business Logic
