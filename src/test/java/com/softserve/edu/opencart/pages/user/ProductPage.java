@@ -277,6 +277,7 @@ public class ProductPage extends ANavigatePanelComponent {
 
     private final String ITEM_FROM_NAVTAB_NOT_FOUND_MESSAGE = "Item from navTab %s not found for product %s";
     private final String EXSIST_REVIEW_NOT_FOUND_MESSAGE = "Exsist reviev %s not found for product %s";
+    private final String ALERT_NOT_FOUND_MESSAGE = "Alert %s not found";
 
 
     private WebElement getItemFromNavTab(String item) {
@@ -309,91 +310,114 @@ public class ProductPage extends ANavigatePanelComponent {
         review = new Review();
     }
 
-   /* public WebElement getOneReviewExsistByName(String name) {
+    public int getAmountReviewsExsist() {
+        return getReview().getReviewsExist().size();
+    }
 
+    // Alert
+
+    private WebElement alertSuccess;
+    private WebElement alertDanger;
+    private WebElement alertWarning;
+
+    private void createAlert(String alert) {
         WebElement result = null;
-        List<WebElement> listReview = getReviewsExsist();
-        for (WebElement current : listReview) {
-            if (current.getAttribute(TagAttribute.HREF.toString()).contains(name)) {
-                result = current;
-            }
+        if (driver.findElement(By.className(alert)).isDisplayed()) {
+            result = driver.findElement(By.className(alert));
         }
         ErrorUtils.createCustomException((result == null),
-                 String.format(EXSIST_REVIEW_NOT_FOUND_MESSAGE, name, getNameText()));
-        return result;
+                String.format(ALERT_NOT_FOUND_MESSAGE, alert));
     }
 
-    public WebElement getOneReviewExsistByDate (String date) {
-
-        WebElement result = null;
-        List<WebElement> listReview = getReviewsExsist();
-        for (WebElement current : listReview) {
-            if (current.getAttribute(TagAttribute.HREF.toString()).contains(date)) {
-                result = current;
-            }
-        }
-        ErrorUtils.createCustomException((result == null),
-                 String.format(EXSIST_REVIEW_NOT_FOUND_MESSAGE, date, getNameText()));
-        return result;
-    }*/
-
-
-    // Warning.
-
-    private AlertSuccess alertSuccess;
-    private AlertDanger alertDanger;
-
-    private class AlertSuccess {
-
-        private WebElement alertSuccessBody;
-
-        public AlertSuccess() {
-            alertSuccessBody = driver.findElement(By.className("alert alert-success"));
-        }
-
-        public WebElement getAlertSuccessBody() {
-            return alertSuccessBody;
-        }
+    protected void createAlertSuccess() {
+        createAlert("alert-success");
     }
 
-    private class AlertDanger {
-
-        private WebElement alertDangerBody;
-
-        public AlertDanger() {
-            alertDangerBody = driver.findElement(By.className("alert alert-danger"));
-        }
-
-        public WebElement getAlertDangerBody() {
-            return alertDangerBody;
-        }
+    protected void createAlertDanger() {
+        createAlert("alert-danger");
     }
 
-    public void createAlertSuccess() {
-        alertSuccess = new AlertSuccess();
+    protected void createAlertWarning() {
+        createAlert("alert-warning");
     }
 
-    public void createAlertDanger() {
-        alertDanger = new AlertDanger();
-    }
-
-    public AlertSuccess getAlertSuccess() {
+    private WebElement getAlertSuccess() {
         return alertSuccess;
     }
 
-    public AlertDanger getAlertDanger() {
+    private WebElement getAlertDanger() {
         return alertDanger;
     }
 
+    private WebElement getAlertWarning() {
+        return alertWarning;
+    }
+
     public String getAlertSuccessText() {
-        return getAlertSuccess().getAlertSuccessBody().getText();
+        return getAlertSuccess().getText();
     }
 
     public String getAlertDangerText() {
-        return getAlertDanger().getAlertDangerBody().getText();
+        return getAlertDanger().getText();
+    }
+
+    public String getAlertWarningText() {
+        return getAlertWarning().getText();
     }
 
     // Business Logic
+
+    public void inputReviewNameField(String name) {
+        clickReviewNameField();
+        clearReviewNameField();
+        setReviewNameField(name);
+    }
+
+    public void inputReviewTextField(String text) {
+        clickReviewNameField();
+        clearReviewNameField();
+        setReviewNameField(text);
+    }
+
+    private void newReview(String name, String text) {
+        //clickReview();
+        inputReviewNameField(name);
+        inputReviewTextField(text);
+        setReviewRatingFist();
+        clickReviewButton();
+        //review = new Review();
+    }
+
+    private void newReviewWithOutRating(String name, String text) {
+        //clickReview();
+        inputReviewNameField(name);
+        inputReviewTextField(text);
+        clickReviewButton();
+        review = new Review();
+    }
+
+    public void validReviewFields(String name, String text) {
+        newReview(name, text);
+        createAlertSuccess();
+    }
+
+    public void inValidReviewFields(String name, String text) {
+        newReview(name, text);
+        createAlertDanger();
+    }
+
+    public void inValidOnlyReviewRating(String name, String text) {
+        newReviewWithOutRating(name, text);
+        createAlertDanger();
+    }
+
+    public void validOnlyReviewRating() {
+        inputReviewNameField(null);
+        inputReviewTextField(null);
+        setReviewRatingFist();
+        review = new Review();
+        createAlertDanger();
+    }
 
 
 }

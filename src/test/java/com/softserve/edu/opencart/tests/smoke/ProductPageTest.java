@@ -50,8 +50,20 @@ public class ProductPageTest {
         // Steps
         //
         productPage.clickReview();
-        productPage.setReviewTextField("jjjjjjjjjjjjjjjjjj");
-        productPage.clearReviewTextField();
+        productPage.inValidReviewFields("name", "fhdk");
+        productPage.inValidOnlyReviewRating("name", "fdsdsbdnbdshfdsbcdxbchjdbsfhbdscdbscblsdbdsjcdsb hb dbsvdslbfs");
+        productPage.validOnlyReviewRating();
+        productPage.validReviewFields("name", "fdsdsbdnbdshfdsbcdxbchjdbsfhbdscdbscblsdbdsjcdsb hb dbsvdslbfs");
+
+        productPage.clickDescription();
+
+        driver.get("http://server7.pp.ua/index.php?route=product/product&product_id=43");
+        Thread.sleep(1000);
+        productPage=new ProductPage(driver);
+        productPage.clickReview();
+        productPage.clickSpecification();
+        productPage.clickDescription();
+
 
         //
         // Check
