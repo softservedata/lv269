@@ -12,11 +12,11 @@ public class CategoryProductsPage extends SubCategoryProductsPage {
 
     // PageObject
 
-    // get Data
+    // get data
 
     // get Functional
 
-    // set Data
+    // set data
 
     // set Functional
 

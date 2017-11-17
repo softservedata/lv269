@@ -18,7 +18,7 @@ public class WrongLoginAdminPage extends LoginAdminPage {
 
     // PageObject
 
-    // Get Data
+    // Get data
     public WebElement getWrongLoginMessage() {
         return wrongLoginMessage;
     }
@@ -29,7 +29,7 @@ public class WrongLoginAdminPage extends LoginAdminPage {
         return getWrongLoginMessage().getText().split("\n")[0];
     }
 
-    // set Data
+    // set data
 
     // set Functional
 

@@ -22,7 +22,7 @@ public class LoginAdminPage {
         loginBtn = webDriverManager.findElement(By.tagName("button"));
     }
 
-    //Get Data
+    //Get data
     public WebElement getLogo() {
         return logo;
     }

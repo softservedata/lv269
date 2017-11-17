@@ -12,7 +12,7 @@ public enum URLs {
             "=dk7Vj8Zl94QRLl9V3aE22aQ4NvUigXZv"),
     URL_PRODUCT_PG("index.php?route=catalog/" +
             "product&token=giuFK45gup5AuVh6h1weuTb7ZqbxvlFa"),
-    ADM_PRODUCT_PG_DFLT_IMAGE_ADDRESS_SMALL ("image/cache/no_image-40x40.png");
+    ADM_PRODUCT_PG_DEFAULT_SMALL_IMAGE_URL ("http://server7.pp.ua/image/cache/no_image-40x40.png");
 
     private String chosen;
 

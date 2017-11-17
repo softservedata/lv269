@@ -14,7 +14,7 @@ public class temp {
 //            sBarFoldUnfoldBtn = webDriverManager.findElement(By.id("button-menu"));
 //        }
 //
-//        //Get Data
+//        //Get data
 //
 //        public List<AHeaderComponentAdmin.OptionsList> getMainSBarOptionsList() {
 //            return mainSBarOptionsList;
@@ -30,7 +30,7 @@ public class temp {
 //            return (webDriverManager.findElements(sBarIconFoldLocator).size() > 0);
 //        }
 //
-//        //Set Data
+//        //Set data
 //
 //        public void switchFoldUnfoldSBar() {
 //            webDriverManager.clickElement(sBarFoldUnfoldBtn);

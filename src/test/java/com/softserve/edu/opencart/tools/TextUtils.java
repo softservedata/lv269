@@ -16,5 +16,4 @@ public final class TextUtils {
         return Arrays.asList(text.split(splitter));
     }
 
-
 }

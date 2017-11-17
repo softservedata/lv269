@@ -28,7 +28,7 @@ public class ProductComponent {
 
     // PageObject
 
-    // get Data
+    // get data
 
     public WebElement getProductLayout() {
         return productLayout;
@@ -64,7 +64,7 @@ public class ProductComponent {
         return NumberUtils.extractDouble(RegexPatterns.NUMBER_DOUBLE.toString(), getPriceText());
     }
 
-    // set Data
+    // set data
 
     public void clickName() {
         getName().click();

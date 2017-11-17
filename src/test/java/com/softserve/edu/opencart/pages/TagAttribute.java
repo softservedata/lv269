@@ -7,7 +7,21 @@ package com.softserve.edu.opencart.pages;
 public enum TagAttribute {
 
     VALUE("value"),
+    TEXT_CONTENT("textContent"),
     HREF("href"),
+    SRC("src"),
+    CLASS ("class"),
+    TEXTAREA ("textarea"),
+    INPUT ("input"),
+    SELECT ("select"),
+    ANCHOR("a"),
+    LABEL("label"),
+    PRODUCT_NAME ("Product Name"),
+    MODEL ("Model"),
+    PRICE ("Price"),
+    QUANTITY ("Quantity"),
+    STATUS ("Disabled"),
+    IMAGE ("Image"),
     ENABLED("Enabled"),
     DISABLED("Disabled");
 

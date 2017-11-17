@@ -72,6 +72,12 @@ public class WebDriverManager {
         return result.get(0);
     }
 
+    public WebElement findElementInsideElement(By elementLocator, By subElementLocator) {
+        List<WebElement> result = findElementsInsideElement(findElement(elementLocator), subElementLocator);
+        ErrorUtils.createElementIsNotDisplayedException((result.size() == 0), ELEMENT_IS_NOT_DISPLAYED_MESSAGE);
+        return result.get(0);
+    }
+
     public List<WebElement> findElementsInsideElement(WebElement element, By subElementLocator) {
         return element.findElements(subElementLocator);
     }
@@ -107,7 +113,10 @@ public class WebDriverManager {
     }
 
     public void quitDriver() {
-        webDriver.quit();
+        if (getWebDriver() != null) {
+            webDriver.quit();
+        }
+        webDriver = null;
     }
 
     private void setWait() {
@@ -152,4 +161,25 @@ public class WebDriverManager {
         openAddress(URLs.URL_SERVER.toString());
         return new HomePage(getWebDriver());
     }
+
+    public boolean isElementVisible(By elementLocator) {
+        return (findElements(elementLocator).size()>0);
+    }
+
+    public void selectCheckBox(WebElement checkBoxElement) {
+        if (!isCheckboxSelected(checkBoxElement)) {
+         clickElement(checkBoxElement);
+        }
+    }
+
+    public void deselectCheckBox(WebElement checkBoxElement) {
+        if (isCheckboxSelected(checkBoxElement)) {
+            clickElement(checkBoxElement);
+        }
+    }
+
+    public boolean isCheckboxSelected(WebElement checkBoxElement) {
+        return (checkBoxElement.isSelected());
+    }
+
 }

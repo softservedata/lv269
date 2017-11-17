@@ -18,11 +18,11 @@ public class SubCategoryProductsPage extends AColumnLeftComponent {
 
     // PageObject
 
-    // get Data
+    // get data
 
     // get Functional
 
-    // set Data
+    // set data
 
     // set Functional
 

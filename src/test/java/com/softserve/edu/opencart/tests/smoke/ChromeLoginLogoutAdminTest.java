@@ -28,7 +28,7 @@ public class ChromeLoginLogoutAdminTest {
     public Object[][] ValidData() {
         return new Object[][]{
                 {Credentials.ADMINISTRATOR_LOGIN.toString(), Credentials.ADMINISTRATOR_PASSWORD.toString(),
-                        PageNames.DASHBOARD.toString()}};
+                        PageNames.DASHBOARD_ADMIN.toString()}};
     }
 
     @DataProvider(name = "InvalidData")

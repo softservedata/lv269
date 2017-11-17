@@ -16,7 +16,7 @@ public class HomePage extends AHeaderComponent {
 
     // PageObject
 
-    // toString Data
+    // toString data
 
     // toString Functional
 
@@ -35,7 +35,7 @@ public class HomePage extends AHeaderComponent {
         return super.getPriceAmountByProductName(productName);
     }
 
-    // set Data
+    // set data
 
     @Override
     public void clickAddToCartByProductName(String productName) {

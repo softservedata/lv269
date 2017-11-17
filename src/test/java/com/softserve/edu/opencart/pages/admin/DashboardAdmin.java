@@ -15,11 +15,11 @@ public class DashboardAdmin extends AHeaderComponentAdmin {
 
     // PageObject
 
-    // toString Data
+    // toString data
 
     // toString Functional
 
-    // set Data
+    // set data
 
     // set Functional
 

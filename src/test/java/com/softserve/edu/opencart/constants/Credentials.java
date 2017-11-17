@@ -24,13 +24,13 @@ public enum Credentials {
     TEST_USER_LOGIN("q2098007@mvrht.net"),
     TEST_USER_PASSWORD("temporary");
 
-    private String chosen;
+    private String field;
 
-    Credentials(String choice) {
-        chosen = choice;
+    Credentials(String field) {
+        this.field = field;
     }
 
     public String toString() {
-        return chosen;
+        return field;
     }
     }

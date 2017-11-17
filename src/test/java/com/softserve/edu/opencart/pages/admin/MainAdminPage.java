@@ -2,7 +2,7 @@ package com.softserve.edu.opencart.pages.admin;
 
 import com.softserve.edu.opencart.tools.WebDriverManager;
 
-public class MainAdminPage extends AHeaderComponent {
+public class MainAdminPage extends AHeaderComponentAdmin {
 
     // Fields
 
@@ -15,11 +15,11 @@ public class MainAdminPage extends AHeaderComponent {
 
     // PageObject
 
-    // toString Data
+    // toString data
 
     // toString Functional
 
-    // set Data
+    // set data
 
     // set Functional
 

@@ -17,11 +17,11 @@ abstract class AColumnLeftComponent extends ANavigatePanelComponent {
 
     // PageObject
 
-    // get Data
+    // get data
 
     // get Functional
 
-    // set Data
+    // set data
 
     // set Functional
 

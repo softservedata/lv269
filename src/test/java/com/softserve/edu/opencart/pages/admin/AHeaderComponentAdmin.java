@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.pages.admin;
 
+import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.NumberUtils;
 import com.softserve.edu.opencart.tools.TextUtils;
@@ -8,13 +9,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 abstract class AHeaderComponentAdmin {
 
     public enum PathnamesSBar {
-        ADMIN_PRODUCT_PAGE("Catalog/Products"),
-        SETTINGS("System/Settings");
+        PRODUCT_ADMIN_PAGE("Catalog/Products"),
+        SETTINGS_ADMIN_PAGE("System/Settings");
 
         private String field;
 
@@ -67,13 +69,14 @@ abstract class AHeaderComponentAdmin {
         sBarMainOptionsList = new ArrayList<>();
         for (WebElement current : webDriverManager.findElementsInsideElement(sBarPanel,
                 By.xpath(MAIN_OPTIONS_LIST_XPTH))) {
-            sBarMainOptionsList.add(new SBarMainOption(current));
+            sBarMainOptionsList.add(new SBarMainOption(current, webDriverManager));
         }
     }
 
+
     //Page Object
 
-    // Get Data
+    // Get data
 
     public WebElement getLogo() {
         return logo;
@@ -134,9 +137,9 @@ abstract class AHeaderComponentAdmin {
         return getCurrentPageName().getText();
     }
 
-    public String getPathnameText () {
+    public String getPathnameText() {
         String result = "";
-        for (WebElement current: getPathnamePageBtns()) {
+        for (WebElement current : getPathnamePageBtns()) {
             result += current.getText();
         }
         return result;
@@ -150,7 +153,7 @@ abstract class AHeaderComponentAdmin {
         return getPathnamePageBtnFirst().getText();
     }
 
-    //Set Data
+    //Set data
     private void closeStatOptionsList() {
         statOptionsList = null;
     }
@@ -214,7 +217,8 @@ abstract class AHeaderComponentAdmin {
 
     public void clickSBarOptionByPathname(String pathname) {
         ErrorUtils.createInputDataIsEmptyException(pathname.isEmpty(), INPUT_DATA_IS_EMPTY_MESSAGE);
-        List<String> pathnameList = TextUtils.splittoList(pathname, "/");
+        List<String> pathnameList = new LinkedList<>();
+        pathnameList.addAll(TextUtils.splittoList(pathname, "/"));
         SBarMainOption foundOption = getMainSBarOptionByPartialName(pathnameList.get(0));
         pathnameList.remove(0);
         foundOption.actOptionByPathname(pathnameList);
@@ -225,6 +229,7 @@ abstract class AHeaderComponentAdmin {
         for (SBarMainOption current : getSBarMainOptionsList()) {
             if (current.getOptionText().toLowerCase().contains(name.toLowerCase())) {
                 result = current;
+                break;
             }
         }
         ErrorUtils.createOptionNotFoundInSBarException((result == null),
@@ -240,7 +245,7 @@ abstract class AHeaderComponentAdmin {
         webDriverManager.clickElement(getPathnamePageBtnFirst());
     }
 
-    //-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
 
     private class OptionsList {
         private final String OPTION_LOCATOR = "li > a";
@@ -307,10 +312,12 @@ abstract class AHeaderComponentAdmin {
         private List<SBarOption> optionSubOptionsList;
         private WebElement parentElement;
 
-        public SBarMainOption(WebElement parentElement) {
+        private WebDriverManager webDriverManager;
+
+        public SBarMainOption(WebElement parentElement, WebDriverManager webDriverManager) {
+            this.webDriverManager = webDriverManager;
             this.parentElement = parentElement;
             setOptionText();
-            setOptionBtn();
         }
 
         protected void setOptionTextSelector() {
@@ -319,15 +326,13 @@ abstract class AHeaderComponentAdmin {
 
         public void setOptionText() {
             setOptionTextSelector();
-            System.out.println(parentElement);
-            System.out.println(optionTextSelector);
             optionText = webDriverManager.findElementInsideElement(parentElement,
                     By.cssSelector(optionTextSelector))
-                    .getText();
+                    .getAttribute(TagAttribute.TEXT_CONTENT.toString());
         }
 
         private void setOptionBtn() {
-            optionBtn = webDriverManager.findElementInsideElement(parentElement, By.tagName(OPTION_BTN_SELECTOR_TAG));
+            optionBtn = webDriverManager.findElementInsideElement(parentElement, By.xpath("./a"));
         }
 
         private void setOptionSubOptionsList() {
@@ -345,13 +350,14 @@ abstract class AHeaderComponentAdmin {
             }
         }
 
-        // Get Data
+        // Get data
 
         public String getOptionText() {
             return optionText;
         }
 
         public WebElement getOptionBtn() {
+            setOptionBtn();
             return optionBtn;
         }
 
@@ -372,9 +378,9 @@ abstract class AHeaderComponentAdmin {
         //Set Functional
 
         public void actOptionByPathname(List<String> pathname) {
-            if (pathname.size() == 0) {
                 clickOptionBtn();
-            } else {
+            if (pathname.size() != 0) {
+                clickOptionBtn();
                 setOptionSubOptionsList();
                 SBarOption foundOption = getSubOptionByPartialName(pathname.get(0));
                 pathname.remove(0);
@@ -402,7 +408,7 @@ abstract class AHeaderComponentAdmin {
             private final String SUB_OPTION_TEXT_SELECTOR_CSS = "a";
 
             public SBarOption(WebElement parentElement) {
-                super(parentElement);
+                super(parentElement, webDriverManager);
             }
 
             @Override
@@ -410,6 +416,7 @@ abstract class AHeaderComponentAdmin {
                 optionTextSelector = SUB_OPTION_TEXT_SELECTOR_CSS;
             }
         }
+
     }
 
     //-------------------------------------------------------------------------------
@@ -421,7 +428,15 @@ abstract class AHeaderComponentAdmin {
         return new LoginAdminPage(webDriverManager);
     }
 
+    public ProductAdminPage openProductAdminPage() {
+        clickSBarOptionByPathname(PathnamesSBar.PRODUCT_ADMIN_PAGE.toString());
+        return new ProductAdminPage(webDriverManager);
+    }
 
+    public SettingPage openSettingAdminPage () {
+        clickSBarOptionByPathname(PathnamesSBar.SETTINGS_ADMIN_PAGE.toString());
+        return new SettingPage(webDriverManager);
+    }
 }
 
 

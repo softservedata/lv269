@@ -141,7 +141,7 @@ abstract class AHeaderComponent {
 
     // PageObject
 
-    // toString Data
+    // toString data
 
     public WebElement getCurrency() {
         return currency;
@@ -287,7 +287,7 @@ abstract class AHeaderComponent {
         return getProductComponentByProductName(productName).getPriceAmount();
     }
 
-    // set Data
+    // set data
 
      public void setSearchProductField(String text) {
          getSearchProductField().sendKeys(text);
