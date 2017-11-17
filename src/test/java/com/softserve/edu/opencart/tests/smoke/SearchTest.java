@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class SearchTest {
-
+    WebDriver driver = new ChromeDriver();
     @DataProvider (name = "DataProvider-for-Smoke")
     public Object[ ][ ] parameterIntTestProvider() {
 
@@ -28,7 +28,7 @@ public class SearchTest {
         //
         System.setProperty("webdriver.chrome.driver",
                 "src/test/resources/lib/chromedriver");
-        WebDriver driver = new ChromeDriver();
+        //WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://server7.pp.ua/index.php?route=product/search");
         Thread.sleep(1000);
@@ -36,7 +36,7 @@ public class SearchTest {
         String expected = "All Categories";
         String actual;
         SearchPage searchPage = new SearchPage(driver);
-        actual = searchPage.getSelectedCategoryText();
+        actual = searchPage.getSelectedText(searchPage.getSelectCategorySearch());
 
         // Check
         //
@@ -58,7 +58,7 @@ public class SearchTest {
                 "src/test/resources/lib/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://server7.pp.ua/index.php?route=product/search");
+        driver.get("http://server7.pp.ua/index.php?route=product/search&search=mac");
         SearchPage sp = new SearchPage(driver);
         System.out.print("TestRes: " + sp.getNoElementsMeetingCriteriaText() + "TheEnd");
     }

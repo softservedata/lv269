@@ -88,7 +88,7 @@ public class SearchPage extends ANavigatePanelComponent {
     public List<WebElement> getOptionList(WebElement select){
         return driver.findElements(By.xpath(String.format(XPATH_FOR_OPTIONS, select)));
     }
-
+        //todo use Select class
     public WebElement getSelectOptionByPartialName(String categoryName, List<WebElement> selectOptions){
         WebElement result = null;
         for (WebElement current : selectOptions) {
