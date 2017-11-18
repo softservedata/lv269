@@ -51,8 +51,11 @@ public class ProductPageTest {
         //
         productPage.clickReview();
         productPage.inValidReviewFields("name", "fhdk");
-        productPage.inValidOnlyReviewRating("name", "fdsdsbdnbdshfdsbcdxbchjdbsfhbdscdbscblsdbdsjcdsb hb dbsvdslbfs");
+        Thread.sleep(1000);
+        //productPage.inValidOnlyReviewRating("name", "fdsdsbdnbdshfdsbcdxbchjdbsfhbdscdbscblsdbdsjcdsb hb dbsvdslbfs");
+        //Thread.sleep(1000);
         productPage.validOnlyReviewRating();
+        Thread.sleep(1000);
         productPage.validReviewFields("name", "fdsdsbdnbdshfdsbcdxbchjdbsfhbdscdbscblsdbdsjcdsb hb dbsvdslbfs");
 
         productPage.clickDescription();

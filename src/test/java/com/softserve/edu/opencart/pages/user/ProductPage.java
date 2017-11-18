@@ -322,7 +322,7 @@ public class ProductPage extends ANavigatePanelComponent {
 
     private void createAlert(String alert) {
         WebElement result = null;
-        if (driver.findElement(By.className(alert)).isDisplayed()) {
+        if (driver.findElements(By.className(alert)).size()>0) {
             result = driver.findElement(By.className(alert));
         }
         ErrorUtils.createCustomException((result == null),
@@ -374,9 +374,9 @@ public class ProductPage extends ANavigatePanelComponent {
     }
 
     public void inputReviewTextField(String text) {
-        clickReviewNameField();
-        clearReviewNameField();
-        setReviewNameField(text);
+        clickReviewTextField();
+        clearReviewTextField();
+        setReviewTextField(text);
     }
 
     private void newReview(String name, String text) {
@@ -412,8 +412,8 @@ public class ProductPage extends ANavigatePanelComponent {
     }
 
     public void validOnlyReviewRating() {
-        inputReviewNameField(null);
-        inputReviewTextField(null);
+        inputReviewNameField("");
+        inputReviewTextField("");
         setReviewRatingFist();
         review = new Review();
         createAlertDanger();
