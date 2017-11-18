@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests.smoke;
 
+import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -33,8 +34,8 @@ public class LoginTest {
     @DataProvider(name = "Authentication")
     public static Object[][] credentials() {
 
-        return new Object[][]{{"lv_269_test@ukr.net", "269lv269lv"}
-                , {"test_wrong_login@email.com", "269lv269lv"}
+        return new Object[][]{{UserRepository.get().userTestLogin().getEmail(), UserRepository.get().userTestLogin().getPassword()}
+                , { UserRepository.get().valid().getEmail(), UserRepository.get().valid().getPassword()}
                 , {"mfj14401@sqoai.com", "qwerty123456"}};
 
     }

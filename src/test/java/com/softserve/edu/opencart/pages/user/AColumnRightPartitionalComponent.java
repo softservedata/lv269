@@ -133,4 +133,9 @@ abstract class AColumnRightPartitionalComponent extends ANavigatePanelComponent 
     // set Functional
 
     // Business Logic
+    
+    public WishListPage gotoWishListPageRightColumn() {
+    	clickRigthPanelWishList();
+    	return new WishListPage(driver);
+    }
 }

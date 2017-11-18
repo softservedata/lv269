@@ -57,5 +57,10 @@ public class AColumnRightUserComponent extends AColumnRightPartitionalComponent 
     // set Functional
 
     // Business Logic
+    
+    public LogoutPage gotoLogoutPageRightColumn() {
+    	clickLogoutRightColumn();
+    	return new LogoutPage(driver);
+    }
 
 }

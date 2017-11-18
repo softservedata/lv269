@@ -53,7 +53,7 @@ public class HomePage extends AHeaderComponent {
     // set Functional
 
     // Business Logic
-
+    
     public HomePage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
         clickCurrencyByPartialName(detailCategory.getOptionName());
         return new HomePage(driver); 
@@ -61,6 +61,14 @@ public class HomePage extends AHeaderComponent {
 
     public double getPriceAmountByProduct(Product product) {
         return getPriceAmountByProductName(product.getName());
+    }
+
+    public SuccesSearchPage succesSearchProduct(String partialProductName) {
+        clickSearchProductField();
+        clearSearchProductField();
+        setSearchProductField(partialProductName);
+        clickSearchProductButton();
+        return new SuccesSearchPage(driver); 
     }
 
 }
