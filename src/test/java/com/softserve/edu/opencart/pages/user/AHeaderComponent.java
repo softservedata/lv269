@@ -74,9 +74,12 @@ abstract class AHeaderComponent {
         CART_TOTAL_ID ("cart-total"),
         MY_ACCOUNT_OPTIONS_CSS (".list-inline > li > a.dropdown-toggle + ul > li > a"),
         CURRENCY_OPTIONS_CSS (".btn.btn-link.dropdown-toggle + ul > li > button"),
-        // TODO
-        MENUTOP_OPTIONS_CSS ("li:has(a:contains('%s')) li > a"),
-        MENUTOP_LAST_OPTION_CSS ("li:has(a:contains('%s')) div > a");
+        // Do not Work with CSS ver. 3.x
+        //MENUTOP_OPTIONS_CSS ("li:has(a:contains('%s')) li > a"),
+        MENUTOP_OPTIONS_XPATH ("//li/a[contains(text(),'%s')]/..//li/a"),
+        // Do not Work with CSS ver. 3.x
+        //MENUTOP_LAST_OPTION_CSS ("li:has(a:contains('%s')) div > a");
+        MENUTOP_LAST_OPTION_XPATH ("//a[contains(text(),'Show All %s')]");
         //
         private String field;
 
@@ -121,10 +124,13 @@ abstract class AHeaderComponent {
         myAccount = driver.findElement(By.cssSelector(".list-inline > li > a.dropdown-toggle"));
         wishList = driver.findElement(By.id("wishlist-total"));
         // shoppingCart=driver.findElement(By.partialLinkText("Shopping Cart"));
-        // TODO
-        shoppingCart = null;//driver.findElement(By.cssSelector("a:has('.fa.fa-shopping-cart')"));
+        // Do not Work with CSS ver. 3.x
+        //shoppingCart = null;//driver.findElement(By.cssSelector("a:has('.fa.fa-shopping-cart')"));
+        shoppingCart = driver.findElement(By.cssSelector("a[title='Shopping Cart']"));
         // checkout=driver.findElement(By.partialLinkText("Checkout"));
-        checkout = null; //driver.findElement(By.cssSelector("a:has('.fa.fa-share')"));
+        // Do not Work with CSS ver. 3.x
+        //checkout = null; //driver.findElement(By.cssSelector("a:has('.fa.fa-share')"));
+        checkout = driver.findElement(By.cssSelector("a[title='Checkout']"));
         logo = driver.findElement(By.cssSelector("#logo > a"));
         searchProductField = driver.findElement(By.name("search"));
         searchProductButton = driver.findElement(By.cssSelector(".btn.btn-default.btn-lg"));
@@ -394,8 +400,8 @@ abstract class AHeaderComponent {
      public void clickMenuTopByPartialName(String categoryName, String optionName) {
          clickMenuTopByCategoryPartialName(categoryName);
          clickDropdownOptionByPartialName(optionName,
-                 By.cssSelector(String.format(AHeaderComponentLocators.MENUTOP_OPTIONS_CSS.toString(), categoryName)),
-                 By.cssSelector(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_CSS.toString(), categoryName)));
+                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_OPTIONS_XPATH.toString(), categoryName)),
+                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_XPATH.toString(), categoryName)));
      }
 
      public List<String> getCurrencyOptions() {
@@ -413,8 +419,9 @@ abstract class AHeaderComponent {
 
      public List<String> getMenuTopOptionsByPartialNameTexts(String categoryName) {
          clickMenuTopByCategoryPartialName(categoryName);
-         createDropdownOptions(By.cssSelector(String.format(AHeaderComponentLocators.MENUTOP_OPTIONS_CSS.toString(), categoryName)),
-                 By.cssSelector(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_CSS.toString(), categoryName)));
+         createDropdownOptions(
+                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_OPTIONS_XPATH.toString(), categoryName)),
+                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_XPATH.toString(), categoryName)));
          return dropdownOptions.getListOptionByPartialNameTexts();
      }
 
@@ -425,5 +432,21 @@ abstract class AHeaderComponent {
     // setLoginData(user);
     // return new CommonPage();
     // }
+
+    public LoginPage gotoLoginPageFromMyAccount(  ) {
+        clickMyAccountByPartialName(  "login");
+        return new LoginPage(driver);
+    }
+
+    public LogoutPage gotoLogoutPage(  ) {
+        clickMyAccountByPartialName(  "logout");
+        return new LogoutPage(driver);
+    }
+
+
+     public SubCategoryProductsPage gotoMenuTopByPartialName(String categoryName, String optionName) {
+         clickMenuTopByPartialName(categoryName, optionName);
+         return new SubCategoryProductsPage(driver);
+     }
 
 }
