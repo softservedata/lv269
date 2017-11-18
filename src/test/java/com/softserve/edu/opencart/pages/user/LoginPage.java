@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.data.users.IUser;
+
 public class LoginPage extends AColumnRightGuestComponent {
 
     // Fields
@@ -88,21 +90,39 @@ public class LoginPage extends AColumnRightGuestComponent {
         inputInPasswordField(passwordField);
     }
 
-    // Business Logic
 
-    public MyAccountPage loginForLoginPageToMyAccountPage(String email, String password) {
+    public void loginForLoginPageToMyAccountPage(String email, String password) {
         inputEMailAdress(email);
         inputPassword(password);
         clickLoginButton();
-        return new MyAccountPage(driver);
+        //return new MyAccountPage(driver);
     }
 
-    public LoginPage loginForLoginPageToWarning(String email, String wrongPassword) {
+    public void loginForLoginPageToWarning(String email, String wrongPassword) {
         inputEMailAdress(email);
         inputPassword(wrongPassword);
         clickLoginButton();
+        //return new LoginPage(driver);
+    }
+    
+	// Business Logic
+    
+    public MyAccountPage gotoLoginForLoginPageToMyAccountPage(IUser user) {
+        //inputEMailAdress(email);
+        //inputPassword(password);
+        //clickLoginButton();
+    	loginForLoginPageToMyAccountPage(user.getEmail(), user.getPassword());
+        return new MyAccountPage(driver);
+    }
+
+    public LoginPage gotoLoginForLoginPageToWarning(IUser user) {
+        //inputEMailAdress(email);
+        //inputPassword(wrongPassword);
+        //clickLoginButton();
+    	loginForLoginPageToWarning(user.getEmail(), user.getPassword());
         return new LoginPage(driver);
     }
+    
      public String getWarningDangerText(){
 
             return getAlertDangerText();

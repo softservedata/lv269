@@ -8,44 +8,55 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.categories.DetailCategory;
 import com.softserve.edu.opencart.data.products.Product;
+import com.softserve.edu.opencart.data.products.ProductRepository;
+import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.data.users.UserRepository;
+import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.MyAccountPage;
 import com.softserve.edu.opencart.pages.user.WishListPage;
 
 public class WishListTest {
-	/*
-	@DataProvider//(parallel = true)
-    public Object[] productData() {
-        // Read from ...
-        return new Object[] {
-              new Product("MacBook", null, null ),
-              new Product("iPhone", null, null),
-              new Product("Canon EOS 5D", null, null)
-            };
-    }
-	*/
-	//@Test //(dataProvider = "productData")
-	public void checkWishListPage() throws Exception {
-		//
-		// Precondition
-		//
-		System.setProperty("webdriver.chrome.driver", "C:/Program Files/Java/Selenium360/chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		//
-		driver.get("http://server7.pp.ua");
-		//
-		// Steps
-		//
-		HomePage homePage = new HomePage(driver);
-		homePage.clickAddToWishByProductName("iPhone");
+
+	@BeforeClass
+	public void beforeClass() {
+		Application.get(ApplicationSourceRepository.get().chromeServer7());
+		// Application.get(ApplicationSourceRepository.get().firefoxServer7());
+	}
+
+	@AfterClass
+	public void afterClass() {
+		Application.remove();
+	}
+
+	@DataProvider // (parallel = true)
+	public Object[] productData() {
+		// Read from ...
+		return new Object[] { 
+				ProductRepository.get().macBook(),
+				ProductRepository.get().iPhone(),
+				UserRepository.get().userKutaiev()
+		};
+	}
+
+	@Test (dataProvider = "productData")
+	public void checkWishListPage(Product macBook, Product iPhone, IUser user) throws Exception {
+		HomePage homePage = Application.get().loadHomePage()
+				.gotoHomePageClickAddToWish(macBook)
+				.gotoHomePageClickAddToWish(iPhone)
+				.gotoLoginPageFromMyAccount();
+				//Login
+		
+		homePage = homePage.gotoHomePageClickAddToWish(MacBook);
 		homePage = new HomePage(driver);
 		homePage.clickAddToWishByProductName("MacBook");
 		homePage = new HomePage(driver);
@@ -70,7 +81,7 @@ public class WishListTest {
 		driver.quit();
 	}
 	
-	@Test(invocationCount = 100)
+	@Test //(invocationCount = 100)
 	public void checkEmptyWishList() {
 		System.setProperty("webdriver.chrome.driver", "C:/Program Files/Java/Selenium360/chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
@@ -79,9 +90,7 @@ public class WishListTest {
 		
 		HomePage homePage = new HomePage(driver);
 		LoginPage loginPage = homePage.gotoLoginPageFromMyAccount();
-		MyAccountPage myAccountPage = loginPage.loginForLoginPageToMyAccountPage(
-				UserRepository.get().userKutaiev().getEmail(), 
-				UserRepository.get().userKutaiev().getPassword());
+		MyAccountPage myAccountPage = loginPage.gotoLoginForLoginPageToMyAccountPage(UserRepository.get().userKutaiev());
 		
 		WishListPage wishListPage = myAccountPage.gotoWishListPageRightColumn();
 		String expected = "Your wish list is empty.";

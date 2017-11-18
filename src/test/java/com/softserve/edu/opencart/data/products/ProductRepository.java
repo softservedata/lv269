@@ -31,5 +31,25 @@ public class ProductRepository {
                 "Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1..",
                 macBookPrices);
     }
+    
+    public IProduct iPhone() {
+        Map<String, Double> iPhonePrices = new HashedMap<>();
+        iPhonePrices.put("Euro", 86.87);
+        iPhonePrices.put("Pound Sterling", 76.56);
+        iPhonePrices.put("US Dollar", 101.00);
+        return new Product("iPhone",
+                "iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a nam..",
+                iPhonePrices);
+    }
+    
+    public IProduct canonEOS5D() {
+        Map<String, Double> canonEOS5D = new HashedMap<>();
+        canonEOS5D.put("Euro", 68.81);
+        canonEOS5D.put("Pound Sterling", 60.64);
+        canonEOS5D.put("US Dollar", 80.00);
+        return new Product("Canon EOS 5D",
+                "Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR category', while we'r..",
+                canonEOS5D);
+    }
 
 }
