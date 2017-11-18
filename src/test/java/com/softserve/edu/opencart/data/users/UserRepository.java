@@ -57,6 +57,82 @@ public final class UserRepository {
                 .setSubscribe(true)
                 .build();
     }
+    
+    public IUser userKutaiev() {
+        return User.get()
+                .setFirstname("Olex")
+                .setLastname("Really")
+                .setEmail("mfj14401@sqoai.com")
+                .setPhoneNumber("12345667890")
+                .setAddressFirst("qwe/wqe/qwe")
+                .setCity("Lviv")
+                .setPostCode("12345")
+                .setCountry("United Kingdom")
+                .setRegion("Conwy")
+                .setPassword("qwerty123456")
+                .setAddressSecond("-")
+                .setCompany("-")
+                .setFax("-")
+                .setSubscribe(false)
+                .build();
+    }
+
+    public IUser userTestLogin() {
+        return User.get()
+                .setFirstname("FIRSTNAME")
+                .setLastname("LASTNAME")
+                .setEmail("lv_269_test@ukr.net")
+                .setPhoneNumber("380511223344")
+                .setAddressFirst("TEST_ADDRESS")
+                .setCity("Lviv")
+                .setPostCode("79000")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("269lv269lv")
+                .setAddressSecond("-")
+                .setCompany("-")
+                .setFax("-")
+                .setSubscribe(false)
+                .build();
+    }
+    public IUser userTestWrongPassword() {
+        return User.get()
+                .setFirstname("FIRSTNAME")
+                .setLastname("LASTNAME")
+                .setEmail("test_wrong_login@email.com")
+                .setPhoneNumber("380511223344")
+                .setAddressFirst("TEST_ADDRESS")
+                .setCity("Lviv")
+                .setPostCode("79000")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("269lv269lvs")
+                .setAddressSecond("-")
+                .setCompany("-")
+                .setFax("-")
+                .setSubscribe(false)
+                .build();
+    }
+    public IUser userTestCorectPassword() {
+        return User.get()
+                .setFirstname("FIRSTNAME")
+                .setLastname("LASTNAME")
+                .setEmail("test_wrong_login@email.com")
+                .setPhoneNumber("380511223344")
+                .setAddressFirst("TEST_ADDRESS")
+                .setCity("Lviv")
+                .setPostCode("79000")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("269lv269lv")
+                .setAddressSecond("-")
+                .setCompany("-")
+                .setFax("-")
+                .setSubscribe(false)
+                .build();
+    }
+
+
 
     public IUser newUser() {
         // TODO
