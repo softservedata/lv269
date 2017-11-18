@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AddressBookPage extends MyAccountPage {
+public class AddressBookPage extends AColumnRightUserComponent {
 
     private List<AddressBookEntries> addressBookEntries;
     private WebElement newAddressBook;
