@@ -4,8 +4,6 @@ import java.util.Map;
 
 import org.apache.commons.collections4.map.HashedMap;
 
-import com.softserve.edu.opencart.pages.Application;
-
 public class ProductRepository {
 
     private static volatile ProductRepository instance = null;
