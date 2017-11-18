@@ -438,4 +438,56 @@ abstract class AHeaderComponent {
          return new SubCategoryProductsPage(driver);
      }
 
+    // Alert
+
+    private WebElement alertSuccess;
+    private WebElement alertDanger;
+    private WebElement alertWarning;
+    private final String ALERT_NOT_FOUND_MESSAGE = "Alert %s not found";
+
+    private void createAlert(String alert) {
+        WebElement result = null;
+        if (driver.findElements(By.className(alert)).size()>0) {
+            result = driver.findElement(By.className(alert));
+        }
+        ErrorUtils.createCustomException((result == null),
+                String.format(ALERT_NOT_FOUND_MESSAGE, alert));
+    }
+
+    protected void createAlertSuccess() {
+        createAlert("alert-success");
+    }
+
+    protected void createAlertDanger() {
+        createAlert("alert-danger");
+    }
+
+    protected void createAlertWarning() {
+        createAlert("alert-warning");
+    }
+
+    private WebElement getAlertSuccess() {
+        return alertSuccess;
+    }
+
+    private WebElement getAlertDanger() {
+        return alertDanger;
+    }
+
+    private WebElement getAlertWarning() {
+        return alertWarning;
+    }
+
+    public String getAlertSuccessText() {
+        return getAlertSuccess().getText();
+    }
+
+    public String getAlertDangerText() {
+        return getAlertDanger().getText();
+    }
+
+    public String getAlertWarningText() {
+        return getAlertWarning().getText();
+    }
+
 }

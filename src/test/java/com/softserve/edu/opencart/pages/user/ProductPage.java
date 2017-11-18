@@ -277,7 +277,7 @@ public class ProductPage extends ANavigatePanelComponent {
 
     private final String ITEM_FROM_NAVTAB_NOT_FOUND_MESSAGE = "Item from navTab %s not found for product %s";
     private final String EXSIST_REVIEW_NOT_FOUND_MESSAGE = "Exsist reviev %s not found for product %s";
-    private final String ALERT_NOT_FOUND_MESSAGE = "Alert %s not found";
+    //private final String ALERT_NOT_FOUND_MESSAGE = "Alert %s not found";
 
 
     private WebElement getItemFromNavTab(String item) {
@@ -314,7 +314,7 @@ public class ProductPage extends ANavigatePanelComponent {
         return getReview().getReviewsExist().size();
     }
 
-    // Alert
+   /* // Alert
 
     private WebElement alertSuccess;
     private WebElement alertDanger;
@@ -364,7 +364,7 @@ public class ProductPage extends ANavigatePanelComponent {
     public String getAlertWarningText() {
         return getAlertWarning().getText();
     }
-
+*/
     // Business Logic
 
     public void inputReviewNameField(String name) {
