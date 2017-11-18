@@ -8,7 +8,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.softserve.edu.opencart.data.Product;
+import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 	//TODO replace extended class to ARightColumnUserComponent
 public class WishListPage extends AColumnRightUserComponent {
@@ -325,6 +325,11 @@ public class WishListPage extends AColumnRightUserComponent {
 	
 	public WishListPage clickDeleteProductFromWishList(Product product) {
 		clickDeleteButton(product.getName());
+		return new WishListPage(driver);
+	}
+	
+	public WishListPage clickDeleteProductFromWishList(String productName) {
+		clickDeleteButton(productName);
 		return new WishListPage(driver);
 	}
 	

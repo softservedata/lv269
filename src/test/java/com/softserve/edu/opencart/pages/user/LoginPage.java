@@ -11,7 +11,7 @@ public class LoginPage extends AColumnRightGuestComponent {
     private WebElement eMailAddressField;
     private WebElement passwordField;
     private WebElement LoginButton;
-
+    private WebElement warning;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -37,7 +37,11 @@ public class LoginPage extends AColumnRightGuestComponent {
         return LoginButton;
     }
 
-    // get Functional
+
+    public WebElement getWarningText() {
+        return getWarningText();
+    }
+// get Functional
 
     // set Data
 
@@ -85,16 +89,24 @@ public class LoginPage extends AColumnRightGuestComponent {
     }
 
     // Business Logic
-    public UserPage gotoLoginUserPage() {
-        clickLoginButton();
-        return new UserPage(driver);
-    }
-    public LoginPage inputCredentialsUserPage(String email, String password) {
+
+    public MyAccountPage loginForLoginPageToMyAccountPage(String email, String password) {
         inputEMailAdress(email);
         inputPassword(password);
-        return new LoginPage(driver);
+        clickLoginButton();
+        return new MyAccountPage(driver);
     }
 
+    public LoginPage loginForLoginPageToWarning(String email, String wrongPassword) {
+        inputEMailAdress(email);
+        inputPassword(wrongPassword);
+        clickLoginButton();
+        return new LoginPage(driver);
+    }
+     public String getWarningDangerText(){
 
+            return getAlertDangerText();
+
+    }
 
 }

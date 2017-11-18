@@ -5,8 +5,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import com.softserve.edu.opencart.data.DetailCategory;
-import com.softserve.edu.opencart.data.Product;
+import com.softserve.edu.opencart.data.categories.DetailCategory;
+import com.softserve.edu.opencart.data.products.Product;
 
 public class HomePage extends AHeaderComponent {
 
@@ -62,5 +62,13 @@ public class HomePage extends AHeaderComponent {
     public double getPriceAmountByProduct(Product product) {
         return getPriceAmountByProductName(product.getName());
     }
-    
+
+    public SuccesSearchPage succesSearchProduct(String partialProductName) {
+        clickSearchProductField();
+        clearSearchProductField();
+        setSearchProductField(partialProductName);
+        clickSearchProductButton();
+        return new SuccesSearchPage(driver); 
+    }
+
 }
