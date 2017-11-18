@@ -7,12 +7,12 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Yurii Ivanytskyi
  */
-public class PasswordPage {
+public class PasswordComponent {
 
 	private WebElement fieldPassword;
 	private WebElement fieldConfirmPassword;
 
-	public PasswordPage(WebDriver driver) {
+	public PasswordComponent(WebDriver driver) {
 		fieldPassword = driver.findElement(By.id("input-password"));
 		fieldConfirmPassword = driver.findElement(By.id("input-confirm"));
 	}

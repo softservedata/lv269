@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 /**
  * @author Yurii Ivanytskyi
  */
-public class AddressPage {
+public class AddressComponent {
 
 	private WebElement fieldCompany;
 	private WebElement fieldAddressFirst;
@@ -18,7 +18,7 @@ public class AddressPage {
 	private Select country;
 	private Select zone;
 
-	public AddressPage(WebDriver driver) {
+	public AddressComponent(WebDriver driver) {
 		fieldCompany = driver.findElement(By.id("input-company"));
 		fieldAddressFirst = driver.findElement(By.id("input-address-1"));
 		fieldAddressSecond = driver.findElement(By.id("input-address-2"));

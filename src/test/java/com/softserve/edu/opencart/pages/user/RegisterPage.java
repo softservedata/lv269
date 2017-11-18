@@ -12,9 +12,9 @@ import org.openqa.selenium.WebElement;
 
 public class RegisterPage extends AColumnRightGuestComponent {
 	
-	private PersonalDetailsPage personalDetailsPage;
-	private AddressPage addressPage;
-	private PasswordPage passwordPage;
+	private PersonalDetailsComponent personalDetailsPage;
+	private AddressComponent addressPage;
+	private PasswordComponent passwordPage;
 	
 	private WebElement linkToLogin;
 	private List<WebElement> radioNewsSubscribe; // ?
@@ -24,9 +24,9 @@ public class RegisterPage extends AColumnRightGuestComponent {
 
 	public RegisterPage(WebDriver driver) {
 		super(driver);
-		personalDetailsPage = new PersonalDetailsPage(driver);
-		addressPage = new AddressPage(driver);
-		passwordPage = new PasswordPage(driver);
+		personalDetailsPage = new PersonalDetailsComponent(driver);
+		addressPage = new AddressComponent(driver);
+		passwordPage = new PasswordComponent(driver);
 		linkToLogin = driver.findElement(By.cssSelector("#content>p>a"));
 		radioNewsSubscribe = driver.findElements(By.cssSelector(".radio-inline")); // ?
 		linkPrivacyPolicy = driver.findElement(By.cssSelector(".pull-right > a"));
@@ -38,15 +38,15 @@ public class RegisterPage extends AColumnRightGuestComponent {
 
 	// get Data
 	
-	public PersonalDetailsPage getPersonalDetailsPage() {
+	public PersonalDetailsComponent getPersonalDetailsPage() {
 		return personalDetailsPage;
 	}
 
-	public AddressPage getAddressPage() {
+	public AddressComponent getAddressPage() {
 		return addressPage;
 	}
 
-	public PasswordPage getPasswordPage() {
+	public PasswordComponent getPasswordPage() {
 		return passwordPage;
 	}
 	

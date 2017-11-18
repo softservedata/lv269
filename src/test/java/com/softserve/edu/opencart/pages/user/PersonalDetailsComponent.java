@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Yurii Ivanytskyi
  */
-public class PersonalDetailsPage {
+public class PersonalDetailsComponent {
 
 	private WebElement fieldFirstName;
 	private WebElement fieldLastName;
@@ -15,7 +15,7 @@ public class PersonalDetailsPage {
 	private WebElement fieldTelephone;
 	private WebElement fieldFax;
 
-	public PersonalDetailsPage(WebDriver driver) {
+	public PersonalDetailsComponent(WebDriver driver) {
 		fieldFirstName = driver.findElement(By.id("input-firstname"));
 		fieldLastName = driver.findElement(By.id("input-lastname"));
 		fieldEmail = driver.findElement(By.id("input-email"));
