@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.softserve.edu.data.DetailCategory;
+import com.softserve.edu.opencart.data.categories.DetailCategory;
 
 public class SubCategoryProductsPage extends AColumnLeftComponent {
 
