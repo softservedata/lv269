@@ -92,6 +92,29 @@ abstract class AHeaderComponent {
             return field;
         }
     }
+    
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    
+    private enum MyAccountOptions {
+    	REGISTER("Register"),
+    	LOGIN("Login"),
+        MY_ACCOUNT("My Account"),
+        ORDER_HISTORY("Order History"),
+        TRANSACTIONS("Transactions"),
+        DOWNLOADS("Downloads"),
+        LOGOUT("Logout");
+    	
+    	private String field;
+
+        private MyAccountOptions(String field) {
+            this.field = field;
+        }
+
+        @Override
+        public String toString() {
+            return field;
+        }    	
+    }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -511,6 +534,39 @@ abstract class AHeaderComponent {
         return dropdownOptions.getListOptionByPartialNameTexts();
     }
 
+	// -----------------------------------------------
+	// MyAccount options atomic click block
+	// -----------------------------------------------
+	public void clickMyAccountOptionRegister() {
+		clickMyAccountByPartialName(MyAccountOptions.REGISTER.toString());
+	}
+
+	public void clickMyAccountOptionLogin() {
+		clickMyAccountByPartialName(MyAccountOptions.LOGIN.toString());
+	}
+	// -----------------------------------------------
+
+	public void clickMyAccountOptionMyAccount() {
+		clickMyAccountByPartialName(MyAccountOptions.MY_ACCOUNT.toString());
+	}
+
+	public void clickMyAccountOptionOrderHistory() {
+		clickMyAccountByPartialName(MyAccountOptions.ORDER_HISTORY.toString());
+	}
+
+	public void clickMyAccountOptionTransactions() {
+		clickMyAccountByPartialName(MyAccountOptions.TRANSACTIONS.toString());
+	}
+
+	public void clickMyAccountOptionDownloads() {
+		clickMyAccountByPartialName(MyAccountOptions.DOWNLOADS.toString());
+	}
+
+	public void clickMyAccountOptionLogout() {
+		clickMyAccountByPartialName(MyAccountOptions.LOGOUT.toString());
+	}
+	// -----------------------------------------------
+
 
     // Business Logic
 
@@ -520,12 +576,14 @@ abstract class AHeaderComponent {
     // }
 
     public LoginPage gotoLoginPageFromMyAccount() {
-        clickMyAccountByPartialName("login");
+        //clickMyAccountByPartialName("login");
+    	clickMyAccountOptionLogin();
         return new LoginPage(driver);
     }
 
     public LogoutPage gotoLogoutPage() {
-        clickMyAccountByPartialName("logout");
+        //clickMyAccountByPartialName("logout");
+    	clickMyAccountOptionLogout();
         return new LogoutPage(driver);
     }
 

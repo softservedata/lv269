@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests.smoke;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +23,7 @@ import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
+import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.pages.user.MyAccountPage;
 import com.softserve.edu.opencart.pages.user.WishListPage;
 
@@ -38,24 +40,28 @@ public class WishListTest {
 		Application.remove();
 	}
 
-	@DataProvider // (parallel = true)
-	public Object[] productData() {
-		// Read from ...
-		return new Object[] { 
-				ProductRepository.get().macBook(),
-				ProductRepository.get().iPhone(),
-				UserRepository.get().userKutaiev()
-		};
+	@DataProvider
+	public Object[][] productData() {
+		return new Object[][] { 
+				{ 
+					ProductRepository.get().macBook(), 
+					ProductRepository.get().iPhone(),
+					UserRepository.get().userKutaiev() 
+				} 
+			};
 	}
 
 	@Test (dataProvider = "productData")
 	public void checkWishListPage(Product macBook, Product iPhone, IUser user) throws Exception {
-		HomePage homePage = Application.get().loadHomePage()
+		MyAccountPage myAccountPage = Application.get().loadHomePage()
 				.gotoHomePageClickAddToWish(macBook)
 				.gotoHomePageClickAddToWish(iPhone)
-				.gotoLoginPageFromMyAccount();
-				//Login
+				.gotoLoginPageFromMyAccount()
+				.gotoLoginForLoginPageToMyAccountPage(user);
 		
+		LogoutPage logoutPage = myAccountPage.gotoLogoutPage();
+		
+		/*
 		homePage = homePage.gotoHomePageClickAddToWish(MacBook);
 		homePage = new HomePage(driver);
 		homePage.clickAddToWishByProductName("MacBook");
@@ -78,10 +84,11 @@ public class WishListTest {
 		//
 		// Return to previous state
 		//
-		driver.quit();
+		driver.quit();*/
+		
 	}
 	
-	@Test //(invocationCount = 100)
+	//@Test //(invocationCount = 100)
 	public void checkEmptyWishList() {
 		System.setProperty("webdriver.chrome.driver", "C:/Program Files/Java/Selenium360/chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
