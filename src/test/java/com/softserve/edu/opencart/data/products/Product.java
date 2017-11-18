@@ -22,6 +22,11 @@ public class Product implements IProduct {
         this.description = description;
         this.prices = new HashMap<>();
     }
+    
+    public Product(String name) {
+        this.name = name;
+        this.prices = new HashMap<>();
+    }
 
     public String getName() {
         return name;

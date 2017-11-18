@@ -63,14 +63,22 @@ public class HomePage extends AHeaderComponent {
         return getPriceAmountByProductName(product.getName());
     }
 
-    public SuccesSearchPage succesSearchProduct(String partialProductName) {
+    public SuccessSearchPage successProductSearch(String partialProductName) {
         clickSearchProductField();
         clearSearchProductField();
         setSearchProductField(partialProductName);
         clickSearchProductButton();
-        return new SuccesSearchPage(driver); 
+        return new SuccessSearchPage(driver);
     }
-    
+
+    public FailureSearchPage failureProductSearch(String partialElementName) {
+        clickSearchProductField();
+        clearSearchProductField();
+        setSearchProductField(partialElementName);
+        clickSearchProductButton();
+        return new FailureSearchPage(driver);
+    }
+
     public HomePage gotoHomePageClickAddToWish(Product product) {
     	clickAddToWishByProductName(product.getName());
     	return new HomePage(driver);

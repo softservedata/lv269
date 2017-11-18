@@ -2,34 +2,42 @@ package com.softserve.edu.opencart.data.products;
 
 import java.util.List;
 
-public class SearchProduct {
+public class SearchProduct implements ISearchProduct{
 
     private String productName;
-    private List<Product> products;
-    
-    public SearchProduct(String productName, List<Product> products) {
+    private String productDescription;
+    private List<String> products;
+
+    public SearchProduct(String productName, List<String> products) {
         this.productName = productName;
         this.products = products;
     }
 
-    // setters
-
-    public void setProductName(String productName) {
+    public SearchProduct(String productName, String productDescription, List<String> products) {
         this.productName = productName;
-    }
-
-    public void setProducts(List<Product> products) {
+        this.productDescription = productDescription;
         this.products = products;
     }
 
     // getters
-    
     public String getProductName() {
         return productName;
     }
 
-    public List<Product> getProducts() {
+    public String getProductDescription(){
+        return productDescription;
+    }
+
+    public List<String> getProducts() {
         return products;
     }
 
+    // setters
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setProducts(List<String> products) {
+        this.products = products;
+    }
 }
