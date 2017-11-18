@@ -518,6 +518,11 @@ abstract class AHeaderComponent {
     // setLoginData(user);
     // return new CommonPage();
     // }
+    
+    public RegisterPage gotoRegisterPageFromMyAccount() {
+    	clickMyAccountByPartialName("register");
+    	return new RegisterPage(driver);
+    }
 
     public LoginPage gotoLoginPageFromMyAccount() {
         clickMyAccountByPartialName("login");
@@ -528,7 +533,6 @@ abstract class AHeaderComponent {
         clickMyAccountByPartialName("logout");
         return new LogoutPage(driver);
     }
-
 
     public SubCategoryProductsPage gotoMenuTopByPartialName(String categoryName, String optionName) {
         clickMenuTopByPartialName(categoryName, optionName);
