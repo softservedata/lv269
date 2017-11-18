@@ -4,7 +4,6 @@ import org.testng.Assert;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-//import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -14,7 +13,6 @@ import com.softserve.edu.opencart.data.categories.DetailCategory;
 import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.pages.Application;
-//import com.softserve.edu.opencart.pages.user.HomePage;
 
 /**
  * @author Yurii Ivanytskyi
@@ -23,8 +21,8 @@ public class CurrencyTest {
 
 	@BeforeClass
 	public void beforeClass() {
-		//Application.get(ApplicationSourceRepository.get().chromeServer7());
-		Application.get(ApplicationSourceRepository.get().firefoxServer7());
+		Application.get(ApplicationSourceRepository.get().chromeServer7());
+		//Application.get(ApplicationSourceRepository.get().firefoxServer7());
 		Application.get().loadHomePage().clickCurrencyByPartialName("US Dollar");
 	}
 
