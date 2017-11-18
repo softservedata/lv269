@@ -4,17 +4,16 @@ import java.util.Map;
 
 import org.apache.commons.collections4.map.HashedMap;
 
+import com.softserve.edu.opencart.pages.Application;
+
 public class ProductRepository {
-	
-	private static final double EURO_VALUE = 0.86012626;
-	private static final double POUND_VALUE = 0.75803518;
 
     private static volatile ProductRepository instance = null;
-
+    
     private ProductRepository() {
     }
 
-    public static ProductRepository get() {
+	public static ProductRepository get() {
         if (instance == null) {
             synchronized (ProductRepository.class) {
                 if (instance == null) {
@@ -35,29 +34,26 @@ public class ProductRepository {
                 macBookPrices);
     }
     
+    //???
     public IProduct iPhone() {
-    	
-    	double dollarPrice = 101.00;
-    	double euroPrice = Double.parseDouble(String.format("%.2f", dollarPrice * EURO_VALUE).replace(",","."));
-        double poundPrice = Double.parseDouble(String.format("%.2f", dollarPrice * POUND_VALUE).replace(",","."));
-        
-        Map<String, Double> macBookPrices = new HashedMap<>();    
-        macBookPrices.put("Euro", euroPrice);
-        macBookPrices.put("Pound Sterling", poundPrice);
-        macBookPrices.put("US Dollar", dollarPrice);
+    	double defaultValue = 101.0;
+        Map<String, Double> iPhonePrices = new HashedMap<>();    
+        iPhonePrices.put("Euro", PriceValue.euroPrice(defaultValue));
+        iPhonePrices.put("Pound Sterling", PriceValue.poundPrice(defaultValue));
+        iPhonePrices.put("US Dollar", PriceValue.dollarPrice(defaultValue));
         return new Product("iPhone",
                 "iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a nam..",
-                macBookPrices);
+                iPhonePrices);
     }
     
     public IProduct canonEOS5D() {
-        Map<String, Double> macBookPrices = new HashedMap<>();
-        macBookPrices.put("Euro", 68.81);
-        macBookPrices.put("Pound Sterling", 60.64);
-        macBookPrices.put("US Dollar", 80.00);
+        Map<String, Double> canonEOS5DPrices = new HashedMap<>();
+        canonEOS5DPrices.put("Euro", 68.81);
+        canonEOS5DPrices.put("Pound Sterling", 60.64);
+        canonEOS5DPrices.put("US Dollar", 80.00);
         return new Product("Canon EOS 5D",
                 "Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR category', while we'r..",
-                macBookPrices);
+                canonEOS5DPrices);
     }
 
 }
