@@ -71,6 +71,11 @@ public class HomePage extends AHeaderComponent {
         return new SuccessSearchPage(driver);
     }
 
+    public FailureSearchPage goFailureSearch(){
+        clickSearchProductButton();
+        return new FailureSearchPage(driver);
+    }
+
     public FailureSearchPage failureProductSearch(String partialElementName) {
         clickSearchProductField();
         clearSearchProductField();

@@ -186,6 +186,13 @@ abstract class ASearchComponent extends ANavigatePanelComponent{
         return new SuccessSearchPage(driver);
     }
 
+    public SuccessSearchPage findProductByDescription(String description){
+        sendKeysToInputSearch(description);
+        checkDescriptionSearchCheckbox();
+        clickSearchCriteriaButton();
+        return new SuccessSearchPage(driver);
+    }
+
     public FailureSearchPage noProductInCategory(String productName, String categoryName){
         sendKeysToInputSearch(productName);
         selectOptionByPartialName(categoryName, getSelectCategorySearch());
