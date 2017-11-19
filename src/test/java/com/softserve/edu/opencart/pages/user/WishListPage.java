@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 
 import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.tools.ErrorUtils;
-	//TODO replace extended class to ARightColumnUserComponent
+
 public class WishListPage extends AColumnRightUserComponent {
 
 	private class TableRow {
@@ -193,8 +193,6 @@ public class WishListPage extends AColumnRightUserComponent {
 
 	//----------------------------------------------------------------------------
 	
-	// TODO Check for not used methods
-	
 	private WebElement textTop;
 	private TableHeader tableHeader;
 	private List<TableRow> tableBody;
@@ -219,7 +217,7 @@ public class WishListPage extends AColumnRightUserComponent {
 	private void initWishListTable(String mainTextLocator, String tableHeadLocator, String tableBodyLocator) {
 		if (isWishListEmpty()) {
 			contentData = driver.findElement(By.cssSelector(mainTextLocator));
-		} else /*if (isTableEmpty(CSS_TABLE_LOCATOR))*/ {
+		} else {
 			tableHeader = new TableHeader(driver.findElement(By.cssSelector(tableHeadLocator)));
 			int tableRowCounter = driver.findElements(By.cssSelector(tableBodyLocator)).size();
 			WebElement tablePointer = driver.findElement(By.cssSelector(CSS_TABLE_LOCATOR));
@@ -232,10 +230,6 @@ public class WishListPage extends AColumnRightUserComponent {
 	public boolean isWishListEmpty() {
 		return driver.findElement(By.id(ID_CONTENT_LOCATOR)).getText().contains(WISH_LIST_EMPTY);
 	}
-	
-	//----------------------------------------------------------------------------
-	// PageObject
-	//----------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------
 	// get Data
@@ -292,7 +286,6 @@ public class WishListPage extends AColumnRightUserComponent {
 				result = current;
 			}
 		}
-		//ErrorUtils.createCustomException((result == null), String.format(PRODUCT_NAME_NOT_FOUND_MESSAGE, productName));
         return result;
 	}
 	
@@ -312,8 +305,6 @@ public class WishListPage extends AColumnRightUserComponent {
 		return productNames;
 	}
 
-	// Business Logic	
-	
 	public boolean checkWhetherProductExistsInWishList(Product product) {
 		if (getProductByName(product.getName()) != null) {
 			return true;
@@ -335,6 +326,5 @@ public class WishListPage extends AColumnRightUserComponent {
 	public WishListPage clickDeleteProductFromWishList(String productName) {
 		clickDeleteButton(productName);
 		return new WishListPage(driver);
-	}
-	
+	}	
 }

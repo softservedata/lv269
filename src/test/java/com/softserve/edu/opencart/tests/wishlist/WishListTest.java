@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests.wishlist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.Assert;
@@ -11,6 +12,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
+import com.softserve.edu.opencart.data.products.Product;
+import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
@@ -20,7 +23,7 @@ import com.softserve.edu.opencart.pages.user.WishListPage;
 public class WishListTest {
 	@BeforeClass
 	public void beforeClass() {
-		// Application.get(ApplicationSourceRepository.get().chromeServer7());
+		//Application.get(ApplicationSourceRepository.get().chromeServer7());
 		Application.get(ApplicationSourceRepository.get().firefoxServer7x32());	
 		}
 
@@ -35,10 +38,7 @@ public class WishListTest {
 	}
 	
 	@AfterMethod
-	public void afterMethod() {
-		//BrowserWrapper browser = new BrowserWrapper(ApplicationSourceRepository.get().chromeServer7());
-		//browser.deleteAllCookies();
-		/*
+	public void afterMethod() {	
 		Application.get().deleteAllCookies();
 		HomePage homePage = Application.get().loadHomePage();
 		WishListPage wishList;
@@ -54,71 +54,99 @@ public class WishListTest {
 		}
 		if (!wishList.isWishListEmpty()) {
 			List<String> products = wishList.getProductNamesFromWishList();
-			if (products.size() == 0) {
-				return;
-			}
-			for (String product : products) {
-				wishList = wishList.clickDeleteProductFromWishList(product);
+			if (products.size() > 0) {
+				for (String product : products) {
+					wishList = wishList.clickDeleteProductFromWishList(product);
+				}
 			}
 		}
-		
-		Application.get().deleteAllCookies();*/
+		Application.get().deleteAllCookies();
 	}
 	
 	@DataProvider
-	public Object[][] userData() {
+	public Object[][] productAndUserData() {
 		return new Object[][] { 
 				{ 
+					ProductRepository.get().macBook(), 
 					UserRepository.get().userKutaiev() 
 				} 
 			};
 	}
 	
-	@Test(dataProvider = "userData"/*, invocationCount=15*/)
-	public void CheckWishListFirst(IUser user) throws InterruptedException {
-		// Check for cookies
+	@DataProvider
+	public Object[][] productsAndUserData() {
+		return new Object[][] { 
+				{ 
+					ProductRepository.get().iPhone(), 
+					ProductRepository.get().macBook(), 
+					UserRepository.get().userKutaiev() 
+				} 
+			};
+	}
+	
+	// - - - - - - - - - - - - - #1 - - - - - - - - - - - - -
+	@Test (dataProvider = "productAndUserData")
+	public void testAddItem(Product macBook, IUser user) {
+		Application.get().loadHomePage()
+		.gotoHomePageClickAddToWish(macBook);
+		Assert.assertTrue(
+				Application.get().loadHomePage()
+				.gotoLoginPageFromMyAccount()
+				.gotoLoginForLoginPageToMyAccountPage(user)
+				.gotoWishListPageRightColumn()
+				.checkWhetherProductExistsInWishList(macBook), 
+				"Element is missing");
+	}
+	// - - - - - - - - - - - - - #1 - - - - - - - - - - - - -
+	
+	// - - - - - - - - - - - - - #2 - - - - - - - - - - - - -
+	@Test (dataProvider = "productsAndUserData")
+	public void testAddWithoutLogin(Product iPhone, Product macBook, IUser user) {
+		List<String> expected = new ArrayList<>();
+		expected.add(iPhone.getName());
+		expected.add(macBook.getName());
+		// Login
 		Application.get().loadHomePage()
 		.gotoLoginPageFromMyAccount()
 		.gotoLoginForLoginPageToMyAccountPage(user);
-		
-		Thread.sleep(1000);		
-		Application.get().deleteAllCookies();		
-		Thread.sleep(1000);
-		
+		// Add Iphone
 		Application.get().loadHomePage()
-		.gotoLoginPageFromMyAccount();
+		.gotoHomePageClickAddToWish(iPhone);
+		// Logout
+		Application.get().loadHomePage()
+		.gotoMyAccountPageFromHomePage()
+		.gotoLogoutPageRightColumn();
+		// Add MacBook
+		Application.get().loadHomePage()
+		.gotoHomePageClickAddToWish(macBook);
+		
+		Assert.assertEquals(
+				Application.get().loadHomePage()
+				.gotoLoginPageFromMyAccount()
+				.gotoLoginForLoginPageToMyAccountPage(user)
+				.gotoWishListPageRightColumn()
+				.getProductNamesFromWishList(), 
+				expected, "WishList does not contain these items");
 	}
+	// - - - - - - - - - - - - - #2 - - - - - - - - - - - - -
 	
-	/*@Test
-	public void testAddDeleteItem() {
-		module.logIn();
-		module.addItem(40);
-		module.openWishList();
-		module.doWishListEmpty();
-		Assert.assertTrue("Wish List is not empty.", module.isWishListEmpty());
-	}*/
-
-	/*@Test
-	public void testAddWithoutLogin() {
-		module.logIn();
-		module.addItem(40);
-		items.add(40);
-		module.logOut();
-		module.addItem(41);
-		module.logIn();
-		items.add(41);
-		module.openWishList();
-		Assert.assertEquals("Elements are not equals", items, module.getItemsFromWishList());
-	}*/
-
-	/*@Test
-	public void testWhishListIndicator() {
-		module.logIn();
-		for (int id = 43; id < 50; id++) {
-			module.addItem(id);
-			items.add(id);
-		}
-
-		Assert.assertEquals("Wish List header counter incorrect", items.size(), module.getWishListItemsCount());
-	}*/
+	// - - - - - - - - - - - - - #3 - - - - - - - - - - - - -	
+	@Test (dataProvider = "productsAndUserData")
+	public void testWhishListIndicator(Product iPhone, Product macBook, IUser user) {
+		Application.get().loadHomePage()
+		.gotoHomePageClickAddToWish(iPhone);
+		Application.get().loadHomePage()
+		.gotoHomePageClickAddToWish(macBook);
+		
+		WishListPage wishListPage = Application.get().loadHomePage()
+				.gotoLoginPageFromMyAccount()
+				.gotoLoginForLoginPageToMyAccountPage(user)
+				.gotoWishListPageRightColumn();
+		
+		Assert.assertEquals(
+				wishListPage.getWishListNumber(),
+				wishListPage.getProductNamesFromWishList().size(),
+				"Wish List size and top panel indicator are not equals");
+	}
+	// - - - - - - - - - - - - - #3 - - - - - - - - - - - - -
 }

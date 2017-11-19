@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="WishList">
+	<test name="WishListTest">
+		<classes>
+			<class name="com.softserve.edu.opencart.tests.smoke.WishListTest">
+				<methods>
+					<include name="checkEmptyWishList" />
+				</methods>
+			</class>
+			<class name="com.softserve.edu.opencart.tests.wishlist.WishListTest">
+				<methods>
+					<include name="testAddItem" />
+					<include name="testAddWithoutLogin" />
+					<include name="testWhishListIndicator" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

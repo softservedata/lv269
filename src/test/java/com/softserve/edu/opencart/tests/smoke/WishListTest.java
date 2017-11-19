@@ -44,8 +44,7 @@ public class WishListTest {
 	}
 	
 	@AfterMethod
-	public void afterMethod() {
-		// TODO Refactor After
+	public void afterMethod() {	
 		Application.get().deleteAllCookies();
 		HomePage homePage = Application.get().loadHomePage();
 		WishListPage wishList;
@@ -61,14 +60,12 @@ public class WishListTest {
 		}
 		if (!wishList.isWishListEmpty()) {
 			List<String> products = wishList.getProductNamesFromWishList();
-			if (products.size() == 0) {
-				return;
-			}
-			for (String product : products) {
-				wishList = wishList.clickDeleteProductFromWishList(product);
+			if (products.size() > 0) {
+				for (String product : products) {
+					wishList = wishList.clickDeleteProductFromWishList(product);
+				}
 			}
 		}
-		
 		Application.get().deleteAllCookies();
 	}
 
@@ -81,29 +78,7 @@ public class WishListTest {
 			};
 	}
 	
-	@DataProvider
-	public Object[][] productAndUserData() {
-		return new Object[][] { 
-				{ 
-					ProductRepository.get().macBook(), 
-					UserRepository.get().userKutaiev() 
-				} 
-			};
-	}
-
-	@Test (dataProvider = "productAndUserData", invocationCount=15)
-	public void checkNotEmptyWishListPage(Product macBook, IUser user) throws Exception {
-		Assert.assertEquals(
-				Application.get().loadHomePage()
-				.gotoHomePageClickAddToWish(macBook)
-				.gotoLoginPageFromMyAccount()
-				.gotoLoginForLoginPageToMyAccountPage(user)
-				.gotoWishListPageRightColumn()
-				.checkWhetherProductExistsInWishList(macBook), 
-				true);
-	}
-	
-	@Test(dataProvider = "userData", invocationCount=15)
+	@Test(dataProvider = "userData")
 	public void checkEmptyWishList(IUser user) {
 		Assert.assertEquals(
 				Application.get().loadHomePage()

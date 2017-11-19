@@ -6,6 +6,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
@@ -457,6 +459,8 @@ abstract class AHeaderComponent {
 
     protected void clickAddToWishByProductName(String productName) {
         getProductComponentByProductName(productName).clickAddToWish();
+        // TODO Explicit Wait For Success Alert
+        //new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".alert.alert-success")));
     }
 
     // set Functional
