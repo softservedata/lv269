@@ -10,6 +10,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+/**
+ * Created by Serhiienko.
+ */
+
 public class FieldRating {
 
     @DataProvider
@@ -39,12 +43,5 @@ public class FieldRating {
     public void withOutRating(String productName, IReview myReview) {
         Application.get().loadHomePage().goToProductPage(productName).reviewWithOutRating(myReview);
     }
-
-
-    /*@Test(dataProvider = "productData")
-    public void notValidShort(String productName, IReview myReview) {
-        Application.get().loadHomePage().goToProductPage(productName).notValidReviewFields(myReview);
-    }*/
-
 
 }
