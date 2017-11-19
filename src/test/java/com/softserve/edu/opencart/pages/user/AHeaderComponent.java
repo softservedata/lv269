@@ -582,13 +582,11 @@ abstract class AHeaderComponent {
     // }
 
     public LoginPage gotoLoginPageFromMyAccount() {
-        //clickMyAccountByPartialName("login");
     	clickMyAccountOptionLogin();
         return new LoginPage(driver);
     }
 
     public LogoutPage gotoLogoutPage() {
-        //clickMyAccountByPartialName("logout");
     	clickMyAccountOptionLogout();
         return new LogoutPage(driver);
     }

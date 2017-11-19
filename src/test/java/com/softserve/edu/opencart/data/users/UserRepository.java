@@ -113,6 +113,24 @@ public final class UserRepository {
                 .setSubscribe(false)
                 .build();
     }
+    public IUser userTestCorectPassword() {
+        return User.get()
+                .setFirstname("FIRSTNAME")
+                .setLastname("LASTNAME")
+                .setEmail("test_wrong_login@email.com")
+                .setPhoneNumber("380511223344")
+                .setAddressFirst("TEST_ADDRESS")
+                .setCity("Lviv")
+                .setPostCode("79000")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("269lv269lv")
+                .setAddressSecond("-")
+                .setCompany("-")
+                .setFax("-")
+                .setSubscribe(false)
+                .build();
+    }
 
 
 
