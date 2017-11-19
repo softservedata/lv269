@@ -70,6 +70,10 @@ public class Application {
         // TODO Remove getBrowser().getDriver()
         return new HomePage(getBrowser().getDriver());
     }
+    
+    public void deleteAllCookies() {
+    	getBrowser().deleteAllCookies();
+    }
 
 //    public LoginPage login() {
 //        getBrowser().openUrl(applicationSource.getUserLoginUrl());

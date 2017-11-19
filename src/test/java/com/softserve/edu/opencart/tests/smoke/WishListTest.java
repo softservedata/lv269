@@ -9,10 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.categories.DetailCategory;
@@ -26,83 +23,93 @@ import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.pages.user.MyAccountPage;
 import com.softserve.edu.opencart.pages.user.WishListPage;
+import com.softserve.edu.opencart.tools.BrowserWrapper;
 
 public class WishListTest {
 
 	@BeforeClass
 	public void beforeClass() {
-		Application.get(ApplicationSourceRepository.get().chromeServer7());
-		// Application.get(ApplicationSourceRepository.get().firefoxServer7());
+		//Application.get(ApplicationSourceRepository.get().chromeServer7());
+		Application.get(ApplicationSourceRepository.get().firefoxServer7x32());
 	}
 
 	@AfterClass
 	public void afterClass() {
 		Application.remove();
 	}
+	
+	@BeforeMethod
+	public void beforeMethod() {
+		
+	}
+	
+	@AfterMethod
+	public void afterMethod() {
+		// TODO Refactor After
+		Application.get().deleteAllCookies();
+		HomePage homePage = Application.get().loadHomePage();
+		WishListPage wishList;
+		if (!homePage.isUserSignedIn()) {
+			wishList = Application.get().loadHomePage()
+			.gotoLoginPageFromMyAccount()
+			.gotoLoginForLoginPageToMyAccountPage(UserRepository.get().userKutaiev())
+			.gotoWishListPageRightColumn();
+		} else {
+			wishList = homePage
+					.gotoMyAccountPageFromHomePage()
+					.gotoWishListPageRightColumn();
+		}
+		if (!wishList.isWishListEmpty()) {
+			List<String> products = wishList.getProductNamesFromWishList();
+			if (products.size() == 0) {
+				return;
+			}
+			for (String product : products) {
+				wishList = wishList.clickDeleteProductFromWishList(product);
+			}
+		}
+		
+		Application.get().deleteAllCookies();
+	}
 
 	@DataProvider
-	public Object[][] productData() {
+	public Object[][] userData() {
+		return new Object[][] { 
+				{ 
+					UserRepository.get().userKutaiev() 
+				} 
+			};
+	}
+	
+	@DataProvider
+	public Object[][] productAndUserData() {
 		return new Object[][] { 
 				{ 
 					ProductRepository.get().macBook(), 
-					ProductRepository.get().iPhone(),
 					UserRepository.get().userKutaiev() 
 				} 
 			};
 	}
 
-	@Test (dataProvider = "productData")
-	public void checkWishListPage(Product macBook, Product iPhone, IUser user) throws Exception {
-		MyAccountPage myAccountPage = Application.get().loadHomePage()
+	@Test (dataProvider = "productAndUserData", invocationCount=15)
+	public void checkNotEmptyWishListPage(Product macBook, IUser user) throws Exception {
+		Assert.assertEquals(
+				Application.get().loadHomePage()
 				.gotoHomePageClickAddToWish(macBook)
-				.gotoHomePageClickAddToWish(iPhone)
 				.gotoLoginPageFromMyAccount()
-				.gotoLoginForLoginPageToMyAccountPage(user);
-		
-		LogoutPage logoutPage = myAccountPage.gotoLogoutPage();
-		
-		/*
-		homePage = homePage.gotoHomePageClickAddToWish(MacBook);
-		homePage = new HomePage(driver);
-		homePage.clickAddToWishByProductName("MacBook");
-		homePage = new HomePage(driver);
-		homePage.clickAddToWishByProductName("Canon EOS 5D");
-		homePage = new HomePage(driver);
-		//Thread.sleep(500);
-		LoginPage loginPage = homePage.gotoLoginPageFromMyAccount();
-		MyAccountPage myAccountPage = loginPage.loginForLoginPageToMyAccountPage(
-				UserRepository.get().userKutaiev().getEmail(), 
-				UserRepository.get().userKutaiev().getPassword());
-		myAccountPage.clickWishList();
-		WishListPage wishListPage = new WishListPage(driver);
-		wishListPage = wishListPage.clickDeleteProductFromWishList("iPhone");
-		wishListPage = wishListPage.clickDeleteProductFromWishList("MacBook");
-		wishListPage = wishListPage.clickDeleteProductFromWishList("Canon EOS 5D");
-		//
-		// Check
-		//
-		//
-		// Return to previous state
-		//
-		driver.quit();*/
-		
+				.gotoLoginForLoginPageToMyAccountPage(user)
+				.gotoWishListPageRightColumn()
+				.checkWhetherProductExistsInWishList(macBook), 
+				true);
 	}
 	
-	//@Test //(invocationCount = 100)
-	public void checkEmptyWishList() {
-		System.setProperty("webdriver.chrome.driver", "C:/Program Files/Java/Selenium360/chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.get("http://server7.pp.ua");
-		
-		HomePage homePage = new HomePage(driver);
-		LoginPage loginPage = homePage.gotoLoginPageFromMyAccount();
-		MyAccountPage myAccountPage = loginPage.gotoLoginForLoginPageToMyAccountPage(UserRepository.get().userKutaiev());
-		
-		WishListPage wishListPage = myAccountPage.gotoWishListPageRightColumn();
-		String expected = "Your wish list is empty.";
-		Assert.assertEquals(wishListPage.getContentDataText(), expected);
-		
-		driver.quit();
+	@Test(dataProvider = "userData", invocationCount=15)
+	public void checkEmptyWishList(IUser user) {
+		Assert.assertEquals(
+				Application.get().loadHomePage()
+				.gotoLoginPageFromMyAccount()
+				.gotoLoginForLoginPageToMyAccountPage(user)
+				.gotoWishListPageRightColumn()
+				.getContentDataText(),"Your wish list is empty.");
 	}
 }

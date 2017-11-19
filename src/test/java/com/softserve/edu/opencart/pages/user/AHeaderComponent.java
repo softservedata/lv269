@@ -120,6 +120,7 @@ abstract class AHeaderComponent {
 
     private final String OPTION_NOT_FOUND_MESSAGE = "Option %s not found in %s";
     private final String PRODUCT_NAME_NOT_FOUND_MESSAGE = "Product name %s not found in %s";
+    private final String TITLE_ATTRIBUTE = "title";
 
     // Fields
 
@@ -343,7 +344,8 @@ abstract class AHeaderComponent {
     }
 
     public String getWishListText() {
-        return getWishList().getText();
+    	// return getWishList().getText();
+        return getWishList().getAttribute(TITLE_ATTRIBUTE);
     }
 
     public int getWishListNumber() {
@@ -533,6 +535,10 @@ abstract class AHeaderComponent {
                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_XPATH.toString(), categoryName)));
         return dropdownOptions.getListOptionByPartialNameTexts();
     }
+    
+    public boolean isUserSignedIn() {
+    	return getMyAccountOptions().size() == 5 ? true : false;
+    }
 
 	// -----------------------------------------------
 	// MyAccount options atomic click block
@@ -585,6 +591,12 @@ abstract class AHeaderComponent {
         //clickMyAccountByPartialName("logout");
     	clickMyAccountOptionLogout();
         return new LogoutPage(driver);
+    }
+    
+    public MyAccountPage gotoMyAccountPageFromHomePage() {
+        //clickMyAccountByPartialName("logout");
+    	clickMyAccountOptionMyAccount();
+        return new MyAccountPage(driver);
     }
 
 

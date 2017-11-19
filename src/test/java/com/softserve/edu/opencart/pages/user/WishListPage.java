@@ -202,7 +202,9 @@ public class WishListPage extends AColumnRightUserComponent {
 	private WebElement continueButton;
 
 	private final static String CSS_TABLE_LOCATOR = ".table.table-bordered.table-hover";
-	private final static String CSS_ROW_TABLE_LOCATOR = "//tbody/tr[%s]";
+	private final static String CSS_ROW_TABLE_LOCATOR = ".//tbody/tr[%s]";
+	private final static String ID_CONTENT_LOCATOR = "content";
+	private final static String WISH_LIST_EMPTY = "Your wish list is empty.";
 
 	private final String PRODUCT_NAME_NOT_FOUND_MESSAGE = "Product %s not found in Wish List";
 
@@ -215,26 +217,20 @@ public class WishListPage extends AColumnRightUserComponent {
 	}
 
 	private void initWishListTable(String mainTextLocator, String tableHeadLocator, String tableBodyLocator) {
-		if (isElementPresent(mainTextLocator)) {
+		if (isWishListEmpty()) {
 			contentData = driver.findElement(By.cssSelector(mainTextLocator));
-		} else if (isElementPresent(CSS_TABLE_LOCATOR)) {
+		} else /*if (isTableEmpty(CSS_TABLE_LOCATOR))*/ {
 			tableHeader = new TableHeader(driver.findElement(By.cssSelector(tableHeadLocator)));
 			int tableRowCounter = driver.findElements(By.cssSelector(tableBodyLocator)).size();
 			WebElement tablePointer = driver.findElement(By.cssSelector(CSS_TABLE_LOCATOR));
-			for (int i = 1; i <= tableRowCounter; i++) {
+			for (int i = 1; i <= tableRowCounter; i++) {				
 				tableBody.add(new TableRow(tablePointer.findElement(By.xpath(String.format(CSS_ROW_TABLE_LOCATOR, i)))));
 			}
 		}
 	}
 
-	public boolean isElementPresent(String locator) {
-		// TODO fix waiting on check
-		try {
-			driver.findElement(By.cssSelector(locator));
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
+	public boolean isWishListEmpty() {
+		return driver.findElement(By.id(ID_CONTENT_LOCATOR)).getText().contains(WISH_LIST_EMPTY);
 	}
 	
 	//----------------------------------------------------------------------------
@@ -296,7 +292,7 @@ public class WishListPage extends AColumnRightUserComponent {
 				result = current;
 			}
 		}
-		ErrorUtils.createCustomException((result == null), String.format(PRODUCT_NAME_NOT_FOUND_MESSAGE, productName));
+		//ErrorUtils.createCustomException((result == null), String.format(PRODUCT_NAME_NOT_FOUND_MESSAGE, productName));
         return result;
 	}
 	
@@ -307,8 +303,6 @@ public class WishListPage extends AColumnRightUserComponent {
 	public void clickAddToCartButton(String productName) {
 		getProductByName(productName).clickActionAddToCart();
 	}
-
-	// Business Logic
 	
 	public List<String> getProductNamesFromWishList() {
 		List<String> productNames = new ArrayList<>();
@@ -316,6 +310,16 @@ public class WishListPage extends AColumnRightUserComponent {
 			productNames.add(current.getProductNameText());
 		}
 		return productNames;
+	}
+
+	// Business Logic	
+	
+	public boolean checkWhetherProductExistsInWishList(Product product) {
+		if (getProductByName(product.getName()) != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public MyAccountPage gotoMyAccountPageByClickContinueButton() {
