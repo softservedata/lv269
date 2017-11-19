@@ -29,7 +29,7 @@ public class ApplicationSourceRepository {
 
     public String chromeDriverPath() {
         return ApplicationSourceRepository.class
-                .getResource("/lib/chromedriver.exe").getPath().substring(1);
+                .getResource("/lib/chromedriver").getPath();//.substring(1);
     }
 
     public IApplicationSource chromeServer7() {
