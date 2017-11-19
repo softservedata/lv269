@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.commons.collections4.map.HashedMap;
 
+import com.softserve.edu.opencart.pages.Application;
+
 public class ProductRepository {
 
     private static volatile ProductRepository instance = null;
@@ -34,6 +36,7 @@ public class ProductRepository {
     
     //???
     public IProduct iPhone() {
+//    	double defaultValue = Application.get().loadHomePage().getPriceAmountByProductName("iPhone");
     	double defaultValue = 101.0;
         Map<String, Double> iPhonePrices = new HashedMap<>();    
         iPhonePrices.put("Euro", PriceValue.euroPrice(defaultValue));

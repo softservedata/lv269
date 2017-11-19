@@ -27,7 +27,7 @@ public class CurrencyTest {
 	}
 
 	@AfterClass
-	public void afterClass() throws InterruptedException {
+	public void afterClass() {
 		Application.get().loadHomePage().clickCurrencyByPartialName("US Dollar");
 		Application.remove();
 	}
@@ -70,7 +70,7 @@ public class CurrencyTest {
 	}
 
 	@Test(dataProvider = "currencyDataMacBook", priority = 1)
-	public void checkChangeCurrencyByMacBook(DetailCategory detailCurency, Product product) throws Exception {
+	public void checkChangeCurrencyByMacBook(DetailCategory detailCurency, Product product) {
 		double actualPrice = Application.get().loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
 				.getPriceAmountByProduct(product);
 		double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
@@ -78,7 +78,7 @@ public class CurrencyTest {
 	}
 
 	@Test(dataProvider = "currencyDataIPhone", priority = 2)
-	public void checkChangeCurrencyByIPhone(DetailCategory detailCurency, Product product) throws Exception {
+	public void checkChangeCurrencyByIPhone(DetailCategory detailCurency, Product product) {
 		double actualPrice = Application.get().loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
 				.getPriceAmountByProduct(product);
 		double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
@@ -86,7 +86,7 @@ public class CurrencyTest {
 	}
 
 	@Test(dataProvider = "currencyDataCanon", priority = 3)
-	public void checkChangeCurrencyByCanon(DetailCategory detailCurency, Product product) throws Exception {
+	public void checkChangeCurrencyByCanon(DetailCategory detailCurency, Product product) {
 		double actualPrice = Application.get().loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
 				.getPriceAmountByProduct(product);
 		double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
