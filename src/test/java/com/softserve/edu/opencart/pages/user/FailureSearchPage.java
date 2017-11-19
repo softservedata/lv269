@@ -34,6 +34,4 @@ public class FailureSearchPage extends ASearchComponent{
     public boolean nothingFound(){
         return !noElementsMeetingCriteria.isEmpty();
     }
-
-
 }

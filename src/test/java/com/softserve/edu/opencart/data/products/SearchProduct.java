@@ -6,6 +6,7 @@ public class SearchProduct implements ISearchProduct{
 
     private String productName;
     private String productDescription;
+    private String productCategory;
     private List<String> products;
 
     public SearchProduct(String productName, List<String> products) {
@@ -13,6 +14,10 @@ public class SearchProduct implements ISearchProduct{
         this.products = products;
     }
 
+    public SearchProduct(String productName, String productCategory){
+        this.productName = productName;
+        this.productCategory = productCategory;
+    }
     public SearchProduct(String productName, String productDescription, List<String> products) {
         this.productName = productName;
         this.productDescription = productDescription;
@@ -28,6 +33,10 @@ public class SearchProduct implements ISearchProduct{
         return productDescription;
     }
 
+    public String getProductCategory(){
+        return productCategory;
+    }
+
     public List<String> getProducts() {
         return products;
     }
@@ -35,6 +44,10 @@ public class SearchProduct implements ISearchProduct{
     // setters
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
     }
 
     public void setProducts(List<String> products) {

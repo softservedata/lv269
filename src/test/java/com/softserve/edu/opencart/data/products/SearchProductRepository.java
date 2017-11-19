@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.data.products;
 
+import com.softserve.edu.opencart.data.categories.DetailCategory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +77,22 @@ public class SearchProductRepository {
         expectedProducts.add("Canon EOS 5D");
         expectedProducts.add("iPhone");
         expectedProducts.add("Sony VAIO");
-        return new SearchProduct("Search in description", expectedProducts);
+        Product product = new Product("","Search in description");
+        return new SearchProduct(product.getName(), product.getDescription(), expectedProducts);
+    }
+
+    public ISearchProduct searchMacBookAirInCategory(){
+        return new SearchProduct(new Product("MacBook Air").getName(),
+                new DetailCategory("Laptops & Notebooks", "Macs").getOptionName());
+    }
+
+    public ISearchProduct searchNikonInCategory(){
+        return new SearchProduct(new Product("Nikon").getName(),
+                new DetailCategory("Cameras", "Cameras").getOptionName());
+    }
+
+    public ISearchProduct searchIMacInCategory(){
+        return new SearchProduct(new Product("iMac").getName(),
+                new DetailCategory("Desktops", "Mac").getOptionName());
     }
 }

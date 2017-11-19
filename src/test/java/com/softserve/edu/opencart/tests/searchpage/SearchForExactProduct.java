@@ -13,7 +13,7 @@ import java.util.List;
 
 public class SearchForExactProduct {
 
-    public final String NO_MATCH = "List of products not matches expected list.";
+    private final String NO_MATCH = "List of products not matches expected list.";
     @BeforeClass
     public void beforeClass() {
         Application.get(ApplicationSourceRepository.get().chromeServer7());

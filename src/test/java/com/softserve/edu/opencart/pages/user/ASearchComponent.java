@@ -148,13 +148,35 @@ abstract class ASearchComponent extends ANavigatePanelComponent{
 
     public void selectOptionByPartialName(String optionName, WebElement selectOption) {
         boolean isSelectable = false;
+        List<String> optionsToRemember = new ArrayList<>();
+        Select select = new Select(selectOption);
         selectOption.click();
         for(String current : getOptionsListTexts(selectOption)){
             if(current.toLowerCase().contains(optionName.toLowerCase())) {
-                isSelectable = true;
-                break;
+                optionsToRemember.add(current);
             }
         }
+
+        if (optionsToRemember.size() > 1){
+            for(String foundOption : optionsToRemember){
+                if(foundOption.toLowerCase().trim().equals(optionName.toLowerCase())) {
+                    isSelectable = true;
+                    select.selectByVisibleText(foundOption);
+                    break;
+                }
+            }
+        } else{
+            isSelectable = true;
+            select.selectByVisibleText(optionsToRemember.get(0));
+        }
+//        for(String current : getOptionsListTexts(selectOption)){
+//            if(current.toLowerCase().contains(optionName.toLowerCase())) {
+//                isSelectable = true;
+//                //Select select = new Select(selectOption);
+//                select.selectByVisibleText(current);
+//                break;
+//            }
+//        }
         ErrorUtils.createCustomException(!isSelectable, String.format(OPTION_NOT_FOUND_MESSAGE,
                 optionName, getOptionsListTexts(getSelectCategorySearch()).toString()));
 
@@ -180,8 +202,7 @@ abstract class ASearchComponent extends ANavigatePanelComponent{
 
     public SuccessSearchPage findProductInRightCategory(String productName, String categoryName){
         sendKeysToInputSearch(productName);
-        selectOptionByPartialName(categoryName,getSelectCategorySearch());
-        checkCategorySearchCheckbox();
+        selectOptionByPartialName(categoryName, getSelectCategorySearch());
         clickSearchCriteriaButton();
         return new SuccessSearchPage(driver);
     }

@@ -13,6 +13,9 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class SpecialSymbols {
+
+    private final String UNEXPECTED_ELEMENTS_FOUND = "Elements are not expected to be found.";
+
     @BeforeClass
     public void beforeClass() {
         Application.get(ApplicationSourceRepository.get().chromeServer7());
@@ -37,7 +40,7 @@ public class SpecialSymbols {
     public void checkSearchProductResult(String specialSymbol){
         FailureSearchPage searchPage = Application.get().loadHomePage()
                 .failureProductSearch(specialSymbol);
-        Assert.assertTrue(searchPage.nothingFound());
+        Assert.assertTrue(searchPage.nothingFound(), UNEXPECTED_ELEMENTS_FOUND);
     }
 
 }

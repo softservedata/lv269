@@ -13,8 +13,8 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class SearchProductByDescription {
-    public final String NO_MATCH = "List of products not matches expected list.";
-    public final String UNEXPECTED_ELEMENTS_FOUND = "Elements are not expected to be found.";
+    private final String NO_MATCH = "List of products not matches expected list.";
+    private final String UNEXPECTED_ELEMENTS_FOUND = "Elements are not expected to be found.";
 
     @BeforeClass
     public void beforeClass() {
@@ -30,7 +30,7 @@ public class SearchProductByDescription {
     public Object[][] productData() {
 
         return new Object[][]{
-                {SearchProductRepository.get().searchByDescription().getProductName(),
+                {SearchProductRepository.get().searchByDescription().getProductDescription(),
                         SearchProductRepository.get().searchByDescription().getProducts()}
         };
     }
