@@ -1,8 +1,13 @@
 package com.softserve.edu.opencart.tests.smoke;
 
+import com.softserve.edu.opencart.data.products.ProductRepository;
+import com.softserve.edu.opencart.data.users.UserRepository;
+import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.ProductPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -13,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ProductPageTest {
 
-
+/*
     @DataProvider//(parallel = true)
     public Object[][] productData() {
         // Read from ...
@@ -22,12 +27,23 @@ public class ProductPageTest {
                 {"iPhone", 123.2},
                 {"Canon EOS 5D", 98.00},
         };
-    }
-
+    }*/
     //@Test(dataProvider = "productData")
 
+    @BeforeClass
+    public static void precondition() {
+        Application.get().login().loginForLoginPageToMyAccountPage(UserRepository.get().valid().getEmail(),
+                UserRepository.get().valid().getPassword());
+    }
+
+    @AfterClass
+    public static void logOut() {
+        Application.get().getApplicationSources().getUserLogoutUrl();
+        Application.remove();
+    }
+
     @Test
-    public void checkProductPage() throws InterruptedException {
+    public void checkProductPage() {
         //
         // Precondition
         //
@@ -35,47 +51,37 @@ public class ProductPageTest {
         /*System.setProperty("webdriver.gecko.driver","C:/Program Files/Java/Selenium360/geckodriver.exe");
         WebDriver driver = new FirefoxDriver();*/
 
-        System.setProperty("webdriver.chrome.driver",
+        /*System.setProperty("webdriver.chrome.driver",
                 "C:/Program Files/Java/Selenium360/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver();*/
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //
-        driver.get("http://server7.pp.ua/index.php?route=product/product&product_id=40");
-        Thread.sleep(1000);
-        //
-        ProductPage productPage = new ProductPage(driver);
-        Thread.sleep(1000);
-        //
-        // Steps
-        //
+        ProductPage productPage = Application.get().loadHomePage()
+                .goToProductPage(ProductRepository.get().macBook().getName());
+
+        //productPage.clickAddToCart();
+        //productPage.clickAddToWish();
+
         productPage.clickReview();
-        productPage.inValidReviewFields("name", "fhdk");
-        Thread.sleep(1000);
-        //productPage.inValidOnlyReviewRating("name", "fdsdsbdnbdshfdsbcdxbchjdbsfhbdscdbscblsdbdsjcdsb hb dbsvdslbfs");
-        //Thread.sleep(1000);
-        productPage.validOnlyReviewRating();
-        Thread.sleep(1000);
-        productPage.validReviewFields("name", "fdsdsbdnbdshfdsbcdxbchjdbsfhbdscdbscblsdbdsjcdsb hb dbsvdslbfs");
+        productPage.clickReviewNameField();
+        productPage.setReviewNameField("check");
+        productPage.clearReviewNameField();
 
-        productPage.clickDescription();
+        productPage.clickReviewTextField();
+        productPage.setReviewTextField("check");
+        productPage.clearReviewTextField();
 
-        driver.get("http://server7.pp.ua/index.php?route=product/product&product_id=43");
-        Thread.sleep(1000);
-        productPage=new ProductPage(driver);
-        productPage.clickReview();
+        productPage.setReviewRating(1);
+
+        productPage.clickReviewButton();
+
+        productPage.clickQuantityField();
+        productPage.setQuantityField("1");
+        productPage.clearQuantityField();
+
         productPage.clickSpecification();
         productPage.clickDescription();
 
-
-        //
-        // Check
-        //
-        Thread.sleep(1000);
-        //
-        // Return to previous state
-        //
-        //Thread.sleep(2000);
-        driver.quit();
+        productPage.clickAddToCart();
+        productPage.clickAddToWish();
     }
 }

@@ -35,7 +35,7 @@ public class ApplicationSourceRepository {
     public IApplicationSource chromeServer7() {
         //System.out.println("Full Path = " + ApplicationSourceRepository.class
         //        .getResource("/lib/geckodriver.exe").getPath());
-        System.out.println("Path = " + chromeDriverPath());
+        //System.out.println("Path = " + chromeDriverPath());
         return new ApplicationSource("chrome", chromeDriverPath(),
                 10L, 30L, 10L, 5L,
                 "http://server7.pp.ua",
@@ -46,8 +46,8 @@ public class ApplicationSourceRepository {
     }
 
     public IApplicationSource firefoxServer7() {
-        System.out.println("Full Path = " + ApplicationSourceRepository.class
-                .getResource("/lib/geckodriver.exe").getPath());
+        //System.out.println("Full Path = " + ApplicationSourceRepository.class
+          //      .getResource("/lib/geckodriver.exe").getPath());
         //System.out.println("Path = " + chromeDriverPath());
         return new ApplicationSource("firefox", geckoDriverPath(),
                 10L, 30L, 10L, 5L,

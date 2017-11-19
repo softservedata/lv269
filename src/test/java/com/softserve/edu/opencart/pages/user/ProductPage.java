@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.pages.user;
 
+import com.softserve.edu.opencart.data.reviews.IReview;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
@@ -14,7 +15,6 @@ import java.util.List;
  * Created by Serhiienko.
  */
 public class ProductPage extends ANavigatePanelComponent {
-
 
     private class Description {
 
@@ -264,9 +264,8 @@ public class ProductPage extends ANavigatePanelComponent {
         getReview().getTextField().sendKeys(text);
     }
 
-    // how to choose rating
-    public void setReviewRatingFist() {
-        getReview().getRating().get(0).click();
+    public void setReviewRating(Integer rating) {
+        getReview().getRating().get(rating-1).click();
     }
 
     public void clickReviewButton() {
@@ -276,7 +275,6 @@ public class ProductPage extends ANavigatePanelComponent {
     // set Functional
 
     private final String ITEM_FROM_NAVTAB_NOT_FOUND_MESSAGE = "Item from navTab %s not found for product %s";
-    private final String EXSIST_REVIEW_NOT_FOUND_MESSAGE = "Exsist reviev %s not found for product %s";
     //private final String ALERT_NOT_FOUND_MESSAGE = "Alert %s not found";
 
 
@@ -379,45 +377,45 @@ public class ProductPage extends ANavigatePanelComponent {
         setReviewTextField(text);
     }
 
-    private void newReview(String name, String text) {
-        //clickReview();
-        inputReviewNameField(name);
-        inputReviewTextField(text);
-        setReviewRatingFist();
-        clickReviewButton();
-        //review = new Review();
-    }
-
-    private void newReviewWithOutRating(String name, String text) {
-        //clickReview();
-        inputReviewNameField(name);
-        inputReviewTextField(text);
+    private void newReview(IReview myReview) {
+        clickReview();
+        inputReviewNameField(myReview.getName());
+        inputReviewTextField(myReview.getText());
+        setReviewRating(myReview.getRating());
         clickReviewButton();
         review = new Review();
     }
 
-    public void validReviewFields(String name, String text) {
-        newReview(name, text);
-        createAlertSuccess();
+    public void validReviewFields(IReview myReview) {
+        newReview(myReview);
+        createAlertSuccess(/*myReview.getName()*/);
     }
 
-    public void inValidReviewFields(String name, String text) {
-        newReview(name, text);
-        createAlertDanger();
+    public void validReviewFieldsUserLogOut(IReview myReview) {
+        newReview(myReview);
+        createAlertDanger(/*myReview.getName()*/);
     }
 
-    public void inValidOnlyReviewRating(String name, String text) {
-        newReviewWithOutRating(name, text);
-        createAlertDanger();
+    public void notValidReviewFields(IReview myReview) {
+        newReview(myReview);
+        createAlertDanger(/*myReview.getName()*/);
     }
 
-    public void validOnlyReviewRating() {
-        inputReviewNameField("");
-        inputReviewTextField("");
-        setReviewRatingFist();
+    public void onlyReviewRating(IReview myReview) {
+        clickReview();
+        setReviewRating(myReview.getRating());
+        clickReviewButton();
         review = new Review();
         createAlertDanger();
     }
 
+    public void reviewWithOutRating(IReview myReview) {
+        clickReview();
+        inputReviewNameField(myReview.getName());
+        inputReviewTextField(myReview.getText());
+        clickReviewButton();
+        review = new Review();
+        createAlertDanger();
+    }
 
 }

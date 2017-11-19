@@ -71,4 +71,12 @@ public class HomePage extends AHeaderComponent {
         return new SuccesSearchPage(driver); 
     }
 
+    // For goto ProductPage
+
+    public ProductPage goToProductPage(String productName) {
+        clickNameByProductName(productName);
+        return new ProductPage(driver);
+    }
+
+
 }

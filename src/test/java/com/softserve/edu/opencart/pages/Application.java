@@ -3,6 +3,8 @@ package com.softserve.edu.opencart.pages;
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.pages.user.HomePage;
+import com.softserve.edu.opencart.pages.user.LoginPage;
+import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
 
 public class Application {
@@ -71,14 +73,14 @@ public class Application {
         return new HomePage(getBrowser().getDriver());
     }
 
-//    public LoginPage login() {
-//        getBrowser().openUrl(applicationSource.getUserLoginUrl());
-//        return new LoginPage();
-//    }
+    public LoginPage login() {
+        getBrowser().openUrl(applicationSource.getUserLoginUrl());
+        return new LoginPage(getBrowser().getDriver());
+    }
 
-//    public LogoutPage logout() {
-//        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
-//        return new LogoutPage();
-//    }
+    public LogoutPage logout() {
+        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
+        return new LogoutPage(getBrowser().getDriver());
+    }
 
 }
