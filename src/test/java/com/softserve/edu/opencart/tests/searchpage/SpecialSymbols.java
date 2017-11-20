@@ -32,7 +32,7 @@ public class SpecialSymbols {
         return new Object[][]{
                 {"'"}, {"["}, {"!"}, {"$"}, {"%"}, {"^"}, {"&"}, {"+"},
                 {"|"}, {"~"}, {"="}, {"`"}, {"/"}, {":"}, {";"},{"?"},
-                {"SELECT * FROM PRODUCTS"}
+                {"SELECT * FROM PRODUCTS"}, {" "}
         };
     }
 

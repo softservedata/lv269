@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+
+<suite name="Search test suite">
+
+    <test name="search test">
+
+        <classes>
+
+            <class name="com.softserve.edu.opencart.tests.searchpage.PartialSearch" />
+
+            <class name="com.softserve.edu.opencart.tests.searchpage.SearchForExactProduct" />
+
+            <class name="com.softserve.edu.opencart.tests.searchpage.SearchProductByDescription" />
+
+            <class name="com.softserve.edu.opencart.tests.searchpage.SearchProductInExactCategory" />
+
+            <class name="com.softserve.edu.opencart.tests.searchpage.SpecialSymbols" />
+
+        </classes>
+
+    </test>
+
+</suite>
