@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 import java.sql.SQLException;
 
-public class LoginTest {
+public class SuccessLoginTest {
 
     @BeforeClass
     public void beforeClass() throws SQLException {

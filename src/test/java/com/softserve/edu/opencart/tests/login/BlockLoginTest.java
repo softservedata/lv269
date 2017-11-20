@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import java.sql.SQLException;
 
 public class BlockLoginTest {
-    //    private final String UNBLOCK_USER = "UPDATE oc_customer_login SET total = '0' WHERE email  = '%s';";
 
 
     @BeforeClass
