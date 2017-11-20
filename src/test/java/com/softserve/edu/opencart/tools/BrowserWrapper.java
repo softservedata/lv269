@@ -99,6 +99,10 @@ public class BrowserWrapper {
     public void refreshPage() {
         getDriver().navigate().refresh();
     }
+    
+    public void deleteAllCookies() {
+    	getDriver().manage().deleteAllCookies();
+    }
 
     public void quit() {
         if (getDriver() != null) {

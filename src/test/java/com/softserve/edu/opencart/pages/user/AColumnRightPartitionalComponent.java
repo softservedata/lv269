@@ -138,4 +138,9 @@ abstract class AColumnRightPartitionalComponent extends ANavigatePanelComponent 
     	clickRigthPanelWishList();
     	return new WishListPage(driver);
     }
+    public AddressBookPage gotoAddressBookPageRightColumn() {
+        clickAddressBook();
+        return new AddressBookPage(driver);
+    }
+
 }

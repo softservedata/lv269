@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.pages.user;
 
+import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -33,7 +34,6 @@ public class AddressBookPage extends AColumnRightUserComponent {
 
     // get Data
 
-
     public List<AddressBookEntries> getAddressBookEntries() {
         return addressBookEntries;
     }
@@ -49,9 +49,6 @@ public class AddressBookPage extends AColumnRightUserComponent {
 
     // set Data
 
-
-
-
     public void clickNewAddress(){
         getNewAddressBook().click();
     }
@@ -61,7 +58,12 @@ public class AddressBookPage extends AColumnRightUserComponent {
     }
     // set Functional
 
-    private AddressBookEntries getAddressBookEntriesByStreetName(String streetName) {
+    public void deleteAddressBookEntries(String streetName){
+        getAddressBookEntriesByStreetName(streetName).clickDeleteButton();
+
+    }
+
+    public AddressBookEntries getAddressBookEntriesByStreetName(String streetName) {
         AddressBookEntries result = null;
         for (AddressBookEntries current : getAddressBookEntries()) {
             if (current.getAddressDataText().toLowerCase().contains(streetName.toLowerCase())) {
@@ -75,6 +77,11 @@ public class AddressBookPage extends AColumnRightUserComponent {
     }
 
     // Business Logic
+
+    public EditAddressPage modifyAddressBookData(IUser user ){
+        getAddressBookEntriesByStreetName(user.getAddressFirst()).clickEditButton();
+        return new EditAddressPage(driver);
+    }
     public MyAccountPage gotoMyAccountPage(){
         clickBackButton();
         return new MyAccountPage(driver);
@@ -82,6 +89,11 @@ public class AddressBookPage extends AColumnRightUserComponent {
     public EditAddressPage createAddress(){
         clickNewAddress();
         return new EditAddressPage(driver);
+    }
+    public String getWarningDeleteAddressText(){
+
+        return getAlertWarningText();
+
     }
 
 

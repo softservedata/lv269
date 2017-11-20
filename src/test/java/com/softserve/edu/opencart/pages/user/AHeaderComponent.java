@@ -92,11 +92,35 @@ abstract class AHeaderComponent {
             return field;
         }
     }
+    
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    
+    private enum MyAccountOptions {
+    	REGISTER("Register"),
+    	LOGIN("Login"),
+        MY_ACCOUNT("My Account"),
+        ORDER_HISTORY("Order History"),
+        TRANSACTIONS("Transactions"),
+        DOWNLOADS("Downloads"),
+        LOGOUT("Logout");
+    	
+    	private String field;
+
+        private MyAccountOptions(String field) {
+            this.field = field;
+        }
+
+        @Override
+        public String toString() {
+            return field;
+        }    	
+    }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     private final String OPTION_NOT_FOUND_MESSAGE = "Option %s not found in %s";
     private final String PRODUCT_NAME_NOT_FOUND_MESSAGE = "Product name %s not found in %s";
+    private final String TITLE_ATTRIBUTE = "title";
 
     // Fields
 
@@ -115,6 +139,9 @@ abstract class AHeaderComponent {
 
     private AlertSuccess alertSuccess;
     private AlertDanger alertDanger;
+    private AlertWarning alertWarning;
+    private AlertTextDanger alertTextDanger;
+
 
 
     //
@@ -169,6 +196,29 @@ abstract class AHeaderComponent {
     }
 //---------------------------------------------------------------------------------------------------------------------------------
 
+    private class AlertWarning {
+        private WebElement alertWarningBody;
+
+        public AlertWarning(){
+            alertWarningBody = driver.findElement(By.cssSelector(".alert.alert-warning"));
+        }
+        public WebElement getAlertWarningBody(){
+            return alertWarningBody;
+        }
+    }
+//-------------------------------------------------------------------------------------------------------------------
+    private class AlertTextDanger {
+        private WebElement alertTextDangerBody;
+
+        public AlertTextDanger(){
+            alertTextDangerBody = driver.findElement(By.cssSelector(".text-danger"));
+        }
+        public WebElement getAlertTextDangerBody(){
+        return alertTextDangerBody;
+    }
+    }
+
+//------------------------------------------------------
     private class AlertDanger {
 
         private WebElement alertDangerBody;
@@ -188,6 +238,12 @@ abstract class AHeaderComponent {
         alertSuccess = new AlertSuccess();
     }
 
+    public void createAlertWarning() {
+        alertWarning = new AlertWarning();
+    }
+
+    public void createAlertTextDanger(){alertTextDanger = new AlertTextDanger();}
+
     public void createAlertDanger() {
         alertDanger = new AlertDanger();
     }
@@ -195,6 +251,14 @@ abstract class AHeaderComponent {
     public AlertSuccess getAlertSuccess() {
         createAlertSuccess();
         return alertSuccess;
+    }
+    public  AlertWarning getAlertWarning(){
+        createAlertWarning();
+        return alertWarning;
+    }
+    public  AlertTextDanger getAlertTextDanger(){
+        createAlertTextDanger();
+        return alertTextDanger;
     }
 
     public AlertDanger getAlertDanger() {
@@ -204,6 +268,12 @@ abstract class AHeaderComponent {
 
     public boolean isPresentAlertDanger() {
         return driver.findElements(By.cssSelector(".alert.alert-danger")).size() >= 1;
+    }
+    public boolean isPresentAlertTextDanger() {
+        return driver.findElements(By.cssSelector(".text-danger")).size() >= 1;
+    }
+    public boolean isPresentAlertWarning() {
+        return driver.findElements(By.cssSelector(".alert.alert-warning")).size() >= 1;
     }
 
     public boolean isPresentAlertSuccess() {
@@ -300,6 +370,24 @@ abstract class AHeaderComponent {
         return getAlertSuccess().getAlertSuccessBody().getText();
     }
 
+    public String getAlertTextDangerText() {
+        if (isPresentAlertTextDanger()) {
+            createAlertTextDanger();
+            return getAlertTextDanger().getAlertTextDangerBody().getText();
+        }else {
+            return "";
+        }
+    }
+
+    public String getAlertWarningText() {
+        if (isPresentAlertWarning()) {
+            createAlertWarning();
+            return getAlertWarning().getAlertWarningBody().getText();
+        }
+
+        return getAlertSuccess().getAlertSuccessBody().getText();
+    }
+
     public String getAlertDangerText() {
         if (isPresentAlertDanger()) {
             createAlertDanger();
@@ -320,7 +408,8 @@ abstract class AHeaderComponent {
     }
 
     public String getWishListText() {
-        return getWishList().getText();
+    	// return getWishList().getText();
+        return getWishList().getAttribute(TITLE_ATTRIBUTE);
     }
 
     public int getWishListNumber() {
@@ -510,6 +599,43 @@ abstract class AHeaderComponent {
                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_XPATH.toString(), categoryName)));
         return dropdownOptions.getListOptionByPartialNameTexts();
     }
+    
+    public boolean isUserSignedIn() {
+    	return getMyAccountOptions().size() == 5 ? true : false;
+    }
+
+	// -----------------------------------------------
+	// MyAccount options atomic click block
+	// -----------------------------------------------
+	public void clickMyAccountOptionRegister() {
+		clickMyAccountByPartialName(MyAccountOptions.REGISTER.toString());
+	}
+
+	public void clickMyAccountOptionLogin() {
+		clickMyAccountByPartialName(MyAccountOptions.LOGIN.toString());
+	}
+	// -----------------------------------------------
+
+	public void clickMyAccountOptionMyAccount() {
+		clickMyAccountByPartialName(MyAccountOptions.MY_ACCOUNT.toString());
+	}
+
+	public void clickMyAccountOptionOrderHistory() {
+		clickMyAccountByPartialName(MyAccountOptions.ORDER_HISTORY.toString());
+	}
+
+	public void clickMyAccountOptionTransactions() {
+		clickMyAccountByPartialName(MyAccountOptions.TRANSACTIONS.toString());
+	}
+
+	public void clickMyAccountOptionDownloads() {
+		clickMyAccountByPartialName(MyAccountOptions.DOWNLOADS.toString());
+	}
+
+	public void clickMyAccountOptionLogout() {
+		clickMyAccountByPartialName(MyAccountOptions.LOGOUT.toString());
+	}
+	// -----------------------------------------------
 
 
     // Business Logic
@@ -520,13 +646,19 @@ abstract class AHeaderComponent {
     // }
 
     public LoginPage gotoLoginPageFromMyAccount() {
-        clickMyAccountByPartialName("login");
+    	clickMyAccountOptionLogin();
         return new LoginPage(driver);
     }
 
     public LogoutPage gotoLogoutPage() {
-        clickMyAccountByPartialName("logout");
+    	clickMyAccountOptionLogout();
         return new LogoutPage(driver);
+    }
+    
+    public MyAccountPage gotoMyAccountPageFromHomePage() {
+        //clickMyAccountByPartialName("logout");
+    	clickMyAccountOptionMyAccount();
+        return new MyAccountPage(driver);
     }
 
 

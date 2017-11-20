@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests.smoke;
 
+import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -28,7 +29,7 @@ public class HomeTest {
     }
 
     @AfterClass
-    public void afterClass() {
+    public void afterClass() throws SQLException {
         Application.remove();
     }
     

@@ -70,5 +70,9 @@ public class HomePage extends AHeaderComponent {
         clickSearchProductButton();
         return new SuccesSearchPage(driver); 
     }
-
+    
+    public HomePage gotoHomePageClickAddToWish(Product product) {
+    	clickAddToWishByProductName(product.getName());
+    	return new HomePage(driver);
+    }
 }

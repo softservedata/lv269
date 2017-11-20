@@ -4,10 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 
 
-public class EditAddressPage extends MyAccountPage {
+
+public class EditAddressPage extends AddressBookPage {
     private WebElement fieldFirstName;
     private WebElement fieldLastName;
     private WebElement fieldFirstAddress;
@@ -19,7 +19,6 @@ public class EditAddressPage extends MyAccountPage {
     private Select fieldRegion;
     private WebElement continueButton;
     private WebElement backButton;
-
 
     public EditAddressPage(WebDriver driver) {
         super(driver);
@@ -34,11 +33,12 @@ public class EditAddressPage extends MyAccountPage {
         fieldRegion = new Select(driver.findElement(By.id("input-zone")));
         continueButton = driver.findElement(By.cssSelector(".btn.btn-primary"));
         backButton = driver.findElement(By.xpath(".//a[contains( text(),'Back')]"));
-
     }
     // PageObject
 
     // get Data
+
+
 
     public WebElement getFieldFirstName() {
         return fieldFirstName;
@@ -84,6 +84,11 @@ public class EditAddressPage extends MyAccountPage {
         return backButton;
     }
     // get Functional
+    public String getWarningDeleteAddressText(){
+
+        return getAlertWarningText();
+
+    }
 
     // set Data
 
@@ -147,39 +152,78 @@ public class EditAddressPage extends MyAccountPage {
         getFieldCompany().clear();
     }
 
+
+
+
     public void clearFieldCity(){
         getFieldCity().clear();
     }
 
+    //-----------------------------------------
+    //method clears field by field
+
+    public void clearField (WebElement field){
+        field.click();
+        field.clear();
+    }
+
+    public void setTextToField(WebElement field, String text){
+        field.click();
+        field.clear();
+        field.sendKeys(text);
+    }
+
+    public String getAlertText (){
+        return  driver.findElement(By.className("text-danger")).getText();
+    }
+
+    //-----------------------------------------------
     public void cleareFieldPostCode(){
         getFieldPostCode().clear();
     }
 
     public void setFieldFirstName(String text){
+        clickFieldFirstName();
+        clearFieldFirstName();
         getFieldFirstName().sendKeys(text);
     }
 
     public void setFieldLastName(String text){
+        clickFieldLastName();
+        clearFieldLastName();
         getFieldLastName().sendKeys(text);
     }
 
     public void setFieldFirstAddress(String text){
+        clickFieldFirstAddress();
+        clearFieldFirstAddress();
         getFieldFirstAddress().sendKeys(text);
     }
 
     public void setFieldSecondAddress(String text){
+        clickFieldSecondAddress();
+        clearFieldSecondAddress();
         getFieldSecondAddress().sendKeys(text);
     }
 
     public void setFieldCompany(String text){
+        clickFieldCompany();
+        clearFieldCompany();
         getFieldCompany().sendKeys(text);
     }
 
     public void setFieldCity(String text){
+        clickFieldCity();
+        clearFieldCity();
         getFieldCity().sendKeys(text);}
 
     public void setFieldPostCode(String text){
+        clickFieldPostCode();
+        cleareFieldPostCode();
         getFieldPostCode().sendKeys(text);}
+    public WebElement findField(String name){
+        return driver.findElement(By.id(name));
+    }
 
 
     //* Business Logic
@@ -192,19 +236,10 @@ public class EditAddressPage extends MyAccountPage {
         clickBackButton();
         return new AddressBookPage(driver);
     }
-    public void pasteData(String fieldFirstName, String fieldLastName, String fieldFirstAddress, String fieldSecondAddress
-                           ,String fieldCompany, String fieldCity, String fieldPostCode
-            ,String fieldCountry,String fieldRegion ){
-        setFieldFirstName(fieldFirstName);
-        setFieldLastName(fieldLastName);
-        setFieldFirstAddress(fieldFirstAddress);
-        setFieldSecondAddress(fieldSecondAddress);
-        setFieldCompany(fieldCompany);
-        setFieldCity(fieldCity);
-        setFieldPostCode(fieldPostCode);
-        selectFieldCountry(fieldCountry);
-        selectFieldRegion(fieldRegion);
-        saveChangesAddress();
+    public String getWarningDangerTextforField(){
+
+        return getAlertTextDangerText();
+
     }
 
 

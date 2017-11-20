@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 public class AddressBookEntries {
     private WebElement entriesLocator;
     private WebElement  editButton;
-    private  WebElement deleteButton;
+    private WebElement deleteButton;
     private WebElement addressData;
 
     public AddressBookEntries(WebElement entriesLocator){

@@ -57,6 +57,45 @@ public final class UserRepository {
                 .setSubscribe(true)
                 .build();
     }
+
+    public IUser userZvarych(){
+        return User.get()
+                .setFirstname("Mirek")
+                .setLastname("Zvarych")
+                .setEmail("mirekzvar@gmail.com")
+                .setPhoneNumber("000000")
+                .setAddressFirst("Naukova")
+                .setCity("Lviv")
+                .setPostCode("7902")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("vitochka24")
+                .setAddressSecond("Volodymyra Velukogo")
+                .setCompany("Softserve.edu")
+                .setFax("000")
+                .setSubscribe(false)
+                .build();
+
+    }
+    public IUser isntValidUserField(){
+        return User.get()
+                .setFirstname("")
+                .setLastname("")
+                .setEmail("")
+                .setPhoneNumber("")
+                .setAddressFirst("")
+                .setCity("")
+                .setPostCode("")
+                .setCountry("")
+                .setRegion("")
+                .setPassword("")
+                .setAddressSecond("")
+                .setCompany("")
+                .setFax("")
+                .setSubscribe(false)
+                .build();
+
+    }
     
     public IUser userKutaiev() {
         return User.get()
@@ -107,6 +146,24 @@ public final class UserRepository {
                 .setCountry("Ukraine")
                 .setRegion("L'vivs'ka Oblast'")
                 .setPassword("269lv269lvs")
+                .setAddressSecond("-")
+                .setCompany("-")
+                .setFax("-")
+                .setSubscribe(false)
+                .build();
+    }
+    public IUser userTestCorectPassword() {
+        return User.get()
+                .setFirstname("FIRSTNAME")
+                .setLastname("LASTNAME")
+                .setEmail("test_wrong_login@email.com")
+                .setPhoneNumber("380511223344")
+                .setAddressFirst("TEST_ADDRESS")
+                .setCity("Lviv")
+                .setPostCode("79000")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("269lv269lv")
                 .setAddressSecond("-")
                 .setCompany("-")
                 .setFax("-")

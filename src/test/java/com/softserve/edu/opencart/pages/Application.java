@@ -2,8 +2,14 @@ package com.softserve.edu.opencart.pages;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
+import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.pages.user.HomePage;
+import com.softserve.edu.opencart.pages.user.LoginPage;
+import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
+import com.softserve.edu.opencart.tools.DataBaseWraper;
+
+import java.sql.SQLException;
 
 public class Application {
 
@@ -15,11 +21,14 @@ public class Application {
     // TODO Change for parallel work
     private IApplicationSource applicationSource;
     private BrowserWrapper browser;
+    private DataBaseWraper dataBase;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
         this.applicationSource = applicationSource;
         initBrowser(applicationSource);
+        initDataBase(applicationSource);
+
         // initSearchStrategy();
         // initAccessToDB();
     }
@@ -41,12 +50,18 @@ public class Application {
         }
         return instance;
     }
-    
+
     public static void remove() {
         if (instance != null) {
             // TODO Change for parallel work
             instance.getBrowser().quit();
             instance = null;
+        }
+    }
+
+    public static void closeConnection() throws SQLException {
+        if (instance != null) {
+            instance.getDataBase().close();
         }
     }
 
@@ -70,15 +85,38 @@ public class Application {
         // TODO Remove getBrowser().getDriver()
         return new HomePage(getBrowser().getDriver());
     }
+    
+    public void deleteAllCookies() {
+    	getBrowser().deleteAllCookies();
+    }
 
-//    public LoginPage login() {
-//        getBrowser().openUrl(applicationSource.getUserLoginUrl());
-//        return new LoginPage();
-//    }
+    public LoginPage login() {
+        getBrowser().openUrl(applicationSource.getUserLoginUrl());
+        return new LoginPage(getBrowser().getDriver());
+    }
 
-//    public LogoutPage logout() {
-//        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
-//        return new LogoutPage();
-//    }
+    public LogoutPage logout() {
+        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
+        return new LogoutPage(getBrowser().getDriver());
+    }
+
+    public void initDataBase(IApplicationSource applicationSource) {
+        this.dataBase = new DataBaseWraper();
+    }
+
+
+    public DataBaseWraper getDataBase() {
+        return dataBase;
+    }
+
+    public void executeQuery(String query) throws SQLException {
+        getDataBase().executeQuery(query);
+    }
+
+    public void unlockUserByQuery(IUser user, String query) throws SQLException {
+        System.out.println(String.format(query, user.getEmail()));
+        getDataBase().executeQuery(String.format(query, user.getEmail()));
+
+    }
 
 }
