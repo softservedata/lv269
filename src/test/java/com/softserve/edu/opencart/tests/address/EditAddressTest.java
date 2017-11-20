@@ -42,7 +42,7 @@ public class EditAddressTest {
 
     }
     @Test(dataProvider = "editAddress")
-    public void checkEmptyField(IUser user,  String locator,String expected){
+    public void checkEmptyField(IUser user, String locator,String expected){
         EditAddressPage editAddressPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount()
                 .gotoLoginForLoginPageToMyAccountPage(user)
                 .gotoAddressBookPageRightColumn().modifyAddressBookData(user);
