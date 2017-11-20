@@ -25,10 +25,10 @@ public class EditAddressTest {
     @DataProvider(name = "editAddress")
     public Object[][] userData() {
         return new Object[][] {
-                {UserRepository.get().userZvarych(), GeneralLocators.FIRST_NAME_LOCATOR.toString(), AlertsText.FIRST_NAME_MUST_BE_1_TO_32.toString()},
-                {UserRepository.get().userZvarych(), GeneralLocators.SECOND_NAME_LOCATOR.toString() ,AlertsText.SECOND_NAME_MUST_BE_1_TO_32.toString()},
-                {UserRepository.get().userZvarych(), GeneralLocators.ADDRESS_LOCATOR.toString(), AlertsText.ADDRESS_MUST_BE_3_TO_128.toString()},
-                {UserRepository.get().userZvarych(), GeneralLocators.CITY_LOCATOR.toString(), AlertsText.CITY_MUST_BE_2_TO_128}
+                {UserRepository.get().userZvarych(), GeneralLocators.FIRST_NAME_LOCATOR, AlertsText.FIRST_NAME_MUST_BE_1_TO_32.toString()},
+                {UserRepository.get().userZvarych(), GeneralLocators.SECOND_NAME_LOCATOR,AlertsText.SECOND_NAME_MUST_BE_1_TO_32.toString()},
+                {UserRepository.get().userZvarych(), GeneralLocators.ADDRESS_LOCATOR, AlertsText.ADDRESS_MUST_BE_3_TO_128.toString()},
+                {UserRepository.get().userZvarych(), GeneralLocators.CITY_LOCATOR, AlertsText.CITY_MUST_BE_2_TO_128.toString()}
         };
 
     }
@@ -44,7 +44,7 @@ public class EditAddressTest {
 
     }
     @Test(dataProvider = "editAddress")
-    public void checkEmptyField(IUser user, String locator,String expected){
+    public void checkEmptyField(IUser user, GeneralLocators locator,String expected){
         EditAddressPage editAddressPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount()
                 .gotoLoginForLoginPageToMyAccountPage(user)
                 .gotoAddressBookPageRightColumn().modifyAddressBookData(user);

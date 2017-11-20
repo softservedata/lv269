@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.pages.user;
 
+import com.softserve.edu.opencart.pages.GeneralLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -221,8 +222,8 @@ public class EditAddressPage extends AddressBookPage {
         clickFieldPostCode();
         cleareFieldPostCode();
         getFieldPostCode().sendKeys(text);}
-    public WebElement findField(String name){
-        return driver.findElement(By.id(name));
+    public WebElement findField(GeneralLocators locatorName){
+        return driver.findElement(By.id(locatorName.toString()));
     }
 
 
