@@ -6,8 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.data.products.Product;
+import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
+import com.softserve.edu.opencart.tools.NumberUtils;
 
 public class CartPage extends ANavigatePanelComponent{
 	
@@ -34,8 +37,6 @@ public class CartPage extends ANavigatePanelComponent{
         public String getInputFieldText() {
         	return getInputField().getAttribute(TagAttribute.VALUE.toString());
         }
-        
-        //set Data
 
     }
     
@@ -50,28 +51,29 @@ public class CartPage extends ANavigatePanelComponent{
 	private WebElement checkoutBtn;
 	private WebElement couponBtn;
 	private WebElement giftBtn;
+	private WebElement totalPrice;
 	//
 	private List<OrderComponent> orderComponents;
 	private DiscountDropDown useCoupon;
 	//Constructor
     public CartPage(WebDriver driver) {
         super(driver);
-        if(driver.findElement(By.id("content")).getText()
-        		 .toLowerCase().contains(EMPTY_CART_MESSAGE.toLowerCase())) {
-        	continueBtn=driver.findElement(By.cssSelector(".btn.btn-primary"));
-        	System.out.println("ZERO PRODUCTS CHECKING \n");
-        } else {
-        	continueBtn=driver.findElement(By.cssSelector("a.btn.btn-default"));
-        	checkoutBtn=driver.findElement(By.cssSelector("a.btn.btn-primary"));
-        	//x.//td[preceding-sibling::td[starts-with(.,'Total:')]]
-        	couponBtn=driver.findElement(By.xpath(".//a[starts-with(.,'Use Coupon')]"));
-        	giftBtn=driver.findElement(By.xpath(".//a[starts-with(.,'Use Gift')]"));
-        	initOrderComponents(By.cssSelector("div.table-responsive>table.table.table-bordered>tbody tr"));
-        	System.out.println("SOME PRODUCTS CHECKING \n");
-        }  
-        
+        initCartPage();
     }
     //
+    private void initCartPage() {
+        if(driver.findElement(By.id("content")).getText()
+       		 .toLowerCase().contains(EMPTY_CART_MESSAGE.toLowerCase())) {
+       	continueBtn=driver.findElement(By.cssSelector(".btn.btn-primary"));
+       } else {
+       	continueBtn=driver.findElement(By.cssSelector("a.btn.btn-default"));
+       	checkoutBtn=driver.findElement(By.cssSelector("a.btn.btn-primary"));
+       	couponBtn=driver.findElement(By.xpath(".//a[starts-with(.,'Use Coupon')]"));
+       	giftBtn=driver.findElement(By.xpath(".//a[starts-with(.,'Use Gift')]"));
+       	totalPrice=driver.findElement(By.xpath(".//td[preceding-sibling::td[starts-with(.,'Total:')]]"));
+       	initOrderComponents(By.cssSelector("div.table-responsive>table.table.table-bordered>tbody tr"));
+       }  
+    }
     
     protected void initOrderComponents(By searchLocator) {
         orderComponents = new ArrayList<>();
@@ -96,6 +98,11 @@ public class CartPage extends ANavigatePanelComponent{
     public WebElement getCouponBtn() {
         return couponBtn;
     }
+    
+    public WebElement getTotalPrice() {
+        return totalPrice;
+    }
+    
     
     protected List<OrderComponent> getOrderComponent() {
         return orderComponents;
@@ -122,7 +129,15 @@ public class CartPage extends ANavigatePanelComponent{
         }
         return result;
     }
+    
+    public String getTotalPriceText() {
+        return getTotalPrice().getText();
+    }
 
+    public double getTotalPriceAmount() {
+        return NumberUtils.extractDouble(RegexPatterns.NUMBER_DOUBLE.toString(), getTotalPriceText());
+    }
+    
     public String getUnitPriceTextByOrderName(String orderName) {
         return getOrderComponentByOrderName(orderName).getUnitPriceText();
     }
@@ -139,6 +154,9 @@ public class CartPage extends ANavigatePanelComponent{
         return getOrderComponentByOrderName(orderName).getTotalPriceAmount();
     }
     
+    public double getTotalPriceAmountByProduct(Product product) {
+        return getTotalPriceAmountByOrderName(product.getName());
+    }
     // set Data
 
     public void clickCheckoutBtn() {
@@ -155,6 +173,9 @@ public class CartPage extends ANavigatePanelComponent{
     }
     
     public void clickCouponAply() {
+    	if(useCoupon==null) {
+    		clickCouponBtn();
+    	}
     	useCoupon.getAplyBtn().click();
     }
     
@@ -165,4 +186,42 @@ public class CartPage extends ANavigatePanelComponent{
     public void  clickRemoveByOrderName(String orderName) {
     	getOrderComponentByOrderName(orderName).clickRemove();
     }
+    // Business Logic
+    
+ 	public HomePage gotoHomePageFromCartPage() {
+ 		clickContinueBtn();
+ 		return new HomePage(driver);
+ 	}
+ 	
+ 	public CartPage refreshCartPageByRefreshOrderElement(Product product){
+ 	    clickUpdateByOrderName(product.getName());
+ 	    return new CartPage(driver);
+ 	}
+ 	
+ 	public CartPage refreshCartPageByRemoveOrderElement(Product product){
+ 	    clickRemoveByOrderName(product.getName());
+ 	    return new CartPage(driver);
+ 	}
+ 	
+// 	public CheckoutPage gotoCheckoutPageFromCartPage() {
+// 		clickCheckoutBtn();
+// 		return new CheckoutPage();
+// 	}
+ 	
+ 	//Business Logic for Tests
+ 	public double calculationOrderTotalPrice() {
+ 		double orderTotalPrice=0;
+        for (OrderComponent current : getOrderComponent()) {
+        	orderTotalPrice+=current.getTotalPriceAmount();
+        }        
+ 		return orderTotalPrice;
+ 	}
+ 	
+ 	public double calculationProductTotalPrice(Product product) {
+ 		double productTotalPrice=0;
+        OrderComponent current=getOrderComponentByOrderName(product.getName());
+ 		productTotalPrice=current.getUnitPriceAmount()*current.getQuantityNumber();
+        return productTotalPrice;
+ 	}
+    
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.softserve.edu.opencart.data.categories.DetailCategory;
+import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.Product;
 
 public class HomePage extends AHeaderComponent {
@@ -59,6 +60,11 @@ public class HomePage extends AHeaderComponent {
         return new HomePage(driver); 
     }
 
+    public HomePage addProductToCart(Product product) {
+    	clickAddToCartByProductName(product.getName());
+    	return new HomePage(driver);
+    }
+    
     public double getPriceAmountByProduct(Product product) {
         return getPriceAmountByProductName(product.getName());
     }

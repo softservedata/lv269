@@ -22,12 +22,12 @@ public class ProductRepository {
         return instance;
     }
 
-    public IProduct macBook() {
+    public IProduct iPhone() {
         Map<String, Double> macBookPrices = new HashedMap<>();
         macBookPrices.put("Euro", 430.06);
         macBookPrices.put("Pound Sterling", 379.02);
-        macBookPrices.put("US Dollar", 500.0);
-        return new Product("MacBook",
+        macBookPrices.put("US Dollar", 101.0);
+        return new Product("iPhone",
                 "Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1..",
                 macBookPrices);
     }

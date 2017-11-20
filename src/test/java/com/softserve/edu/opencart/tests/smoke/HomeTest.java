@@ -37,47 +37,28 @@ public class HomeTest {
     public Object[][] productData() {
         // Read from ...
         return new Object[][] { 
-            //{ "MacBook", 500.0 },
-            //{ "iPhone", 101.0 },
-            //{ "Canon EOS 5D", 80.00 },
-            { CurrencyRepository.get().euro(), ProductRepository.get().macBook() },
-            { CurrencyRepository.get().dollar(), ProductRepository.get().macBook() },
+            { CurrencyRepository.get().euro(), ProductRepository.get().iPhone() },
+            { CurrencyRepository.get().dollar(), ProductRepository.get().iPhone() },
             };
     }
 
     @Test(dataProvider = "productData")
-    //public void checkProduct(String productName, double expectedPrice) throws Exception {
     public void checkProduct(DetailCategory detailCurency, Product product) throws Exception {
         //
         // Precondition
         //
-        //System.setProperty("webdriver.chrome.driver",
-        //        "C:/Program Files/Java/Selenium360/chromedriver.exe");
-        //WebDriver driver = new ChromeDriver();
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //
-        //driver.get("http://server7.pp.ua");
-        //Thread.sleep(1000);
-        //
-        //HomePage homePage = new HomePage(driver);
-        //Thread.sleep(1000);
+
         //
         // Steps
         //
-        //homePage = homePage.chooseCurrencyByDetailCategory(detailCurency);
-        //Thread.sleep(1000);
-        //double actualPrice = homePage.getPriceAmountByProductName(productName);
-        //double actualPrice = homePage.getPriceAmountByProduct(product);
-        //Thread.sleep(1000);
-        //
-        //double actualPrice = new HomePage(driver)
+ 
         double actualPrice = Application.get().loadHomePage()
                 .chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceAmountByProduct(product);
         //
         // Check
         //
-        //Assert.assertEquals(actualPrice, expectedPrice, 0.001);
+ 
         // TODO getPrices(detailCurency)
         double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
         Assert.assertEquals(actualPrice, expectedPrice, 0.001);
@@ -85,8 +66,7 @@ public class HomeTest {
         //
         // Return to previous state
         //
-        //Thread.sleep(2000);
-        //driver.quit();
+
     }
     
     //@Test

@@ -74,11 +74,7 @@ abstract class AHeaderComponent {
         CART_TOTAL_ID ("cart-total"),
         MY_ACCOUNT_OPTIONS_CSS (".list-inline > li > a.dropdown-toggle + ul > li > a"),
         CURRENCY_OPTIONS_CSS (".btn.btn-link.dropdown-toggle + ul > li > button"),
-        // Do not Work with CSS ver. 3.x
-        //MENUTOP_OPTIONS_CSS ("li:has(a:contains('%s')) li > a"),
         MENUTOP_OPTIONS_XPATH ("//li/a[contains(text(),'%s')]/..//li/a"),
-        // Do not Work with CSS ver. 3.x
-        //MENUTOP_LAST_OPTION_CSS ("li:has(a:contains('%s')) div > a");
         MENUTOP_LAST_OPTION_XPATH ("//a[contains(text(),'Show All %s')]");
         //
         private String field;
@@ -91,6 +87,28 @@ abstract class AHeaderComponent {
         public String toString() {
             return field;
         }
+    }
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    
+    private enum MyAccountOptions {
+    	REGISTER("Register"),
+    	LOGIN("Login"),
+        MY_ACCOUNT("My Account"),
+        ORDER_HISTORY("Order History"),
+        TRANSACTIONS("Transactions"),
+        DOWNLOADS("Downloads"),
+        LOGOUT("Logout");
+    	
+    	private String field;
+
+        private MyAccountOptions(String field) {
+            this.field = field;
+        }
+
+        @Override
+        public String toString() {
+            return field;
+        }    	
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -123,13 +141,7 @@ abstract class AHeaderComponent {
         currency = driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
         myAccount = driver.findElement(By.cssSelector(".list-inline > li > a.dropdown-toggle"));
         wishList = driver.findElement(By.id("wishlist-total"));
-        // shoppingCart=driver.findElement(By.partialLinkText("Shopping Cart"));
-        // Do not Work with CSS ver. 3.x
-        //shoppingCart = null;//driver.findElement(By.cssSelector("a:has('.fa.fa-shopping-cart')"));
         shoppingCart = driver.findElement(By.cssSelector("a[title='Shopping Cart']"));
-        // checkout=driver.findElement(By.partialLinkText("Checkout"));
-        // Do not Work with CSS ver. 3.x
-        //checkout = null; //driver.findElement(By.cssSelector("a:has('.fa.fa-share')"));
         checkout = driver.findElement(By.cssSelector("a[title='Checkout']"));
         logo = driver.findElement(By.cssSelector("#logo > a"));
         searchProductField = driver.findElement(By.name("search"));
@@ -426,13 +438,65 @@ abstract class AHeaderComponent {
      }
 
 
+     public boolean isUserSignedIn() {
+     	return getMyAccountOptions().size() == 5 ? true : false;
+     }
+
+ 	// -----------------------------------------------
+ 	// MyAccount options atomic click block
+ 	// -----------------------------------------------
+ 	public void clickMyAccountOptionRegister() {
+ 		clickMyAccountByPartialName(MyAccountOptions.REGISTER.toString());
+ 	}
+
+ 	public void clickMyAccountOptionLogin() {
+ 		clickMyAccountByPartialName(MyAccountOptions.LOGIN.toString());
+ 	}
+ 	// -----------------------------------------------
+
+ 	public void clickMyAccountOptionMyAccount() {
+ 		clickMyAccountByPartialName(MyAccountOptions.MY_ACCOUNT.toString());
+ 	}
+
+ 	public void clickMyAccountOptionOrderHistory() {
+ 		clickMyAccountByPartialName(MyAccountOptions.ORDER_HISTORY.toString());
+ 	}
+
+ 	public void clickMyAccountOptionTransactions() {
+ 		clickMyAccountByPartialName(MyAccountOptions.TRANSACTIONS.toString());
+ 	}
+
+ 	public void clickMyAccountOptionDownloads() {
+ 		clickMyAccountByPartialName(MyAccountOptions.DOWNLOADS.toString());
+ 	}
+
+ 	public void clickMyAccountOptionLogout() {
+ 		clickMyAccountByPartialName(MyAccountOptions.LOGOUT.toString());
+ 	}
+ 	// -----------------------------------------------
+
     // Business Logic
 
-    // public CommonPage successLogin(IUser user) {
-    // setLoginData(user);
-    // return new CommonPage();
-    // }
+     public LoginPage gotoLoginPageFromMyAccount() {
+     	 clickMyAccountOptionLogin();
+         return new LoginPage(driver);
+     }
 
+     public LogoutPage gotoLogoutPage() {
+     	 clickMyAccountOptionLogout();
+         return new LogoutPage(driver);
+     }
+     
+     public MyAccountPage gotoMyAccountPageFromHomePage() {
+     	clickMyAccountOptionMyAccount();
+        return new MyAccountPage(driver);
+     }
+     
+ 	public CartPage gotoCartPage() {
+ 		clickShoppingCart();
+		return new CartPage(driver);
+	}
+     
      public SubCategoryProductsPage gotoMenuTopByPartialName(String categoryName, String optionName) {
          clickMenuTopByPartialName(categoryName, optionName);
          return new SubCategoryProductsPage(driver);

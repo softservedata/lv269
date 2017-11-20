@@ -23,9 +23,8 @@ public class ProductComponent {
         //
         name = productLayout.findElement(By.cssSelector("h4 a"));
         price = productLayout.findElement(By.cssSelector(".price"));
-        // TODO
-        addToCart = null; //productLayout.findElement(By.cssSelector("button:has(.fa.fa-shopping-cart)"));
-        addToWish = null; //productLayout.findElement(By.cssSelector("button:has(.fa.fa-heart)"));
+        addToCart = productLayout.findElement(By.cssSelector(".fa.fa-shopping-cart"));
+        addToWish = productLayout.findElement(By.cssSelector(".fa.fa-heart"));
     }
 
     // PageObject
