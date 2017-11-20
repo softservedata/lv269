@@ -11,16 +11,21 @@
                 </methods>
             </class>
         </classes>
-    </test> <!-- Test -->
+    </test>
 
-    <test name="ReviewForm">
+    <test name="UserLogOut">
         <classes>
-            <class name="com.softserve.edu.opencart.tests.reviews.PositiveUserLoginTest">
+            <class name="com.softserve.edu.opencart.tests.reviews.NegativeUserLogoutTest">
                 <methods>
                     <include name="test"/>
                 </methods>
             </class>
-            <class name="com.softserve.edu.opencart.tests.reviews.NegativeUserLogoutTest">
+        </classes>
+    </test>
+
+    <test name="LoginForTest">
+        <classes>
+            <class name="com.softserve.edu.opencart.tests.reviews.PositiveUserLoginTest">
                 <methods>
                     <include name="test"/>
                 </methods>
@@ -41,6 +46,6 @@
                 </methods>
             </class>
         </classes>
-    </test> <!-- Test -->
+    </test>
 
-</suite> <!-- Suite -->
+</suite>
