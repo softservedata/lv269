@@ -53,7 +53,6 @@ public class DataBaseWraper {
     public void executeQuery(String query) throws SQLException {
         PreparedStatement pst1 = getConnection().prepareStatement(query);
         pst1.executeUpdate();
-
     }
 
 

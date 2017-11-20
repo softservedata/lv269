@@ -14,8 +14,8 @@ import org.testng.annotations.Test;
 import java.sql.SQLException;
 
 public class BlockLoginTest {
-    private final String  UNBLOCK_USER=" UPDATE oc_customer_login SET total = '0' WHERE email  = '%s';";
-
+//    private final String UNBLOCK_USER = "UPDATE oc_customer_login SET total = '0' WHERE email  = '%s';";
+    private final String DELETE_UNBLOCK_USER = "DELETE FROM oc_customer_login WHERE email  = '%s';";
 
     @BeforeClass
     public void beforeClass() {
@@ -40,7 +40,8 @@ public class BlockLoginTest {
 
     @Test(dataProvider = "Authentication")
     public void checkSuccessfulLogin(IUser userWithWrongPassword, IUser userWithCorectPassword) throws Exception {
-        Application.get().unlockUserByQuery(userWithCorectPassword, UNBLOCK_USER);
+//        Application.get().unlockUserByQuery(userWithCorectPassword, UNBLOCK_USER);
+        Application.get().unlockUserByQuery(userWithCorectPassword, DELETE_UNBLOCK_USER);
 
         String actual;
         String expectedFirstWarning = "Warning: No match for E-Mail Address and/or Password.";
@@ -59,13 +60,13 @@ public class BlockLoginTest {
 
         Assert.assertEquals(actual, expectedSecondWarning);
 
-        //check is user reale blocked(check with correct password)
+        //check is user realy blocked(check with correct password)
         loginPage = loginPage.gotoLoginForLoginPageToWarning(userWithCorectPassword);
         actual = loginPage.getWarningDangerText();
 
         Assert.assertEquals(actual, expectedSecondWarning);
 
-        Application.get().unlockUserByQuery(userWithCorectPassword, UNBLOCK_USER);
+        Application.get().unlockUserByQuery(userWithCorectPassword, DELETE_UNBLOCK_USER);
         Application.closeConnection();
         //unblockInDatabase(userWithWrongPassword.getEmail());
 

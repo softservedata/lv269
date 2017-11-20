@@ -95,30 +95,22 @@ public class LoginPage extends AColumnRightGuestComponent {
         inputEMailAdress(email);
         inputPassword(password);
         clickLoginButton();
-        //return new MyAccountPage(driver);
     }
 
     public void loginForLoginPageToWarning(String email, String wrongPassword) {
         inputEMailAdress(email);
         inputPassword(wrongPassword);
         clickLoginButton();
-        //return new LoginPage(driver);
     }
     
 	// Business Logic
     
     public MyAccountPage gotoLoginForLoginPageToMyAccountPage(IUser user) {
-        //inputEMailAdress(email);
-        //inputPassword(password);
-        //clickLoginButton();
     	loginForLoginPageToMyAccountPage(user.getEmail(), user.getPassword());
         return new MyAccountPage(driver);
     }
 
     public LoginPage gotoLoginForLoginPageToWarning(IUser user) {
-        //inputEMailAdress(email);
-        //inputPassword(wrongPassword);
-        //clickLoginButton();
     	loginForLoginPageToWarning(user.getEmail(), user.getPassword());
         return new LoginPage(driver);
     }
