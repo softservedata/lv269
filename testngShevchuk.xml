@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Login">
+    <test name="BlockLoginTest">
+        <classes>
+
+            <class name="com.softserve.edu.opencart.tests.login.BlockLoginTest">
+                <methods>
+                    <include name="checkBlockUser"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.opencart.tests.login.TestLoginPage">
+                <methods>
+                    <include name="checkImpossibilityOfCopyingPassword"/>
+                    <include name="checkLoginField"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.opencart.tests.login.LoginTest">
+                <methods>
+                    <include name="checkSuccessfulLogin"/>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+</suite>

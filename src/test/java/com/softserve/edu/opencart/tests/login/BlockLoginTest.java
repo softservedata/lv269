@@ -14,11 +14,11 @@ import org.testng.annotations.Test;
 import java.sql.SQLException;
 
 public class BlockLoginTest {
-    private final String  UNBLOCK_USER=" UPDATE oc_customer_login SET total = '0' WHERE email  = '%s';";
+    //    private final String UNBLOCK_USER = "UPDATE oc_customer_login SET total = '0' WHERE email  = '%s';";
 
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass() throws SQLException {
 //        Application.get(ApplicationSourceRepository.get().chromeServer7());
         Application.get(ApplicationSourceRepository.get().firefoxServer7());
     }
@@ -28,7 +28,6 @@ public class BlockLoginTest {
         Application.remove();
     }
 
-
     @DataProvider(name = "Authentication")
     public static Object[][] credentials() {
 
@@ -37,37 +36,35 @@ public class BlockLoginTest {
 
     }
 
-
     @Test(dataProvider = "Authentication")
-    public void checkSuccessfulLogin(IUser userWithWrongPassword, IUser userWithCorectPassword) throws Exception {
-        Application.get().unlockUserByQuery(userWithCorectPassword, UNBLOCK_USER);
+    public void checkBlockUser(IUser userWithWrongPassword, IUser userWithCorectPassword) throws SQLException {
+
+        Application.get().unlockUserByQuery(userWithCorectPassword);
+
 
         String actual;
-        String expectedFirstWarning = "Warning: No match for E-Mail Address and/or Password.";
-        String expectedSecondWarning = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
-
         LoginPage loginPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount();
         for (int i = 0; i < 5; i++) {
             loginPage = loginPage.gotoLoginForLoginPageToWarning(userWithWrongPassword);
             actual = loginPage.getWarningDangerText();
 
-            Assert.assertEquals(actual, expectedFirstWarning);
+            Assert.assertEquals(actual, LoginPage.EXPECTED_FIRST_WARNING);
         }
 
         loginPage = loginPage.gotoLoginForLoginPageToWarning(userWithWrongPassword);
         actual = loginPage.getWarningDangerText();
 
-        Assert.assertEquals(actual, expectedSecondWarning);
+        Assert.assertEquals(actual, LoginPage.EXPECTED_SECOND_WARNING);
 
-        //check is user reale blocked(check with correct password)
+        //check is user realy blocked(check with correct password)
         loginPage = loginPage.gotoLoginForLoginPageToWarning(userWithCorectPassword);
         actual = loginPage.getWarningDangerText();
 
-        Assert.assertEquals(actual, expectedSecondWarning);
+        Assert.assertEquals(actual, LoginPage.EXPECTED_SECOND_WARNING);
 
-        Application.get().unlockUserByQuery(userWithCorectPassword, UNBLOCK_USER);
-        Application.closeConnection();
-        //unblockInDatabase(userWithWrongPassword.getEmail());
+
+        Application.get().unlockUserByQuery(userWithCorectPassword);
+        Application.closeDB();
 
     }
 }

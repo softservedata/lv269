@@ -23,7 +23,7 @@ import com.softserve.edu.opencart.pages.user.SubCategoryProductsPage;
 public class HomeTest {
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass() throws SQLException {
         Application.get(ApplicationSourceRepository.get().chromeServer7());
         //Application.get(ApplicationSourceRepository.get().firefoxServer7());
     }

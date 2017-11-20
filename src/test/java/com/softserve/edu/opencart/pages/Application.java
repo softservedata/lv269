@@ -12,7 +12,7 @@ import com.softserve.edu.opencart.tools.DataBaseWraper;
 import java.sql.SQLException;
 
 public class Application {
-
+    private final String DELETE_UNBLOCK_USER = "DELETE FROM oc_customer_login WHERE email  = '%s';";
     // Use Singleton, Repository
     private static volatile Application instance;
     //
@@ -24,7 +24,7 @@ public class Application {
     private DataBaseWraper dataBase;
     // etc.
 
-    private Application(IApplicationSource applicationSource) {
+    private Application(IApplicationSource applicationSource) throws SQLException {
         this.applicationSource = applicationSource;
         initBrowser(applicationSource);
         initDataBase(applicationSource);
@@ -33,11 +33,11 @@ public class Application {
         // initAccessToDB();
     }
 
-    public static Application get() {
+    public static Application get() throws SQLException {
         return get(null);
     }
 
-    public static Application get(IApplicationSource applicationSource) {
+    public static Application get(IApplicationSource applicationSource) throws SQLException {
         if (instance == null) {
             synchronized (Application.class) {
                 if (instance == null) {
@@ -59,7 +59,7 @@ public class Application {
         }
     }
 
-    public static void closeConnection() throws SQLException {
+    public static void closeDB() throws SQLException {
         if (instance != null) {
             instance.getDataBase().close();
         }
@@ -96,7 +96,7 @@ public class Application {
         return new LogoutPage(getBrowser().getDriver());
     }
 
-    public void initDataBase(IApplicationSource applicationSource) {
+    public void initDataBase(IApplicationSource applicationSource) throws SQLException {
         this.dataBase = new DataBaseWraper();
     }
 
@@ -109,10 +109,8 @@ public class Application {
         getDataBase().executeQuery(query);
     }
 
-    public void unlockUserByQuery(IUser user, String query) throws SQLException {
-        System.out.println(String.format(query, user.getEmail()));
-        getDataBase().executeQuery(String.format(query, user.getEmail()));
-
+    public void unlockUserByQuery(IUser user) throws SQLException {
+        getDataBase().executeQuery(String.format(DELETE_UNBLOCK_USER, user.getEmail()));
     }
 
 }
