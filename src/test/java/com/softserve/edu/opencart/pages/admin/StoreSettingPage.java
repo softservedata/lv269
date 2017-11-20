@@ -2,7 +2,7 @@ package com.softserve.edu.opencart.pages.admin;
 
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
-import com.softserve.edu.opencart.tools.WebDriverManager;
+import com.softserve.edu.opencart.tools.SearchManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -26,11 +26,11 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     private WebElement optionsTabBtnsPanel;
     private OptionsTab currentTabOptions;
 
-    StoreSettingPage(WebDriverManager webDriverManager) {
-        super(webDriverManager);
-        saveOptionsBtn = webDriverManager.findElement(By.xpath("//button[child::i[@class='fa fa-save']]"));
-        cancelChangesBtn = webDriverManager.findElement(By.xpath("//a[child::i[@class='fa fa-reply']]"));
-        optionsTabBtnsPanel = webDriverManager.findElement(By.className("nav-tabs"));
+    StoreSettingPage(SearchManager searchManager) {
+        super(searchManager);
+        saveOptionsBtn = searchManager.findElement(By.xpath("//button[child::i[@class='fa fa-save']]"));
+        cancelChangesBtn = searchManager.findElement(By.xpath("//a[child::i[@class='fa fa-reply']]"));
+        optionsTabBtnsPanel = searchManager.findElement(By.className("nav-tabs"));
         currentTabOptions = new OptionsTab();
     }
     //GetData
@@ -50,12 +50,12 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     //GetFunctional
 
     public WebElement getInactiveOptionsTabBtn() {
-        return webDriverManager.findElementInsideElement(getOptionsTabBtnsPanel(),
+        return searchManager.findElementInsideElement(getOptionsTabBtnsPanel(),
                 By.cssSelector(INACTIVE_BTN_SELECTOR_CSS));
     }
 
     public List<WebElement> getActiveTabBtns() {
-        return webDriverManager.findElementsInsideElement(getOptionsTabBtnsPanel(),
+        return searchManager.findElementsInsideElement(getOptionsTabBtnsPanel(),
                 By.cssSelector(ACTIVE_BTNS_SELECTOR_CSS));
     }
 
@@ -74,11 +74,11 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     //SetData
 
     public void clickSaveOptionsBtn() {
-        webDriverManager.clickElement(getSaveOptionsBtn());
+        searchManager.clickElement(getSaveOptionsBtn());
     }
 
     public void clickCancelChangesBtn() {
-        webDriverManager.clickElement(getCancelChangesBtn());
+        searchManager.clickElement(getCancelChangesBtn());
     }
 
     //Set Functional
@@ -87,7 +87,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         if (!getInactiveOptionsTabBtn().getText().toLowerCase().equals(TabBtnName.toLowerCase())) {
             ErrorUtils.createElementNotClickableException((getActiveTabBtnByName(TabBtnName) == null),
                     String.format(NO_SUCH_BTN_MESSAGE, TabBtnName));
-            webDriverManager.clickElement(getActiveTabBtnByName(TabBtnName));
+            searchManager.clickElement(getActiveTabBtnByName(TabBtnName));
             currentTabOptions = new OptionsTab();
         }
     }
@@ -97,23 +97,23 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     public SettingPage changeOptionByTabNameAndOptionName(String tabName, String optionName, String newData) {
         actTabBtnByName(tabName);
         currentTabOptions.actOptionByName(optionName, newData);
-        webDriverManager.clickElement(getSaveOptionsBtn());
-        return new SettingPage(webDriverManager);
+        searchManager.clickElement(getSaveOptionsBtn());
+        return new SettingPage(searchManager);
     }
 
     public SettingPage changeOptionByTabNameAndOptionName(String tabName, String optionName, boolean newData) {
         actTabBtnByName(tabName);
         currentTabOptions.actOptionByName(optionName, newData);
-        webDriverManager.clickElement(getSaveOptionsBtn());
-        return new SettingPage(webDriverManager);
+        searchManager.clickElement(getSaveOptionsBtn());
+        return new SettingPage(searchManager);
     }
 
     public SettingPage changeOptionByTabNameAndOptionName(String tabName, String optionName,
                                                           Map<String, Boolean> newData) {
         actTabBtnByName(tabName);
         currentTabOptions.actOptionByName(optionName, newData);
-        webDriverManager.clickElement(getSaveOptionsBtn());
-        return new SettingPage(webDriverManager);
+        searchManager.clickElement(getSaveOptionsBtn());
+        return new SettingPage(searchManager);
     }
 
     //----------------------------------------------------------------------
@@ -145,7 +145,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         }
 
         private void setSelectors() {
-            if (webDriverManager.isElementVisible(By.cssSelector(DEFAULT_OPTIONS_SELECTOR_CSS))) {
+            if (searchManager.isElementVisible(By.cssSelector(DEFAULT_OPTIONS_SELECTOR_CSS))) {
                 optionsSelectorCss = DEFAULT_OPTIONS_SELECTOR_CSS;
                 optionActiveElementSelectorXpath = DEFAULT_OPTION_ACTIVE_ELEMENT_SELECTOR_CSS;
                 optionNameSelectorCss = DEFAULT_OPTION_NAME_SELECTOR_CSS;
@@ -157,12 +157,12 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         }
 
         private void initOptionsList() {
-            optionsList = webDriverManager.findElements(By.cssSelector(optionsSelectorCss));
+            optionsList = searchManager.findElements(By.cssSelector(optionsSelectorCss));
         }
 
         //GetData
         private String getOptionName(WebElement option) {
-            return webDriverManager.findElementInsideElement(option, By.cssSelector(optionNameSelectorCss)).getText();
+            return searchManager.findElementInsideElement(option, By.cssSelector(optionNameSelectorCss)).getText();
         }
 
 
@@ -182,7 +182,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         }
 
         public WebElement getActiveElementFromOption(WebElement optionElement) {
-            return webDriverManager.findElementInsideElement(optionElement,
+            return searchManager.findElementInsideElement(optionElement,
                     By.xpath(optionActiveElementSelectorXpath));
         }
 
@@ -230,12 +230,12 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         }
 
         private void actOptionAsDropdown(String optionName, String data) {
-            webDriverManager.selectByVisibleText(new Select(getActiveElementFromOption(getOptionByName(optionName))),
+            searchManager.selectByVisibleText(new Select(getActiveElementFromOption(getOptionByName(optionName))),
                     data);
         }
 
         private void actOptionAsInputField(String optionName, String data) {
-            webDriverManager.fillInputField(getActiveElementFromOption(getOptionByName(optionName)), data);
+            searchManager.fillInputField(getActiveElementFromOption(getOptionByName(optionName)), data);
         }
     }
 }

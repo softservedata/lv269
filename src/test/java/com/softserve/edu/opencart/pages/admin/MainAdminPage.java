@@ -1,13 +1,13 @@
 package com.softserve.edu.opencart.pages.admin;
 
-import com.softserve.edu.opencart.tools.WebDriverManager;
+import com.softserve.edu.opencart.tools.SearchManager;
 
 public class MainAdminPage extends AHeaderComponentAdmin {
 
     // Fields
 
-    public MainAdminPage(WebDriverManager webDriverManager) {
-        super(webDriverManager);
+    public MainAdminPage(SearchManager searchManager) {
+        super(searchManager);
     }
 
 

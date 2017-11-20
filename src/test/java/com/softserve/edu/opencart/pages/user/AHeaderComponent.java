@@ -420,7 +420,7 @@ abstract class AHeaderComponent {
 
     // Business Logic
 
-    // public CommonPage successLogin(IUser user) {
+    // public CommonPage successLogin(IPagination user) {
     // setLoginData(user);
     // return new CommonPage();
     // }

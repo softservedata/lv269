@@ -5,7 +5,7 @@ import com.softserve.edu.opencart.data.ProductShort;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
-import com.softserve.edu.opencart.tools.WebDriverManager;
+import com.softserve.edu.opencart.tools.SearchManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -16,13 +16,15 @@ import java.util.List;
 public class ProductAdminPage extends AHeaderComponentAdmin {
 
     private enum PaginationData {
-        FIRST_PAGE_SYMBOL("|<"),
-        PREVIOUS_PAGE_SYMBOL("<"),
-        NEXT_PAGE_SYMBOL(">"),
-        LAST_PAGE_SYMBOL(">|"),
-        PAGINATION_ACTIVE_BTN_SELECTOR_CSS(".pagination > li >a"),
+        TO_FIRST_PAGE_SYMBOL("|<"),
+        TO_PREVIOUS_PAGE_SYMBOL("<"),
+        TO_NEXT_PAGE_SYMBOL(">"),
+        TO_LAST_PAGE_SYMBOL(">|"),
+        PAGINATION_ACTIVE_BTNS_SELECTOR_CSS(".pagination > li >a"),
         PAGINATION_CURRENT_PAGE_SELECTOR_CSS(".pagination > li > span"),
-        PAGINATION_LAST_BTN_SELECTOR_CSS(".pagination > li:last-child > span"),
+        PAGINATION_LAST_BTN_ON_PAGE_SELECTOR_CSS(".pagination > li:last-child > a"),
+        PAGINATION_FIRST_BTN_ON_PAGE_SELECTOR_CSS(".pagination > li:first-child > a"),
+
         NO_PAGINATION_MESSAGE("On ProductAdminPage, there is no pagination "),
         NO_PAGINATION_BTN_MESSAGE("There is no the button with name = %s");
         private String field;
@@ -57,6 +59,8 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         }
     }
 
+    private final String INIT_BEFORE_PRODUCT_ADMIN_PAGE_MESSAGE = "Init before get - pagination is on the ProductAdminPage";
+
     // Fields
     private WebElement addProductBtn;
     private WebElement copyProductBtn;
@@ -66,24 +70,28 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
     private WebElement paginationCurrentPage;
     private FilterSettings filterSettings;
     private ProductListTable productListTable;
+    protected Integer lastProductAdminPageAllPagesNumber;
+    protected List<ProductShort> productShortListAllPages;
 
-    public ProductAdminPage(WebDriverManager webDriverManager) {
-        super(webDriverManager);
-        addProductBtn = webDriverManager.findElement(By.xpath("//a[child::i[@class='fa fa-plus']]"));
-        copyProductBtn = webDriverManager.findElement(By.className("btn-default"));
-        deleteProductBtn = webDriverManager.findElement(By.className("btn-danger"));
+    public ProductAdminPage(SearchManager searchManager) {
+        super(searchManager);
+        addProductBtn = searchManager.findElement(By.xpath("//a[child::i[@class='fa fa-plus']]"));
+        copyProductBtn = searchManager.findElement(By.className("btn-default"));
+        deleteProductBtn = searchManager.findElement(By.className("btn-danger"));
 
         filterSettings = new FilterSettings();
         productListTable = new ProductListTable();
         initPagination();
+        initLastProductAdminPageAllPages();
+        initProductShortListAllPages();
     }
 
     private void initPagination() {
-        if (webDriverManager.isElementVisible(By.cssSelector(PaginationData.PAGINATION_ACTIVE_BTN_SELECTOR_CSS
+        if (searchManager.isElementVisible(By.cssSelector(PaginationData.PAGINATION_ACTIVE_BTNS_SELECTOR_CSS
                 .toString()))) {
-            paginationActiveBtns = webDriverManager.findElements(
-                    By.cssSelector(PaginationData.PAGINATION_ACTIVE_BTN_SELECTOR_CSS.toString()));
-            paginationCurrentPage = webDriverManager.findElement(
+            paginationActiveBtns = searchManager.findElements(
+                    By.cssSelector(PaginationData.PAGINATION_ACTIVE_BTNS_SELECTOR_CSS.toString()));
+            paginationCurrentPage = searchManager.findElement(
                     By.cssSelector(PaginationData.PAGINATION_CURRENT_PAGE_SELECTOR_CSS.toString()));
         } else {
             paginationActiveBtns = null;
@@ -91,9 +99,29 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         }
     }
 
+    private void initProductShortListAllPages() {
+        if (isPaganationOnPage()) {
+            productShortListAllPages = null;
+        } else {
+            productShortListAllPages = getProductsShortListFromPage();
+        }
+    }
+
+    private void initLastProductAdminPageAllPages() {
+        if (isPaganationOnPage()) {
+            lastProductAdminPageAllPagesNumber = null;
+        } else {
+            lastProductAdminPageAllPagesNumber = 1;
+        }
+    }
+
     // PageObject
 
     // get data
+
+    public ProductListTable getProductListTable() {
+        return productListTable;
+    }
 
     public WebElement getAddProductBtn() {
         return addProductBtn;
@@ -119,16 +147,34 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         return paginationCurrentPage;
     }
 
-    public WebElement getLastPaginationBtn() {
+    public WebElement getLastPaginationBtnOnPage() {
         ErrorUtils.createElementIsNotDisplayedException((paginationCurrentPage == null),
                 PaginationData.NO_PAGINATION_MESSAGE.toString());
-        return webDriverManager.findElement(By.cssSelector(PaginationData.PAGINATION_LAST_BTN_SELECTOR_CSS.toString()));
+        return searchManager.findElement(By.cssSelector(PaginationData.PAGINATION_LAST_BTN_ON_PAGE_SELECTOR_CSS.toString()));
+    }
+
+    public WebElement getFirstPaginationBtnOnPage() {
+        ErrorUtils.createElementIsNotDisplayedException((paginationCurrentPage == null),
+                PaginationData.NO_PAGINATION_MESSAGE.toString());
+        return searchManager.findElement(By.cssSelector(PaginationData.PAGINATION_FIRST_BTN_ON_PAGE_SELECTOR_CSS.toString()));
+    }
+
+    public Integer getLastProductAdminPageAllPagesNumber() {
+        ErrorUtils.createInitPaginationBeforeGetException((lastProductAdminPageAllPagesNumber == null),
+                INIT_BEFORE_PRODUCT_ADMIN_PAGE_MESSAGE);
+        return lastProductAdminPageAllPagesNumber;
+    }
+
+    public List<ProductShort> getProductShortListAllPages() {
+        ErrorUtils.createInitPaginationBeforeGetException((productShortListAllPages == null),
+                INIT_BEFORE_PRODUCT_ADMIN_PAGE_MESSAGE);
+        return productShortListAllPages;
     }
 
     // get Functional
 
     public boolean isPaganationOnPage() {
-        return (getPaginationCurrentPage() != null);
+        return (paginationCurrentPage != null);
     }
 
     public int getCurrentPageNumber() {
@@ -148,84 +194,131 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         return result;
     }
 
-    public String getLastPaginationBtnText() {
-        return getLastPaginationBtn().getText();
+    public String getLastPaginationBtnOnPageText() {
+        return getLastPaginationBtnOnPage().getText();
     }
 
-    public WebElement getFirstPagePaginationBtn() {
-        return getPaginationBtnByName(PaginationData.FIRST_PAGE_SYMBOL.toString());
+    public WebElement getToFirstPagePaginationBtnOnPage() {
+        return getPaginationBtnByName(PaginationData.TO_FIRST_PAGE_SYMBOL.toString());
     }
 
-    public WebElement getPreviousPagePaginationBtn() {
-        return getPaginationBtnByName(PaginationData.PREVIOUS_PAGE_SYMBOL.toString());
+    public WebElement getToPreviousPagePaginationBtn() {
+        return getPaginationBtnByName(PaginationData.TO_PREVIOUS_PAGE_SYMBOL.toString());
     }
 
-    public WebElement getNextPagePaginationBtn() {
-        return getPaginationBtnByName(PaginationData.NEXT_PAGE_SYMBOL.toString());
+    public WebElement getToNextPagePaginationBtn() {
+        return getPaginationBtnByName(PaginationData.TO_NEXT_PAGE_SYMBOL.toString());
     }
 
-    public WebElement getLastPagePaginationBtn() {
-        return getPaginationBtnByName(PaginationData.LAST_PAGE_SYMBOL.toString());
+    public WebElement getToLastPagePaginationBtn() {
+        return getPaginationBtnByName(PaginationData.TO_LAST_PAGE_SYMBOL.toString());
     }
 
     public boolean isLastPageOpened() {
-        return (getLastPaginationBtnText().matches(RegexPatterns.ALL_DIGITS.toString())
-                && (Integer.parseUnsignedInt(getLastPaginationBtnText()) == getCurrentPageNumber()));
+        return (getLastPaginationBtnOnPageText().matches(RegexPatterns.ALL_DIGITS.toString())
+                && (Integer.parseUnsignedInt(getLastPaginationBtnOnPageText()) == getCurrentPageNumber()));
     }
 
-    //TODO PRODUCT Object return from filter
-    //TODO PRODUCT Table Function
+    public List<ProductShort> getProductsShortListFromPage() {
+        return getProductListTable().getProductsShortList();
+    }
+
+    //TODO get from filter fields' text
+    //TODO get and click for headers active element (sort by them desc, asc); get and click edit button by ProductShort
+    //TODO get ProductShortList by Name, Model....
 
 
     // set data
 
     public void clickAddProductBtn() {
-        webDriverManager.clickElement(getAddProductBtn());
+        searchManager.clickElement(getAddProductBtn());
     }
 
     public void clickCopyProductBtn() {
-        webDriverManager.clickElement(copyProductBtn);
+        searchManager.clickElement(copyProductBtn);
     }
 
     public void clickDeleteProductBtn() {
-        webDriverManager.clickElement(deleteProductBtn);
+        searchManager.clickElement(deleteProductBtn);
     }
 
-    public void clickFirstPagePaginationBtn() {
-        webDriverManager.clickElement(getFirstPagePaginationBtn());
+    public void clickToFirstPagePaginationBtn() {
+        searchManager.clickElement(getToFirstPagePaginationBtnOnPage());
     }
 
-    public void clickPreviousPagePaginationBtn() {
-        webDriverManager.clickElement(getPreviousPagePaginationBtn());
+    public void clickToPreviousPagePaginationBtn() {
+        searchManager.clickElement(getToPreviousPagePaginationBtn());
     }
 
-    public void clickNextPagePaginationBtn() {
-        webDriverManager.clickElement(getNextPagePaginationBtn());
+    public void clickToNextPagePaginationBtn() {
+        searchManager.clickElement(getToNextPagePaginationBtn());
     }
 
-    public void clickLastPagePaginationBtn() {
-        webDriverManager.clickElement(getFirstPagePaginationBtn());
+    public void clickLastPaginationBtnOnPage() {
+        searchManager.clickElement(getLastPaginationBtnOnPage());
+    }
+
+    public void clickFirstPaginationBtnOnPage() {
+        searchManager.clickElement(getFirstPaginationBtnOnPage());
+    }
+
+    public void clickToLastPagePaginationBtn() {
+        searchManager.clickElement(getToFirstPagePaginationBtnOnPage());
     }
 
     public void clickPaginationBtnByName(String paginationBtnName) {
-        webDriverManager.clickElement(getPaginationBtnByName(paginationBtnName));
+        searchManager.clickElement(getPaginationBtnByName(paginationBtnName));
+    }
+
+    protected void setLastProductAdminPageAllPagesNumber(Integer lastProductAdminPageAllPagesNumber) {
+        this.lastProductAdminPageAllPagesNumber = lastProductAdminPageAllPagesNumber;
+    }
+
+    protected void setProductShortListAllPages(List<ProductShort> productShortListAllPages) {
+        this.productShortListAllPages = productShortListAllPages;
     }
 
     // set Functional
-
-    //TODO set PRODUCT Object
 
     // Business Logic
 
     public ProductAdminPage filterProductAdminPage(ProductShort product) {
         filterSettings.setFilterFields(product);
         filterSettings.clickFilterButton();
-        return new ProductAdminPage(webDriverManager);
+        return new ProductAdminPage(searchManager);
     }
 
-    public ProductAdminPage toLastPage() {
-        //TODO Write Pagibnation Buttons methods
-        return new ProductAdminPage(webDriverManager);
+    public ProductAdminPage toLastProductAdminPageAllPages() {
+        clickLastPaginationBtnOnPage();
+        return new ProductAdminPage(searchManager);
+    }
+
+    public ProductAdminPage toFirstProductAdminPageAllPages() {
+        clickFirstPaginationBtnOnPage();
+        return new ProductAdminPage(searchManager);
+    }
+
+    private ProductAdminPage toProductAdminPageByNumber(int productAdminPageNumber) {
+        clickPaginationBtnByName(String.valueOf(productAdminPageNumber));
+        return new ProductAdminPage(searchManager);
+    }
+
+    public ProductAdminPage initLastProductAdminPageNumberAllPages() {
+        ProductAdminPage result = this;
+        if (isPaganationOnPage()) {
+            result = new ProductAdminPageController(searchManager, this)
+                    .getLastProductAdminPageNumberAllPages();
+        }
+        return result;
+    }
+
+    public ProductAdminPage initProductsShortListAllPages() {
+        ProductAdminPage result = this;
+        if (isPaganationOnPage()) {
+            result = new ProductAdminPageController(searchManager, this)
+                    .getProductsShortListFromAllPages();
+        }
+        return result;
     }
 
     //-----------------------------------------------------------
@@ -241,13 +334,13 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         private WebElement filterButton;
 
         public FilterSettings() {
-            productNameField = webDriverManager.findElement(By.id("input-name"));
-            modelField = webDriverManager.findElement(By.id("input-model"));
-            priceField = webDriverManager.findElement(By.id("input-price"));
-            quantityField = webDriverManager.findElement(By.id("input-quantity"));
-            statusDropDown = new Select(webDriverManager.findElement(By.id("input-status")));
-            imageDropDown = new Select(webDriverManager.findElement(By.id("input-image")));
-            filterButton = webDriverManager.findElement(By.id("button-filter"));
+            productNameField = searchManager.findElement(By.id("input-name"));
+            modelField = searchManager.findElement(By.id("input-model"));
+            priceField = searchManager.findElement(By.id("input-price"));
+            quantityField = searchManager.findElement(By.id("input-quantity"));
+            statusDropDown = new Select(searchManager.findElement(By.id("input-status")));
+            imageDropDown = new Select(searchManager.findElement(By.id("input-image")));
+            filterButton = searchManager.findElement(By.id("button-filter"));
         }
         // PageObject
         // get data
@@ -293,32 +386,32 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         // set data
 
         public void setProductNameField(String name) {
-            webDriverManager.fillInputField(getProductNameField(), name);
+            searchManager.fillInputField(getProductNameField(), name);
         }
 
         public void settModelField(String model) {
-            webDriverManager.fillInputField(getModelField(), model);
+            searchManager.fillInputField(getModelField(), model);
         }
 
         public void setPriceField(String price) {
-            webDriverManager.fillInputField(getPriceField(), price);
+            searchManager.fillInputField(getPriceField(), price);
         }
 
         public void setQuantityField(String quantity) {
-            webDriverManager.fillInputField(getQuantityField(), quantity);
+            searchManager.fillInputField(getQuantityField(), quantity);
         }
 
         // set Functional
         public void setStatusDropDownByStatusText(String value) {
-            webDriverManager.selectByVisibleText(getStatusDropDown(), value);
+            searchManager.selectByVisibleText(getStatusDropDown(), value);
         }
 
         public void setImageDropDownByImageText(String value) {
-            webDriverManager.selectByVisibleText(getImageDropDown(), value);
+            searchManager.selectByVisibleText(getImageDropDown(), value);
         }
 
         public void clickFilterButton() {
-            webDriverManager.clickElement(getFilterButton());
+            searchManager.clickElement(getFilterButton());
         }
 
         public void setFilterFields(ProductShort product) {
@@ -344,12 +437,30 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         private WebElement allProductsMarkCheckbox;
         private List<WebElement> activeProductListHeaderTitles;
         private List<WebElement> productRows;
-        private List<ProductShort> productList;
+        private List<ProductShort> productsShortList;
 
         public ProductListTable() {
-            allProductsMarkCheckbox = webDriverManager.findElement(By.cssSelector("thead > tr > td > input"));
-            activeProductListHeaderTitles = webDriverManager.findElements(By.cssSelector("thead > tr > td > a"));
-            productRows = webDriverManager.findElements(By.cssSelector("tbody > tr"));
+            allProductsMarkCheckbox = searchManager.findElement(By.cssSelector("thead > tr > td > input"));
+            activeProductListHeaderTitles = searchManager.findElements(By.cssSelector("thead > tr > td > a"));
+            productRows = searchManager.findElements(By.cssSelector("tbody > tr"));
+            initProductsFromProductsTable();
+        }
+
+        public List<ProductShort> initProductsFromProductsTable() {
+            productsShortList = new ArrayList<>();
+            for (WebElement current : getProductRows()) {
+                productsShortList.add(initProductShortFromProductRow(current));
+            }
+            return productsShortList;
+        }
+
+        private ProductShort initProductShortFromProductRow(WebElement productRow) {
+            return new ProductShort().setName(getProductNameTextFromProductRow(productRow))
+                    .setModel(getModelTextFromProductRow(productRow))
+                    .setPrice(getPriceTextFromProductRow(productRow))
+                    .setQuantity(getQuantityTextFromProductRow(productRow))
+                    .setImageFlag(getImageFlagTextFromProductRow(productRow))
+                    .setStatusText(getStatusTextFromProductRow(productRow));
         }
 
         //GetData
@@ -366,9 +477,13 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
             return activeProductListHeaderTitles;
         }
 
+        public List<ProductShort> getProductsShortList() {
+            return productsShortList;
+        }
+
         //GetFunctional
         public WebElement getProductNameFromProductRow(WebElement productRow) {
-            return webDriverManager.findElementInsideElement(productRow, By.xpath(
+            return searchManager.findElementInsideElement(productRow, By.xpath(
                     ProductTableData.PRODUCT_NAME_SELECTOR_XPATH.toString()));
         }
 
@@ -377,7 +492,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         }
 
         public WebElement getModelFromProductRow(WebElement productRow) {
-            return webDriverManager.findElementInsideElement(productRow, By.xpath(
+            return searchManager.findElementInsideElement(productRow, By.xpath(
                     ProductTableData.PRODUCT_MODEL_SELECTOR_XPATH.toString()));
         }
 
@@ -386,16 +501,18 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         }
 
         public WebElement getPriceFromProductRow(WebElement productRow) {
-            return webDriverManager.findElementInsideElement(productRow, By.xpath(
+            return searchManager.findElementInsideElement(productRow, By.xpath(
                     ProductTableData.PRICE_SELECTOR_XPATH.toString()));
         }
 
         public String getPriceTextFromProductRow(WebElement productRow) {
-            return getPriceFromProductRow(productRow).getText();
+            return getPriceFromProductRow(productRow).getText().split("\n")[0];
         }
 
+        //TODO make get price with discount if it will be necessary
+
         public WebElement getQuantityFromProductRow(WebElement productRow) {
-            return webDriverManager.findElementInsideElement(productRow, By.xpath(
+            return searchManager.findElementInsideElement(productRow, By.xpath(
                     ProductTableData.QUANTITY_SELECTOR_XPATH.toString()));
         }
 
@@ -404,7 +521,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         }
 
         public WebElement getImageFromProductRow(WebElement productRow) {
-            return webDriverManager.findElementInsideElement(productRow, By.xpath(
+            return searchManager.findElementInsideElement(productRow, By.xpath(
                     ProductTableData.IMAGE_SELECTOR_XPATH.toString()));
         }
 
@@ -424,7 +541,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         }
 
         public WebElement getStatusFromProductRow(WebElement productRow) {
-            return webDriverManager.findElementInsideElement(productRow, By.xpath(
+            return searchManager.findElementInsideElement(productRow, By.xpath(
                     ProductTableData.STATUS_SELECTOR_XPATH.toString()));
         }
 
@@ -474,14 +591,14 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         public void setProductNameColumnDescendant() {
             if (getClassNameFromElement(getProductNameHeaderBtn()).equalsIgnoreCase(ASC)
                     || getClassNameFromElement(getProductNameHeaderBtn()).isEmpty()) {
-                webDriverManager.clickElement(getProductNameHeaderBtn());
+                searchManager.clickElement(getProductNameHeaderBtn());
             }
         }
 
         public void setProductNameColumnAscendant() {
             if (getClassNameFromElement(getProductNameHeaderBtn()).equalsIgnoreCase(DESC)
                     || getClassNameFromElement(getProductNameHeaderBtn()).isEmpty()) {
-                webDriverManager.clickElement(getProductNameHeaderBtn());
+                searchManager.clickElement(getProductNameHeaderBtn());
             }
         }
 
@@ -489,192 +606,106 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         public void setModelColumnDescendant() {
             if (getClassNameFromElement(getModelHeaderBtn()).equalsIgnoreCase(ASC)
                     || getClassNameFromElement(getModelHeaderBtn()).isEmpty()) {
-                webDriverManager.clickElement(getModelHeaderBtn());
+                searchManager.clickElement(getModelHeaderBtn());
             }
         }
 
         public void setModelColumnAscendant() {
             if (getClassNameFromElement(getModelHeaderBtn()).equalsIgnoreCase(DESC)
                     || getClassNameFromElement(getModelHeaderBtn()).isEmpty()) {
-                webDriverManager.clickElement(getModelHeaderBtn());
+                searchManager.clickElement(getModelHeaderBtn());
             }
         }
 
         public void setPriceColumnDescendant() {
             if (getClassNameFromElement(getPriceHeaderBtn()).equalsIgnoreCase(ASC)
                     || getClassNameFromElement(getPriceHeaderBtn()).isEmpty()) {
-                webDriverManager.clickElement(getPriceHeaderBtn());
+                searchManager.clickElement(getPriceHeaderBtn());
             }
         }
 
         public void setPriceColumnAscendant() {
             if (getClassNameFromElement(getPriceHeaderBtn()).equalsIgnoreCase(DESC)
                     || getClassNameFromElement(getPriceHeaderBtn()).isEmpty()) {
-                webDriverManager.clickElement(getPriceHeaderBtn());
+                searchManager.clickElement(getPriceHeaderBtn());
             }
         }
 
         public void setQuantityColumnDescendant() {
             if (getClassNameFromElement(getQuantityHeaderBtn()).equalsIgnoreCase(ASC)
                     || getClassNameFromElement(getQuantityHeaderBtn()).isEmpty()) {
-                webDriverManager.clickElement(getQuantityHeaderBtn());
+                searchManager.clickElement(getQuantityHeaderBtn());
             }
         }
 
         public void setQuantityColumnAscendant() {
             if (getClassNameFromElement(getQuantityHeaderBtn()).equalsIgnoreCase(DESC)
                     || getClassNameFromElement(getQuantityHeaderBtn()).isEmpty()) {
-                webDriverManager.clickElement(getQuantityHeaderBtn());
+                searchManager.clickElement(getQuantityHeaderBtn());
             }
         }
 
         public void setStatusColumnDescendant() {
             if (getClassNameFromElement(getStatusHeaderBtn()).equalsIgnoreCase(ASC)
                     || getClassNameFromElement(getStatusHeaderBtn()).isEmpty()) {
-                webDriverManager.clickElement(getStatusHeaderBtn());
+                searchManager.clickElement(getStatusHeaderBtn());
             }
         }
 
         public void setStatusColumnAscendant() {
             if (getClassNameFromElement(getStatusHeaderBtn()).equalsIgnoreCase(DESC)
                     || getClassNameFromElement(getStatusHeaderBtn()).isEmpty()) {
-                webDriverManager.clickElement(getStatusHeaderBtn());
+                searchManager.clickElement(getStatusHeaderBtn());
             }
         }
 
         public void selectAllProductMarkCheckbox() {
-            webDriverManager.selectCheckBox(getAllProductsMarkCheckbox());
+            searchManager.selectCheckBox(getAllProductsMarkCheckbox());
         }
 
         public void deselectAllProductMarkCheckbox() {
-            webDriverManager.deselectCheckBox(getAllProductsMarkCheckbox());
+            searchManager.deselectCheckBox(getAllProductsMarkCheckbox());
+        }
+    }
+
+    //------------------------------------------------------------
+
+    private class ProductAdminPageController extends ProductAdminPage {
+
+        private ProductAdminPage currentProductAdminPage;
+        private List<ProductShort> productShortListAllPages;
+        private int lastProductAdminPageAllPages;
+
+        public ProductAdminPageController(SearchManager searchManager, ProductAdminPage productAdminPage) {
+            super(searchManager);
+            currentProductAdminPage = productAdminPage;
         }
 
-        public List<ProductShort> getProductsFromProductRowsByProductShort(ProductShort searchingProductShort) {
-            List<ProductShort> result = new ArrayList<>();
-            for (WebElement current : getProductRows()) {
-                ProductShort currentProductShort = initProductShortFromProductRow(current);
-                if (searchingProductShort.getProductMap().equals(currentProductShort.getProductMap())) {
-                    result.add(currentProductShort);
-                }
-            }
-            return result;
+        public ProductAdminPage getLastProductAdminPageNumberAllPages() {
+            currentProductAdminPage = currentProductAdminPage.toLastProductAdminPageAllPages();
+            lastProductAdminPageAllPages = currentProductAdminPage.getCurrentPageNumber();
+            currentProductAdminPage = currentProductAdminPage.toFirstProductAdminPageAllPages();
+            currentProductAdminPage.setLastProductAdminPageAllPagesNumber(lastProductAdminPageAllPages);
+            return currentProductAdminPage;
         }
 
-        //SetFunctional
-
-        public ProductShort initProductShortFromProductRow(WebElement productRow) {
-            return new ProductShort().setName(getProductNameTextFromProductRow(productRow))
-                    .setModel(getModelTextFromProductRow(productRow))
-                    .setPrice(getPriceTextFromProductRow(productRow))
-                    .setQuantity(getQuantityTextFromProductRow(productRow))
-                    .setImageFlag(getImageFlagTextFromProductRow(productRow))
-                    .setStatusText(getStatusTextFromProductRow(productRow));
+        public ProductAdminPage getProductsShortListFromAllPages() {
+            productShortListAllPages = new ArrayList<>();
+            currentProductAdminPage = addProductShortListAndToNextPage();
+            do {
+                currentProductAdminPage = addProductShortListAndToNextPage();
+            } while (!currentProductAdminPage.isLastPageOpened());
+            currentProductAdminPage = currentProductAdminPage.toFirstProductAdminPageAllPages();
+            currentProductAdminPage.setProductShortListAllPages(productShortListAllPages);
+            return currentProductAdminPage;
         }
 
-        public List<ProductShort> initProductsFromProductsTable() {
-            productList = new ArrayList<>();
-            for (WebElement current : getProductRows()) {
-                productList.add(initProductShortFromProductRow(current));
-            }
-            return productList;
+        private ProductAdminPage addProductShortListAndToNextPage() {
+            productShortListAllPages.addAll(currentProductAdminPage.getProductsShortListFromPage());
+            return currentProductAdminPage.toProductAdminPageByNumber(
+                    currentProductAdminPage.getCurrentPageNumber() + 1);
+
         }
     }
 }
-/*
 
-    public void setFilterFields(ProductShort product) {
-        webDriverManager.fillInputField(By.id(
-                Selectors.ADM_PRODUCT_PG_PRODUCT_NAME_FLD_ID
-                        .getElement()), product.getName());
-        webDriverManager.fillInputField(By.id(
-                Selectors.ADM_PRODUCT_PG_MODEL_FLD_ID
-                        .getElement()), product.getModel());
-        webDriverManager.fillInputField(By.id(
-                Selectors.ADM_PRODUCT_PG_PRICE_FLD_ID
-                        .getElement()), product.getPrice());
-        webDriverManager.fillInputField(By.id(
-                Selectors.ADM_PRODUCT_PG_QUANTITY_FLD_ID
-                        .getElement()), product.getQuantity());
-        webDriverManager.selectByVisibleText(By.id(
-                Selectors.ADM_PRODUCT_PG_STATUS_DRPD_ID
-                        .getElement()), product.getQuantity());
-        webDriverManager.selectByVisibleText(By.id(
-                Selectors.ADM_PRODUCT_PG_IMAGE_DRPD_ID
-                        .getElement()), product.getQuantity());
-    }
-
-    public void cleanFilter() {
-        webDriverManager.cleanField(By.id(
-                Selectors.ADM_PRODUCT_PG_PRODUCT_NAME_FLD_ID
-                        .getElement()));
-        webDriverManager.cleanField(By.id(
-                Selectors.ADM_PRODUCT_PG_MODEL_FLD_ID
-                        .getElement()));
-        webDriverManager.cleanField(By.id(
-                Selectors.ADM_PRODUCT_PG_PRICE_FLD_ID
-                        .getElement()));
-        webDriverManager.cleanField(By.id(
-                Selectors.ADM_PRODUCT_PG_QUANTITY_FLD_ID
-                        .getElement()));
-        webDriverManager.selectByVisibleText(By.id(
-                Selectors.ADM_PRODUCT_PG_STATUS_DRPD_ID
-                        .getElement()), Credentials
-                .ADM_PRODUCT_PG_STATUS_SLCT_NONVALUE_TXT.get());
-        webDriverManager.selectByVisibleText(By.id(
-                Selectors.ADM_PRODUCT_PG_IMAGE_DRPD_ID
-                        .getElement()), Credentials
-                .ADM_PRODUCT_PG_IMG_SLCT_NONVALUE_TXT.get());
-        webDriverManager.clickElement(By.id(
-                Selectors.ADM_PRODUCT_PG_FILTER_BTN_ID.getElement()));
-    }
-
-    public List<WebElement> readTable() {
-        return webDriverManager.findElementsInsideElement(
-                webDriverManager.getElement(By.cssSelector(
-                        Selectors.ADM_PRODUCT_PG_ITEM_TABLE_TBODY_CSS
-                                .getElement())),
-                By.tagName("tr"));
-    }
-
-    public boolean isOpened() {
-        return webDriverManager.isElementPresent(By.id(
-                Selectors.ADM_PRODUCT_PG_PRODUCT_NAME_FLD_ID
-                        .getElement()));
-    }
-
-    public boolean isPaginationPresent() {
-        return webDriverManager.isElementPresent(By.className(
-                Selectors.ADM_PRODUCT_PG_PAGINATION_CLS
-                        .getElement()));
-    }
-
-    public void paginationClickLastPgBtn() {
-        webDriverManager.clickElement(By.cssSelector(Selectors
-                .ADM_PRODUCT_PAGINATION_LAST_PG_BTN_CSS
-                .getElement()));
-    }
-
-    public void paginationClickFrstPgBtn() {
-        webDriverManager.clickElement(By.cssSelector(Selectors
-                .ADM_PRODUCT_PAGINATION_FIRST_PG_BTN_CSS
-                .getElement()));
-    }
-
-
-    public String getNumberOfLastPage() {
-        return webDriverManager.getTextFromElement(By.cssSelector(
-                Selectors.ADM_PRODUCT_PG_LAST_PG_CHOSEN_TXT_CSS
-                        .getElement()));
-    }
-
-    public int getNumberOfPages() {
-        String numberOfPages = "1";
-        if (webDriverManager.getElements(By.className(Selectors
-                .ADM_PRODUCT_PG_PAGINATION_CLS.getElement())).size() > 0) {
-            paginationClickLastPgBtn();
-            numberOfPages = getNumberOfLastPage();
-            paginationClickFrstPgBtn();
-        }
-        return Integer.parseInt(numberOfPages);
-    } */

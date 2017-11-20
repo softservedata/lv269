@@ -1,6 +1,6 @@
 package com.softserve.edu.opencart.pages.admin;
 
-import com.softserve.edu.opencart.tools.WebDriverManager;
+import com.softserve.edu.opencart.tools.SearchManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -9,9 +9,9 @@ public class WrongLoginAdminPage extends LoginAdminPage {
     // Fields
     private WebElement wrongLoginMessage;
 
-    public WrongLoginAdminPage(WebDriverManager webDriverManager) {
-        super(webDriverManager);
-        wrongLoginMessage = webDriverManager.findElement(By.className("alert"));
+    public WrongLoginAdminPage(SearchManager searchManager) {
+        super(searchManager);
+        wrongLoginMessage = searchManager.findElement(By.className("alert"));
     }
 
 

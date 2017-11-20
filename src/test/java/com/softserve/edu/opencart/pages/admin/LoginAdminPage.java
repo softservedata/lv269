@@ -1,25 +1,29 @@
 package com.softserve.edu.opencart.pages.admin;//package server7.testng;
 
 import com.softserve.edu.opencart.constants.URLs;
-import com.softserve.edu.opencart.tools.WebDriverManager;
+import com.softserve.edu.opencart.data.users.IUser;
+import com.softserve.edu.opencart.tools.SearchManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class LoginAdminPage {
 
  //Field
-    private WebDriverManager webDriverManager;
+    private SearchManager searchManager;
     private WebElement logo;
     private WebElement loginField;
     private WebElement passwordField;
     private WebElement loginBtn;
+    private WebElement forgotPasswordBtn;
 
-    public LoginAdminPage(WebDriverManager webDriverManager) {
-        this.webDriverManager = webDriverManager;
-        logo = webDriverManager.findElement(By.cssSelector(".navbar-header > a"));
-        loginField = webDriverManager.findElement(By.id("input-username"));
-        passwordField = webDriverManager.findElement(By.id("input-password"));
-        loginBtn = webDriverManager.findElement(By.tagName("button"));
+    public LoginAdminPage(SearchManager searchManager) {
+        this.searchManager = searchManager;
+        logo = searchManager.findElement(By.cssSelector(".navbar-header > a"));
+        loginField = searchManager.findElement(By.id("input-username"));
+        passwordField = searchManager.findElement(By.id("input-password"));
+        loginBtn = searchManager.findElement(By.tagName("button"));
+        forgotPasswordBtn = searchManager.findElement(By.cssSelector(".help-block > a"));
+
     }
 
     //Get data
@@ -39,25 +43,33 @@ public class LoginAdminPage {
         return loginBtn;
     }
 
+    public WebElement getForgotPasswordBtn() {
+        return forgotPasswordBtn;
+    }
+
     // toString Functional
 
     // SetData
 
 
     public void clickLogo() {
-        webDriverManager.clickElement(getLogo());
+        searchManager.clickElement(getLogo());
     }
 
     public void clickLoginBtn () {
-        webDriverManager.clickElement(getLoginBtn());
+        searchManager.clickElement(getLoginBtn());
     }
 
     public void setLoginField(String loginText) {
-        webDriverManager.fillInputField(getLoginField(), loginText);
+        searchManager.fillInputField(getLoginField(), loginText);
     }
 
     public void setPasswordField(String passwordText) {
-        webDriverManager.fillInputField(getPasswordField(), passwordText);
+        searchManager.fillInputField(getPasswordField(), passwordText);
+    }
+
+    public void clickForgotPassworBtn () {
+        searchManager.clickElement(forgotPasswordBtn);
     }
 
     // set Functional
@@ -70,21 +82,23 @@ public class LoginAdminPage {
 
     // Business Logic
     public  void openLoginAdmPage () {
-        webDriverManager.openAddress(URLs.URL_SERVER.toString() + URLs.URL_ADMIN_PAGE.toString());
+        searchManager.openAddress(URLs.URL_SERVER.toString() + URLs.URL_ADMIN_PAGE.toString());
     }
 
-    public DashboardAdmin validEnterAdminProfile (String login, String password){
-        setCredentials (login, password);
-        return new DashboardAdmin(webDriverManager);
+    public DashboardAdmin validEnterAdminProfile (IUser user){
+//        setCredentials (user.getEmail(), user.getPassword());
+        setCredentials ("admin", "269lv269lv");
+        //TODO ********************************** Change back
+        return new DashboardAdmin(searchManager);
     }
 
     public WrongLoginAdminPage invalidEnterAdminProfile (String login, String password) {
         setCredentials (login, password);
-        return new WrongLoginAdminPage(webDriverManager);
+        return new WrongLoginAdminPage(searchManager);
     }
 
     public boolean isLoginAdminPageOpened () {
-        return (webDriverManager.isElementDisplayed(getLoginBtn()));
+        return (searchManager.isElementDisplayed(getLoginBtn()));
     }
 
 

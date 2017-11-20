@@ -15,12 +15,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class WebDriverManager {
+public class SearchManager {
 
-    private static final String GECKO_WEBDRIVER_PARAMETER = "webdriver.gecko.driver";
-    private static final String CHROME_WEBDRIVER_PARAMETER = "webdriver.chrome.driver";
-    private static final String GECKO_WEBDRIVER_PATH = "C:/AutomationTools/geckodriver.exe";
-    private static final String GOOGLE_WEBDRIVER_PATH = "C:/AutomationTools/chromedriver.exe";
     private static final String ELEMENT_IS_NOT_DISPLAYED_MESSAGE = "Element is not visible on the page";
     private static final String VALUE_NOT_FOUND_MESSAGE = "For select, value = %s was not found.";
 
@@ -29,18 +25,8 @@ public class WebDriverManager {
     private Actions action;
     private static final int MAX_DRIVER_PAUSE = 5;
 
-    public WebDriverManager() {
-    }
-
-    public void setWebdriverChrome() {
-        System.setProperty(CHROME_WEBDRIVER_PARAMETER, GOOGLE_WEBDRIVER_PATH);
-        webDriver = new ChromeDriver();
-        setWait();
-    }
-
-    public void setWebdriverFirefox() {
-        System.setProperty(GECKO_WEBDRIVER_PARAMETER, GECKO_WEBDRIVER_PATH);
-        webDriver = new FirefoxDriver();
+    public SearchManager(WebDriver webDriver) {
+        this.webDriver=webDriver;
         setWait();
     }
 

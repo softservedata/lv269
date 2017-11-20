@@ -2,8 +2,10 @@ package com.softserve.edu.opencart.data;
 
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
+import org.hibernate.boot.model.source.spi.NaturalIdMutability;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,12 +15,39 @@ import java.util.Map;
 public class ProductShort {
 
     private final String WRONG_TEXT_TO_SELECT_MESSAGE = "For object %s wrong text = %s was recieved)";
+    private final String WRONG_STRING_RECIEVED_AS_PRODUCT_PARAMETERS
+            = "For ProductShort wrong string with parameters = %s and delimiter = %s was recieved";
+
+    private final int NUMBER_OF_PARAMETERS = 6;
 
     //Fields
     private Map<String, String> productMap;
 
     public ProductShort() {
+        initProductMap();
+    }
+
+    public ProductShort(String listOfParameters, String delimiter) {
+        initProductMap();
+        initProductShortFromString(listOfParameters, delimiter);
+    }
+
+    private void initProductShortFromString(String parameters, String delimiter) {
+        String[] parametersArray = parameters.split(delimiter);
+        ErrorUtils.createWrongStringStructureException((parametersArray.length != NUMBER_OF_PARAMETERS),
+                String.format(WRONG_STRING_RECIEVED_AS_PRODUCT_PARAMETERS, parameters, delimiter));
+        this.setName(parametersArray[0])
+                .setModel(parametersArray[1])
+                .setPrice(parametersArray[2])
+                .setQuantity(parametersArray[3])
+                .setStatusText(parametersArray[4])
+                .setImageFlag(parametersArray[5]);
+
+    }
+
+    private void initProductMap() {
         productMap = new HashMap<>();
+
     }
 
     // GetData
@@ -104,7 +133,7 @@ public class ProductShort {
     public ProductShort setImageFlag(String imgText) {
         ErrorUtils.createWrongTextToDropdown(!verifyBooleanText(imgText),
                 String.format(WRONG_TEXT_TO_SELECT_MESSAGE, TagAttribute.IMAGE.toString(), imgText));
-        getProductMap().put(TagAttribute.STATUS.toString(), imgText);
+        getProductMap().put(TagAttribute.IMAGE.toString(), imgText);
         return this;
     }
 

@@ -60,4 +60,18 @@ public final class ErrorUtils {
             throw new RuntimeException(message);
         }
     }
+
+    public static void createInitPaginationBeforeGetException(boolean isThrown, String message) {
+        if (isThrown) {
+            // TODO Develop Custom Exception
+            throw new RuntimeException(message);
+        }
+    }
+
+    public static void createWrongStringStructureException(boolean isThrown, String message) {
+        if (isThrown) {
+            // TODO Develop Custom Exception
+            throw new RuntimeException(message);
+        }
+    }
 }
