@@ -8,10 +8,8 @@ import com.softserve.edu.opencart.tools.CalculatePriceValue;
 public class ProductRepository {
 
     private static volatile ProductRepository instance = null;
-    private double defaultValue;
     
     private ProductRepository() {
-    	this.defaultValue = Application.get().loadHomePage().getPriceAmountByProductName("iPhone");
     }
 
 	public static ProductRepository get() {
@@ -38,7 +36,7 @@ public class ProductRepository {
     //???
     public IProduct iPhone() {
 //    	double defaultValue = Application.get().loadHomePage().getPriceAmountByProductName("iPhone");
-//    	double defaultValue = 101.0;
+    	double defaultValue = 101.0;
         Map<String, Double> iPhonePrices = new HashedMap<>();    
         iPhonePrices.put("Euro", CalculatePriceValue.euroPrice(defaultValue));
         iPhonePrices.put("Pound Sterling", CalculatePriceValue.poundPrice(defaultValue));
