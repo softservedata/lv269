@@ -63,6 +63,8 @@ public class WishListTest {
 		Application.get().deleteAllCookies();
 	}
 	
+	// - - - - - - - Data prodiver level - - - - - - - - 
+	
 	@DataProvider
 	public Object[][] productAndUserData() {
 		return new Object[][] { 
@@ -84,13 +86,14 @@ public class WishListTest {
 			};
 	}
 	
+	// - - - - - - - Test case level - - - - - - - - 
+	
 	// - - - - - - - - - - - - - #1 - - - - - - - - - - - - -
-	@Test (dataProvider = "productAndUserData")
+	@Test (dataProvider = "productAndUserData", invocationCount=5)
 	public void testAddItem(Product macBook, IUser user) {
-		Application.get().loadHomePage()
-		.gotoHomePageClickAddToWish(macBook);
 		Assert.assertTrue(
 				Application.get().loadHomePage()
+				.gotoHomePageClickAddToWish(macBook)
 				.gotoLoginPageFromMyAccount()
 				.gotoLoginForLoginPageToMyAccountPage(user)
 				.gotoWishListPageRightColumn()
@@ -100,28 +103,22 @@ public class WishListTest {
 	// - - - - - - - - - - - - - #1 - - - - - - - - - - - - -
 	
 	// - - - - - - - - - - - - - #2 - - - - - - - - - - - - -
-	@Test (dataProvider = "productsAndUserData")
+	@Test (dataProvider = "productsAndUserData", invocationCount=5)
 	public void testAddWithoutLogin(Product iPhone, Product macBook, IUser user) {
 		List<String> expected = new ArrayList<>();
 		expected.add(iPhone.getName());
-		expected.add(macBook.getName());
-		// Login
-		Application.get().loadHomePage()
-		.gotoLoginPageFromMyAccount()
-		.gotoLoginForLoginPageToMyAccountPage(user);
-		// Add Iphone
-		Application.get().loadHomePage()
-		.gotoHomePageClickAddToWish(iPhone);
-		// Logout
-		Application.get().loadHomePage()
-		.gotoMyAccountPageFromHomePage()
-		.gotoLogoutPageRightColumn();
-		// Add MacBook
-		Application.get().loadHomePage()
-		.gotoHomePageClickAddToWish(macBook);
+		expected.add(macBook.getName());	
 		
 		Assert.assertEquals(
 				Application.get().loadHomePage()
+				.gotoLoginPageFromMyAccount()
+				.gotoLoginForLoginPageToMyAccountPage(user)
+				.gotoHomePageViaHomeLogoClick()
+				.gotoHomePageClickAddToWish(iPhone)
+				.gotoMyAccountPageFromHomePage()
+				.gotoLogoutPageRightColumn()
+				.gotoHomePage()
+				.gotoHomePageClickAddToWish(macBook)
 				.gotoLoginPageFromMyAccount()
 				.gotoLoginForLoginPageToMyAccountPage(user)
 				.gotoWishListPageRightColumn()
@@ -131,14 +128,12 @@ public class WishListTest {
 	// - - - - - - - - - - - - - #2 - - - - - - - - - - - - -
 	
 	// - - - - - - - - - - - - - #3 - - - - - - - - - - - - -	
-	@Test (dataProvider = "productsAndUserData")
+	@Test (dataProvider = "productsAndUserData", invocationCount=5)
 	public void testWhishListIndicator(Product iPhone, Product macBook, IUser user) {
-		Application.get().loadHomePage()
-		.gotoHomePageClickAddToWish(iPhone);
-		Application.get().loadHomePage()
-		.gotoHomePageClickAddToWish(macBook);
 		
 		WishListPage wishListPage = Application.get().loadHomePage()
+				.gotoHomePageClickAddToWish(iPhone)
+				.gotoHomePageClickAddToWish(macBook)
 				.gotoLoginPageFromMyAccount()
 				.gotoLoginForLoginPageToMyAccountPage(user)
 				.gotoWishListPageRightColumn();
