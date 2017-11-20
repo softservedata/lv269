@@ -33,7 +33,7 @@ public class CartTest {
         //System.setProperty("webdriver.chrome.driver",
         //        "D:/eclipse/chromedriver.exe");
     	System.setProperty("webdriver.chrome.driver",
-    	                "C:/Program Files/Java/Selenium360/chromedriver.exe");
+    	                "D:/eclipse/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         Thread.sleep(2000);
