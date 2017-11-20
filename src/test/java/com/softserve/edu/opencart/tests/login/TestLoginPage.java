@@ -4,7 +4,7 @@ import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
-import com.softserve.edu.opencart.pages.user.MyAccountPage;
+import com.softserve.edu.opencart.pages.user.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -13,7 +13,8 @@ import org.testng.annotations.Test;
 
 import java.sql.SQLException;
 
-public class LoginTest {
+
+public class TestLoginPage {
 
     @BeforeClass
     public void beforeClass() throws SQLException {
@@ -33,11 +34,17 @@ public class LoginTest {
     }
 
     @Test(dataProvider = "Authentication")
-    public void checkSuccessfulLogin(IUser user) throws Exception {
-
-        MyAccountPage myAccountPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount()
-                .gotoLoginForLoginPageToMyAccountPage(user);
-        Assert.assertEquals(myAccountPage.gotoEditAccountPageFromRightColumn().getEmailText(), user.getEmail());
-        Application.get().logout();
+    public void checkImpossibilityOfCopyingPassword(IUser user) throws Exception {
+        LoginPage loginPage = Application.get().login();
+        loginPage.inputPassword(user.getPassword());
+        Assert.assertNotEquals(loginPage.getPasswordFieldText(), user.getPassword());
     }
+    @Test(dataProvider = "Authentication")
+    public void checkLoginField(IUser user) throws Exception {
+        LoginPage loginPage = Application.get().login();
+        loginPage.inputEMailAdress(user.getEmail());
+        Assert.assertNotEquals(loginPage.getEmailAddressFieldText(), user.getEmail());
+    }
+
+
 }

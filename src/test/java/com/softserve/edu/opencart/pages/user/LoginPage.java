@@ -47,8 +47,15 @@ public class LoginPage extends AColumnRightGuestComponent {
     public WebElement getWarningText() {
         return getWarningText();
     }
-// get Functional
 
+    // get Functional
+    public String getEmailAddressFieldText() {
+        return geteMailAddressField().getText();
+    }
+
+    public String getPasswordFieldText() {
+        return getPasswordField().getText();
+    }
     // set Data
 
     public void clickEMailAddressField() {

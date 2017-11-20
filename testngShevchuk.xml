@@ -11,6 +11,13 @@
                 </methods>
             </class>
 
+            <class name="com.softserve.edu.opencart.tests.login.TestLoginPage">
+                <methods>
+                    <include name="checkImpossibilityOfCopyingPassword"/>
+                    <include name="checkLoginField"/>
+                </methods>
+            </class>
+
             <class name="com.softserve.edu.opencart.tests.login.LoginTest">
                 <methods>
                     <include name="checkSuccessfulLogin"/>
