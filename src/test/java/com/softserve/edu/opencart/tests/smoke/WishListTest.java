@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests.smoke;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +29,7 @@ import com.softserve.edu.opencart.tools.BrowserWrapper;
 public class WishListTest {
 
 	@BeforeClass
-	public void beforeClass() {
+	public void beforeClass() throws SQLException {
 		//Application.get(ApplicationSourceRepository.get().chromeServer7());
 		Application.get(ApplicationSourceRepository.get().firefoxServer7x32());
 	}
@@ -44,7 +45,7 @@ public class WishListTest {
 	}
 	
 	@AfterMethod
-	public void afterMethod() {	
+	public void afterMethod() throws SQLException {
 		Application.get().deleteAllCookies();
 		HomePage homePage = Application.get().loadHomePage();
 		WishListPage wishList;
@@ -79,7 +80,7 @@ public class WishListTest {
 	}
 	
 	@Test(dataProvider = "userData")
-	public void checkEmptyWishList(IUser user) {
+	public void checkEmptyWishList(IUser user) throws SQLException {
 		Assert.assertEquals(
 				Application.get().loadHomePage()
 				.gotoLoginPageFromMyAccount()

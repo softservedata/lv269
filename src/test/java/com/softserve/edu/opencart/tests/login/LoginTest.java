@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginTest {
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass() throws SQLException {
 //        Application.get(ApplicationSourceRepository.get().chromeServer7());
         Application.get(ApplicationSourceRepository.get().firefoxServer7());
     }

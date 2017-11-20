@@ -7,47 +7,45 @@ import java.sql.SQLException;
 
 public class DataBaseWraper {
 
-    private DataBase dataBase;
-    private Connection connection;
+    private interface IDataBase {
+        Connection getConnection() throws SQLException;
 
-    public DataBaseWraper() {
-        dataBase=new DataBase();
+        Connection runDataBase() throws SQLException;
     }
 
+    private static class DataBase implements IDataBase {
 
-    private  class   DataBase {
-        public DataBase() {
-            initDataBase();
-        }
-
-
-        private void initDataBase() {
-
+        public Connection getConnection() throws SQLException {
             String jdbcUrl = "jdbc:mysql://77.120.103.50:3310/pekelis_db";
             String user = "pekelis_usr";
             String password = "B6y0N7i5";
-            try {
-                connection = DriverManager.getConnection(jdbcUrl, user, password);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-
+            return DriverManager.getConnection(jdbcUrl, user, password);
         }
 
-        private Connection getConnection() {
-            return connection;
+
+        public Connection runDataBase() throws SQLException {
+            return getConnection();
         }
+
 
     }
 
+//-------------------------------------------------------------------------------------------
 
-    public DataBase getDataBase() {
-        return dataBase;
+
+    private Connection connection;
+
+    private void initDataBase() throws SQLException {
+        IDataBase currentDataBase = new DataBase();
+        connection = currentDataBase.runDataBase();
+    }
+
+    public DataBaseWraper() throws SQLException {
+        initDataBase();
     }
 
     public Connection getConnection() {
-        return getDataBase().getConnection();
+        return connection;
     }
 
     public void executeQuery(String query) throws SQLException {

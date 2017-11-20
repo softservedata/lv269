@@ -24,7 +24,7 @@ public class Application {
     private DataBaseWraper dataBase;
     // etc.
 
-    private Application(IApplicationSource applicationSource) {
+    private Application(IApplicationSource applicationSource) throws SQLException {
         this.applicationSource = applicationSource;
         initBrowser(applicationSource);
         initDataBase(applicationSource);
@@ -33,11 +33,11 @@ public class Application {
         // initAccessToDB();
     }
 
-    public static Application get() {
+    public static Application get() throws SQLException {
         return get(null);
     }
 
-    public static Application get(IApplicationSource applicationSource) {
+    public static Application get(IApplicationSource applicationSource) throws SQLException {
         if (instance == null) {
             synchronized (Application.class) {
                 if (instance == null) {
@@ -100,7 +100,7 @@ public class Application {
         return new LogoutPage(getBrowser().getDriver());
     }
 
-    public void initDataBase(IApplicationSource applicationSource) {
+    public void initDataBase(IApplicationSource applicationSource) throws SQLException {
         this.dataBase = new DataBaseWraper();
     }
 

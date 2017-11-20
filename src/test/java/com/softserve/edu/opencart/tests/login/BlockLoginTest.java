@@ -14,11 +14,11 @@ import org.testng.annotations.Test;
 import java.sql.SQLException;
 
 public class BlockLoginTest {
-//    private final String UNBLOCK_USER = "UPDATE oc_customer_login SET total = '0' WHERE email  = '%s';";
+    //    private final String UNBLOCK_USER = "UPDATE oc_customer_login SET total = '0' WHERE email  = '%s';";
     private final String DELETE_UNBLOCK_USER = "DELETE FROM oc_customer_login WHERE email  = '%s';";
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass() throws SQLException {
 //        Application.get(ApplicationSourceRepository.get().chromeServer7());
         Application.get(ApplicationSourceRepository.get().firefoxServer7());
     }
@@ -28,7 +28,6 @@ public class BlockLoginTest {
         Application.remove();
     }
 
-
     @DataProvider(name = "Authentication")
     public static Object[][] credentials() {
 
@@ -37,10 +36,9 @@ public class BlockLoginTest {
 
     }
 
-
     @Test(dataProvider = "Authentication")
-    public void checkSuccessfulLogin(IUser userWithWrongPassword, IUser userWithCorectPassword) throws Exception {
-//        Application.get().unlockUserByQuery(userWithCorectPassword, UNBLOCK_USER);
+    public void checkSuccessfulLogin(IUser userWithWrongPassword, IUser userWithCorectPassword) throws SQLException {
+
         Application.get().unlockUserByQuery(userWithCorectPassword, DELETE_UNBLOCK_USER);
 
         String actual;
@@ -66,9 +64,9 @@ public class BlockLoginTest {
 
         Assert.assertEquals(actual, expectedSecondWarning);
 
+
         Application.get().unlockUserByQuery(userWithCorectPassword, DELETE_UNBLOCK_USER);
         Application.closeConnection();
-        //unblockInDatabase(userWithWrongPassword.getEmail());
 
     }
 }

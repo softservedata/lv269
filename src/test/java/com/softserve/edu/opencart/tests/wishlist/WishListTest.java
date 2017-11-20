@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests.wishlist;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import com.softserve.edu.opencart.pages.user.WishListPage;
 
 public class WishListTest {
 	@BeforeClass
-	public void beforeClass() {
+	public void beforeClass() throws SQLException {
 		//Application.get(ApplicationSourceRepository.get().chromeServer7());
 		Application.get(ApplicationSourceRepository.get().firefoxServer7x32());	
 		}
@@ -38,7 +39,7 @@ public class WishListTest {
 	}
 	
 	@AfterMethod
-	public void afterMethod() {	
+	public void afterMethod() throws SQLException {
 		Application.get().deleteAllCookies();
 		HomePage homePage = Application.get().loadHomePage();
 		WishListPage wishList;
@@ -90,7 +91,7 @@ public class WishListTest {
 	
 	// - - - - - - - - - - - - - #1 - - - - - - - - - - - - -
 	@Test (dataProvider = "productAndUserData", invocationCount=5)
-	public void testAddItem(Product macBook, IUser user) {
+	public void testAddItem(Product macBook, IUser user) throws SQLException {
 		Assert.assertTrue(
 				Application.get().loadHomePage()
 				.gotoHomePageClickAddToWish(macBook)
@@ -104,7 +105,7 @@ public class WishListTest {
 	
 	// - - - - - - - - - - - - - #2 - - - - - - - - - - - - -
 	@Test (dataProvider = "productsAndUserData", invocationCount=5)
-	public void testAddWithoutLogin(Product iPhone, Product macBook, IUser user) {
+	public void testAddWithoutLogin(Product iPhone, Product macBook, IUser user) throws SQLException {
 		List<String> expected = new ArrayList<>();
 		expected.add(iPhone.getName());
 		expected.add(macBook.getName());	
@@ -129,7 +130,7 @@ public class WishListTest {
 	
 	// - - - - - - - - - - - - - #3 - - - - - - - - - - - - -	
 	@Test (dataProvider = "productsAndUserData", invocationCount=5)
-	public void testWhishListIndicator(Product iPhone, Product macBook, IUser user) {
+	public void testWhishListIndicator(Product iPhone, Product macBook, IUser user) throws SQLException {
 		
 		WishListPage wishListPage = Application.get().loadHomePage()
 				.gotoHomePageClickAddToWish(iPhone)
