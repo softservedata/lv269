@@ -18,7 +18,7 @@
                 </methods>
             </class>
 
-            <class name="com.softserve.edu.opencart.tests.login.LoginTest">
+            <class name="com.softserve.edu.opencart.tests.login.SuccessLoginTest">
                 <methods>
                     <include name="checkSuccessfulLogin"/>
                 </methods>
