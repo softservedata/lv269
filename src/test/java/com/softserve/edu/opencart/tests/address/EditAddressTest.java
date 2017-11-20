@@ -4,7 +4,9 @@ import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.data.users.UserRepository;
+import com.softserve.edu.opencart.pages.AlertsText;
 import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.user.AddressBookPage;
 import com.softserve.edu.opencart.pages.user.EditAddressPage;
 import org.testng.Assert;
@@ -23,10 +25,10 @@ public class EditAddressTest {
     @DataProvider(name = "editAddress")
     public Object[][] userData() {
         return new Object[][] {
-                {UserRepository.get().userZvarych(), "input-firstname", "First Name must be between 1 and 32 characters!"},
-                {UserRepository.get().userZvarych(), "input-lastname", "Last Name must be between 1 and 32 characters!"},
-                {UserRepository.get().userZvarych(), "input-address-1", "Address must be between 3 and 128 characters!"},
-                {UserRepository.get().userZvarych(), "input-city", "City must be between 2 and 128 characters!"}
+                {UserRepository.get().userZvarych(), GeneralLocators.FIRST_NAME_LOCATOR.toString(), AlertsText.FIRST_NAME_MUST_BE_1_TO_32.toString()},
+                {UserRepository.get().userZvarych(), GeneralLocators.SECOND_NAME_LOCATOR.toString() ,AlertsText.SECOND_NAME_MUST_BE_1_TO_32.toString()},
+                {UserRepository.get().userZvarych(), GeneralLocators.ADDRESS_LOCATOR.toString(), AlertsText.ADDRESS_MUST_BE_3_TO_128.toString()},
+                {UserRepository.get().userZvarych(), GeneralLocators.CITY_LOCATOR.toString(), AlertsText.CITY_MUST_BE_2_TO_128}
         };
 
     }
