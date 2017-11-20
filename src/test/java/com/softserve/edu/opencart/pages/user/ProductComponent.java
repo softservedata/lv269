@@ -1,3 +1,4 @@
+
 package com.softserve.edu.opencart.pages.user;
 
 import org.openqa.selenium.By;
@@ -6,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.tools.NumberUtils;
 
-class ProductComponent {
+public class ProductComponent {
 
     // Fields
 
