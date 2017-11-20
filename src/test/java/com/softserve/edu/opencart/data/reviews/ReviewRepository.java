@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.data.reviews;
 /**
  * Created by Serhiienko.
  */
+
 public class ReviewRepository {
 
     private static volatile ReviewRepository instance = null;

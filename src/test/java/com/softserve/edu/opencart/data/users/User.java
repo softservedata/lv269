@@ -49,10 +49,6 @@ interface IUserBuild {
 
     IUserBuild setSubscribe(boolean subscribe);
 
-    // 5.
-    // User build();
-
-    // 6.
     IUser build();
 }
 
@@ -74,49 +70,15 @@ public class User implements IFirstname, ILastname, IEmail, IPhoneNumber, IAddre
     private String password;
     private boolean subscribe; // optional
 
-    // 1.
-    // public User(String firstname, String lastname, String email, String
-    // phoneNumber, String fax, String company,
-    // String addressFirst, String addressSecond, String city, String postCode,
-    // String country, String region,
-    // String password, boolean subscribe) {
-    // this.firstname = firstname;
-    // this.lastname = lastname;
-    // this.email = email;
-    // this.phoneNumber = phoneNumber;
-    // this.fax = fax;
-    // this.company = company;
-    // this.addressFirst = addressFirst;
-    // this.addressSecond = addressSecond;
-    // this.city = city;
-    // this.postCode = postCode;
-    // this.country = country;
-    // this.region = region;
-    // this.password = password;
-    // this.subscribe = subscribe;
-    // }
-
-    // 2.
-    // public User() {
-    // }
-
-    // 4.
     private User() {
     }
 
-    // 4.
-    // public static User get() {
-    // return new User();
-    // }
-
-    // 5.
     public static IFirstname get() {
         return new User();
     }
 
     // setters
 
-    // 3. User
     public ILastname setFirstname(String firstname) {
         this.firstname = firstname;
         return this;
@@ -187,9 +149,7 @@ public class User implements IFirstname, ILastname, IEmail, IPhoneNumber, IAddre
         return this;
     }
 
-    // 5.
-    // public User build() {
-    // 6.
+
     public IUser build() {
         return this;
     }

@@ -32,16 +32,6 @@ public class ProductPageTest {
 
     @Test
     public void testCheckProductPage() {
-        //
-        // Precondition
-        //
-
-        /*System.setProperty("webdriver.gecko.driver","C:/Program Files/Java/Selenium360/geckodriver.exe");
-        WebDriver driver = new FirefoxDriver();*/
-
-        /*System.setProperty("webdriver.chrome.driver",
-                "C:/Program Files/Java/Selenium360/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();*/
 
         ProductPage productPage = Application.get().loadHomePage()
                 .goToProductPage(ProductRepository.get().macBook())
@@ -66,7 +56,6 @@ public class ProductPageTest {
 
         productPage.clickSpecification();
         productPage.clickDescription();
-
 
     }
 }

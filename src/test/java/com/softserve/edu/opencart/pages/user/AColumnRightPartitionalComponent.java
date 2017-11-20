@@ -8,7 +8,6 @@ abstract class AColumnRightPartitionalComponent extends ANavigatePanelComponent 
 
 
     // Fields
-//#column-right > div > a:nth-child(4)
     private WebElement myAccountRigthPanel;
     private WebElement addressBook;
     private WebElement wishListRigthPanel;

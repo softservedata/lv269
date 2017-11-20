@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 public class NegativeUserLogoutTest {
 
-
     @DataProvider
     public Object[][] productData() {
         return new Object[][]{
@@ -29,4 +28,5 @@ public class NegativeUserLogoutTest {
         Application.get().loadHomePage().goToProductPage(product)
                 .validReviewFieldsUserLogOut(myReview);
     }
+
 }

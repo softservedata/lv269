@@ -111,22 +111,7 @@ public class ProductPage extends ANavigatePanelComponent {
         quantityField = driver.findElement(By.id("input-quantity"));
         navTab = driver.findElements(By.cssSelector(".nav.nav-tabs > li > a"));
         description = new Description();
-        //initNavTabElement();
     }
-
-   /* private void initNavTabElement() {
-        for (WebElement current : navTab) {
-            if (current.getAttribute("href").contains("description")) {
-                description = new Description();
-            }
-            if (current.getAttribute("href").contains("specification")) {
-                specification = new Specification();
-            }
-            if (current.getAttribute("href").contains("review")) {
-                review = new Review();
-            }
-        }
-    }*/
 
     // PageObject
 
@@ -276,8 +261,6 @@ public class ProductPage extends ANavigatePanelComponent {
     // set Functional
 
     private final String ITEM_FROM_NAVTAB_NOT_FOUND_MESSAGE = "Item from navTab %s not found for product %s";
-    //private final String ALERT_NOT_FOUND_MESSAGE = "Alert %s not found";
-
 
     private WebElement getItemFromNavTab(String item) {
         WebElement result = null;
@@ -313,57 +296,6 @@ public class ProductPage extends ANavigatePanelComponent {
         return getReview().getReviewsExist().size();
     }
 
-   /* // Alert
-
-    private WebElement alertSuccess;
-    private WebElement alertDanger;
-    private WebElement alertWarning;
-
-    private void createAlert(String alert) {
-        WebElement result = null;
-        if (driver.findElements(By.className(alert)).size()>0) {
-            result = driver.findElement(By.className(alert));
-        }
-        ErrorUtils.createCustomException((result == null),
-                String.format(ALERT_NOT_FOUND_MESSAGE, alert));
-    }
-
-    protected void createAlertSuccess() {
-        createAlert("alert-success");
-    }
-
-    protected void createAlertDanger() {
-        createAlert("alert-danger");
-    }
-
-    protected void createAlertWarning() {
-        createAlert("alert-warning");
-    }
-
-    private WebElement getAlertSuccess() {
-        return alertSuccess;
-    }
-
-    private WebElement getAlertDanger() {
-        return alertDanger;
-    }
-
-    private WebElement getAlertWarning() {
-        return alertWarning;
-    }
-
-    public String getAlertSuccessText() {
-        return getAlertSuccess().getText();
-    }
-
-    public String getAlertDangerText() {
-        return getAlertDanger().getText();
-    }
-
-    public String getAlertWarningText() {
-        return getAlertWarning().getText();
-    }
-*/
     // Business Logic
 
     public void inputReviewNameField(String name) {

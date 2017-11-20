@@ -455,19 +455,19 @@ abstract class AHeaderComponent {
             result = driver.findElement(By.className(alert));
         }
         ErrorUtils.createCustomException((result == null),
-                String.format(ALERT_NOT_FOUND_MESSAGE, alert /*, method*/));
+                String.format(ALERT_NOT_FOUND_MESSAGE, alert ));
     }
 
-    protected void createAlertSuccess(/*String method*/) {
-        createAlert("alert-success"/*, method*/);
+    protected void createAlertSuccess() {
+        createAlert("alert-success");
     }
 
-    protected void createAlertDanger(/*String method*/) {
-        createAlert("alert-danger"/*, method*/);
+    protected void createAlertDanger() {
+        createAlert("alert-danger");
     }
 
-    protected void createAlertWarning(/*String method*/) {
-        createAlert("alert-warning"/*, method*/);
+    protected void createAlertWarning() {
+        createAlert("alert-warning");
     }
 
     private WebElement getAlertSuccess() {
