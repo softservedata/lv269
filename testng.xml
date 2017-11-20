@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Suite1">
+<suite name="Currency suite">
 	<test name="Currency smoke test">
 		<classes>
-			<class name="com.softserve.edu.opencart.tests.currency.CurrencySmoke">
+			<class name="com.softserve.edu.opencart.tests.currency.TestCurrencySmoke">
 				<methods>
-					<include name="enableCurrency" />
-					<include name="enableCurrencyOptions" />
+					<include name="enableCurrencyTest" />
+					<include name="enableCurrencyOptionsTest" />
 				</methods>
 			</class>
 		</classes>
 	</test>
 	<test name="Currency test">
 		<classes>
-			<class name="com.softserve.edu.opencart.tests.currency.CurrencyTest">
+			<class name="com.softserve.edu.opencart.tests.currency.TestCurrency">
 				<methods>
-					<include name="checkChangeCurrencyByMacBook" />
-					<include name="checkChangeCurrencyByIPhone" />
-					<include name="checkChangeCurrencyByCanon" />
+					<include name="checkChangeCurrency" />
 				</methods>
 			</class>
 		</classes>

@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.softserve.edu.opencart.data.categories.DetailCategory;
+import com.softserve.edu.opencart.data.categories.IDetailCategory;
 import com.softserve.edu.opencart.data.products.Product;
 
 public class HomePage extends AHeaderComponent {
@@ -54,7 +55,7 @@ public class HomePage extends AHeaderComponent {
 
     // Business Logic
     
-    public HomePage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
+    public HomePage chooseCurrencyByDetailCategory(IDetailCategory detailCategory) {
         clickCurrencyByPartialName(detailCategory.getOptionName());
         return new HomePage(driver); 
     }

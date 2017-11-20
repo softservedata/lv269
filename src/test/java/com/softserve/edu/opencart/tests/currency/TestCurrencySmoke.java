@@ -10,7 +10,9 @@ import com.softserve.edu.opencart.pages.Application;
 /**
  * @author Yurii Ivanytskyi
  */
-public class CurrencySmoke {
+public class TestCurrencySmoke {
+	
+	private final String ASSERT_MESSAGE = "Web element(s) not found!";
 
 	@BeforeClass
 	public void beforeClass() {
@@ -24,13 +26,13 @@ public class CurrencySmoke {
 	}
 	
 	@Test
-	public void enableCurrency() {
-		Assert.assertTrue(Application.get().loadHomePage().getCurrency().isEnabled(), "Element 'Currency' not found!");
+	public void enableCurrencyTest() {
+		Assert.assertTrue(Application.get().loadHomePage().getCurrency().isEnabled(), ASSERT_MESSAGE);
 	}
 	
 	@Test
-	public void enableCurrencyOptions() {
-		Assert.assertTrue(!Application.get().loadHomePage().getCurrencyOptions().isEmpty(), "Options of 'Currency' not found!");
+	public void enableCurrencyOptionsTest() {
+		Assert.assertTrue(!Application.get().loadHomePage().getCurrencyOptions().isEmpty(), ASSERT_MESSAGE);
 	}
 	
 }

@@ -2,7 +2,6 @@ package com.softserve.edu.opencart.data.products;
 
 import java.util.Map;
 import org.apache.commons.collections4.map.HashedMap;
-import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.tools.CalculatePriceValue;
 
 public class ProductRepository {
@@ -32,10 +31,8 @@ public class ProductRepository {
                 "Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1..",
                 macBookPrices);
     }
-    
-    //???
+
     public IProduct iPhone() {
-//    	double defaultValue = Application.get().loadHomePage().getPriceAmountByProductName("iPhone");
     	double defaultValue = 101.0;
         Map<String, Double> iPhonePrices = new HashedMap<>();    
         iPhonePrices.put("Euro", CalculatePriceValue.euroPrice(defaultValue));
