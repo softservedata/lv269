@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests.reviews;
 
+import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.reviews.IReview;
 import com.softserve.edu.opencart.data.reviews.ReviewRepository;
@@ -14,23 +15,23 @@ import org.testng.annotations.Test;
  * Created by Serhiienko.
  */
 
-public class FieldName {
+public class FieldNameTest {
 
     @DataProvider
     public Object[][] notValidNameData() {
         return new Object[][]{
-                {ProductRepository.get().macBook().getName(), ReviewRepository.get().notValidShortNameValidTextWithRating()},
-                {ProductRepository.get().macBook().getName(), ReviewRepository.get().notValidLongNameValidTextWithRating()},
-                {ProductRepository.get().macBook().getName(), ReviewRepository.get().onlySpaceForNameValidTextWithRating()},
-                {ProductRepository.get().macBook().getName(), ReviewRepository.get().onlySpecialCharactersForNameValidTextWithRating()},
+                {ProductRepository.get().macBook(), ReviewRepository.get().notValidShortNameValidTextWithRating()},
+                {ProductRepository.get().macBook(), ReviewRepository.get().notValidLongNameValidTextWithRating()},
+                {ProductRepository.get().macBook(), ReviewRepository.get().onlySpaceForNameValidTextWithRating()},
+                {ProductRepository.get().macBook(), ReviewRepository.get().onlySpecialCharactersForNameValidTextWithRating()},
         };
     }
 
     @DataProvider
     public Object[][] validNameData() {
         return new Object[][]{
-                {ProductRepository.get().macBook().getName(), ReviewRepository.get().validShortNameValidTextWithRating()},
-                {ProductRepository.get().macBook().getName(), ReviewRepository.get().validLongNameValidTextWithRating()},
+                {ProductRepository.get().macBook(), ReviewRepository.get().validShortNameValidTextWithRating()},
+                {ProductRepository.get().macBook(), ReviewRepository.get().validLongNameValidTextWithRating()},
         };
     }
 
@@ -46,12 +47,12 @@ public class FieldName {
     }
 
     @Test(dataProvider = "notValidNameData")
-    public void notValid(String productName, IReview myReview) {
-        Application.get().loadHomePage().goToProductPage(productName).notValidReviewFields(myReview);
+    public void testNotValidData(IProduct product, IReview myReview) {
+        Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview);
     }
 
     @Test(dataProvider = "validNameData")
-    public void valid(String productName, IReview myReview) {
-        Application.get().loadHomePage().goToProductPage(productName).validReviewFields(myReview);
+    public void testValidData(IProduct product, IReview myReview) {
+        Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview);
     }
 }

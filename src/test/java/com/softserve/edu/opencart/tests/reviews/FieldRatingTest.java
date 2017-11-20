@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests.reviews;
 
+import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.reviews.IReview;
 import com.softserve.edu.opencart.data.reviews.ReviewRepository;
@@ -14,12 +15,12 @@ import org.testng.annotations.Test;
  * Created by Serhiienko.
  */
 
-public class FieldRating {
+public class FieldRatingTest {
 
     @DataProvider
     public Object[][] ratingData() {
         return new Object[][]{
-                {ProductRepository.get().macBook().getName(), ReviewRepository.get().validNameValidTextWithRating()},
+                {ProductRepository.get().macBook(), ReviewRepository.get().validNameValidTextWithRating()},
         };
     }
 
@@ -35,13 +36,13 @@ public class FieldRating {
     }
 
     @Test(dataProvider = "ratingData")
-    public void onlyRating(String productName, IReview myReview) {
-        Application.get().loadHomePage().goToProductPage(productName).onlyReviewRating(myReview);
+    public void testOnlyRatingData(IProduct product, IReview myReview) {
+        Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview);
     }
 
     @Test(dataProvider = "ratingData")
-    public void withOutRating(String productName, IReview myReview) {
-        Application.get().loadHomePage().goToProductPage(productName).reviewWithOutRating(myReview);
+    public void testValidDataWithOutRating(IProduct product, IReview myReview) {
+        Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview);
     }
 
 }

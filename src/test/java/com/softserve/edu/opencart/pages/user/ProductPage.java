@@ -1,6 +1,7 @@
 package com.softserve.edu.opencart.pages.user;
 
 import com.softserve.edu.opencart.data.reviews.IReview;
+import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
@@ -232,11 +233,11 @@ public class ProductPage extends ANavigatePanelComponent {
         getQuantityField().sendKeys(quantity);
     }
 
-    public void clickAddToCart() {
+    protected void clickAddToCart() {
         getAddToCart().click();
     }
 
-    public void clickAddToWish() {
+    protected void clickAddToWish() {
         getAddToWish().click();
     }
 
@@ -416,6 +417,18 @@ public class ProductPage extends ANavigatePanelComponent {
         clickReviewButton();
         review = new Review();
         createAlertDanger();
+    }
+
+    public ProductPage checkClickToAddToCart () {
+        clickAddToCart();
+        Application.get().getBrowser().refreshPage();
+        return new ProductPage(driver);
+    }
+
+    public ProductPage checkClickToAddToWish () {
+        clickAddToWish();
+        Application.get().getBrowser().refreshPage();
+        return new ProductPage(driver);
     }
 
 }

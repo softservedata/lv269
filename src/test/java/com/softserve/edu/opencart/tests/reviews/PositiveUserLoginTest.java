@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests.reviews;
 
+import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.reviews.IReview;
 import com.softserve.edu.opencart.data.reviews.ReviewRepository;
@@ -13,12 +14,12 @@ import org.testng.annotations.Test;
 /**
  * Created by Serhiienko.
  */
-public class PositiveUserLogin {
+public class PositiveUserLoginTest {
 
     @DataProvider
     public Object[][] productData() {
         return new Object[][]{
-                {ProductRepository.get().macBook().getName(), ReviewRepository.get().validNameValidTextWithRating()},
+                {ProductRepository.get().macBook(), ReviewRepository.get().validNameValidTextWithRating()},
         };
     }
 
@@ -34,8 +35,8 @@ public class PositiveUserLogin {
     }
 
     @Test(dataProvider = "productData")
-    public void validFields(String productName, IReview myReview) {
-        Application.get().loadHomePage().goToProductPage(productName)
+    public void testValidFields(IProduct product, IReview myReview) {
+        Application.get().loadHomePage().goToProductPage(product)
                 .validReviewFields(myReview);
     }
 

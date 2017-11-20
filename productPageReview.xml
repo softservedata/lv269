@@ -7,7 +7,7 @@
         <classes>
             <class name="com.softserve.edu.opencart.tests.smoke.ProductPageTest">
                 <methods>
-                    <include name="checkProductPage"/>
+                    <include name="test"/>
                 </methods>
             </class>
         </classes>
@@ -15,31 +15,29 @@
 
     <test name="ReviewForm">
         <classes>
-            <class name="com.softserve.edu.opencart.tests.reviews.PositiveUserLogin">
+            <class name="com.softserve.edu.opencart.tests.reviews.PositiveUserLoginTest">
                 <methods>
-                    <include name="valid"/>
+                    <include name="test"/>
                 </methods>
             </class>
-            <class name="com.softserve.edu.opencart.tests.reviews.NegativeUserLogout">
+            <class name="com.softserve.edu.opencart.tests.reviews.NegativeUserLogoutTest">
                 <methods>
-                    <include name="valid"/>
+                    <include name="test"/>
                 </methods>
             </class>
-            <class name="com.softserve.edu.opencart.tests.reviews.FieldRating">
+            <class name="com.softserve.edu.opencart.tests.reviews.FieldRatingTest">
                 <methods>
-                    <include name="rating"/>
+                    <include name="test"/>
                 </methods>
             </class>
-            <class name="com.softserve.edu.opencart.tests.reviews.FieldName">
+            <class name="com.softserve.edu.opencart.tests.reviews.FieldNameTest">
                 <methods>
-                    <include name="valid"/>
-                    <include name="notValid"/>
+                    <include name="test"/>
                 </methods>
             </class>
-            <class name="com.softserve.edu.opencart.tests.reviews.FieldText">
+            <class name="com.softserve.edu.opencart.tests.reviews.FieldTextTest">
                 <methods>
-                    <include name="valid"/>
-                    <include name="notValid"/>
+                    <include name="test"/>
                 </methods>
             </class>
         </classes>

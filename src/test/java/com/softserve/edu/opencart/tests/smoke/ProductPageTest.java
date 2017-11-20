@@ -18,18 +18,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class ProductPageTest {
 
-/*
-    @DataProvider//(parallel = true)
-    public Object[][] productData() {
-        // Read from ...
-        return new Object[][]{
-                {"MacBook", 602.0},
-                {"iPhone", 123.2},
-                {"Canon EOS 5D", 98.00},
-        };
-    }*/
-    //@Test(dataProvider = "productData")
-
     @BeforeClass
     public static void precondition() {
         Application.get().login().loginForLoginPageToMyAccountPage(UserRepository.get().valid().getEmail(),
@@ -43,7 +31,7 @@ public class ProductPageTest {
     }
 
     @Test
-    public void checkProductPage() {
+    public void testCheckProductPage() {
         //
         // Precondition
         //
@@ -56,10 +44,8 @@ public class ProductPageTest {
         WebDriver driver = new ChromeDriver();*/
 
         ProductPage productPage = Application.get().loadHomePage()
-                .goToProductPage(ProductRepository.get().macBook().getName());
-
-        //productPage.clickAddToCart();
-        //productPage.clickAddToWish();
+                .goToProductPage(ProductRepository.get().macBook())
+                .checkClickToAddToCart().checkClickToAddToWish();
 
         productPage.clickReview();
         productPage.clickReviewNameField();
@@ -81,7 +67,6 @@ public class ProductPageTest {
         productPage.clickSpecification();
         productPage.clickDescription();
 
-        productPage.clickAddToCart();
-        productPage.clickAddToWish();
+
     }
 }

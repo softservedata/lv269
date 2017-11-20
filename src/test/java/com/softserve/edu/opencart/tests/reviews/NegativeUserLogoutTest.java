@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests.reviews;
 
+import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.reviews.IReview;
 import com.softserve.edu.opencart.data.reviews.ReviewRepository;
@@ -8,13 +9,13 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class NegativeUserLogout {
+public class NegativeUserLogoutTest {
 
 
     @DataProvider
     public Object[][] productData() {
         return new Object[][]{
-                {ProductRepository.get().macBook().getName(), ReviewRepository.get().validNameValidTextWithRating()},
+                {ProductRepository.get().macBook(), ReviewRepository.get().validNameValidTextWithRating()},
         };
     }
 
@@ -24,8 +25,8 @@ public class NegativeUserLogout {
     }
 
     @Test(dataProvider = "productData")
-    public void validFields(String productName, IReview myReview) {
-        Application.get().loadHomePage().goToProductPage(productName)
+    public void testValidFields(IProduct product, IReview myReview) {
+        Application.get().loadHomePage().goToProductPage(product)
                 .validReviewFieldsUserLogOut(myReview);
     }
 }

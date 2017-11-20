@@ -120,21 +120,5 @@ public class ReviewRepository {
                 .setRating(2)
                 .build();
     }
-/*
-    public IReview validNameValidTextWithOutRating() {
-        return Review.get().setName("Name")
-                .setText("Input valid review there.")
-                .setRating(null)
-                .build();
-    }*/
-/*
-
-    public IReview withOutNameWithOutTextValidRating() {
-        return Review.get().setName(new String())
-                .setText(new String())
-                .setRating(2)
-                .build();
-    }
-*/
 
 }

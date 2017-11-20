@@ -2,6 +2,7 @@ package com.softserve.edu.opencart.pages.user;
 
 import java.util.List;
 
+import com.softserve.edu.opencart.data.products.IProduct;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -73,8 +74,8 @@ public class HomePage extends AHeaderComponent {
 
     // For goto ProductPage
 
-    public ProductPage goToProductPage(String productName) {
-        clickNameByProductName(productName);
+    public ProductPage goToProductPage(IProduct product) {
+        clickNameByProductName(product.getName());
         return new ProductPage(driver);
     }
 
