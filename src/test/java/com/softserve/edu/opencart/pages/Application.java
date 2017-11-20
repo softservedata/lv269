@@ -12,7 +12,7 @@ import com.softserve.edu.opencart.tools.DataBaseWraper;
 import java.sql.SQLException;
 
 public class Application {
-
+    private final String DELETE_UNBLOCK_USER = "DELETE FROM oc_customer_login WHERE email  = '%s';";
     // Use Singleton, Repository
     private static volatile Application instance;
     //
@@ -59,7 +59,7 @@ public class Application {
         }
     }
 
-    public static void closeConnection() throws SQLException {
+    public static void closeDB() throws SQLException {
         if (instance != null) {
             instance.getDataBase().close();
         }
@@ -85,9 +85,9 @@ public class Application {
         // TODO Remove getBrowser().getDriver()
         return new HomePage(getBrowser().getDriver());
     }
-    
+
     public void deleteAllCookies() {
-    	getBrowser().deleteAllCookies();
+        getBrowser().deleteAllCookies();
     }
 
     public LoginPage login() {
@@ -113,9 +113,8 @@ public class Application {
         getDataBase().executeQuery(query);
     }
 
-    public void unlockUserByQuery(IUser user, String query) throws SQLException {
-        getDataBase().executeQuery(String.format(query, user.getEmail()));
-
+    public void unlockUserByQuery(IUser user) throws SQLException {
+        getDataBase().executeQuery(String.format(DELETE_UNBLOCK_USER, user.getEmail()));
     }
 
 }

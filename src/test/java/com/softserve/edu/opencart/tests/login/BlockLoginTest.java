@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 public class BlockLoginTest {
     //    private final String UNBLOCK_USER = "UPDATE oc_customer_login SET total = '0' WHERE email  = '%s';";
-    private final String DELETE_UNBLOCK_USER = "DELETE FROM oc_customer_login WHERE email  = '%s';";
+
 
     @BeforeClass
     public void beforeClass() throws SQLException {
@@ -39,34 +39,32 @@ public class BlockLoginTest {
     @Test(dataProvider = "Authentication")
     public void checkBlockUser(IUser userWithWrongPassword, IUser userWithCorectPassword) throws SQLException {
 
-        Application.get().unlockUserByQuery(userWithCorectPassword, DELETE_UNBLOCK_USER);
+        Application.get().unlockUserByQuery(userWithCorectPassword);
+
 
         String actual;
-        String expectedFirstWarning = "Warning: No match for E-Mail Address and/or Password.";
-        String expectedSecondWarning = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
-
         LoginPage loginPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount();
         for (int i = 0; i < 5; i++) {
             loginPage = loginPage.gotoLoginForLoginPageToWarning(userWithWrongPassword);
             actual = loginPage.getWarningDangerText();
 
-            Assert.assertEquals(actual, expectedFirstWarning);
+            Assert.assertEquals(actual, LoginPage.EXPECTED_FIRST_WARNING);
         }
 
         loginPage = loginPage.gotoLoginForLoginPageToWarning(userWithWrongPassword);
         actual = loginPage.getWarningDangerText();
 
-        Assert.assertEquals(actual, expectedSecondWarning);
+        Assert.assertEquals(actual, LoginPage.EXPECTED_SECOND_WARNING);
 
         //check is user realy blocked(check with correct password)
         loginPage = loginPage.gotoLoginForLoginPageToWarning(userWithCorectPassword);
         actual = loginPage.getWarningDangerText();
 
-        Assert.assertEquals(actual, expectedSecondWarning);
+        Assert.assertEquals(actual, LoginPage.EXPECTED_SECOND_WARNING);
 
 
-        Application.get().unlockUserByQuery(userWithCorectPassword, DELETE_UNBLOCK_USER);
-        Application.closeConnection();
+        Application.get().unlockUserByQuery(userWithCorectPassword);
+        Application.closeDB();
 
     }
 }

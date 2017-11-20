@@ -8,7 +8,6 @@ import java.sql.SQLException;
 public class DataBaseWraper {
 
     private interface IDataBase {
-        Connection getConnection() throws SQLException;
 
         Connection runDataBase() throws SQLException;
     }
@@ -52,7 +51,6 @@ public class DataBaseWraper {
         PreparedStatement pst1 = getConnection().prepareStatement(query);
         pst1.executeUpdate();
     }
-
 
     public void close() throws SQLException {
         if (getConnection() != null) {
