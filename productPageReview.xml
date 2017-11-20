@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Review">
+
+    <test name="ProductPageSmoke">
+        <classes>
+            <class name="com.softserve.edu.opencart.tests.smoke.ProductPageTest">
+                <methods>
+                    <include name="checkProductPage"/>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+
+    <test name="ReviewForm">
+        <classes>
+            <class name="com.softserve.edu.opencart.tests.reviews.PositiveUserLogin">
+                <methods>
+                    <include name="valid"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.reviews.NegativeUserLogout">
+                <methods>
+                    <include name="valid"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.reviews.FieldRating">
+                <methods>
+                    <include name="rating"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.reviews.FieldName">
+                <methods>
+                    <include name="valid"/>
+                    <include name="notValid"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.reviews.FieldText">
+                <methods>
+                    <include name="valid"/>
+                    <include name="notValid"/>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->
