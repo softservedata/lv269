@@ -8,6 +8,9 @@ import java.util.List;
 
 public class SuccessSearchPage extends ASearchComponent {
 
+    public final String NO_MATCH = "List of products not matches expected list.";
+    public final String PRODUCT_IS_NOT_FOUND = "Product not found by %s query";
+
     private WebElement selectInputSort;
     private WebElement selectInputLimit;
 

@@ -9,6 +9,8 @@ import java.util.List;
 public class FailureSearchPage extends ASearchComponent{
 
     public final String NO_PRODUCT = "no product";
+    public final String UNEXPECTED_ELEMENTS_FOUND = "Elements are not expected to be found.";
+
     private List<WebElement> noElementsMeetingCriteria;
 
     public FailureSearchPage(WebDriver driver){

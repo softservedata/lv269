@@ -7,11 +7,9 @@
 
         <classes>
 
-            <class name="com.softserve.edu.opencart.tests.searchpage.PartialSearch" />
+            <class name="com.softserve.edu.opencart.tests.smoke.SearchTest" />
 
             <class name="com.softserve.edu.opencart.tests.searchpage.SearchForExactProduct" />
-
-            <class name="com.softserve.edu.opencart.tests.searchpage.SearchProductByDescription" />
 
             <class name="com.softserve.edu.opencart.tests.searchpage.SearchProductInExactCategory" />
 

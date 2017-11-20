@@ -14,8 +14,6 @@ import java.util.List;
 
 public class SpecialSymbols {
 
-    private final String UNEXPECTED_ELEMENTS_FOUND = "Elements are not expected to be found.";
-
     @BeforeClass
     public void beforeClass() {
         Application.get(ApplicationSourceRepository.get().chromeServer7());
@@ -32,7 +30,7 @@ public class SpecialSymbols {
         return new Object[][]{
                 {"'"}, {"["}, {"!"}, {"$"}, {"%"}, {"^"}, {"&"}, {"+"},
                 {"|"}, {"~"}, {"="}, {"`"}, {"/"}, {":"}, {";"},{"?"},
-                {"SELECT * FROM PRODUCTS"}, {" "}
+                {"SELECT * FROM PRODUCTS"}
         };
     }
 
@@ -40,7 +38,7 @@ public class SpecialSymbols {
     public void checkSearchProductResult(String specialSymbol){
         FailureSearchPage searchPage = Application.get().loadHomePage()
                 .failureProductSearch(specialSymbol);
-        Assert.assertTrue(searchPage.nothingFound(), UNEXPECTED_ELEMENTS_FOUND);
+        Assert.assertTrue(searchPage.nothingFound(), searchPage.UNEXPECTED_ELEMENTS_FOUND);
     }
 
 }

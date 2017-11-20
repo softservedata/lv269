@@ -1,6 +1,7 @@
 package com.softserve.edu.opencart.tests.searchpage;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
+import com.softserve.edu.opencart.data.products.ISearchProduct;
 import com.softserve.edu.opencart.data.products.SearchProductRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.SuccessSearchPage;
@@ -13,8 +14,6 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class SearchProductInExactCategory {
-
-    private final String NO_MATCH = "List of products not matches expected list.";
 
     @BeforeClass
     public void beforeClass() {
@@ -30,20 +29,18 @@ public class SearchProductInExactCategory {
     public Object[][] productData() {
 
         return new Object[][]{
-                {SearchProductRepository.get().searchMacBookAirInCategory().getProductName(),
-                        SearchProductRepository.get().searchMacBookAirInCategory().getProductCategory()},
-                {SearchProductRepository.get().searchNikonInCategory().getProductName(),
-                        SearchProductRepository.get().searchNikonInCategory().getProductCategory()},
-                {SearchProductRepository.get().searchIMacInCategory().getProductName(),
-                        SearchProductRepository.get().searchIMacInCategory().getProductCategory()}
+                {SearchProductRepository.get().searchMacBookAirInCategory()},
+                {SearchProductRepository.get().searchNikonInCategory()},
+                {SearchProductRepository.get().searchIMacInCategory()}
         };
     }
 
     @Test(dataProvider = "productData")
-    public void checkSearchProductResult(String productName, String productCategory){
+    public void checkSearchProductResult(ISearchProduct productToSearch){
          SuccessSearchPage searchProduct = Application.get().loadHomePage()
-                .goFailureSearch().findProductInRightCategory(productName, productCategory);
+                .goFailureSearch().findProductInRightCategory(
+                        productToSearch.getProductName(), productToSearch.getProductCategory());
         List<String> actualProduct = searchProduct.getProductComponentTexts();
-        Assert.assertTrue(searchProduct.isFound(actualProduct, productName), NO_MATCH);
+        Assert.assertTrue(searchProduct.isFound(actualProduct, productToSearch.getProductName()), searchProduct.NO_MATCH);
     }
 }

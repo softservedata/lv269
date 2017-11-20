@@ -1,9 +1,12 @@
 package com.softserve.edu.opencart.tests.searchpage;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
+import com.softserve.edu.opencart.data.products.ISearchProduct;
 import com.softserve.edu.opencart.data.products.SearchProductRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.FailureSearchPage;
+import com.softserve.edu.opencart.pages.user.SuccessSearchPage;
+import com.sun.net.httpserver.Authenticator;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -13,8 +16,6 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class SearchProductByDescription {
-    private final String NO_MATCH = "List of products not matches expected list.";
-    private final String UNEXPECTED_ELEMENTS_FOUND = "Elements are not expected to be found.";
 
     @BeforeClass
     public void beforeClass() {
@@ -30,8 +31,7 @@ public class SearchProductByDescription {
     public Object[][] productData() {
 
         return new Object[][]{
-                {SearchProductRepository.get().searchByDescription().getProductDescription(),
-                        SearchProductRepository.get().searchByDescription().getProducts()}
+                {SearchProductRepository.get().searchByDescription()}
         };
     }
 
@@ -39,22 +39,22 @@ public class SearchProductByDescription {
     public Object[][] descriptionText() {
 
         return new Object[][]{
-                {SearchProductRepository.get().searchByDescription().getProductName()}
+                {SearchProductRepository.get().searchByDescription()}
         };
     }
 
     @Test(dataProvider = "productData")
-    public void checkSearchProductResult(String descriptionText, List<String> foundProducts) {
-        List<String> actualProduct = Application.get().loadHomePage()
-                .goFailureSearch().findProductByDescription(descriptionText)
-                .getProductComponentTexts();
-        Assert.assertEquals(actualProduct, foundProducts, NO_MATCH);
+    public void checkSearchProductResult(ISearchProduct productDescription) {
+         SuccessSearchPage searchPage = Application.get().loadHomePage()
+                .goFailureSearch().findProductByDescription(productDescription.getProductDescription());
+        List<String> actualProduct = searchPage.getProductComponentTexts();
+        Assert.assertEquals(actualProduct, productDescription.getProducts(), searchPage.NO_MATCH);
     }
 
     @Test(dataProvider = "descriptionText")
-    public void checkSearchProductResultNegative(String descriptionText){
+    public void checkSearchProductResultNegative(ISearchProduct productToSearch){
         FailureSearchPage searchProduct = Application.get().loadHomePage()
-                .goFailureSearch().findNoElements(descriptionText);
-        Assert.assertTrue(searchProduct.nothingFound(), UNEXPECTED_ELEMENTS_FOUND);
+                .goFailureSearch().findNoElements(productToSearch.getProductName());
+        Assert.assertTrue(searchProduct.nothingFound(), searchProduct.UNEXPECTED_ELEMENTS_FOUND);
     }
 }
