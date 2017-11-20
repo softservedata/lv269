@@ -459,8 +459,6 @@ abstract class AHeaderComponent {
 
     protected void clickAddToWishByProductName(String productName) {
         getProductComponentByProductName(productName).clickAddToWish();
-        // TODO Explicit Wait For Success Alert
-        //new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".alert.alert-success")));
     }
 
     // set Functional

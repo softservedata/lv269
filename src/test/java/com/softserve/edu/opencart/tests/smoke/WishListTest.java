@@ -45,28 +45,7 @@ public class WishListTest {
 	
 	@AfterMethod
 	public void afterMethod() {	
-		Application.get().deleteAllCookies();
-		HomePage homePage = Application.get().loadHomePage();
-		WishListPage wishList;
-		if (!homePage.isUserSignedIn()) {
-			wishList = Application.get().loadHomePage()
-			.gotoLoginPageFromMyAccount()
-			.gotoLoginForLoginPageToMyAccountPage(UserRepository.get().userKutaiev())
-			.gotoWishListPageRightColumn();
-		} else {
-			wishList = homePage
-					.gotoMyAccountPageFromHomePage()
-					.gotoWishListPageRightColumn();
-		}
-		if (!wishList.isWishListEmpty()) {
-			List<String> products = wishList.getProductNamesFromWishList();
-			if (products.size() > 0) {
-				for (String product : products) {
-					wishList = wishList.clickDeleteProductFromWishList(product);
-				}
-			}
-		}
-		Application.get().deleteAllCookies();
+		Application.get().getBrowser().deleteAllCookies();	
 	}
 
 	@DataProvider

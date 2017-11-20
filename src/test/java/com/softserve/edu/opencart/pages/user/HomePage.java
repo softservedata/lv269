@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 
 import com.softserve.edu.opencart.data.categories.DetailCategory;
 import com.softserve.edu.opencart.data.products.Product;
+import com.softserve.edu.opencart.pages.Application;
 
 public class HomePage extends AHeaderComponent {
 
@@ -73,6 +74,9 @@ public class HomePage extends AHeaderComponent {
     
     public HomePage gotoHomePageClickAddToWish(Product product) {
     	clickAddToWishByProductName(product.getName());
+    	// TODO ChromeDriver/Chrome java script execution BUG!!!
+    	Application.get().getBrowser().refreshPage();
+    	//try {Thread.sleep(1000);} catch (InterruptedException ex) {}
     	return new HomePage(driver);
     }
 }

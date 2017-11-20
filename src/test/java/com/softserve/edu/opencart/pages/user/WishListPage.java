@@ -313,6 +313,17 @@ public class WishListPage extends AColumnRightUserComponent {
 		}
 	}
 	
+	public void doWishListEmpty() {
+		if (!isWishListEmpty()) {
+			List<String> products = getProductNamesFromWishList();
+			if (products.size() > 0) {
+				for (String product : products) {
+					new WishListPage(driver).clickDeleteProductFromWishList(product);
+				}
+			}
+		}
+	}
+	
 	public MyAccountPage gotoMyAccountPageByClickContinueButton() {
 		clickContinueButton();
 		return new MyAccountPage(driver);

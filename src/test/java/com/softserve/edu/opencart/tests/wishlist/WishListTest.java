@@ -21,11 +21,16 @@ import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.WishListPage;
 
 public class WishListTest {
+
+	private final static String ELEMENT_IS_MISSING = "Element is missing";
+	private final static String ELEMENTS_ARE_MISSING = "WishList does not contain these items";
+	private final static String SIZES_ARE_NOT_EQUAL = "Wish List size and top panel indicator are not equal";
+	
 	@BeforeClass
 	public void beforeClass() {
 		//Application.get(ApplicationSourceRepository.get().chromeServer7());
 		Application.get(ApplicationSourceRepository.get().firefoxServer7x32());	
-		}
+	}
 
 	@AfterClass
 	public void afterClass() {
@@ -39,28 +44,15 @@ public class WishListTest {
 	
 	@AfterMethod
 	public void afterMethod() {	
-		Application.get().deleteAllCookies();
-		HomePage homePage = Application.get().loadHomePage();
-		WishListPage wishList;
-		if (!homePage.isUserSignedIn()) {
-			wishList = Application.get().loadHomePage()
+		Application.get().getBrowser().deleteAllCookies();
+		
+		Application.get().loadHomePage()
 			.gotoLoginPageFromMyAccount()
 			.gotoLoginForLoginPageToMyAccountPage(UserRepository.get().userKutaiev())
-			.gotoWishListPageRightColumn();
-		} else {
-			wishList = homePage
-					.gotoMyAccountPageFromHomePage()
-					.gotoWishListPageRightColumn();
-		}
-		if (!wishList.isWishListEmpty()) {
-			List<String> products = wishList.getProductNamesFromWishList();
-			if (products.size() > 0) {
-				for (String product : products) {
-					wishList = wishList.clickDeleteProductFromWishList(product);
-				}
-			}
-		}
-		Application.get().deleteAllCookies();
+			.gotoWishListPageRightColumn()
+			.doWishListEmpty();
+		
+		Application.get().getBrowser().deleteAllCookies();
 	}
 	
 	// - - - - - - - Data prodiver level - - - - - - - - 
@@ -89,7 +81,7 @@ public class WishListTest {
 	// - - - - - - - Test case level - - - - - - - - 
 	
 	// - - - - - - - - - - - - - #1 - - - - - - - - - - - - -
-	@Test (dataProvider = "productAndUserData", invocationCount=5)
+	@Test (dataProvider = "productAndUserData")
 	public void testAddItem(Product macBook, IUser user) {
 		Assert.assertTrue(
 				Application.get().loadHomePage()
@@ -98,17 +90,17 @@ public class WishListTest {
 				.gotoLoginForLoginPageToMyAccountPage(user)
 				.gotoWishListPageRightColumn()
 				.checkWhetherProductExistsInWishList(macBook), 
-				"Element is missing");
+				ELEMENT_IS_MISSING);
 	}
 	// - - - - - - - - - - - - - #1 - - - - - - - - - - - - -
 	
 	// - - - - - - - - - - - - - #2 - - - - - - - - - - - - -
-	@Test (dataProvider = "productsAndUserData", invocationCount=5)
+	@Test(dataProvider = "productsAndUserData")
 	public void testAddWithoutLogin(Product iPhone, Product macBook, IUser user) {
 		List<String> expected = new ArrayList<>();
 		expected.add(iPhone.getName());
-		expected.add(macBook.getName());	
-		
+		expected.add(macBook.getName());
+
 		Assert.assertEquals(
 				Application.get().loadHomePage()
 				.gotoLoginPageFromMyAccount()
@@ -123,12 +115,12 @@ public class WishListTest {
 				.gotoLoginForLoginPageToMyAccountPage(user)
 				.gotoWishListPageRightColumn()
 				.getProductNamesFromWishList(), 
-				expected, "WishList does not contain these items");
+				expected, ELEMENTS_ARE_MISSING);
 	}
 	// - - - - - - - - - - - - - #2 - - - - - - - - - - - - -
 	
 	// - - - - - - - - - - - - - #3 - - - - - - - - - - - - -	
-	@Test (dataProvider = "productsAndUserData", invocationCount=5)
+	@Test (dataProvider = "productsAndUserData")
 	public void testWhishListIndicator(Product iPhone, Product macBook, IUser user) {
 		
 		WishListPage wishListPage = Application.get().loadHomePage()
@@ -141,7 +133,7 @@ public class WishListTest {
 		Assert.assertEquals(
 				wishListPage.getWishListNumber(),
 				wishListPage.getProductNamesFromWishList().size(),
-				"Wish List size and top panel indicator are not equals");
+				SIZES_ARE_NOT_EQUAL);
 	}
 	// - - - - - - - - - - - - - #3 - - - - - - - - - - - - -
 }
