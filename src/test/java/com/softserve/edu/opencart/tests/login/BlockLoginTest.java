@@ -37,7 +37,7 @@ public class BlockLoginTest {
     }
 
     @Test(dataProvider = "Authentication")
-    public void checkSuccessfulLogin(IUser userWithWrongPassword, IUser userWithCorectPassword) throws SQLException {
+    public void checkBlockUser(IUser userWithWrongPassword, IUser userWithCorectPassword) throws SQLException {
 
         Application.get().unlockUserByQuery(userWithCorectPassword, DELETE_UNBLOCK_USER);
 

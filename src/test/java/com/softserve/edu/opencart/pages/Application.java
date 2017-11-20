@@ -114,7 +114,6 @@ public class Application {
     }
 
     public void unlockUserByQuery(IUser user, String query) throws SQLException {
-        System.out.println(String.format(query, user.getEmail()));
         getDataBase().executeQuery(String.format(query, user.getEmail()));
 
     }
