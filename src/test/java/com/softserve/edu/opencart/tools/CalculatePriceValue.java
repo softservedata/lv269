@@ -1,6 +1,6 @@
-package com.softserve.edu.opencart.data.products;
+package com.softserve.edu.opencart.tools;
 
-public class PriceValue {
+public class CalculatePriceValue {
 
 	private static final double DOLLAR_VALUE = 1.00000000;
 	private static final double EURO_VALUE = 0.86012626;
