@@ -11,13 +11,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.sql.SQLException;
+
 
 
 public class TestLoginPage {
 
     @BeforeClass
-    public void beforeClass() throws SQLException {
+    public void beforeClass()   {
 //        Application.get(ApplicationSourceRepository.get().chromeServer7());
         Application.get(ApplicationSourceRepository.get().firefoxServer7());
     }
