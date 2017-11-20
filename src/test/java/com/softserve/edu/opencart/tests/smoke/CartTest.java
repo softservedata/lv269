@@ -6,78 +6,91 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
+import com.softserve.edu.opencart.data.products.IProduct;
+import com.softserve.edu.opencart.data.products.Product;
+import com.softserve.edu.opencart.data.products.ProductRepository;
+import com.softserve.edu.opencart.data.users.IUser;
+import com.softserve.edu.opencart.data.users.User;
+import com.softserve.edu.opencart.data.users.UserRepository;
+import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.CartPage;
 import com.softserve.edu.opencart.pages.user.HomePage;
 
 public class CartTest {
 	
+    @BeforeClass
+    public void beforeClass() {
+      //Application.get(ApplicationSourceRepository.get().chromeServer7());
+        Application.get(ApplicationSourceRepository.get().firefoxServer7());
+    }
+    @AfterClass
+    public void afterClass()  {
+        Application.remove();
+    }
+	
     @DataProvider//(parallel = true)
     public Object[][] orderData() {
         // Read from ...
         return new Object[][] { 
-            { "MacBook", 500.00,"$500.00",43 },
-            { "iPhone", 101.00,"$101.00",40 },
-            { "Canon EOS 5D", 80.00,"$80.00",30 },
+            { UserRepository.get().valid(),ProductRepository.get().iPhone() },
             };
     }
     
-    @Test(dataProvider = "orderData")
-    public void checkProduct(String orderName, double expectedUnitPrice, String expectedTotalPriceText
-    		,int idProduct)throws Exception {
-        //
-        // Precondition
-        //
-        //System.setProperty("webdriver.chrome.driver",
-        //        "D:/eclipse/chromedriver.exe");
-    	System.setProperty("webdriver.chrome.driver",
-    	                "D:/eclipse/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        Thread.sleep(2000);
-        driver.get("http://server7.pp.ua/index.php?route=account/login");
-        Thread.sleep(2000);
-        driver.findElement(By.id("input-email")).clear();
-		driver.findElement(By.id("input-email")).sendKeys("andrjusyk@gmail.com");
-		driver.findElement(By.id("input-password")).clear();
-		driver.findElement(By.id("input-password")).sendKeys("lv269");
-		driver.findElement(By.cssSelector(".btn.btn-primary:not(a)")).click();
-		Thread.sleep(2000);
-		driver.get("http://server7.pp.ua/index.php?route=product/product&product_id="+idProduct);
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector(".btn.btn-primary.btn-lg.btn-block"))
-				.click();
-		Thread.sleep(2000);
-        driver.get("http://server7.pp.ua/index.php?route=checkout/cart");
-        Thread.sleep(2000);
+    @Test(dataProvider = "orderData",invocationCount = 1)
+    public void checkProduct(User user, Product product) throws InterruptedException{
+
+        HomePage homePage=Application.get().loadHomePage()
+        .gotoLoginPageFromMyAccount()
+        .gotoLoginForLoginPageToMyAccountPage(user)
+        .gotoHomePageViaHomeLogoClick()
+        .addProductToCart(product)
+        .gotoCartPage()
+        .refreshCartPageByRemoveOrderElement(product)
+        .gotoLogoutPage()
+        .gotoHomePage();
         
-        CartPage cartPage = new CartPage(driver);
-        Thread.sleep(2000);
-        double actualUnitPrice = cartPage.getUnitPriceAmountByOrderName(orderName);
-        String actualTotalPriceText = cartPage.getTotalPriceTextByOrderName(orderName);
-       
-        //
-        // Check
-        //
+    }
+    
+    @Test(dataProvider = "orderData",invocationCount = 1)
+    public void checkPricesForOrder(User user, Product product) throws InterruptedException{
+    	
+        CartPage cartPage=Application.get().loadHomePage()
+        .gotoLoginPageFromMyAccount()
+        .gotoLoginForLoginPageToMyAccountPage(user)
+        .gotoHomePageViaHomeLogoClick()
+        .addProductToCart(product)
+        .gotoCartPage();
         
-        Assert.assertEquals(actualUnitPrice, expectedUnitPrice, 0.001);
-        Thread.sleep(1000);
-        Assert.assertEquals(actualTotalPriceText, expectedTotalPriceText);
-        Thread.sleep(1000);
-        //cartPage.clickUpdateByOrderName(orderName);
-        Thread.sleep(2000);
-        cartPage.clickCouponBtn();
-        cartPage.clickCouponAply();
-        Thread.sleep(2000);
-        cartPage.clickRemoveByOrderName(orderName);
-        Thread.sleep(2000);
-        cartPage=new CartPage(driver);
-        cartPage.clickContinueBtn();
-        Thread.sleep(1000);
-      
-        driver.quit();
+        System.out.println("In the site amount="+cartPage.getTotalPriceAmount()+" MyFunctionAmouna="+cartPage.calculationOrderTotalPrice());
+    	Assert.assertEquals(cartPage.getTotalPriceAmount(), cartPage.calculationOrderTotalPrice(), 0.001);
+        cartPage.refreshCartPageByRemoveOrderElement(product)
+        .gotoLogoutPage()
+        .gotoHomePage();
+    }
+    
+    @Test(dataProvider = "orderData",invocationCount = 1)
+    public void checkPricesForProduct(User user, Product product) throws InterruptedException{
+    	
+        CartPage cartPage=Application.get().loadHomePage()
+        .gotoLoginPageFromMyAccount()
+        .gotoLoginForLoginPageToMyAccountPage(user)
+        .gotoHomePageViaHomeLogoClick()
+        .addProductToCart(product)
+        .addProductToCart(product)
+        .gotoCartPage();
+        
+        System.out.println("In the site total="+cartPage.getTotalPriceAmountByProduct(product)+" My total product="+cartPage.calculationProductTotalPrice(product));
+    	Assert.assertEquals(cartPage.getTotalPriceAmountByProduct(product), cartPage.calculationProductTotalPrice(product), 0.001);
+    
+        cartPage.refreshCartPageByRemoveOrderElement(product)
+        .gotoLogoutPage()
+        .gotoHomePage();
     }
 }
 
