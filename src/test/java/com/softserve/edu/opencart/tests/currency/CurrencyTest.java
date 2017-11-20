@@ -45,15 +45,15 @@ public class CurrencyTest {
     // Application.get().loadHomePage().clickCurrencyByPartialName("US Dollar");
     // }
 
-    @DataProvider
-    public Object[][] currencyDataMacBook() {
-        return new Object[][] { { CurrencyRepository.get().euro(), ProductRepository.get().macBook() },
-                { CurrencyRepository.get().dollar(), ProductRepository.get().macBook() },
-                { CurrencyRepository.get().poundSterling(), ProductRepository.get().macBook() },
-                { CurrencyRepository.get().euro(), ProductRepository.get().iPhone() },
-                { CurrencyRepository.get().dollar(), ProductRepository.get().iPhone() },
-                { CurrencyRepository.get().poundSterling(), ProductRepository.get().iPhone() } };
-    }
+//    @DataProvider
+//    public Object[][] currencyDataMacBook() {
+//        return new Object[][] { { CurrencyRepository.get().euro(), ProductRepository.get().macBook() },
+//                { CurrencyRepository.get().dollar(), ProductRepository.get().macBook() },
+//                { CurrencyRepository.get().poundSterling(), ProductRepository.get().macBook() },
+//                { CurrencyRepository.get().euro(), ProductRepository.get().iPhone() },
+//                { CurrencyRepository.get().dollar(), ProductRepository.get().iPhone() },
+//                { CurrencyRepository.get().poundSterling(), ProductRepository.get().iPhone() } };
+//    }
 
     @DataProvider
     public Object[][] currencyDataIPhone() {
@@ -62,21 +62,21 @@ public class CurrencyTest {
                 { CurrencyRepository.get().poundSterling(), ProductRepository.get().iPhone() } };
     }
 
-    @DataProvider
-    public Object[][] currencyDataCanon() {
-        return new Object[][] { { CurrencyRepository.get().euro(), ProductRepository.get().canonEOS5D() },
-                { CurrencyRepository.get().dollar(), ProductRepository.get().canonEOS5D() },
-                { CurrencyRepository.get().poundSterling(), ProductRepository.get().canonEOS5D() } };
-    }
+//    @DataProvider
+//    public Object[][] currencyDataCanon() {
+//        return new Object[][] { { CurrencyRepository.get().euro(), ProductRepository.get().canonEOS5D() },
+//                { CurrencyRepository.get().dollar(), ProductRepository.get().canonEOS5D() },
+//                { CurrencyRepository.get().poundSterling(), ProductRepository.get().canonEOS5D() } };
+//    }
 
-    @Test(dataProvider = "currencyDataMacBook", priority = 1)
-    public void checkChangeCurrencyByMacBook(DetailCategory detailCurency, Product product) {
-        double actualPrice = Application.get().loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
-                .getPriceAmountByProduct(product);
-        double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
-        Assert.assertEquals(actualPrice, expectedPrice, 0.001,
-                "Prices not equals. Price = " + actualPrice + ", but must be = " + expectedPrice);
-    }
+//    @Test(dataProvider = "currencyDataMacBook", priority = 1)
+//    public void checkChangeCurrencyByMacBook(DetailCategory detailCurency, Product product) {
+//        double actualPrice = Application.get().loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
+//                .getPriceAmountByProduct(product);
+//        double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
+//        Assert.assertEquals(actualPrice, expectedPrice, 0.001,
+//                "Prices not equals. Price = " + actualPrice + ", but must be = " + expectedPrice);
+//    }
 
     @Test(dataProvider = "currencyDataIPhone", priority = 2)
     public void checkChangeCurrencyByIPhone(DetailCategory detailCurency, Product product) {
@@ -87,13 +87,13 @@ public class CurrencyTest {
                 "Prices not equals. Price = " + actualPrice + ", but must be = " + expectedPrice);
     }
 
-    @Test(dataProvider = "currencyDataCanon", priority = 3)
-    public void checkChangeCurrencyByCanon(DetailCategory detailCurency, Product product) {
-        double actualPrice = Application.get().loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
-                .getPriceAmountByProduct(product);
-        double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
-        Assert.assertEquals(actualPrice, expectedPrice, 0.001,
-                "Prices not equals. Price = " + actualPrice + ", but must be = " + expectedPrice);
-    }
+//    @Test(dataProvider = "currencyDataCanon", priority = 3)
+//    public void checkChangeCurrencyByCanon(DetailCategory detailCurency, Product product) {
+//        double actualPrice = Application.get().loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
+//                .getPriceAmountByProduct(product);
+//        double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
+//        Assert.assertEquals(actualPrice, expectedPrice, 0.001,
+//                "Prices not equals. Price = " + actualPrice + ", but must be = " + expectedPrice);
+//    }
 
 }
