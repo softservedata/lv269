@@ -9,7 +9,7 @@ public class DataBaseWraper {
 
     private interface IDataBase {
 
-        Connection runDataBase() throws SQLException;
+        Connection runDataBase();
     }
 
     private static class DataBase implements IDataBase {
@@ -18,14 +18,24 @@ public class DataBaseWraper {
             String jdbcUrl = "jdbc:mysql://77.120.103.50:3310/pekelis_db";
             String user = "pekelis_usr";
             String password = "B6y0N7i5";
+            Connection connection1 = null;
+
             return DriverManager.getConnection(jdbcUrl, user, password);
+
         }
 
+        public Connection runDataBase() {
+            Connection tempConnection = null;
+            try {
 
-        public Connection runDataBase() throws SQLException {
-            return getConnection();
+                tempConnection = getConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+
+                return tempConnection;
+            }
         }
-
 
     }
 
@@ -34,12 +44,12 @@ public class DataBaseWraper {
 
     private Connection connection;
 
-    private void initDataBase() throws SQLException {
+    private void initDataBase() {
         IDataBase currentDataBase = new DataBase();
         connection = currentDataBase.runDataBase();
     }
 
-    public DataBaseWraper() throws SQLException {
+    public DataBaseWraper() {
         initDataBase();
     }
 
@@ -47,14 +57,22 @@ public class DataBaseWraper {
         return connection;
     }
 
-    public void executeQuery(String query) throws SQLException {
-        PreparedStatement pst1 = getConnection().prepareStatement(query);
-        pst1.executeUpdate();
+    public void executeQuery(String query) {
+        try {
+            PreparedStatement pst1 = getConnection().prepareStatement(query);
+            pst1.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void close() throws SQLException {
+    public void close() {
         if (getConnection() != null) {
-            getConnection().close();
+            try {
+                getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             connection = null;
         }
     }

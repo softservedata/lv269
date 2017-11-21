@@ -24,7 +24,7 @@ public class Application {
     private DataBaseWraper dataBase;
     // etc.
 
-    private Application(IApplicationSource applicationSource) throws SQLException {
+    private Application(IApplicationSource applicationSource)   {
         this.applicationSource = applicationSource;
         initBrowser(applicationSource);
         initDataBase(applicationSource);
@@ -33,11 +33,11 @@ public class Application {
         // initAccessToDB();
     }
 
-    public static Application get() throws SQLException {
+    public static Application get()   {
         return get(null);
     }
 
-    public static Application get(IApplicationSource applicationSource) throws SQLException {
+    public static Application get(IApplicationSource applicationSource)  {
         if (instance == null) {
             synchronized (Application.class) {
                 if (instance == null) {
@@ -59,7 +59,7 @@ public class Application {
         }
     }
 
-    public static void closeDB() throws SQLException {
+    public static void closeDB()  {
         if (instance != null) {
             instance.getDataBase().close();
         }
@@ -96,7 +96,7 @@ public class Application {
         return new LogoutPage(getBrowser().getDriver());
     }
 
-    public void initDataBase(IApplicationSource applicationSource) throws SQLException {
+    public void initDataBase(IApplicationSource applicationSource)   {
         this.dataBase = new DataBaseWraper();
     }
 
@@ -105,11 +105,11 @@ public class Application {
         return dataBase;
     }
 
-    public void executeQuery(String query) throws SQLException {
+    public void executeQuery(String query)   {
         getDataBase().executeQuery(query);
     }
 
-    public void unlockUserByQuery(IUser user) throws SQLException {
+    public void unlockUserByQuery(IUser user)   {
         getDataBase().executeQuery(String.format(DELETE_UNBLOCK_USER, user.getEmail()));
     }
 

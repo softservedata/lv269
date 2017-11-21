@@ -11,11 +11,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.sql.SQLException;
+
 
 public class NegativeLoginTest {
     @BeforeClass
-    public void beforeClass() throws SQLException {
+    public void beforeClass()   {
 //        Application.get(ApplicationSourceRepository.get().chromeServer7());
         Application.get(ApplicationSourceRepository.get().firefoxServer7());
     }
@@ -32,7 +32,7 @@ public class NegativeLoginTest {
     }
 
     @Test(dataProvider = "Authentication")
-    public void checkSuccessfulLogin(IUser user) throws SQLException {
+    public void checkSuccessfulLogin(IUser user)   {
 
         LoginPage loginPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount();
         loginPage = loginPage.gotoLoginForLoginPageToWarning(user);
