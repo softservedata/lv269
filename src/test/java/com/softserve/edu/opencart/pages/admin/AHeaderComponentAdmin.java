@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.pages.admin;
 
+import com.softserve.edu.opencart.data.pathnames.IPathnames;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.NumberUtils;
@@ -14,26 +15,14 @@ import java.util.List;
 
 abstract class AHeaderComponentAdmin {
 
-    public enum PathnamesSBar {
-        PRODUCT_ADMIN_PAGE("Catalog/Products"),
-        SETTINGS_ADMIN_PAGE("System/Settings");
-
-        private String field;
-
-        PathnamesSBar(String field) {
-            this.field = field;
-        }
-
-        public String toString() {
-            return field;
-        }
-    }
-
+    //TODO Enum
     private final String MAIN_OPTIONS_LIST_XPTH = "./li";
     private final String INPUT_DATA_IS_EMPTY_MESSAGE = "Input data is empty";
     private final String OPTION_NOT_FOUND_IN_OPTIONS_LIST_MESSAGE
             = "Element with %s name was not found in options list";
+    private final String SBAR_LINK_OPEN_MORE_PATHNAMES_MESSAGE = "Trying to open sBar link more time than pathnames exist";
     private static final String PATHNAME_BTN_SELECTOR_CSS = "li > a";
+
 
     //Fields
     protected SearchManager searchManager;
@@ -50,6 +39,9 @@ abstract class AHeaderComponentAdmin {
     private OptionsList helpOptionsList;
     private List<SBarMainOption> sBarMainOptionsList;
     private List<WebElement> pathnamePageBtns;
+
+    protected static List<String> sBarPathnames;
+    //TODO Change
 
     public AHeaderComponentAdmin(SearchManager searchManager) {
         this.searchManager = searchManager;
@@ -71,6 +63,19 @@ abstract class AHeaderComponentAdmin {
                 By.xpath(MAIN_OPTIONS_LIST_XPTH))) {
             sBarMainOptionsList.add(new SBarMainOption(current, searchManager));
         }
+    }
+
+    //TODO Change next 2 methods
+    protected void checkSBarPathnames(List<String> sBarPathnames) {
+        if (isSBarPathnamesNull()) {
+            this.sBarPathnames = new ArrayList<>();
+            this.sBarPathnames.addAll(sBarPathnames);
+        }
+        ErrorUtils.createWrongParameterSizeException((sBarPathnames.size() == 0), SBAR_LINK_OPEN_MORE_PATHNAMES_MESSAGE);
+    }
+
+    protected boolean isSBarPathnamesNull() {
+        return (sBarPathnames == null);
     }
 
 
@@ -134,6 +139,7 @@ abstract class AHeaderComponentAdmin {
     // Get Functional
 
     public String getCurrentPageNameText() {
+        System.out.println(getCurrentPageName().getText());
         return getCurrentPageName().getText();
     }
 
@@ -222,6 +228,9 @@ abstract class AHeaderComponentAdmin {
         SBarMainOption foundOption = getMainSBarOptionByPartialName(pathnameList.get(0));
         pathnameList.remove(0);
         foundOption.actOptionByPathname(pathnameList);
+        //TODO delete after solving problem with pathnames
+        sBarPathnames.remove(0);
+        sBarPathnames =  (sBarPathnames.size() == 0)? null : sBarPathnames;
     }
 
     private SBarMainOption getMainSBarOptionByPartialName(String name) {
@@ -378,7 +387,7 @@ abstract class AHeaderComponentAdmin {
         //Set Functional
 
         public void actOptionByPathname(List<String> pathname) {
-                clickOptionBtn();
+            clickOptionBtn();
             if (pathname.size() != 0) {
                 clickOptionBtn();
                 setOptionSubOptionsList();
@@ -428,13 +437,15 @@ abstract class AHeaderComponentAdmin {
         return new LoginAdminPage(searchManager);
     }
 
-    public ProductAdminPage openProductAdminPage() {
-        clickSBarOptionByPathname(PathnamesSBar.PRODUCT_ADMIN_PAGE.toString());
+    public ProductAdminPage openProductAdminPage(IPathnames pathnames) {
+        checkSBarPathnames(pathnames.getsBarPathnamesList());
+        clickSBarOptionByPathname(sBarPathnames.get(0));
         return new ProductAdminPage(searchManager);
     }
 
-    public SettingPage openSettingAdminPage () {
-        clickSBarOptionByPathname(PathnamesSBar.SETTINGS_ADMIN_PAGE.toString());
+    public SettingPage openSettingAdminPage(IPathnames pathnames) {
+        checkSBarPathnames(pathnames.getsBarPathnamesList());
+        clickSBarOptionByPathname(sBarPathnames.get(0));
         return new SettingPage(searchManager);
     }
 }

@@ -20,17 +20,20 @@ public class PathNamesRepository {
         return instance;
     }
 
+
+    public IPathnames openProductAdminPage() {
+        return new Pathnames()
+                .addSBarPathname("Catalog/Products");
+    }
+
     public IPathnames pagination() {
         return new Pathnames()
-                .addSBarPathnamesList("System/Settings")
-                .addSBarPathnamesList("Catalog/Products")
-                .addSBarPathnamesList("System/Settings")
-                .addStoreSettingOptionSet(
-                        new StoreSettingOptionSet(ApplicationSourceRepository.get().base().getBaseUrl())
-                                .addStoreSettingOption("Default Items Per Page (Admin)", "Option",
-                                        ""))
-                .addStoreSettingOptionSet(
-                        new StoreSettingOptionSet(ApplicationSourceRepository.get().base().getBaseUrl())
+                .addSBarPathname("System/Settings")
+                .addSBarPathname("Catalog/Products")
+                .addSBarPathname("System/Settings")
+                .setStoreUrl(ApplicationSourceRepository.get().base().getBaseUrl())
+                .setStoreSettingOptionSet(
+                        new StoreSettingOptionSet()
                                 .addStoreSettingOption("Default Items Per Page (Admin)", "Option",
                                         ""));
     }

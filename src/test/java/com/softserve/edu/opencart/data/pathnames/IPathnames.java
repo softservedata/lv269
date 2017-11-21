@@ -7,20 +7,10 @@ import java.util.List;
 
 public interface IPathnames {
 
-    List <String> getSBarPatnamesList ();
+    List<String> getsBarPathnamesList ();
 
-    List<StoreSettingOptionSet> getStoreSettingOptionSets();
+    IStoreSettingOptionSet getStoreSettingOptionSet();
 
-    int getCurrentSBarPathnameNumber ();
-
-    int getCurrentStoreSettingOptionSet ();
-
-    IPathnames setCurrentSBarPathnameNumber (int currentSBarPathnameNumber);
-
-    IPathnames setCurrentStoreSettingOptionSet (int currentStoreSettingOptionSetNumber);
-
-    public List<StoreSettingOptionSet> getDefaultStoreSettingOptionSets();
-
-    public Pathnames addDefaultStoreSettingOptionSet(StoreSettingOptionSet storeSettingOptionSet);
+    String getStoreUrl();
 
 }

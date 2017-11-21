@@ -1,18 +1,18 @@
 package com.softserve.edu.opencart.data.pagination;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
+import com.softserve.edu.opencart.pages.Application;
+
 
 public class Pagination implements IPagination {
 
     //TODO make protection from wrong input
 
+    private String optionName;
     private int itemsNumber;
     private int itemsPerPageNumber;
 
-    public Pagination(int itemsNumber, int itemsPerPageNumber) {
-        this.itemsNumber = itemsNumber;
-        this.itemsPerPageNumber = itemsPerPageNumber;
+    public Pagination() {
     }
 
     public int getItemsNumber() {
@@ -21,5 +21,24 @@ public class Pagination implements IPagination {
 
     public int getItemsPerPageNumber() {
         return itemsPerPageNumber;
+    }
+
+    public String getOptionName() {
+        return optionName;
+    }
+
+    public Pagination readItemsNumberFromFile(String fileName) {
+        itemsNumber = Application.get().getFileManager().readFromFile(ApplicationSourceRepository.class
+                .getResource("/" + fileName).getPath().substring(1)).size();
+        return this;
+    }
+
+    public void setItemsPerPageNumber(int itemsPerPageNumber) {
+        this.itemsPerPageNumber = itemsPerPageNumber;
+    }
+
+    public Pagination setOptionName(String optionName) {
+        this.optionName = optionName;
+        return this;
     }
 }

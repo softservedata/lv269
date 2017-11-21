@@ -1,7 +1,5 @@
 package com.softserve.edu.opencart.data.pathnames;
 
-import com.softserve.edu.opencart.data.pagination.IPagination;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,70 +7,40 @@ public class Pathnames implements IPathnames {
 
     //TODO make protection from wrong input
 
+    private List<String> sBarPathnamesList;
 
+    private IStoreSettingOptionSet storeSettingOptionSet;
 
-    private List<String> sBarPatnamesList;
-
-    private List<StoreSettingOptionSet> storeSettingOptionSets;
-
-    private List<StoreSettingOptionSet> defaultStoreSettingOptionSets;
-
-    private int currentSBarPathnameNumber;
-
-    private int currentStoreSettingOptionSet;
+    private String storeUrl;
 
     public Pathnames() {
-        sBarPatnamesList = new ArrayList<>();
-        storeSettingOptionSets = new ArrayList<>();
-        currentSBarPathnameNumber = -1;
-        currentStoreSettingOptionSet = -1;
+        sBarPathnamesList = new ArrayList<>();
     }
 
-    public List<String> getSBarPatnamesList() {
-        return sBarPatnamesList;
+    public String getStoreUrl() {
+        return storeUrl;
     }
 
-    public List<StoreSettingOptionSet> getStoreSettingOptionSets() {
-        return storeSettingOptionSets;
+    public List<String> getsBarPathnamesList() {
+        return sBarPathnamesList;
     }
 
-    public int getCurrentSBarPathnameNumber() {
-        return currentSBarPathnameNumber;
+    public IStoreSettingOptionSet getStoreSettingOptionSet() {
+        return storeSettingOptionSet;
     }
 
-    public int getCurrentStoreSettingOptionSet() {
-        return currentStoreSettingOptionSet;
-    }
-
-    public Pathnames setCurrentSBarPathnameNumber(int currentSBarPathnameNumber) {
-        this.currentSBarPathnameNumber = currentSBarPathnameNumber;
+    public Pathnames addSBarPathname(String sBarPathname) {
+        sBarPathnamesList.add(sBarPathname);
         return this;
     }
 
-    public Pathnames setCurrentStoreSettingOptionSet(int currentStoreSettingOptionSetNumber) {
-        this.currentStoreSettingOptionSet = currentStoreSettingOptionSetNumber;
+    public Pathnames setStoreSettingOptionSet(IStoreSettingOptionSet storeSettingOptionSet) {
+        this. storeSettingOptionSet = storeSettingOptionSet;
         return this;
     }
 
-    public Pathnames addSBarPathnamesList(String sBarPathnameList) {
-        getSBarPatnamesList().add(sBarPathnameList);
+    public Pathnames setStoreUrl(String storeUrl) {
+        this.storeUrl = storeUrl;
         return this;
     }
-
-    public Pathnames addStoreSettingOptionSet(StoreSettingOptionSet storeSettingOptionSet) {
-        getStoreSettingOptionSets().add(storeSettingOptionSet);
-        return this;
-    }
-
-    public List<StoreSettingOptionSet> getDefaultStoreSettingOptionSets() {
-        return defaultStoreSettingOptionSets;
-    }
-
-    public Pathnames addDefaultStoreSettingOptionSet(StoreSettingOptionSet storeSettingOptionSet) {
-        getDefaultStoreSettingOptionSets().add(storeSettingOptionSet);
-        return this;
-    }
-
-
-
 }

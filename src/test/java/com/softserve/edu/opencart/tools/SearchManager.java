@@ -1,13 +1,10 @@
 package com.softserve.edu.opencart.tools;
 
-import com.softserve.edu.opencart.constants.URLs;
 import com.softserve.edu.opencart.pages.admin.LoginAdminPage;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -138,18 +135,15 @@ public class SearchManager {
         selectElement.selectByVisibleText(valueText);
     }
 
-    public LoginAdminPage openLoginAdminPage () {
-        openAddress(URLs.URL_SERVER.toString() + URLs.URL_ADMIN_PAGE.toString());
-        return new LoginAdminPage(this);
-    }
-
-    public HomePage openHomePage () {
-        openAddress(URLs.URL_SERVER.toString());
-        return new HomePage(getWebDriver());
-    }
-
     public boolean isElementVisible(By elementLocator) {
-        return (findElements(elementLocator).size()>0);
+        boolean flag = true;
+        try {
+            webDriver.findElement(elementLocator);
+        }
+        catch (org.openqa.selenium.NoSuchElementException e) {
+            return false;
+        }
+        return flag;
     }
 
     public void selectCheckBox(WebElement checkBoxElement) {

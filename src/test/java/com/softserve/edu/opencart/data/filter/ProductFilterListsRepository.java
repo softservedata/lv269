@@ -9,23 +9,13 @@ import java.util.List;
 
 public class ProductFilterListsRepository {
 
-    private final String PARAMETERS_DELIMITER = ",";
+
     //TODO change without fields, think not to read file multiple times
 
-    private List<ProductShort> currentProductList;
 
     private static volatile ProductFilterListsRepository instance = null;
 
     private ProductFilterListsRepository() {
-        initCurrentProductsList();
-    }
-
-    private void initCurrentProductsList() {
-        currentProductList = new ArrayList<>();
-        for (String current : Application.get().getFileManager().readFromFile(ApplicationSourceRepository.class
-                .getResource("productlist.txt").getPath().substring(1))) {
-            currentProductList.add(new ProductShort(current, PARAMETERS_DELIMITER));
-        }
     }
 
     public static ProductFilterListsRepository get() {
@@ -41,8 +31,8 @@ public class ProductFilterListsRepository {
 
     public IProductFilterLists filterOnlyProductName() {
         return new ProductFilterLists()
-                .setCurrentProductList(currentProductList)
-                .setFilterTemplate("iPod Classic,product 20,100.0000,995,Enabled,null", PARAMETERS_DELIMITER);
+                .readCurrentProductListFromFile("productlist.txt")
+                .setFilterTemplate("iPod Classic,,,,,");
 
     }
 }

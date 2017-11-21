@@ -88,6 +88,10 @@ public class BrowserWrapper {
         getDriver().get(url);
     }
 
+    public String getUrlPage () {
+        return getDriver().getCurrentUrl();
+    }
+
     public void navigateForward() {
         getDriver().navigate().forward();
     }

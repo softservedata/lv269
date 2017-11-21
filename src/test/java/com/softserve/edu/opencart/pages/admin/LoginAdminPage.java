@@ -1,7 +1,7 @@
 package com.softserve.edu.opencart.pages.admin;//package server7.testng;
 
-import com.softserve.edu.opencart.constants.URLs;
 import com.softserve.edu.opencart.data.users.IUser;
+import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.tools.SearchManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -80,20 +80,14 @@ public class LoginAdminPage {
         clickLoginBtn();
     }
 
-    // Business Logic
-    public  void openLoginAdmPage () {
-        searchManager.openAddress(URLs.URL_SERVER.toString() + URLs.URL_ADMIN_PAGE.toString());
-    }
-
-    public DashboardAdmin validEnterAdminProfile (IUser user){
-//        setCredentials (user.getEmail(), user.getPassword());
-        setCredentials ("admin", "269lv269lv");
-        //TODO ********************************** Change back
+    public DashboardAdmin validEnterAdminProfile (IUser validUser){
+        setCredentials (validUser.getEmail(), validUser.getPassword());
+        Application.get().setToken();
         return new DashboardAdmin(searchManager);
     }
 
-    public WrongLoginAdminPage invalidEnterAdminProfile (String login, String password) {
-        setCredentials (login, password);
+    public WrongLoginAdminPage invalidEnterAdminProfile (IUser invalidUser) {
+        setCredentials (invalidUser.getEmail(), invalidUser.getPassword());
         return new WrongLoginAdminPage(searchManager);
     }
 

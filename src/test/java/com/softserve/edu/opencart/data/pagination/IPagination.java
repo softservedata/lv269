@@ -8,4 +8,5 @@ public interface IPagination {
 
     int getItemsNumber ();
     int getItemsPerPageNumber();
+    String getOptionName ();
 }

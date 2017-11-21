@@ -74,4 +74,11 @@ public final class ErrorUtils {
             throw new RuntimeException(message);
         }
     }
+
+    public static void createWrongParameterSizeException(boolean isThrown, String message) {
+        if (isThrown) {
+            // TODO Develop Custom Exception
+            throw new RuntimeException(message);
+        }
+    }
 }

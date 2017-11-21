@@ -9,7 +9,6 @@ public enum GeneralLocators {
         this.field = field;
     }
 
-    @Override
     public String toString() {
         return field;
     }

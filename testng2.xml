@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Suite1">
-
-	<parameter name="loginurl" value="http://registrator.herokuapp.com/login" />
-	<parameter name="logouturl" value="http://registrator.herokuapp.com/logout" />
-	<parameter name="browserName" value="chrome" />
-
-	<!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
-	<test verbose="7" name="Test1">
-		<parameter name="number" value="2" />
+<suite name="Admin">
+	<test name="ProductAdminPage">
 		<classes>
-			<class name="com.softserve.edu.opencart.tests.smoke.ChromeLoginLogoutAdminTest">
-				<methods>
-					<include name="loginlogout" />
-				</methods>
-			</class>
 			<class name="com.softserve.edu.opencart.tests.smoke.OpenProductAdminPageTest">
 				<methods>
-					<include name="testSelenIde" />
+					<include name="openProductAdminPageTest" />
+				</methods>
+			</class>
+			<class name="com.softserve.edu.opencart.tests.admin.products.PaginationTest">
+				<methods>
+					<include name="paginationPageNumbersTest" />
 				</methods>
 			</class>
 		</classes>
-			</test> <!-- Test -->
-
-</suite> <!-- Suite -->
+	</test>
+</suite>

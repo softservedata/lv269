@@ -1,74 +1,71 @@
-//package com.softserve.edu.opencart.tests.smoke;
-//
-//
-//import com.softserve.edu.opencart.data.users.IUser;
-//import com.softserve.edu.opencart.data.users.UserRepository;
-//import com.softserve.edu.opencart.pages.admin.LoginAdminPage;
-//import com.softserve.edu.opencart.pages.admin.DashboardAdmin;
-//import com.softserve.edu.opencart.pages.admin.WrongLoginAdminPage;
-//import com.softserve.edu.opencart.tools.SearchManager;
-//import org.testng.Assert;
-//import org.testng.annotations.*;
-//import org.testng.annotations.DataProvider;
-//import org.testng.annotations.Test;
-//
-//
-//
-///**
-// * This class checks login (using buttons and Enter) and logout
-// * process on Chrome.
-// */
-//public class ChromeLoginLogoutAdminTest {
-//
-//    private SearchManager searchManager;
-//    private LoginAdminPage loginAdminPage;
-//
-//    @DataProvider(name = "ValidData")
-//    public Object[][] ValidData() {
-//        return new Object[][]{
-//                {UserRepository.get().admin()}};
-//    }
-//
-//    @DataProvider(name = "InvalidData")
-//    public Object[][] InvalidData() {
-//        return new Object[][]{
-//                {UserRepository.get().admin()}};
-//    }
-//
-//
-//    @BeforeClass
-//    public void createDrivers() {
-////        searchManager = new SearchManager();
-////        searchManager.setWebdriverChrome();
-//    }
-//
-//    @BeforeMethod
-//    public void setMainPage() {
-//        searchManager.openLoginAdminPage();
-//        loginAdminPage = new LoginAdminPage(searchManager);
-//    }
-//
-//    @Test(dataProvider = "ValidData")
-//    public void LoginValidTest(IUser validUser) {
-//        DashboardAdmin dashboardAdmin = loginAdminPage.validEnterAdminProfile(validUser);
-////        Assert.assertEquals(dashboardAdmin.getCurrentPageNameText().toLowerCase(), expected.toLowerCase());
-//        loginAdminPage = dashboardAdmin.logoutAdminPage();
-//        Assert.assertTrue(loginAdminPage.isLoginAdminPageOpened());
-//    }
-//
-//    @Test(dataProvider = "InvalidData")
-//    public void LoginInvalidTest(String login, String password, String expected) {
-//        WrongLoginAdminPage wrongLoginAdminPage = loginAdminPage.invalidEnterAdminProfile(login, password);
-//        String actual = wrongLoginAdminPage.getWrongLoginMessageText();
-//        System.out.println(actual);
-//        Assert.assertEquals(actual, expected);
-//
-//
-//    }
-//
-//    @AfterClass
-//    public void driverQuit() {
-//        searchManager.quitDriver();
-//    }
-//
-//}
+package com.softserve.edu.opencart.tests.smoke;
+
+
+import com.softserve.edu.opencart.data.ErrorMessages;
+import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
+import com.softserve.edu.opencart.data.texts.ExpectedStringsRepository;
+import com.softserve.edu.opencart.data.texts.IExpectedStrings;
+import com.softserve.edu.opencart.data.users.IUser;
+import com.softserve.edu.opencart.data.users.UserRepository;
+import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.pages.admin.DashboardAdmin;
+import com.softserve.edu.opencart.pages.admin.WrongLoginAdminPage;
+import org.testng.Assert;
+import org.testng.annotations.*;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+
+/**
+ * This class checks login (using buttons and Enter) and logoutAdmin
+ * process on Chrome.
+ */
+public class ChromeLoginLogoutAdminTest {
+
+    @BeforeClass
+    public void fileWriter() {
+        Application.get(ApplicationSourceRepository.get().chromeServer7());
+    }
+
+    @DataProvider(name = "ValidAdminData")
+    public Object[][] ValidData() {
+        return new Object[][]{
+                {UserRepository.get().admin(), ExpectedStringsRepository.get().dashboardAdminPageName()}};
+    }
+
+    @DataProvider(name = "InvalidAdminData")
+    public Object[][] InvalidData() {
+        return new Object[][]{
+                {UserRepository.get().validUser(), ExpectedStringsRepository.get().wrongLoginMessage()}};
+    }
+
+
+    @Test(dataProvider = "ValidAdminData")
+    public void LoginValidTest(IUser validUser, IExpectedStrings dashBoardPageName) {
+        DashboardAdmin dashboardAdmin = Application.get().loginAdmin()
+                .validEnterAdminProfile(validUser);
+        Assert.assertEquals(dashboardAdmin.getCurrentPageNameText().toLowerCase(),
+                dashBoardPageName.getExpectedString().toLowerCase(),
+                ErrorMessages.WRONG_LOGIN_ADMIN_VALID.toString());
+    }
+
+    @Test(dataProvider = "InvalidAdminData")
+    public void LoginInvalidTest(IUser invalidUser, IExpectedStrings wrongLoginAdminMessage) {
+        WrongLoginAdminPage wrongLoginAdminPage = Application.get().loginAdmin()
+                .invalidEnterAdminProfile(invalidUser);
+        Assert.assertEquals(wrongLoginAdminPage.getWrongLoginMessageText().toLowerCase(),
+                wrongLoginAdminMessage.getExpectedString().toLowerCase(),
+                ErrorMessages.WRONG_LOGIN_ADMIN_INVALID.toString());
+    }
+
+    @AfterMethod
+    public void logoutAdminPage () {
+        Application.get().logoutAdmin();
+    }
+
+    @AfterClass
+    public void quitWebdriver() {
+        Application.get().remove();
+    }
+
+}

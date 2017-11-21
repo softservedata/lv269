@@ -22,8 +22,8 @@ public class FileManager {
         }
 
         ArrayList<String> result = new ArrayList<String>();
-        while (scanner.hasNext()) {
-            result.add(scanner.next());
+        while (scanner.hasNextLine()) {
+            result.add(scanner.nextLine());
         }
         scanner.close();
         return result;

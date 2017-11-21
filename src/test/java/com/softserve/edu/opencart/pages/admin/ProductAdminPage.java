@@ -1,6 +1,5 @@
 package com.softserve.edu.opencart.pages.admin;
 
-import com.softserve.edu.opencart.constants.URLs;
 import com.softserve.edu.opencart.data.ProductShort;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
@@ -103,7 +102,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         if (isPaganationOnPage()) {
             productShortListAllPages = null;
         } else {
-            productShortListAllPages = getProductsShortListFromPage();
+            productShortListAllPages = new ArrayList<>();
         }
     }
 
@@ -298,28 +297,11 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         return new ProductAdminPage(searchManager);
     }
 
-    private ProductAdminPage toProductAdminPageByNumber(int productAdminPageNumber) {
+    protected ProductAdminPage toProductAdminPageByNumber(int productAdminPageNumber) {
         clickPaginationBtnByName(String.valueOf(productAdminPageNumber));
         return new ProductAdminPage(searchManager);
     }
 
-    public ProductAdminPage initLastProductAdminPageNumberAllPages() {
-        ProductAdminPage result = this;
-        if (isPaganationOnPage()) {
-            result = new ProductAdminPageController(searchManager, this)
-                    .getLastProductAdminPageNumberAllPages();
-        }
-        return result;
-    }
-
-    public ProductAdminPage initProductsShortListAllPages() {
-        ProductAdminPage result = this;
-        if (isPaganationOnPage()) {
-            result = new ProductAdminPageController(searchManager, this)
-                    .getProductsShortListFromAllPages();
-        }
-        return result;
-    }
 
     //-----------------------------------------------------------
     private class FilterSettings {
@@ -431,6 +413,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
 
         private final String ASC = "asc";
         private final String DESC = "desc";
+        private final String ADM_PRODUCT_PG_DEFAULT_SMALL_IMAGE_URL = "http://server7.pp.ua/image/cache/no_image-40x40.png";
         private final String IMAGE_URL_IS_EMPTY = "The image's URL of the product %s is empty";
 
 
@@ -534,7 +517,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
             ErrorUtils.createInputDataIsEmptyException(imageUrl.isEmpty(),
                     String.format(IMAGE_URL_IS_EMPTY, getProductNameTextFromProductRow(productRow)));
             String result = TagAttribute.ENABLED.toString();
-            if (imageUrl.equalsIgnoreCase(URLs.ADM_PRODUCT_PG_DEFAULT_SMALL_IMAGE_URL.toString())) {
+            if (imageUrl.equalsIgnoreCase(ADM_PRODUCT_PG_DEFAULT_SMALL_IMAGE_URL)) {
                 result = TagAttribute.DISABLED.toString();
             }
             return result;
@@ -670,42 +653,15 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
 
     //------------------------------------------------------------
 
-    private class ProductAdminPageController extends ProductAdminPage {
-
-        private ProductAdminPage currentProductAdminPage;
-        private List<ProductShort> productShortListAllPages;
-        private int lastProductAdminPageAllPages;
-
-        public ProductAdminPageController(SearchManager searchManager, ProductAdminPage productAdminPage) {
-            super(searchManager);
-            currentProductAdminPage = productAdminPage;
+    public ProductAdminPage initLastProductAdminPageNumberAllPages() {
+        ProductAdminPage result = this;
+        if (isPaganationOnPage()) {
+            result = new ProductAdminPageController(searchManager, this)
+                    .getLastProductAdminPageNumberAllPages();
         }
-
-        public ProductAdminPage getLastProductAdminPageNumberAllPages() {
-            currentProductAdminPage = currentProductAdminPage.toLastProductAdminPageAllPages();
-            lastProductAdminPageAllPages = currentProductAdminPage.getCurrentPageNumber();
-            currentProductAdminPage = currentProductAdminPage.toFirstProductAdminPageAllPages();
-            currentProductAdminPage.setLastProductAdminPageAllPagesNumber(lastProductAdminPageAllPages);
-            return currentProductAdminPage;
-        }
-
-        public ProductAdminPage getProductsShortListFromAllPages() {
-            productShortListAllPages = new ArrayList<>();
-            currentProductAdminPage = addProductShortListAndToNextPage();
-            do {
-                currentProductAdminPage = addProductShortListAndToNextPage();
-            } while (!currentProductAdminPage.isLastPageOpened());
-            currentProductAdminPage = currentProductAdminPage.toFirstProductAdminPageAllPages();
-            currentProductAdminPage.setProductShortListAllPages(productShortListAllPages);
-            return currentProductAdminPage;
-        }
-
-        private ProductAdminPage addProductShortListAndToNextPage() {
-            productShortListAllPages.addAll(currentProductAdminPage.getProductsShortListFromPage());
-            return currentProductAdminPage.toProductAdminPageByNumber(
-                    currentProductAdminPage.getCurrentPageNumber() + 1);
-
-        }
+        return result;
     }
+
 }
+
 

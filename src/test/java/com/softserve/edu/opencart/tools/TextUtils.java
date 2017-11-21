@@ -5,8 +5,7 @@ import java.util.List;
 
 public final class TextUtils {
 
-    private final static String EMPTY_STRING_FOR_SPLIT = "Empty string was reciaved for split";
-    private final static String EMPTY_STRING_FOR_SEARCH = "Empty string was reciaved for search";
+    private final static String EMPTY_STRING_FOR_SPLIT = "Empty string was recieved for split";
 
     private TextUtils() {
     }

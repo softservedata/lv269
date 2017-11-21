@@ -40,7 +40,7 @@ public class ApplicationSourceRepository {
                 10L, 30L, 10L, 5L,
                 "http://server7.pp.ua/",
                 "http://server7.pp.ua/index.php?route=account/login",
-                "http://server7.pp.ua/index.php?route=account/logout",
+                "http://server7.pp.ua/index.php?route=account/logoutAdmin",
                 "http://server7.pp.ua/admin/",
                 "http://server7.pp.ua/admin/index.php?route=common/logout");
     }
@@ -53,7 +53,7 @@ public class ApplicationSourceRepository {
                 10L, 30L, 10L, 5L,
                 "http://server7.pp.ua/",
                 "http://server7.pp.ua/index.php?route=account/login",
-                "http://server7.pp.ua/index.php?route=account/logout",
+                "http://server7.pp.ua/index.php?route=account/logoutAdmin",
                 "http://server7.pp.ua/admin/",
                 "http://server7.pp.ua/admin/index.php?route=common/logout");
     }

@@ -39,7 +39,7 @@ public final class UserRepository {
                 .build();
     }
 
-    public IUser valid() {
+    public IUser validUser() {
         return User.get()
                 .setFirstname("firstname")
                 .setLastname("lastname")

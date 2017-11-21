@@ -1,5 +1,8 @@
 package com.softserve.edu.opencart.pages.admin;
 
+import com.softserve.edu.opencart.data.pathnames.IPathnames;
+import com.softserve.edu.opencart.data.pathnames.IStoreSettingOptionSet;
+import com.softserve.edu.opencart.data.pathnames.StoreSettingOptionSet;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.SearchManager;
 import org.openqa.selenium.By;
@@ -27,6 +30,7 @@ public class SettingPage extends AHeaderComponentAdmin {
         }
     }
 
+    //TODO replace to enum
     private final String STORE_ROW_SELECTOR_CSS = ".table-bordered > tbody > tr";
     private final String NO_SUCH_STORE_MESSAGE = "Store with url %s is not exist";
 
@@ -36,6 +40,10 @@ public class SettingPage extends AHeaderComponentAdmin {
     private WebElement deleteStoreBtn;
     private List<StoreTable> storesTable;
     private WebElement headerAllStoreSelectCheckbox;
+
+    //TODO delete static
+    private static List<StoreSettingOptionSet>  defaultOptionsValuesSet;
+    private static int currentOption;
 
 
     public SettingPage(SearchManager searchManager) {
@@ -116,8 +124,8 @@ public class SettingPage extends AHeaderComponentAdmin {
 
 
     // Business Logic
-    public StoreSettingPage openStoreSettingsPageByUrl(String url) {
-        clickStoreEditSettingBtnByUrl(url);
+    public StoreSettingPage openStoreSettingsPageByUrl(IPathnames pathnames) {
+        clickStoreEditSettingBtnByUrl(pathnames.getStoreUrl());
         return new StoreSettingPage(searchManager);
     }
 
@@ -195,5 +203,9 @@ public class SettingPage extends AHeaderComponentAdmin {
 
         // Business Logic
 
+        public StoreSettingPage openStoreSettingPageByStoreUrl (IPathnames pathnames) {
+            clickStoreEditSettingBtnByUrl(pathnames.getStoreUrl());
+            return new StoreSettingPage(searchManager);
+        }
     }
 }
