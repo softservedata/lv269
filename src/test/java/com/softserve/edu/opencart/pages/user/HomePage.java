@@ -64,7 +64,7 @@ public class HomePage extends AHeaderComponent {
     public HomePage addProductToCart(Product product) {
     	clickAddToCartByProductName(product.getName());
     	// TODO ChromeDriver/Chrome java script execution BUG!!! 
-    	Application.get().getBrowser().refreshPage();
+    	//Application.get().getBrowser().refreshPage();
     	return new HomePage(driver);
     }
     

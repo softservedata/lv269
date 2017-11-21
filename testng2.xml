@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Suite1">
-
-	<parameter name="loginurl" value="http://registrator.herokuapp.com/login" />
-	<parameter name="logouturl" value="http://registrator.herokuapp.com/logout" />
-	<parameter name="browserName" value="chrome" />
-
-	<!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
-	<test verbose="7" name="Test1">
-		<parameter name="number" value="2" />
+<suite name="CartPage">
+	<test name="CartPage">
 		<classes>
-			<class name="com.softserve.edu.AppTest">
+			<class name="com.softserve.edu.opencart.tests.cart.CartSmokeTest">
 				<methods>
-					<include name="testApp" />
+					<include name="checkProduct" />
 				</methods>
 			</class>
-			<class name="com.softserve.edu.SelenRes">
+			<class name="com.softserve.edu.opencart.tests.cart.CartLogicalTest">
 				<methods>
-					<include name="testSelenIde" />
+					<include name="checkLogick" />
+				</methods>
+			</class>
+			<class name="com.softserve.edu.opencart.tests.cart.CartPricesTest">
+				<methods>
+					<include name="checkPricesForOrder" />
+					<include name="checkPricesForProduct" />
 				</methods>
 			</class>
 		</classes>
-			</test> <!-- Test -->
-
-</suite> <!-- Suite -->
+	</test>
+</suite>

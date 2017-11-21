@@ -35,6 +35,7 @@ public class CartLogicalTest {
         .gotoLoginForLoginPageToMyAccountPage(UserRepository.get().valid())
         .gotoCartPage()
         .clearCart();
+    	Application.get().deleteAllCookies();
     }
 	
     @DataProvider//(parallel = true)

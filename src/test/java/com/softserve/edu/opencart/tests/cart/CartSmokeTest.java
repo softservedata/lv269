@@ -34,6 +34,7 @@ public class CartSmokeTest {
         .gotoLoginForLoginPageToMyAccountPage(UserRepository.get().valid())
         .gotoCartPage()
         .clearCart();
+    	Application.get().deleteAllCookies();
     }
     
     @DataProvider//(parallel = true)

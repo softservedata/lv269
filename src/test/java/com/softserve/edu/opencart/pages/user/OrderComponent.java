@@ -28,7 +28,7 @@ class OrderComponent {
         //
         name = orderLayout.findElement(By.xpath(NAME_RAW_XPATH));
         unitPrice = orderLayout.findElement(By.xpath(UNIT_PRICE_RAW_XPATH));
-        totalPrice = orderLayout.findElement(By.xpath("TOTAL_PRICE_RAW_XPATH"));
+        totalPrice = orderLayout.findElement(By.xpath(TOTAL_PRICE_RAW_XPATH));
         quantity = orderLayout.findElement(By.cssSelector("input.form-control"));
         update = orderLayout.findElement(By.cssSelector(".fa.fa-refresh"));
         remove = orderLayout.findElement(By.cssSelector(".fa.fa-times-circle"));

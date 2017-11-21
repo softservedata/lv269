@@ -234,9 +234,12 @@ public class CartPage extends ANavigatePanelComponent{
  	}
  	
  	public CartPage clearCart() {
-        for (OrderComponent current : getOrderComponent()) {
-        	clickRemoveByOrderName(current.getNameText());
-        }
+ 		if(getOrderComponent()!=null) {
+ 	        for (OrderComponent current : getOrderComponent()) {
+ 	        	clickRemoveByOrderName(current.getNameText());
+ 	        }
+ 		}
+
  		return new CartPage(driver);
  	}
     
