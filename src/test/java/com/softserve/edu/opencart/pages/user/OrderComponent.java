@@ -8,7 +8,9 @@ import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.NumberUtils;
 
 class OrderComponent {
-	
+	private final String NAME_RAW_XPATH = "td[2]/a";
+	private final String UNIT_PRICE_RAW_XPATH = "td[5]";
+	private final String TOTAL_PRICE_RAW_XPATH = "td[6]";
 	//Fields
 	private WebElement orderLayout;
 	//
@@ -24,9 +26,9 @@ class OrderComponent {
     public OrderComponent(WebElement orderLayout) {
         this.orderLayout = orderLayout;
         //
-        name = orderLayout.findElement(By.xpath("td[2]/a"));
-        unitPrice = orderLayout.findElement(By.xpath("td[5]"));
-        totalPrice = orderLayout.findElement(By.xpath("td[6]"));
+        name = orderLayout.findElement(By.xpath(NAME_RAW_XPATH));
+        unitPrice = orderLayout.findElement(By.xpath(UNIT_PRICE_RAW_XPATH));
+        totalPrice = orderLayout.findElement(By.xpath("TOTAL_PRICE_RAW_XPATH"));
         quantity = orderLayout.findElement(By.cssSelector("input.form-control"));
         update = orderLayout.findElement(By.cssSelector(".fa.fa-refresh"));
         remove = orderLayout.findElement(By.cssSelector(".fa.fa-times-circle"));

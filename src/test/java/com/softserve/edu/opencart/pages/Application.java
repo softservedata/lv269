@@ -27,7 +27,11 @@ public class Application {
     public static Application get() {
         return get(null);
     }
-
+    
+    public void deleteAllCookies() {
+        getBrowser().deleteAllCookies();
+    }
+    
     public static Application get(IApplicationSource applicationSource) {
         if (instance == null) {
             synchronized (Application.class) {

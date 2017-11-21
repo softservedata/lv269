@@ -84,6 +84,10 @@ public class BrowserWrapper {
         return driver;
     }
 
+    public void deleteAllCookies() {
+    	getDriver().manage().deleteAllCookies();
+    }
+    
     public void openUrl(String url) {
         getDriver().get(url);
     }

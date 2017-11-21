@@ -223,5 +223,21 @@ public class CartPage extends ANavigatePanelComponent{
  		productTotalPrice=current.getUnitPriceAmount()*current.getQuantityNumber();
         return productTotalPrice;
  	}
+ 	
+ 	public boolean isProductPresent(Product product) {
+        for (OrderComponent current : getOrderComponent()) {
+            if (current.getNameText().toLowerCase().contains(product.getName().toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+ 	}
+ 	
+ 	public CartPage clearCart() {
+        for (OrderComponent current : getOrderComponent()) {
+        	clickRemoveByOrderName(current.getNameText());
+        }
+ 		return new CartPage(driver);
+ 	}
     
 }

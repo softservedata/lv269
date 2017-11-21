@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import com.softserve.edu.opencart.data.categories.DetailCategory;
 import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.Product;
+import com.softserve.edu.opencart.pages.Application;
 
 public class HomePage extends AHeaderComponent {
 
@@ -62,6 +63,8 @@ public class HomePage extends AHeaderComponent {
 
     public HomePage addProductToCart(Product product) {
     	clickAddToCartByProductName(product.getName());
+    	// TODO ChromeDriver/Chrome java script execution BUG!!! 
+    	Application.get().getBrowser().refreshPage();
     	return new HomePage(driver);
     }
     
