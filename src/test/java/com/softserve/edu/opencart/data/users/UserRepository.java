@@ -77,26 +77,121 @@ public final class UserRepository {
                 .build();
 
     }
-    public IUser isntValidUserField(){
+    public IUser userWithoutName(){
         return User.get()
                 .setFirstname("")
-                .setLastname("")
-                .setEmail("")
-                .setPhoneNumber("")
-                .setAddressFirst("")
-                .setCity("")
-                .setPostCode("")
-                .setCountry("")
-                .setRegion("")
-                .setPassword("")
-                .setAddressSecond("")
-                .setCompany("")
-                .setFax("")
+                .setLastname("Zvarych")
+                .setEmail("mirekzvar@gmail.com")
+                .setPhoneNumber("000000")
+                .setAddressFirst("Naukova")
+                .setCity("Lviv")
+                .setPostCode("7902")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("vitochka24")
+                .setAddressSecond("Volodymyra Velukogo")
+                .setCompany("Softserve.edu")
+                .setFax("000")
                 .setSubscribe(false)
                 .build();
 
     }
-    
+    public IUser userWithoutLastName(){
+        return User.get()
+                .setFirstname("Mirek")
+                .setLastname("")
+                .setEmail("mirekzvar@gmail.com")
+                .setPhoneNumber("000000")
+                .setAddressFirst("Naukova")
+                .setCity("Lviv")
+                .setPostCode("7902")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("vitochka24")
+                .setAddressSecond("Volodymyra Velukogo")
+                .setCompany("Softserve.edu")
+                .setFax("000")
+                .setSubscribe(false)
+                .build();
+
+    }
+    public IUser userWithoutAddress(){
+        return User.get()
+                .setFirstname("Mirek")
+                .setLastname("Zvarych")
+                .setEmail("mirekzvar@gmail.com")
+                .setPhoneNumber("000000")
+                .setAddressFirst("")
+                .setCity("Lviv")
+                .setPostCode("7902")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("vitochka24")
+                .setAddressSecond("Volodymyra Velukogo")
+                .setCompany("Softserve.edu")
+                .setFax("000")
+                .setSubscribe(false)
+                .build();
+
+    }
+    public IUser userWithoutCity(){
+        return User.get()
+                .setFirstname("Mirek")
+                .setLastname("Zvarych")
+                .setEmail("mirekzvar@gmail.com")
+                .setPhoneNumber("000000")
+                .setAddressFirst("Naukova")
+                .setCity("")
+                .setPostCode("7902")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("vitochka24")
+                .setAddressSecond("Volodymyra Velukogo")
+                .setCompany("Softserve.edu")
+                .setFax("000")
+                .setSubscribe(false)
+                .build();
+
+    }
+    public IUser userWithoutCountry(){
+        return User.get()
+                .setFirstname("Mirek")
+                .setLastname("Zvarych")
+                .setEmail("mirekzvar@gmail.com")
+                .setPhoneNumber("000000")
+                .setAddressFirst("Naukova")
+                .setCity("Lviv")
+                .setPostCode("7902")
+                .setCountry("--- Please Select ---")
+                .setRegion("--- None ---")
+                .setPassword("vitochka24")
+                .setAddressSecond("Volodymyra Velukogo")
+                .setCompany("Softserve.edu")
+                .setFax("000")
+                .setSubscribe(false)
+                .build();
+
+    }
+    public IUser userWithoutRegion(){
+        return User.get()
+                .setFirstname("Mirek")
+                .setLastname("Zvarych")
+                .setEmail("mirekzvar@gmail.com")
+                .setPhoneNumber("000000")
+                .setAddressFirst("Naukova")
+                .setCity("Lviv")
+                .setPostCode("7902")
+                .setCountry("Ukraine")
+                .setRegion("--- Please Select ---")
+                .setPassword("vitochka24")
+                .setAddressSecond("Volodymyra Velukogo")
+                .setCompany("Softserve.edu")
+                .setFax("000")
+                .setSubscribe(false)
+                .build();
+
+    }
+
     public IUser userKutaiev() {
         return User.get()
                 .setFirstname("Olex")

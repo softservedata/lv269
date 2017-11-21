@@ -42,7 +42,7 @@ public class ApplicationSourceRepository {
         //        .getResource("/lib/geckodriver.exe").getPath());
         System.out.println("Path = " + chromeDriverPath());
         return new ApplicationSource("chrome", chromeDriverPath(),
-                10L, 30L, 10L, 5L,
+                5L, 60L, 10L, 1L,
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
@@ -55,7 +55,7 @@ public class ApplicationSourceRepository {
                 .getResource("/lib/geckodriver.exe").getPath());
         //System.out.println("Path = " + chromeDriverPath());
         return new ApplicationSource("firefox", geckoDriverPath(),
-                10L, 30L, 10L, 5L,
+                5L, 65L, 10L, 5L,
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
@@ -68,7 +68,7 @@ public class ApplicationSourceRepository {
                 .getResource("/lib/geckodriver32.exe").getPath());
         //System.out.println("Path = " + chromeDriverPath());
         return new ApplicationSource("firefox", geckoDriverPath32(),
-                10L, 30L, 10L, 5L,
+                5L, 5L, 10L, 5L,
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",

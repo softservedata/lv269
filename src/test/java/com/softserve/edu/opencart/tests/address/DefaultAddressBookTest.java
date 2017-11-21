@@ -13,7 +13,8 @@ import org.testng.annotations.*;
 public class DefaultAddressBookTest {
     @BeforeClass
     public void beforClass(){
-        Application.get(ApplicationSourceRepository.get().chromeServer7());
+        Application.get(ApplicationSourceRepository.get().firefoxServer7());
+        //Application.get(ApplicationSourceRepository.get().chromeServer7());
     }
 
     @AfterClass
@@ -25,7 +26,7 @@ public class DefaultAddressBookTest {
     public Object[][] defaultUser() {
         return new Object[][] {
                 {
-                    UserRepository.get().userZvarych(),
+                        UserRepository.get().userZvarych(),AlertsText.CAN_NOT_DELETE_ADDRESS.toString()
 
                 }
         };
@@ -43,13 +44,13 @@ public class DefaultAddressBookTest {
 
     }
     @Test(dataProvider = "addressPage")
-    public void checkDeleteDefoltAddress(IUser user){
+    public void checkDeleteDefoltAddress(IUser user, String expected){
         AddressBookPage addressBookPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount()
                 .gotoLoginForLoginPageToMyAccountPage(user)
                 .gotoAddressBookPageRightColumn();
-        addressBookPage.deleteAddressBookEntries(user.getAddressFirst());
+        addressBookPage.deleteAddressBookEntries(user);
         String actual = addressBookPage.getWarningDeleteAddressText();
-        Assert.assertEquals(actual,"Warning: You can not delete your default address!");
+        Assert.assertEquals(actual,expected);
     }
 
 }

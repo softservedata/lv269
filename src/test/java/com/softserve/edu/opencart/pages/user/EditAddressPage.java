@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.pages.user;
 
+import com.softserve.edu.opencart.data.users.IUser;
+import com.softserve.edu.opencart.data.users.User;
 import com.softserve.edu.opencart.pages.GeneralLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -36,10 +38,7 @@ public class EditAddressPage extends AddressBookPage {
         backButton = driver.findElement(By.xpath(".//a[contains( text(),'Back')]"));
     }
     // PageObject
-
     // get Data
-
-
 
     public WebElement getFieldFirstName() {
         return fieldFirstName;
@@ -84,165 +83,182 @@ public class EditAddressPage extends AddressBookPage {
     public WebElement getBackButton() {
         return backButton;
     }
-    // get Functional
-    public String getWarningDeleteAddressText(){
 
+    // get Functional
+    public String getWarningDeleteAddressText() {
         return getAlertWarningText();
+
+    }
+    public String getWarningDangerTextforField() {
+        return getAlertTextDangerText();
 
     }
 
     // set Data
 
-    public void clickFieldFirstName(){
+    public void clickFieldFirstName() {
         getFieldFirstName().click();
     }
 
-    public void clickFieldLastName(){
+    public void clickFieldLastName() {
         getFieldLastName().click();
     }
 
-    public void clickFieldFirstAddress(){
+    public void clickFieldFirstAddress() {
         getFieldFirstAddress().click();
     }
 
-    public void clickFieldSecondAddress(){
+    public void clickFieldSecondAddress() {
         getFieldSecondAddress().click();
     }
 
-    public void clickFieldCompany(){
+    public void clickFieldCompany() {
         getFieldCompany().click();
     }
 
-    public void clickFieldCity(){
+    public void clickFieldCity() {
         getFieldCity().click();
     }
 
-    public void clickFieldPostCode(){
+    public void clickFieldPostCode() {
         getFieldPostCode().click();
     }
 
-    public void clickContinueButton(){getContinueButton().click();}
+    public void clickContinueButton() {
+        getContinueButton().click();
+    }
 
-    public void clickBackButton(){getBackButton().click();}
+    public void clickBackButton() {
+        getBackButton().click();
+    }
 
-    public void selectFieldCountry(String text){
+    public void selectFieldCountry(String text) {
         getFieldCountry().selectByVisibleText(text);
     }
 
-    public void selectFieldRegion(String text){
+    public void selectFieldRegion(String text) {
         getFieldRegion().selectByVisibleText(text);
     }
 
-    public void clearFieldFirstName(){
+    public void clearFieldFirstName() {
         getFieldFirstName().clear();
     }
 
-    public void clearFieldLastName(){
+    public void clearFieldLastName() {
         getFieldLastName().clear();
     }
 
-    public void clearFieldFirstAddress(){
+    public void clearFieldFirstAddress() {
         getFieldFirstAddress().clear();
     }
 
-    public void clearFieldSecondAddress(){
+    public void clearFieldSecondAddress() {
         getFieldSecondAddress().clear();
     }
 
-    public void clearFieldCompany(){
+    public void clearFieldCompany() {
         getFieldCompany().clear();
     }
 
 
-
-
-    public void clearFieldCity(){
+    public void clearFieldCity() {
         getFieldCity().clear();
     }
 
     //-----------------------------------------
     //method clears field by field
 
-    public void clearField (WebElement field){
+    public void clearField(WebElement field) {
         field.click();
         field.clear();
     }
 
-    public void setTextToField(WebElement field, String text){
+    public void setTextToField(WebElement field, String text) {
         field.click();
         field.clear();
         field.sendKeys(text);
     }
 
-    public String getAlertText (){
-        return  driver.findElement(By.className("text-danger")).getText();
-    }
 
     //-----------------------------------------------
-    public void cleareFieldPostCode(){
+    public void cleareFieldPostCode() {
         getFieldPostCode().clear();
     }
 
-    public void setFieldFirstName(String text){
+    public void setFieldFirstName(String text) {
         clickFieldFirstName();
         clearFieldFirstName();
         getFieldFirstName().sendKeys(text);
     }
 
-    public void setFieldLastName(String text){
+    public void setFieldLastName(String text) {
         clickFieldLastName();
         clearFieldLastName();
         getFieldLastName().sendKeys(text);
     }
 
-    public void setFieldFirstAddress(String text){
+    public void setFieldFirstAddress(String text) {
         clickFieldFirstAddress();
         clearFieldFirstAddress();
         getFieldFirstAddress().sendKeys(text);
     }
 
-    public void setFieldSecondAddress(String text){
+    public void setFieldSecondAddress(String text) {
         clickFieldSecondAddress();
         clearFieldSecondAddress();
         getFieldSecondAddress().sendKeys(text);
     }
 
-    public void setFieldCompany(String text){
+    public void setFieldCompany(String text) {
         clickFieldCompany();
         clearFieldCompany();
         getFieldCompany().sendKeys(text);
     }
 
-    public void setFieldCity(String text){
+    public void setFieldCity(String text) {
         clickFieldCity();
         clearFieldCity();
-        getFieldCity().sendKeys(text);}
+        getFieldCity().sendKeys(text);
+    }
 
-    public void setFieldPostCode(String text){
+    public void setFieldPostCode(String text) {
         clickFieldPostCode();
         cleareFieldPostCode();
-        getFieldPostCode().sendKeys(text);}
-    public WebElement findField(GeneralLocators locatorName){
+        getFieldPostCode().sendKeys(text);
+    }
+
+    public WebElement findField(GeneralLocators locatorName) {
         return driver.findElement(By.id(locatorName.toString()));
     }
 
-
     //* Business Logic
 
-    public AddressBookPage saveChangesAddress(){
+    public AddressBookPage saveChangesAddress() {
         clickContinueButton();
         return new AddressBookPage(driver);
     }
-    public AddressBookPage backWithoutChangesAddress(){
+
+    public AddressBookPage backWithoutChangesAddress() {
         clickBackButton();
         return new AddressBookPage(driver);
     }
-    public String getWarningDangerTextforField(){
 
-        return getAlertTextDangerText();
+
+    public EditAddressPage saveWrongChangesAddress(){
+        clickContinueButton();
+        return new EditAddressPage(driver);
+    }
+
+    public void changeFieldAddress(IUser user){
+       setFieldFirstName(user.getFirstname());
+       setFieldLastName(user.getLastname());
+       setFieldFirstAddress(user.getAddressFirst());
+       setFieldCity(user.getCity());
+       selectFieldCountry(user.getCountry());
+       selectFieldRegion(user.getRegion());
 
     }
 
-
-
 }
+
+

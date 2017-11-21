@@ -17,12 +17,13 @@ public class AddressBookPage extends AColumnRightUserComponent {
     private WebElement backButton;
     private final String STREET_NOT_FOUND_MESSAGE = "Street %s not found ";
 
-    public AddressBookPage(WebDriver driver){
+    public AddressBookPage(WebDriver driver) {
         super(driver);
         newAddressBook = driver.findElement(By.cssSelector(".btn.btn-primary"));
         backButton = driver.findElement(By.xpath(".//a[contains( text(),'Back')]"));
         initAddressBookEntries(By.cssSelector("table.table.table-bordered.table-hover>tbody>tr"));
     }
+
     protected void initAddressBookEntries(By searchLocator) {
         addressBookEntries = new ArrayList<>();
         List<WebElement> addressWebElements = driver.findElements(searchLocator);
@@ -49,17 +50,17 @@ public class AddressBookPage extends AColumnRightUserComponent {
 
     // set Data
 
-    public void clickNewAddress(){
+    public void clickNewAddress() {
         getNewAddressBook().click();
     }
 
-    public void clickBackButton(){
+    public void clickBackButton() {
         getBackButton().click();
     }
     // set Functional
 
-    public void deleteAddressBookEntries(String streetName){
-        getAddressBookEntriesByStreetName(streetName).clickDeleteButton();
+    public void deleteAddressBookEntries(IUser user) {
+        getAddressBookEntriesByStreetName(user.getAddressFirst()).clickDeleteButton();
 
     }
 
@@ -77,23 +78,22 @@ public class AddressBookPage extends AColumnRightUserComponent {
     }
 
     // Business Logic
-
-    public EditAddressPage modifyAddressBookData(IUser user ){
+    public EditAddressPage modifyAddressBookData(IUser user) {
         getAddressBookEntriesByStreetName(user.getAddressFirst()).clickEditButton();
         return new EditAddressPage(driver);
     }
-    public MyAccountPage gotoMyAccountPage(){
+
+    public MyAccountPage gotoMyAccountPage() {
         clickBackButton();
         return new MyAccountPage(driver);
     }
-    public EditAddressPage createAddress(){
+
+    public EditAddressPage createAddress() {
         clickNewAddress();
         return new EditAddressPage(driver);
     }
-    public String getWarningDeleteAddressText(){
-
+    public String getWarningDeleteAddressText() {
         return getAlertWarningText();
-
     }
 
 
