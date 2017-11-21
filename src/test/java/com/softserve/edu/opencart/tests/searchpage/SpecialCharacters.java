@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class SpecialSymbols {
+public class SpecialCharacters {
 
     @BeforeClass
     public void beforeClass() {

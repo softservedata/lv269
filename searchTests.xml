@@ -13,7 +13,7 @@
 
             <class name="com.softserve.edu.opencart.tests.searchpage.SearchProductInExactCategory" />
 
-            <class name="com.softserve.edu.opencart.tests.searchpage.SpecialSymbols" />
+            <class name="com.softserve.edu.opencart.tests.searchpage.SpecialCharacters" />
 
         </classes>
 
