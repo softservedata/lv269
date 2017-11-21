@@ -10,12 +10,12 @@ import org.testng.annotations.*;
 public class LoginForTest {
 
     @BeforeMethod
-    public static void precondition() {
+    public void precondition() {
         Application.get().login().gotoLoginForLoginPageToMyAccountPage(UserRepository.get().valid());
     }
 
     @AfterMethod
-    public static void logOut() {
+    public void logOut() {
         Application.get().getApplicationSources().getUserLogoutUrl();
         Application.remove();
     }
