@@ -8,6 +8,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 
@@ -305,7 +306,7 @@ public class WishListPage extends AColumnRightUserComponent {
 		return productNames;
 	}
 
-	public boolean checkWhetherProductExistsInWishList(Product product) {
+	public boolean checkWhetherProductExistsInWishList(IProduct product) {
 		if (getProductByName(product.getName()) != null) {
 			return true;
 		} else {

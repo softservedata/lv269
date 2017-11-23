@@ -12,6 +12,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
+import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.users.IUser;
@@ -82,7 +83,7 @@ public class WishListTest {
 	
 	// - - - - - - - - - - - - - #1 - - - - - - - - - - - - -
 	@Test (dataProvider = "productAndUserData")
-	public void testAddItem(Product macBook, IUser user) {
+	public void testAddItem(IProduct macBook, IUser user) {
 		Assert.assertTrue(
 				Application.get().loadHomePage()
 				.gotoHomePageClickAddToWish(macBook)
@@ -96,7 +97,7 @@ public class WishListTest {
 	
 	// - - - - - - - - - - - - - #2 - - - - - - - - - - - - -
 	@Test(dataProvider = "productsAndUserData")
-	public void testAddWithoutLogin(Product iPhone, Product macBook, IUser user) {
+	public void testAddWithoutLogin(IProduct iPhone, IProduct macBook, IUser user) {
 		List<String> expected = new ArrayList<>();
 		expected.add(iPhone.getName());
 		expected.add(macBook.getName());
@@ -121,7 +122,7 @@ public class WishListTest {
 	
 	// - - - - - - - - - - - - - #3 - - - - - - - - - - - - -	
 	@Test (dataProvider = "productsAndUserData")
-	public void testWhishListIndicator(Product iPhone, Product macBook, IUser user) {
+	public void testWhishListIndicator(IProduct iPhone, Product macBook, IUser user) {
 		
 		WishListPage wishListPage = Application.get().loadHomePage()
 				.gotoHomePageClickAddToWish(iPhone)
