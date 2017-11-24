@@ -21,9 +21,6 @@ public class Application {
 
     private Application(IApplicationSource applicationSource) {
         this.applicationSource = applicationSource;
-        initBrowser(applicationSource);
-        initSearch(applicationSource);
-        // initAccessToDB();
     }
 
     public static Application get() {
@@ -38,6 +35,9 @@ public class Application {
                         applicationSource = ApplicationSourceRepository.get().base();
                     }
                     instance = new Application(applicationSource);
+                    instance.initBrowser(applicationSource);
+                    instance.initSearch(applicationSource);
+                    // initAccessToDB();
                 }
             }
         }
@@ -69,7 +69,7 @@ public class Application {
 
     public void initSearch(IApplicationSource applicationSource) {
         //this.search = new Search(applicationSource);
-        //Search.initSearch(applicationSource);
+        Search.initSearch(applicationSource);
     }
 
     public HomePage loadHomePage() {
