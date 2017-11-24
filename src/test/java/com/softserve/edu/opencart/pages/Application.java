@@ -4,6 +4,7 @@ import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
+import com.softserve.edu.opencart.tools.Search;
 
 public class Application {
 
@@ -15,12 +16,13 @@ public class Application {
     // TODO Change for parallel work
     private IApplicationSource applicationSource;
     private BrowserWrapper browser;
+    //private ISearch search;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
         this.applicationSource = applicationSource;
         initBrowser(applicationSource);
-        // initSearchStrategy();
+        initSearch(applicationSource);
         // initAccessToDB();
     }
 
@@ -51,7 +53,7 @@ public class Application {
     }
 
     // TODO Change for parallel work
-    public IApplicationSource getApplicationSources() {
+    public IApplicationSource getApplicationSource() {
         return applicationSource;
     }
 
@@ -63,6 +65,11 @@ public class Application {
     // TODO Change for parallel work
     public void initBrowser(IApplicationSource applicationSource) {
         this.browser = new BrowserWrapper(applicationSource);
+    }
+
+    public void initSearch(IApplicationSource applicationSource) {
+        //this.search = new Search(applicationSource);
+        //Search.initSearch(applicationSource);
     }
 
     public HomePage loadHomePage() {

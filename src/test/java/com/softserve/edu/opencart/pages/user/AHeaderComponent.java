@@ -7,11 +7,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.NumberUtils;
+import com.softserve.edu.opencart.tools.Search;
 
 abstract class AHeaderComponent {
 
@@ -101,6 +103,7 @@ abstract class AHeaderComponent {
     // Fields
 
     protected WebDriver driver;
+    //protected ISearch search;
     //
     private WebElement currency;
     private WebElement myAccount;
@@ -119,14 +122,19 @@ abstract class AHeaderComponent {
 
     protected AHeaderComponent(WebDriver driver) {
         this.driver = driver;
+        //this.search = Application.get().getSearch();
         //
-        currency = driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
+        //currency = driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
+        currency = Search.cssSelector(".btn.btn-link.dropdown-toggle");
         myAccount = driver.findElement(By.cssSelector(".list-inline > li > a.dropdown-toggle"));
+        //myAccount = Search.cssSelector(".list-inline > li > a.dropdown-toggle");
         wishList = driver.findElement(By.id("wishlist-total"));
+        //wishList = Search.id("wishlist-total");
         // shoppingCart=driver.findElement(By.partialLinkText("Shopping Cart"));
         // Do not Work with CSS ver. 3.x
         //shoppingCart = null;//driver.findElement(By.cssSelector("a:has('.fa.fa-shopping-cart')"));
         shoppingCart = driver.findElement(By.cssSelector("a[title='Shopping Cart']"));
+        //shoppingCart = Search.cssSelector("a[title='Shopping Cart']");
         // checkout=driver.findElement(By.partialLinkText("Checkout"));
         // Do not Work with CSS ver. 3.x
         //checkout = null; //driver.findElement(By.cssSelector("a:has('.fa.fa-share')"));

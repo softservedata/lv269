@@ -24,7 +24,8 @@ public class ProductRepository {
 
     public IProduct macBook() {
         Map<String, Double> macBookPrices = new HashedMap<>();
-        macBookPrices.put("Euro", 430.06);
+        //macBookPrices.put("Euro", 430.06);
+        macBookPrices.put("Euro", 369.85);
         macBookPrices.put("Pound Sterling", 379.02);
         macBookPrices.put("US Dollar", 500.0);
         return new Product("MacBook",

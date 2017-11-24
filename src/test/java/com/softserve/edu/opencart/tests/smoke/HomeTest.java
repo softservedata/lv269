@@ -23,8 +23,8 @@ public class HomeTest {
 
     @BeforeClass
     public void beforeClass() {
-        Application.get(ApplicationSourceRepository.get().chromeServer7());
-        //Application.get(ApplicationSourceRepository.get().firefoxServer7());
+        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
+        //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
     }
 
     @AfterClass
@@ -40,7 +40,7 @@ public class HomeTest {
             //{ "iPhone", 101.0 },
             //{ "Canon EOS 5D", 80.00 },
             { CurrencyRepository.get().euro(), ProductRepository.get().macBook() },
-            { CurrencyRepository.get().dollar(), ProductRepository.get().macBook() },
+            //{ CurrencyRepository.get().dollar(), ProductRepository.get().macBook() },
             };
     }
 
