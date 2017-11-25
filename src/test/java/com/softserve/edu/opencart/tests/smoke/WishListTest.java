@@ -29,7 +29,7 @@ public class WishListTest {
 
 	@BeforeClass
 	public void beforeClass() {
-		Application.get(ApplicationSourceRepository.get().chromeServer7());
+		Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
 		//Application.get(ApplicationSourceRepository.get().firefoxServer7x32());	
 	}
 

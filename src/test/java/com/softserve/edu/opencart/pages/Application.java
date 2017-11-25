@@ -8,6 +8,7 @@ import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
 import com.softserve.edu.opencart.tools.DataBaseWraper;
+import com.softserve.edu.opencart.tools.Search;
 
 import java.sql.SQLException;
 
@@ -22,15 +23,11 @@ public class Application {
     private IApplicationSource applicationSource;
     private BrowserWrapper browser;
     private DataBaseWraper dataBase;
+    //private ISearch search;
     // etc.
 
     private Application(IApplicationSource applicationSource)   {
         this.applicationSource = applicationSource;
-        initBrowser(applicationSource);
-        initDataBase(applicationSource);
-
-        // initSearchStrategy();
-        // initAccessToDB();
     }
 
     public static Application get()   {
@@ -45,6 +42,9 @@ public class Application {
                         applicationSource = ApplicationSourceRepository.get().base();
                     }
                     instance = new Application(applicationSource);
+                    instance.initBrowser(applicationSource);
+                    instance.initSearch(applicationSource);
+                    // initAccessToDB();
                 }
             }
         }
@@ -66,7 +66,7 @@ public class Application {
     }
 
     // TODO Change for parallel work
-    public IApplicationSource getApplicationSources() {
+    public IApplicationSource getApplicationSource() {
         return applicationSource;
     }
 
@@ -79,6 +79,11 @@ public class Application {
     public void initBrowser(IApplicationSource applicationSource) {
         this.browser = new BrowserWrapper(applicationSource);
     }
+    
+    public void initSearch(IApplicationSource applicationSource) {
+        //this.search = new Search(applicationSource);
+        Search.initSearch(applicationSource);
+    }    
 
     public HomePage loadHomePage() {
         getBrowser().openUrl(applicationSource.getBaseUrl());

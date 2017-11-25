@@ -1,13 +1,7 @@
 package com.softserve.edu.opencart.tests.smoke;
 
-import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
-import com.softserve.edu.opencart.data.categories.CurrencyRepository;
-import com.softserve.edu.opencart.data.categories.DetailCategory;
-import com.softserve.edu.opencart.data.products.Product;
-import com.softserve.edu.opencart.data.products.ProductRepository;
-import com.softserve.edu.opencart.pages.Application;
-import com.softserve.edu.opencart.pages.user.HomePage;
-import com.softserve.edu.opencart.pages.user.SubCategoryProductsPage;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -16,31 +10,38 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.TimeUnit;
+import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
+import com.softserve.edu.opencart.data.categories.CurrencyRepository;
+import com.softserve.edu.opencart.data.categories.DetailCategory;
+import com.softserve.edu.opencart.data.products.Product;
+import com.softserve.edu.opencart.data.products.ProductRepository;
+import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.pages.user.HomePage;
+import com.softserve.edu.opencart.pages.user.SubCategoryProductsPage;
 
 public class HomeTest {
 
     @BeforeClass
     public void beforeClass() {
-        Application.get(ApplicationSourceRepository.get().chromeServer7());
-        //Application.get(ApplicationSourceRepository.get().firefoxServer7());
+        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
+        //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
     }
 
     @AfterClass
     public void afterClass() {
         Application.remove();
     }
-
+    
     @DataProvider//(parallel = true)
     public Object[][] productData() {
         // Read from ...
-        return new Object[][]{
-                //{ "MacBook", 500.0 },
-                //{ "iPhone", 101.0 },
-                //{ "Canon EOS 5D", 80.00 },
-                {CurrencyRepository.get().euro(), ProductRepository.get().macBook()},
-                {CurrencyRepository.get().dollar(), ProductRepository.get().macBook()},
-        };
+        return new Object[][] { 
+            //{ "MacBook", 500.0 },
+            //{ "iPhone", 101.0 },
+            //{ "Canon EOS 5D", 80.00 },
+            { CurrencyRepository.get().euro(), ProductRepository.get().macBook() },
+            //{ CurrencyRepository.get().dollar(), ProductRepository.get().macBook() },
+            };
     }
 
     @Test(dataProvider = "productData")
@@ -86,7 +87,7 @@ public class HomeTest {
         //Thread.sleep(2000);
         //driver.quit();
     }
-
+    
     //@Test
     public void checkTopMenu() throws Exception {
         //
@@ -138,7 +139,7 @@ public class HomeTest {
         // Steps
         //
         SubCategoryProductsPage subCategoryProductsPage = new HomePage(driver)
-                .gotoMenuTopByPartialName("Desktops", "Mac");
+                    .gotoMenuTopByPartialName("Desktops", "Mac");
         Thread.sleep(1000);
         //
         // Check

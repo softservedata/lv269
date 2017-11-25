@@ -19,7 +19,7 @@ public class ApplicationSource implements IApplicationSource {
     // private String language;
     //
     // Search Strategy
-    // private String searchStrategy;
+    private String searchStrategy;
     //
     // Logger Strategy
     // private String loggerStrategy;
@@ -36,7 +36,7 @@ public class ApplicationSource implements IApplicationSource {
 
     public ApplicationSource(String browserName, String driverPath,
             long implicitWaitTimeOut, long implicitLoadTimeOut,
-            long implicitScriptTimeOut, long explicitTimeOut,
+            long implicitScriptTimeOut, long explicitTimeOut, String searchStrategy,
             String baseUrl, String userLoginUrl, String userLogoutUrl,
             String adminLoginUrl, String adminLogoutUrl) {
         this.browserName = browserName;
@@ -45,6 +45,7 @@ public class ApplicationSource implements IApplicationSource {
         this.implicitLoadTimeOut = implicitLoadTimeOut;
         this.implicitScriptTimeOut = implicitScriptTimeOut;
         this.explicitTimeOut = explicitTimeOut;
+        this.searchStrategy = searchStrategy;
         this.baseUrl = baseUrl;
         this.userLoginUrl = userLoginUrl;
         this.userLogoutUrl = userLogoutUrl;
@@ -76,6 +77,10 @@ public class ApplicationSource implements IApplicationSource {
 
     public void setExplicitTimeOut(long explicitTimeOut) {
         this.explicitTimeOut = explicitTimeOut;
+    }
+
+    public void setSearchStrategy(String searchStrategy) {
+        this.searchStrategy = searchStrategy;
     }
 
     public void setBaseUrl(String baseUrl) {
@@ -122,6 +127,10 @@ public class ApplicationSource implements IApplicationSource {
 
     public long getExplicitTimeOut() {
         return explicitTimeOut;
+    }
+
+    public String getSearchStrategy() {
+        return searchStrategy;
     }
 
     public String getBaseUrl() {
