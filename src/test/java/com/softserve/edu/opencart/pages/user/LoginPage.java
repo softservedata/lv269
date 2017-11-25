@@ -14,7 +14,6 @@ public class LoginPage extends AColumnRightGuestComponent {
     private WebElement LoginButton;
     private WebElement warning;
 
-    String actual;
     public final static String EXPECTED_FIRST_WARNING = "Warning: No match for E-Mail Address and/or Password.";
     public final static String EXPECTED_SECOND_WARNING = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
 

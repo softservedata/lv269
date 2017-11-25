@@ -19,7 +19,7 @@ public class BlockLoginTest {
     @BeforeClass
     public void beforeClass()   {
 //        Application.get(ApplicationSourceRepository.get().chromeServer7());
-        Application.get(ApplicationSourceRepository.get().firefoxServer7());
+        Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
     }
 
     @AfterClass
