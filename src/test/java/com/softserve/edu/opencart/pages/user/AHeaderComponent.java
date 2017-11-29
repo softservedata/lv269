@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,8 +13,8 @@ import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
+import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
-import com.softserve.edu.opencart.tools.Search;
 
 abstract class AHeaderComponent {
 
@@ -29,11 +28,13 @@ abstract class AHeaderComponent {
 
         public DropdownOptions(By searchLocator, By lastLocator) {
             initListOptions(searchLocator);
-            listOptions.add(driver.findElement(lastLocator));
+            //listOptions.add(driver.findElement(lastLocator));
+            listOptions.add(search.getWebElement(lastLocator));
         }
 
         private void initListOptions(By searchLocator) {
-            listOptions = driver.findElements(searchLocator);
+            //listOptions = driver.findElements(searchLocator);
+            listOptions = search.getWebElements(searchLocator);
             //listOptions = driver.findElements(By.cssSelector(".list-inline > li > a.dropdown-toggle + ul > li > a"));
             //listOptions = myAccount.findElements(By.cssSelector("+ ul > li > a"));
         }
@@ -128,8 +129,8 @@ abstract class AHeaderComponent {
 
     // Fields
 
-    protected WebDriver driver;
-    //protected ISearch search;
+    //protected WebDriver driver;
+    protected ISearch search;
     //
     private WebElement currency;
     private WebElement myAccount;
@@ -151,30 +152,37 @@ abstract class AHeaderComponent {
     private DropdownOptions dropdownOptions;
     //private DropdownCart dropdownCart;
 
-    protected AHeaderComponent(WebDriver driver) {
-        this.driver = driver;
-        //this.search = Application.get().getSearch();
+    //protected AHeaderComponent(WebDriver driver) {
+    protected AHeaderComponent() {
+        //this.driver = driver;
+        this.search = Application.get().search();
         //
         //currency = driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
-        currency = Search.cssSelector(".btn.btn-link.dropdown-toggle");
-        myAccount = driver.findElement(By.cssSelector(".list-inline > li > a.dropdown-toggle"));
-        //myAccount = Search.cssSelector(".list-inline > li > a.dropdown-toggle");
-        wishList = driver.findElement(By.id("wishlist-total"));
-        //wishList = Search.id("wishlist-total");
+        currency = search.cssSelector(".btn.btn-link.dropdown-toggle");
+        //myAccount = driver.findElement(By.cssSelector(".list-inline > li > a.dropdown-toggle"));
+        myAccount = search.cssSelector(".list-inline > li > a.dropdown-toggle");
+        //wishList = driver.findElement(By.id("wishlist-total"));
+        wishList = search.id("wishlist-total");
         // shoppingCart=driver.findElement(By.partialLinkText("Shopping Cart"));
         // Do not Work with CSS ver. 3.x
         //shoppingCart = null;//driver.findElement(By.cssSelector("a:has('.fa.fa-shopping-cart')"));
-        shoppingCart = driver.findElement(By.cssSelector("a[title='Shopping Cart']"));
-        //shoppingCart = Search.cssSelector("a[title='Shopping Cart']");
+        //shoppingCart = driver.findElement(By.cssSelector("a[title='Shopping Cart']"));
+        shoppingCart = search.cssSelector("a[title='Shopping Cart']");
         // checkout=driver.findElement(By.partialLinkText("Checkout"));
         // Do not Work with CSS ver. 3.x
         //checkout = null; //driver.findElement(By.cssSelector("a:has('.fa.fa-share')"));
-        checkout = driver.findElement(By.cssSelector("a[title='Checkout']"));
-        logo = driver.findElement(By.cssSelector("#logo > a"));
-        searchProductField = driver.findElement(By.name("search"));
-        searchProductButton = driver.findElement(By.cssSelector(".btn.btn-default.btn-lg"));
-        cart = driver.findElement(By.cssSelector("#cart > button"));
-        menuTop = driver.findElements(By.cssSelector("ul.nav.navbar-nav > li"));
+        //checkout = driver.findElement(By.cssSelector("a[title='Checkout']"));
+        checkout = search.cssSelector("a[title='Checkout']");
+        //logo = driver.findElement(By.cssSelector("#logo > a"));
+        logo = search.cssSelector("#logo > a");
+        //searchProductField = driver.findElement(By.name("search"));
+        searchProductField = search.name("search");
+        //searchProductButton = driver.findElement(By.cssSelector(".btn.btn-default.btn-lg"));
+        searchProductButton = search.cssSelector(".btn.btn-default.btn-lg");
+        //cart = driver.findElement(By.cssSelector("#cart > button"));
+        cart = search.cssSelector("#cart > button");
+        //menuTop = driver.findElements(By.cssSelector("ul.nav.navbar-nav > li"));
+        menuTop = search.cssSelectors("ul.nav.navbar-nav > li");
     }
 
     protected void initProductComponents(By searchLocator) {
@@ -593,24 +601,28 @@ abstract class AHeaderComponent {
 
     public LoginPage gotoLoginPageFromMyAccount() {
     	clickMyAccountOptionLogin();
-        return new LoginPage(driver);
+        //return new LoginPage(driver);
+        return new LoginPage();
     }
 
     public LogoutPage gotoLogoutPage() {
     	clickMyAccountOptionLogout();
-        return new LogoutPage(driver);
+        //return new LogoutPage(driver);
+        return new LogoutPage();
     }
     
     public MyAccountPage gotoMyAccountPageFromHomePage() {
         //clickMyAccountByPartialName("logout");
     	clickMyAccountOptionMyAccount();
-        return new MyAccountPage(driver);
+        //return new MyAccountPage(driver);
+        return new MyAccountPage();
     }
 
 
     public SubCategoryProductsPage gotoMenuTopByPartialName(String categoryName, String optionName) {
         clickMenuTopByPartialName(categoryName, optionName);
-        return new SubCategoryProductsPage(driver);
+        //return new SubCategoryProductsPage(driver);
+         return new SubCategoryProductsPage();
     }
     
     

@@ -30,7 +30,7 @@ public class WishListTest {
 	@BeforeClass
 	public void beforeClass() {
 		Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
-		//Application.get(ApplicationSourceRepository.get().firefoxServer7x32());	
+		//Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7x32());	
 	}
 
 	@AfterClass
@@ -45,7 +45,7 @@ public class WishListTest {
 	
 	@AfterMethod
 	public void afterMethod() {	
-		Application.get().getBrowser().deleteAllCookies();	
+		Application.get().browser().deleteAllCookies();	
 	}
 
 	@DataProvider

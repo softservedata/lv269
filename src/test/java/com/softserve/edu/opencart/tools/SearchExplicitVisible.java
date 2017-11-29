@@ -18,9 +18,9 @@ public class SearchExplicitVisible extends ASearch {
     private WebDriverWait wait;
 
     public SearchExplicitVisible() {
-        this.wait = new WebDriverWait(Application.get().getBrowser().getDriver(),
+        this.wait = new WebDriverWait(Application.get().browser().getDriver(),
                 Application.get().getApplicationSource().getExplicitTimeOut());
-        Application.get().getBrowser().getDriver().manage().timeouts().implicitlyWait(0L, TimeUnit.SECONDS);
+        Application.get().browser().getDriver().manage().timeouts().implicitlyWait(0L, TimeUnit.SECONDS);
         // TODO
         // Application.get().getBrowser().manage().timeouts()
         // .pageLoadTimeout(0L, TimeUnit.SECONDS);
@@ -39,8 +39,12 @@ public class SearchExplicitVisible extends ASearch {
      * @return present webelement.
      */
     @Override
-    protected WebElement getWebElement(By by) {
-        // System.out.println("\t\t\t*** Class SearchExplicitVisible");
+    public WebElement getWebElement(By by) {
+        //try {
+        //    Thread.sleep(100);
+        //} catch (InterruptedException e) {
+        //}
+        //System.out.println("\t\t\t*** Class SearchExplicitVisible");
         // return new WebDriverWait(Application.get().getBrowser(),
         // EXPLICIT_WAIT_TIMEOUT)
         // .until(ExpectedConditions.visibilityOfElementLocated(by));
@@ -48,7 +52,7 @@ public class SearchExplicitVisible extends ASearch {
     }
 
     @Override
-    protected WebElement getWebElement(By by, WebElement fromWebElement) {
+    public WebElement getWebElement(By by, WebElement fromWebElement) {
         //return getWait().until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(fromWebElement, by)).get(0);
         return getWebElements(by, fromWebElement).get(0);
     }
@@ -60,12 +64,12 @@ public class SearchExplicitVisible extends ASearch {
      * @return present webelements.
      */
     @Override
-    protected List<WebElement> getWebElements(By by) {
+    public List<WebElement> getWebElements(By by) {
         return getWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
     }
 
     @Override
-    protected List<WebElement> getWebElements(By by, WebElement fromWebElement) {
+    public List<WebElement> getWebElements(By by, WebElement fromWebElement) {
         return getWait().until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(fromWebElement, by));
     }
 

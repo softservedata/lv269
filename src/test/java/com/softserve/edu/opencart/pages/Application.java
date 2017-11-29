@@ -23,7 +23,7 @@ public class Application {
     private IApplicationSource applicationSource;
     private BrowserWrapper browser;
     private DataBaseWraper dataBase;
-    //private ISearch search;
+    private ISearch search;
     // etc.
 
     private Application(IApplicationSource applicationSource)   {
@@ -54,7 +54,7 @@ public class Application {
     public static void remove() {
         if (instance != null) {
             // TODO Change for parallel work
-            instance.getBrowser().quit();
+            instance.browser().quit();
             instance = null;
         }
     }
@@ -71,8 +71,12 @@ public class Application {
     }
 
     // TODO Change for parallel work
-    public BrowserWrapper getBrowser() {
+    public BrowserWrapper browser() {
         return browser;
+    }
+    
+    public ISearch search() {
+        return search;
     }
 
     // TODO Change for parallel work
@@ -81,24 +85,26 @@ public class Application {
     }
     
     public void initSearch(IApplicationSource applicationSource) {
-        //this.search = new Search(applicationSource);
-        Search.initSearch(applicationSource);
-    }    
+        this.search = new Search(applicationSource);
+    }
 
     public HomePage loadHomePage() {
         getBrowser().openUrl(applicationSource.getBaseUrl());
         // TODO Remove getBrowser().getDriver()
-        return new HomePage(getBrowser().getDriver());
+        //return new HomePage(browser().getDriver());
+        return new HomePage();
     }
 
     public LoginPage login() {
         getBrowser().openUrl(applicationSource.getUserLoginUrl());
-        return new LoginPage(getBrowser().getDriver());
+        //return new LoginPage(getBrowser().getDriver());
+        return new LoginPage();
     }
 
     public LogoutPage logout() {
         getBrowser().openUrl(applicationSource.getUserLogoutUrl());
-        return new LogoutPage(getBrowser().getDriver());
+        //return new LogoutPage(getBrowser().getDriver());
+        return new LogoutPage();
     }
 
     public void initDataBase(IApplicationSource applicationSource)   {

@@ -29,7 +29,7 @@ public class WishListTest {
 	
 	@BeforeClass
 	public void beforeClass() {
-		//Application.get(ApplicationSourceRepository.get().chromeServer7());
+		//Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
 		Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7x32());	
 	}
 
@@ -45,7 +45,7 @@ public class WishListTest {
 	
 	@AfterMethod
 	public void afterMethod() {	
-		Application.get().getBrowser().deleteAllCookies();
+		Application.get().browser().deleteAllCookies();
 		
 		Application.get().loadHomePage()
 			.gotoLoginPageFromMyAccount()
@@ -53,7 +53,7 @@ public class WishListTest {
 			.gotoWishListPageRightColumn()
 			.doWishListEmpty();
 		
-		Application.get().getBrowser().deleteAllCookies();
+		Application.get().browser().deleteAllCookies();
 	}
 	
 	// - - - - - - - Data prodiver level - - - - - - - - 

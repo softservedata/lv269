@@ -3,7 +3,6 @@ package com.softserve.edu.opencart.pages.user;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 import com.softserve.edu.opencart.data.categories.DetailCategory;
 import com.softserve.edu.opencart.data.products.IProduct;
@@ -14,8 +13,10 @@ public class HomePage extends AHeaderComponent {
 
     // Fields
 
-    public HomePage(WebDriver driver) {
-        super(driver);
+    //public HomePage(WebDriver driver) {
+    public HomePage() {
+        //super(driver);
+        super();
         initProductComponents(By.cssSelector(".product-layout"));
     }
 
@@ -58,7 +59,8 @@ public class HomePage extends AHeaderComponent {
     
     public HomePage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
         clickCurrencyByPartialName(detailCategory.getOptionName());
-        return new HomePage(driver); 
+        //return new HomePage(driver); 
+        return new HomePage();
     }
 
     public double getPriceAmountByProduct(Product product) {
@@ -70,7 +72,8 @@ public class HomePage extends AHeaderComponent {
         clearSearchProductField();
         setSearchProductField(partialProductName);
         clickSearchProductButton();
-        return new SuccesSearchPage(driver); 
+        //return new SuccesSearchPage(driver);
+        return new SuccesSearchPage();
     }
     
     public HomePage gotoHomePageClickAddToWish(IProduct product) {

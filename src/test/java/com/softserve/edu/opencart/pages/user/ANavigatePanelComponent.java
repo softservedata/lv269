@@ -2,8 +2,6 @@ package com.softserve.edu.opencart.pages.user;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 abstract class ANavigatePanelComponent extends AHeaderComponent {
@@ -14,9 +12,11 @@ abstract class ANavigatePanelComponent extends AHeaderComponent {
     
     private WebElement homeLogo;
 
-    public ANavigatePanelComponent(WebDriver driver) {
-        super(driver);
-        homeLogo = driver.findElement(By.cssSelector(".fa.fa-home"));
+    //public ANavigatePanelComponent(WebDriver driver) {
+    public ANavigatePanelComponent() {
+        //super(driver);
+        //homeLogo = driver.findElement(By.cssSelector(".fa.fa-home"));
+        homeLogo = search.cssSelector(".fa.fa-home");
     }
 
     // PageObject
