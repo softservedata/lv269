@@ -19,25 +19,25 @@ public class SearchExplicitClickable extends SearchExplicitVisible {
      * @return clickable webelement.
      */
     @Override
-    protected WebElement getWebElement(By by) {
+    public WebElement getWebElement(By by) {
         // System.out.println("\t\t\t*** Class SearchExplicitClickable");
         return getWait().until(ExpectedConditions.elementToBeClickable(by));
     }
 
     @Override
-    protected WebElement getWebElement(By by, WebElement fromWebElement) {
+    public WebElement getWebElement(By by, WebElement fromWebElement) {
         // TODO Use elementToBeClickable for Next Version
         return super.getWebElement(by, fromWebElement);
     }
 
     @Override
-    protected List<WebElement> getWebElements(By by) {
+    public List<WebElement> getWebElements(By by) {
         // TODO Use elementToBeClickable for Next Version
         return super.getWebElements(by);
     }
 
     @Override
-    protected List<WebElement> getWebElements(By by, WebElement fromWebElement) {
+    public List<WebElement> getWebElements(By by, WebElement fromWebElement) {
         // TODO Use elementToBeClickable for Next Version
         return super.getWebElements(by, fromWebElement);
     }

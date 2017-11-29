@@ -2,7 +2,6 @@ package com.softserve.edu.opencart.pages.user;
 
 import java.util.List;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 abstract class ANavigatePanelComponent extends AHeaderComponent {
@@ -11,8 +10,10 @@ abstract class ANavigatePanelComponent extends AHeaderComponent {
 
     private List<WebElement> pathElements;
 
-    public ANavigatePanelComponent(WebDriver driver) {
-        super(driver);
+    //public ANavigatePanelComponent(WebDriver driver) {
+    public ANavigatePanelComponent() {
+        //super(driver);
+        super();
     }
 
     // PageObject

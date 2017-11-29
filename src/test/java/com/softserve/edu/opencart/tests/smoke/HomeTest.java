@@ -24,6 +24,7 @@ public class HomeTest {
     @BeforeClass
     public void beforeClass() {
         Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
+        //Application.get(ApplicationSourceRepository.get().chromeVisibleServer7());
         //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
     }
 
@@ -101,7 +102,9 @@ public class HomeTest {
         driver.get("http://server7.pp.ua");
         Thread.sleep(1000);
         //
-        HomePage homePage = new HomePage(driver);
+        //HomePage homePage = new HomePage(driver);
+        Application.get();
+        HomePage homePage = new HomePage(); // ERROR
         Thread.sleep(1000);
         //
         // Steps
@@ -138,7 +141,9 @@ public class HomeTest {
         //
         // Steps
         //
-        SubCategoryProductsPage subCategoryProductsPage = new HomePage(driver)
+        //SubCategoryProductsPage subCategoryProductsPage = new HomePage(driver)
+        Application.get();
+        SubCategoryProductsPage subCategoryProductsPage = new HomePage()
                     .gotoMenuTopByPartialName("Desktops", "Mac");
         Thread.sleep(1000);
         //

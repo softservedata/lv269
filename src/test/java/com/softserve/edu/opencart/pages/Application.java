@@ -4,6 +4,7 @@ import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
+import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.Search;
 
 public class Application {
@@ -16,7 +17,7 @@ public class Application {
     // TODO Change for parallel work
     private IApplicationSource applicationSource;
     private BrowserWrapper browser;
-    //private ISearch search;
+    private ISearch search;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
@@ -47,7 +48,7 @@ public class Application {
     public static void remove() {
         if (instance != null) {
             // TODO Change for parallel work
-            instance.getBrowser().quit();
+            instance.browser().quit();
             instance = null;
         }
     }
@@ -58,8 +59,12 @@ public class Application {
     }
 
     // TODO Change for parallel work
-    public BrowserWrapper getBrowser() {
+    public BrowserWrapper browser() {
         return browser;
+    }
+
+    public ISearch search() {
+        return search;
     }
 
     // TODO Change for parallel work
@@ -68,14 +73,14 @@ public class Application {
     }
 
     public void initSearch(IApplicationSource applicationSource) {
-        //this.search = new Search(applicationSource);
-        Search.initSearch(applicationSource);
+        this.search = new Search(applicationSource);
     }
 
     public HomePage loadHomePage() {
-        getBrowser().openUrl(applicationSource.getBaseUrl());
+        browser().openUrl(applicationSource.getBaseUrl());
         // TODO Remove getBrowser().getDriver()
-        return new HomePage(getBrowser().getDriver());
+        //return new HomePage(browser().getDriver());
+        return new HomePage();
     }
 
 //    public LoginPage login() {
