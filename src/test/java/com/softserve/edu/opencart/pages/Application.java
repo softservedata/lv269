@@ -2,11 +2,15 @@ package com.softserve.edu.opencart.pages;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
+import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
+import com.softserve.edu.opencart.tools.DataBaseWraper;
 import com.softserve.edu.opencart.tools.Search;
+
+import java.sql.SQLException;
 
 public class Application {
 
@@ -91,15 +95,15 @@ public class Application {
     	getBrowser().deleteAllCookies();
     }
 
-//    public LoginPage login() {
-//        getBrowser().openUrl(applicationSource.getUserLoginUrl());
-//        return new LoginPage();
-//    }
+    public LoginPage login() {
+       getBrowser().openUrl(applicationSource.getUserLoginUrl());
+       return new LoginPage();
+   }
 
-//    public LogoutPage logout() {
-//        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
-//        return new LogoutPage();
-//    }
+    public LogoutPage logout() {
+        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
+        return new LogoutPage();
+    }
 
     public void initDataBase(IApplicationSource applicationSource) {
         this.dataBase = new DataBaseWraper();
