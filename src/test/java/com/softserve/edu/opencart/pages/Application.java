@@ -2,14 +2,11 @@ package com.softserve.edu.opencart.pages;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
-import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
-import com.softserve.edu.opencart.tools.DataBaseWraper;
-
-import java.sql.SQLException;
+import com.softserve.edu.opencart.tools.Search;
 
 public class Application {
 
@@ -21,16 +18,12 @@ public class Application {
     // TODO Change for parallel work
     private IApplicationSource applicationSource;
     private BrowserWrapper browser;
+    //private ISearch search;
     private DataBaseWraper dataBase;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
         this.applicationSource = applicationSource;
-        initBrowser(applicationSource);
-        initDataBase(applicationSource);
-
-        // initSearchStrategy();
-        // initAccessToDB();
     }
 
     public static Application get() {
@@ -45,12 +38,15 @@ public class Application {
                         applicationSource = ApplicationSourceRepository.get().base();
                     }
                     instance = new Application(applicationSource);
+                    instance.initBrowser(applicationSource);
+                    instance.initSearch(applicationSource);
+                    // initAccessToDB();
                 }
             }
         }
         return instance;
     }
-
+    
     public static void remove() {
         if (instance != null) {
             // TODO Change for parallel work
@@ -80,25 +76,30 @@ public class Application {
         this.browser = new BrowserWrapper(applicationSource);
     }
 
+    public void initSearch(IApplicationSource applicationSource) {
+        //this.search = new Search(applicationSource);
+        Search.initSearch(applicationSource);
+    }
+
     public HomePage loadHomePage() {
         getBrowser().openUrl(applicationSource.getBaseUrl());
         // TODO Remove getBrowser().getDriver()
         return new HomePage(getBrowser().getDriver());
     }
-    
+
     public void deleteAllCookies() {
     	getBrowser().deleteAllCookies();
     }
 
-    public LoginPage login() {
-        getBrowser().openUrl(applicationSource.getUserLoginUrl());
-        return new LoginPage(getBrowser().getDriver());
-    }
+//    public LoginPage login() {
+//        getBrowser().openUrl(applicationSource.getUserLoginUrl());
+//        return new LoginPage();
+//    }
 
-    public LogoutPage logout() {
-        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
-        return new LogoutPage(getBrowser().getDriver());
-    }
+//    public LogoutPage logout() {
+//        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
+//        return new LogoutPage();
+//    }
 
     public void initDataBase(IApplicationSource applicationSource) {
         this.dataBase = new DataBaseWraper();

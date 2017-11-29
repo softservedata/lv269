@@ -19,14 +19,14 @@ public class ApplicationSourceRepository {
     }
 
     public IApplicationSource base() {
-        return chromeServer7();
+        return chromeImplicitServer7();
     }
 
     public String geckoDriverPath() {
         return ApplicationSourceRepository.class
                 .getResource("/lib/geckodriver.exe").getPath().substring(1);
     }
-    
+
     public String geckoDriverPath32() {
         return ApplicationSourceRepository.class
                 .getResource("/lib/geckodriver32.exe").getPath().substring(1);
@@ -37,12 +37,13 @@ public class ApplicationSourceRepository {
                 .getResource("/lib/chromedriver.exe").getPath().substring(1);
     }
 
-    public IApplicationSource chromeServer7() {
+    public IApplicationSource chromeImplicitServer7() {
         //System.out.println("Full Path = " + ApplicationSourceRepository.class
         //        .getResource("/lib/geckodriver.exe").getPath());
         System.out.println("Path = " + chromeDriverPath());
         return new ApplicationSource("chrome", chromeDriverPath(),
-                5L, 60L, 10L, 1L,
+                10L, 30L, 10L, 5L,
+                "Implicit",
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
@@ -50,25 +51,27 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/admin/index.php?route=common/logout");
     }
 
-    public IApplicationSource firefoxServer7() {
-        System.out.println("Full Path = " + ApplicationSourceRepository.class
-                .getResource("/lib/geckodriver.exe").getPath());
-        //System.out.println("Path = " + chromeDriverPath());
-        return new ApplicationSource("firefox", geckoDriverPath(),
-                5L, 65L, 10L, 5L,
+    public IApplicationSource chromeVisibleServer7() {
+        //System.out.println("Full Path = " + ApplicationSourceRepository.class
+        //        .getResource("/lib/geckodriver.exe").getPath());
+        System.out.println("Path = " + chromeDriverPath());
+        return new ApplicationSource("chrome", chromeDriverPath(),
+                10L, 30L, 10L, 5L,
+                "Visible",
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
                 "http://server7.pp.ua/admin/index.php?route=common/logout");
     }
-    
-    public IApplicationSource firefoxServer7x32() {
+
+    public IApplicationSource firefoxImplicitServer7() {
         System.out.println("Full Path = " + ApplicationSourceRepository.class
-                .getResource("/lib/geckodriver32.exe").getPath());
+                .getResource("/lib/geckodriver.exe").getPath());
         //System.out.println("Path = " + chromeDriverPath());
-        return new ApplicationSource("firefox", geckoDriverPath32(),
-                5L, 5L, 10L, 5L,
+        return new ApplicationSource("firefox", geckoDriverPath(),
+                10L, 30L, 10L, 5L,
+                "Implicit",
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
