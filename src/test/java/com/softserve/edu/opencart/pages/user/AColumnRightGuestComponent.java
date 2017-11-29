@@ -62,7 +62,7 @@ public class AColumnRightGuestComponent extends AColumnRightPartitionalComponent
     // Business Logic
     public LoginPage gotoLoginPageRightColumn() {
         clickLoginRightColumn();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
     //    public RegisterPage gotoRegisterPageRightColumn() {
 //        clickRegisterRightColumn();
@@ -76,12 +76,12 @@ public class AColumnRightGuestComponent extends AColumnRightPartitionalComponent
 
     public LoginPage gotoMyAccountPageRightColumn() {
         clickMyAccountRigthPanel();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
 
     public LoginPage gotoAdressBookPageRightColumn() {
         clickAddressBook();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
 
     //    public LoginPage gotoWishListPageRightColumn() {
@@ -90,32 +90,32 @@ public class AColumnRightGuestComponent extends AColumnRightPartitionalComponent
 //    }
     public LoginPage gotoOrderHistoryRightColumn() {
         clickOrderHistory();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
     public LoginPage gotoDownloadsPageRightColumn() {
         clickDownloads();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
 
     public LoginPage gotoRecurringPaymentsPageRightColumn() {
         clickRecurringPayments();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
     public LoginPage gotoRewardPointsPageRightColumn() {
         clickRewardPoints();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
     public LoginPage gotoReturnsPageRightColumn() {
         clickReturns();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
     public LoginPage gotoTransactionsPageRightColumn() {
         clickTransactions();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
     public LoginPage gotoNewsletterPageRightColumn() {
         clickNewsletter();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
 
 

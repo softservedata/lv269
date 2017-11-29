@@ -41,7 +41,7 @@ abstract class ANavigatePanelComponent extends AHeaderComponent {
     
     public HomePage gotoHomePageViaHomeLogoClick() {
     	clickHomeLogo();
-    	return new HomePage(driver);
+    	return new HomePage();
     }
 
 }

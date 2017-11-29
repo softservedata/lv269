@@ -117,12 +117,12 @@ public class LoginPage extends AColumnRightGuestComponent {
 
     public MyAccountPage gotoLoginForLoginPageToMyAccountPage(IUser user) {
         loginForLoginPageToMyAccountPage(user.getEmail(), user.getPassword());
-        return new MyAccountPage(driver);
+        return new MyAccountPage();
     }
 
     public LoginPage gotoLoginForLoginPageToWarning(IUser user) {
         loginForLoginPageToWarning(user.getEmail(), user.getPassword());
-        return new LoginPage(driver);
+        return new LoginPage();
     }
 
     public String getWarningDangerText() {

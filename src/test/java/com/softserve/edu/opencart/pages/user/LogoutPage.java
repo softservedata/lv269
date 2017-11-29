@@ -7,9 +7,9 @@ import org.openqa.selenium.WebElement;
 public class LogoutPage extends AColumnRightGuestComponent {
 	private WebElement continueButton;
 
-	public LogoutPage(WebDriver driver) {
-		super(driver);
-		continueButton = driver.findElement(By.cssSelector(".btn.btn-primary"));
+	public LogoutPage() {
+		super();
+		continueButton = search.cssSelector(".btn.btn-primary");
 	}
 
 	public WebElement getContinueButton() {
@@ -22,6 +22,6 @@ public class LogoutPage extends AColumnRightGuestComponent {
 
 	public HomePage gotoHomePage() {
 		clickContinueButton();
-		return new HomePage(driver);
+		return new HomePage();
 	}
 }

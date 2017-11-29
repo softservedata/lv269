@@ -8,6 +8,7 @@ import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
 import com.softserve.edu.opencart.tools.DataBaseWraper;
+import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.Search;
 
 import java.sql.SQLException;
@@ -89,20 +90,20 @@ public class Application {
     }
 
     public HomePage loadHomePage() {
-        getBrowser().openUrl(applicationSource.getBaseUrl());
+        browser().openUrl(applicationSource.getBaseUrl());
         // TODO Remove getBrowser().getDriver()
         //return new HomePage(browser().getDriver());
         return new HomePage();
     }
 
     public LoginPage login() {
-        getBrowser().openUrl(applicationSource.getUserLoginUrl());
+    	browser().openUrl(applicationSource.getUserLoginUrl());
         //return new LoginPage(getBrowser().getDriver());
         return new LoginPage();
     }
 
     public LogoutPage logout() {
-        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
+    	browser().openUrl(applicationSource.getUserLogoutUrl());
         //return new LogoutPage(getBrowser().getDriver());
         return new LogoutPage();
     }

@@ -14,7 +14,7 @@ public class MyAccountPage extends AColumnRightUserComponent {
 
 	public EditAccountPage gotoEditAccountPageFromRightColumn(){
 		clickEditAccount();
-		return new EditAccountPage(driver);
+		return new EditAccountPage();
 	}
 
 

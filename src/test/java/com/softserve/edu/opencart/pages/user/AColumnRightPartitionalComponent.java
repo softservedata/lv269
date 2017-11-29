@@ -22,8 +22,8 @@ abstract class AColumnRightPartitionalComponent extends ANavigatePanelComponent 
 
     private WebElement listGroup;
 
-    protected AColumnRightPartitionalComponent(WebDriver driver) {
-        super(driver);
+    protected AColumnRightPartitionalComponent() {
+        super();
 
         myAccountRigthPanel = driver.findElement(By.cssSelector("a.list-group-item[href*='account/account']"));
         addressBook = driver.findElement(By.cssSelector("a.list-group-item[href*='address']"));
@@ -136,7 +136,7 @@ abstract class AColumnRightPartitionalComponent extends ANavigatePanelComponent 
     
     public WishListPage gotoWishListPageRightColumn() {
     	clickRigthPanelWishList();
-    	return new WishListPage(driver);
+    	return new WishListPage();
     }
 
 

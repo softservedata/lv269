@@ -79,8 +79,8 @@ public class HomePage extends AHeaderComponent {
     public HomePage gotoHomePageClickAddToWish(IProduct product) {
     	clickAddToWishByProductName(product.getName());
     	// TODO ChromeDriver/Chrome java script execution BUG!!!
-    	Application.get().getBrowser().refreshPage();
+    	Application.get().browser().refreshPage();
     	//try {Thread.sleep(1000);} catch (InterruptedException ex) {}
-    	return new HomePage(driver);
+    	return new HomePage();
     }
 }

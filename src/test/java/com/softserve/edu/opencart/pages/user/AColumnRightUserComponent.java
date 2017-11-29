@@ -14,8 +14,8 @@ public class AColumnRightUserComponent extends AColumnRightPartitionalComponent 
     private WebElement logout;
 
 
-    public AColumnRightUserComponent(WebDriver driver) {
-        super(driver);
+    public AColumnRightUserComponent() {
+        super();
         logout = driver.findElement(By.cssSelector("a.list-group-item[href*='logout']"));
         password = driver.findElement(By.cssSelector("a.list-group-item[href*='password']"));
         editAccount = driver.findElement(By.cssSelector("a.list-group-item[href*='edit']"));
@@ -60,7 +60,7 @@ public class AColumnRightUserComponent extends AColumnRightPartitionalComponent 
     
     public LogoutPage gotoLogoutPageRightColumn() {
     	clickLogoutRightColumn();
-    	return new LogoutPage(driver);
+    	return new LogoutPage();
     }
 
 }
