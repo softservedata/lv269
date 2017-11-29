@@ -6,8 +6,8 @@ import org.openqa.selenium.WebElement;
 
 public class MyAccountPage extends AColumnRightUserComponent {
 
-	public MyAccountPage(WebDriver driver) {
-		super(driver);
+	public MyAccountPage() {
+		super();
 	}
 	
 	 //----------Bussiness logic
