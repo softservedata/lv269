@@ -1,11 +1,9 @@
 package com.softserve.edu.opencart.pages.admin;
 
 import com.softserve.edu.opencart.data.pathnames.IPathnames;
-import com.softserve.edu.opencart.data.pathnames.IStoreSettingOptionSet;
 import com.softserve.edu.opencart.data.pathnames.StoreSettingOptionSet;
 import com.softserve.edu.opencart.tools.ErrorUtils;
-import com.softserve.edu.opencart.tools.SearchManager;
-import org.openqa.selenium.By;
+import com.softserve.edu.opencart.tools.Operations;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -46,19 +44,18 @@ public class SettingPage extends AHeaderComponentAdmin {
     private static int currentOption;
 
 
-    public SettingPage(SearchManager searchManager) {
-        super(searchManager);
-        addStoreBtn = searchManager.findElement(By.xpath("//a[child::i[@class='fa fa-plus']]"));
-        deleteStoreBtn = searchManager.findElement(By.tagName("button"));
-        headerAllStoreSelectCheckbox = searchManager.findElement(
-                By.cssSelector(".table-bordered > thead > tr > td > input"));
+    public SettingPage() {
+        super();
+        addStoreBtn = search.xpath("//a[child::i[@class='fa fa-plus']]");
+        deleteStoreBtn = search.tagName("button");
+        headerAllStoreSelectCheckbox = search.cssSelector(".table-bordered > thead > tr > td > input");
         setStoreTablesList();
 
     }
 
     private void setStoreTablesList() {
         storesTable = new ArrayList<>();
-        for (WebElement current : searchManager.findElements(By.cssSelector(STORE_ROW_SELECTOR_CSS))) {
+        for (WebElement current : search.cssSelectors(STORE_ROW_SELECTOR_CSS)) {
             storesTable.add(new StoreTable(current));
         }
     }
@@ -93,19 +90,19 @@ public class SettingPage extends AHeaderComponentAdmin {
 
     //Set Data
     public void clickAddStoreBtn() {
-        searchManager.clickElement(getAddStoreBtn());
+        Operations.clickElement(getAddStoreBtn());
     }
 
     public void clickDeleteStoreBtn() {
-        searchManager.clickElement(getDeleteStoreBtn());
+        Operations.clickElement(getDeleteStoreBtn());
     }
 
     public void selectAllStoreCheckbox() {
-        searchManager.selectCheckBox(getHeaderAllStoreSelectCheckbox());
+        Operations.selectCheckBox(getHeaderAllStoreSelectCheckbox());
     }
 
     public void deselectAllStoreCheckbox() {
-        searchManager.deselectCheckBox(getHeaderAllStoreSelectCheckbox());
+        Operations.deselectCheckBox(getHeaderAllStoreSelectCheckbox());
     }
 
     //SetFunctional
@@ -126,7 +123,7 @@ public class SettingPage extends AHeaderComponentAdmin {
     // Business Logic
     public StoreSettingPage openStoreSettingsPageByUrl(IPathnames pathnames) {
         clickStoreEditSettingBtnByUrl(pathnames.getStoreUrl());
-        return new StoreSettingPage(searchManager);
+        return new StoreSettingPage();
     }
 
     //-----------------------------------------------------------------------------------------
@@ -141,14 +138,10 @@ public class SettingPage extends AHeaderComponentAdmin {
 
 
         public StoreTable(WebElement storeRow) {
-            storeSelectCheckbox = searchManager.findElementInsideElement(storeRow,
-                    By.cssSelector(StoresTabeSelectors.CHECKBOX_SELECTOR_CSS.toString()));
-            storeName = searchManager.findElementInsideElement(storeRow,
-                    By.cssSelector(StoresTabeSelectors.STORE_NAME_SELECTOR_CSS.toString()));
-            storeUrl = searchManager.findElementInsideElement(storeRow,
-                    By.cssSelector(StoresTabeSelectors.STORE_URL_SELECTOR_CSS.toString()));
-            storeEditSettingsBtn = searchManager.findElementInsideElement(storeRow,
-                    By.cssSelector(StoresTabeSelectors.STORE_ACTION_BTN_SELECTOR_CSS.toString()));
+            storeSelectCheckbox = search.cssSelector(StoresTabeSelectors.CHECKBOX_SELECTOR_CSS.toString(), storeRow);
+            storeName = search.cssSelector(StoresTabeSelectors.STORE_NAME_SELECTOR_CSS.toString(), storeRow);
+            storeUrl = search.cssSelector(StoresTabeSelectors.STORE_URL_SELECTOR_CSS.toString(), storeRow);
+            storeEditSettingsBtn = search.cssSelector(StoresTabeSelectors.STORE_ACTION_BTN_SELECTOR_CSS.toString(), storeRow);
         }
 
         // PageObject
@@ -174,7 +167,7 @@ public class SettingPage extends AHeaderComponentAdmin {
         // get Functional
 
         public boolean isStoreSelectCheckboxStatusSelected() {
-            return searchManager.isCheckboxSelected(getStoreSelectCheckbox());
+            return Operations.isCheckboxSelected(getStoreSelectCheckbox());
         }
 
         public String getStoreNameText() {
@@ -188,24 +181,24 @@ public class SettingPage extends AHeaderComponentAdmin {
         //setData
 
         public void clickStoreEditSettingBtn () {
-            searchManager.clickElement(getStoreEditSettingsBtn());
+            Operations.clickElement(getStoreEditSettingsBtn());
         }
 
         //setFunctional
 
         public void selectStoreCheckbox() {
-            searchManager.selectCheckBox(getStoreSelectCheckbox());
+            Operations.selectCheckBox(getStoreSelectCheckbox());
         }
 
         public void deselectStoreCheckbox() {
-            searchManager.selectCheckBox(getStoreSelectCheckbox());
+            Operations.selectCheckBox(getStoreSelectCheckbox());
         }
 
         // Business Logic
 
         public StoreSettingPage openStoreSettingPageByStoreUrl (IPathnames pathnames) {
             clickStoreEditSettingBtnByUrl(pathnames.getStoreUrl());
-            return new StoreSettingPage(searchManager);
+            return new StoreSettingPage();
         }
     }
 }

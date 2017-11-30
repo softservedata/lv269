@@ -2,10 +2,8 @@ package com.softserve.edu.opencart.data;
 
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
-import org.hibernate.boot.model.source.spi.NaturalIdMutability;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,13 +38,18 @@ public class ProductShort {
                 .setModel(parametersArray[1])
                 .setPrice(parametersArray[2])
                 .setQuantity(parametersArray[3])
-                .setStatusText(parametersArray[4])
+                .setStatusFlag(parametersArray[4])
                 .setImageFlag(parametersArray[5]);
 
     }
 
     private void initProductMap() {
         productMap = new HashMap<>();
+        setName("");
+        setModel("");
+        setPrice("");
+        setImageFlag("");
+        setStatusFlag("");
 
     }
 
@@ -123,7 +126,7 @@ public class ProductShort {
         return this;
     }
 
-    public ProductShort setStatusText(String statusText) {
+    public ProductShort setStatusFlag(String statusText) {
         ErrorUtils.createWrongTextToDropdown(!verifyBooleanText(statusText),
                 String.format(WRONG_TEXT_TO_SELECT_MESSAGE, TagAttribute.STATUS.toString(), statusText));
         getProductMap().put(TagAttribute.STATUS.toString(), statusText);

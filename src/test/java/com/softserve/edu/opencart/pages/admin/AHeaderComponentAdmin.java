@@ -1,11 +1,9 @@
 package com.softserve.edu.opencart.pages.admin;
 
 import com.softserve.edu.opencart.data.pathnames.IPathnames;
+import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.TagAttribute;
-import com.softserve.edu.opencart.tools.ErrorUtils;
-import com.softserve.edu.opencart.tools.NumberUtils;
-import com.softserve.edu.opencart.tools.SearchManager;
-import com.softserve.edu.opencart.tools.TextUtils;
+import com.softserve.edu.opencart.tools.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -25,7 +23,7 @@ abstract class AHeaderComponentAdmin {
 
 
     //Fields
-    protected SearchManager searchManager;
+    protected Search search;
 
     private WebElement sBarPanel;
     private WebElement logo;
@@ -43,25 +41,25 @@ abstract class AHeaderComponentAdmin {
     protected static List<String> sBarPathnames;
     //TODO Change
 
-    public AHeaderComponentAdmin(SearchManager searchManager) {
-        this.searchManager = searchManager;
-        sBarPanel = searchManager.findElement(By.id("menu"));
-        logo = searchManager.findElement(By.className("navbar-brand"));
-        statBtn = searchManager.findElement(By.xpath(".//a[child::i[@class='fa fa-bell fa-lg']]"));
-        toStoreBtn = searchManager.findElement(By.xpath(".//a[child::i[@class='fa fa-home fa-lg']]"));
-        helpBtn = searchManager.findElement(By.xpath(".//a[child::i[@class='fa fa-life-ring fa-lg']]"));
-        logoutBtn = searchManager.findElement(By.xpath(".//a[child::i[@class='fa fa-sign-out fa-lg']]"));
-        currentPageName = searchManager.findElement(By.cssSelector(".page-header > .container-fluid > h1"));
-        pathnamePageBtns = searchManager.findElements(By.cssSelector(".breadcrumb > li > a"));
+    public AHeaderComponentAdmin() {
+        this.search = Application.get().search();
+        sBarPanel = search.id("menu");
+        logo = search.className("navbar-brand");
+        statBtn = search.xpath(".//a[child::i[@class='fa fa-bell fa-lg']]");
+        toStoreBtn = search.xpath(".//a[child::i[@class='fa fa-home fa-lg']]");
+        helpBtn = search.xpath(".//a[child::i[@class='fa fa-life-ring fa-lg']]");
+        logoutBtn = search.xpath(".//a[child::i[@class='fa fa-sign-out fa-lg']]");
+        currentPageName = search.cssSelector(".page-header > .container-fluid > h1");
+        pathnamePageBtns = search.cssSelectors(".breadcrumb > li > a");
         setSBarMainOptionsList();
 
     }
 
     private void setSBarMainOptionsList() {
         sBarMainOptionsList = new ArrayList<>();
-        for (WebElement current : searchManager.findElementsInsideElement(sBarPanel,
-                By.xpath(MAIN_OPTIONS_LIST_XPTH))) {
-            sBarMainOptionsList.add(new SBarMainOption(current, searchManager));
+        List <WebElement> temp = search.xpaths(MAIN_OPTIONS_LIST_XPTH, sBarPanel);
+        for (WebElement current : search.xpaths(MAIN_OPTIONS_LIST_XPTH, sBarPanel)) {
+            sBarMainOptionsList.add(new SBarMainOption(current));
         }
     }
 
@@ -82,6 +80,10 @@ abstract class AHeaderComponentAdmin {
     //Page Object
 
     // Get data
+
+    public WebElement getsBarPanel() {
+        return sBarPanel;
+    }
 
     public WebElement getLogo() {
         return logo;
@@ -173,26 +175,26 @@ abstract class AHeaderComponentAdmin {
     }
 
     public void clickLogo() {
-        searchManager.clickElement(logo);
+        Operations.clickElement(getLogo());
     }
 
     public void clickLogoutBtn() {
-        searchManager.clickElement(logoutBtn);
+        Operations.clickElement(getLogoutBtn());
     }
 
     //Set Function
     public void clickToStoreBtn() {
-        searchManager.clickElement(toStoreBtn);
+        Operations.clickElement(getToStoreBtn());
         toStoreOptionsList = (toStoreOptionsList == null) ? new OptionsList(toStoreBtn) : null;
     }
 
     public void clickStatBtn() {
-        searchManager.clickElement(statBtn);
+        Operations.clickElement(getStatBtn());
         statOptionsList = (statOptionsList == null) ? new StatOptionsList(statBtn) : null;
     }
 
     public void clickHelpBtn() {
-        searchManager.clickElement(helpBtn);
+        Operations.clickElement(getHelpBtn());
         helpOptionsList = (helpOptionsList == null) ? new OptionsList(helpBtn) : null;
     }
 
@@ -230,7 +232,7 @@ abstract class AHeaderComponentAdmin {
         foundOption.actOptionByPathname(pathnameList);
         //TODO delete after solving problem with pathnames
         sBarPathnames.remove(0);
-        sBarPathnames =  (sBarPathnames.size() == 0)? null : sBarPathnames;
+        sBarPathnames = (sBarPathnames.size() == 0) ? null : sBarPathnames;
     }
 
     private SBarMainOption getMainSBarOptionByPartialName(String name) {
@@ -247,11 +249,11 @@ abstract class AHeaderComponentAdmin {
     }
 
     public void clickPathnamePageBtnLast() {
-        searchManager.clickElement(getPathnamePageBtnLast());
+        Operations.clickElement(getPathnamePageBtnLast());
     }
 
     public void clickPathnamePageBtnFirst() {
-        searchManager.clickElement(getPathnamePageBtnFirst());
+        Operations.clickElement(getPathnamePageBtnFirst());
     }
 
 //-------------------------------------------------------------------------------
@@ -267,8 +269,7 @@ abstract class AHeaderComponentAdmin {
         }
 
         private void setOptionsList() {
-            optionsList = searchManager.findElementsInsideElement(parentBtn,
-                    By.cssSelector(OPTION_LOCATOR));
+            optionsList = search.cssSelectors(OPTION_LOCATOR, parentBtn);
         }
 
         public WebElement getOptionByPartialName(String value) {
@@ -283,7 +284,7 @@ abstract class AHeaderComponentAdmin {
         }
 
         public void clickOptionByPartialName(String value) {
-            searchManager.clickElement(getOptionByPartialName(value));
+            Operations.clickElement(getOptionByPartialName(value));
         }
 
 
@@ -299,10 +300,8 @@ abstract class AHeaderComponentAdmin {
         }
 
         public int getOptionAmountByPartialName(String value) {
-            return NumberUtils.stringToInt(
-                    searchManager.findElementInsideElement(getOptionByPartialName(value),
-                            By.cssSelector(OPTION_AMOUNT_TEXT_CSS))
-                            .getText());
+            return NumberUtils.stringToInt(search.cssSelector(OPTION_AMOUNT_TEXT_CSS, getOptionByPartialName(value))
+                    .getText());
         }
     }
 
@@ -321,10 +320,8 @@ abstract class AHeaderComponentAdmin {
         private List<SBarOption> optionSubOptionsList;
         private WebElement parentElement;
 
-        private SearchManager searchManager;
 
-        public SBarMainOption(WebElement parentElement, SearchManager searchManager) {
-            this.searchManager = searchManager;
+        public SBarMainOption(WebElement parentElement) {
             this.parentElement = parentElement;
             setOptionText();
         }
@@ -335,25 +332,24 @@ abstract class AHeaderComponentAdmin {
 
         public void setOptionText() {
             setOptionTextSelector();
-            optionText = searchManager.findElementInsideElement(parentElement,
-                    By.cssSelector(optionTextSelector))
+            optionText = search.cssSelector(optionTextSelector, parentElement)
                     .getAttribute(TagAttribute.TEXT_CONTENT.toString());
         }
 
         private void setOptionBtn() {
-            optionBtn = searchManager.findElementInsideElement(parentElement, By.xpath("./a"));
+            //TODO clear magic text
+            optionBtn = search.xpath("./a", parentElement);
         }
 
         private void setOptionSubOptionsList() {
 
             optionSubOptionsList = new ArrayList<>();
-            for (WebElement current : searchManager.findElementsInsideElement(parentElement,
-                    By.xpath(SUB_OPTIONS_LIST_SELECTOR_XPTH))) {
+            for (WebElement current : search.xpaths(SUB_OPTIONS_LIST_SELECTOR_XPTH, parentElement)) {
                 SBarOption currentSBarOption = new SBarOption(current);
 //                currentSBarOption.setOptionText(current);
                 optionSubOptionsList.add(currentSBarOption);
 //            optionSubOptionsList = new ArrayList<>();
-//            for (WebElement current : searchManager.findElementsInsideElement(parentElement,
+//            for (WebElement current : search.findElementsInsideElement(parentElement,
 //                    By.xpath(SUB_OPTIONS_LIST_SELECTOR_XPTH))) {
 //                sBarMainOptionsList.add(new SBarMainOption(current));
             }
@@ -381,7 +377,7 @@ abstract class AHeaderComponentAdmin {
         //Set
 
         private void clickOptionBtn() {
-            searchManager.clickElement(getOptionBtn());
+            Operations.clickElement(getOptionBtn());
         }
 
         //Set Functional
@@ -417,7 +413,7 @@ abstract class AHeaderComponentAdmin {
             private final String SUB_OPTION_TEXT_SELECTOR_CSS = "a";
 
             public SBarOption(WebElement parentElement) {
-                super(parentElement, searchManager);
+                super(parentElement);
             }
 
             @Override
@@ -432,21 +428,16 @@ abstract class AHeaderComponentAdmin {
 
     //Business Logic
 
-    public LoginAdminPage logoutAdminPage() {
-        clickLogoutBtn();
-        return new LoginAdminPage(searchManager);
-    }
-
     public ProductAdminPage openProductAdminPage(IPathnames pathnames) {
         checkSBarPathnames(pathnames.getsBarPathnamesList());
         clickSBarOptionByPathname(sBarPathnames.get(0));
-        return new ProductAdminPage(searchManager);
+        return new ProductAdminPage();
     }
 
     public SettingPage openSettingAdminPage(IPathnames pathnames) {
         checkSBarPathnames(pathnames.getsBarPathnamesList());
         clickSBarOptionByPathname(sBarPathnames.get(0));
-        return new SettingPage(searchManager);
+        return new SettingPage();
     }
 }
 

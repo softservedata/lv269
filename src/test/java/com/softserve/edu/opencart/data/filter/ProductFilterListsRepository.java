@@ -1,12 +1,5 @@
 package com.softserve.edu.opencart.data.filter;
 
-import com.softserve.edu.opencart.data.ProductShort;
-import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
-import com.softserve.edu.opencart.pages.Application;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class ProductFilterListsRepository {
 
 
@@ -29,10 +22,42 @@ public class ProductFilterListsRepository {
         return instance;
     }
 
-    public IProductFilterLists filterOnlyProductName() {
+    public IProductFilterLists filterOnlyExistedProductName() {
         return new ProductFilterLists()
                 .readCurrentProductListFromFile("productlist.txt")
-                .setFilterTemplate("iPod Classic,,,,,");
-
+                .setNameFilterTemplate("iPod Classic");
     }
+
+    public IProductFilterLists filterOnlyNoneExistedProductName() {
+        return new ProductFilterLists()
+                .readCurrentProductListFromFile("productlist.txt")
+                .setNameFilterTemplate("Hiu-Hiu");
+    }
+
+    public IProductFilterLists filterOnlyProductNameMultipleResult() {
+        return new ProductFilterLists()
+                .readCurrentProductListFromFile("productlist.txt")
+                .setNameFilterTemplate("iPod");
+    }
+
+    public IProductFilterLists filterOnlyProductNameFromModelText() {
+        return new ProductFilterLists()
+                .readCurrentProductListFromFile("productlist.txt")
+                .setNameFilterTemplate("Product 15");
+    }
+
+    public IProductFilterLists filterOnlyExistedModel() {
+        return new ProductFilterLists()
+                .readCurrentProductListFromFile("productlist.txt")
+                .setNameFilterTemplate("Product 15");
+    }
+
+    public IProductFilterLists filterOnlyNoneExistedModel() {
+        return new ProductFilterLists()
+                .readCurrentProductListFromFile("productlist.txt")
+                .setNameFilterTemplate("Dummy card");
+    }
+
+
+
 }

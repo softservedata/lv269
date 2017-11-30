@@ -14,6 +14,8 @@ public interface IApplicationSource {
 
     long getExplicitTimeOut();
 
+    String getSearchStrategy();
+
     String getBaseUrl();
 
     String getUserLoginUrl();

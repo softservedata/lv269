@@ -2,27 +2,27 @@ package com.softserve.edu.opencart.pages.admin;//package server7.testng;
 
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.pages.Application;
-import com.softserve.edu.opencart.tools.SearchManager;
-import org.openqa.selenium.By;
+import com.softserve.edu.opencart.tools.Operations;
+import com.softserve.edu.opencart.tools.Search;
 import org.openqa.selenium.WebElement;
 
 public class LoginAdminPage {
 
  //Field
-    private SearchManager searchManager;
+    protected Search search;
     private WebElement logo;
     private WebElement loginField;
     private WebElement passwordField;
     private WebElement loginBtn;
     private WebElement forgotPasswordBtn;
 
-    public LoginAdminPage(SearchManager searchManager) {
-        this.searchManager = searchManager;
-        logo = searchManager.findElement(By.cssSelector(".navbar-header > a"));
-        loginField = searchManager.findElement(By.id("input-username"));
-        passwordField = searchManager.findElement(By.id("input-password"));
-        loginBtn = searchManager.findElement(By.tagName("button"));
-        forgotPasswordBtn = searchManager.findElement(By.cssSelector(".help-block > a"));
+    public LoginAdminPage() {
+        this.search = Application.get().search();
+        logo = search.cssSelector(".navbar-header > a");
+        loginField = search.id("input-username");
+        passwordField = search.id("input-password");
+        loginBtn = search.tagName("button");
+        forgotPasswordBtn = search.cssSelector(".help-block > a");
 
     }
 
@@ -53,23 +53,23 @@ public class LoginAdminPage {
 
 
     public void clickLogo() {
-        searchManager.clickElement(getLogo());
+        getLogo().click();
     }
 
     public void clickLoginBtn () {
-        searchManager.clickElement(getLoginBtn());
+        getLoginBtn().click();
     }
 
     public void setLoginField(String loginText) {
-        searchManager.fillInputField(getLoginField(), loginText);
+        Operations.fillInputField(getLoginField(), loginText);
     }
 
     public void setPasswordField(String passwordText) {
-        searchManager.fillInputField(getPasswordField(), passwordText);
+        Operations.fillInputField(getPasswordField(), passwordText);
     }
 
     public void clickForgotPassworBtn () {
-        searchManager.clickElement(forgotPasswordBtn);
+        Operations.clickElement(getLoginBtn());
     }
 
     // set Functional
@@ -83,16 +83,16 @@ public class LoginAdminPage {
     public DashboardAdmin validEnterAdminProfile (IUser validUser){
         setCredentials (validUser.getEmail(), validUser.getPassword());
         Application.get().setToken();
-        return new DashboardAdmin(searchManager);
+        return new DashboardAdmin();
     }
 
     public WrongLoginAdminPage invalidEnterAdminProfile (IUser invalidUser) {
         setCredentials (invalidUser.getEmail(), invalidUser.getPassword());
-        return new WrongLoginAdminPage(searchManager);
+        return new WrongLoginAdminPage();
     }
 
     public boolean isLoginAdminPageOpened () {
-        return (searchManager.isElementDisplayed(getLoginBtn()));
+        return (Operations.isElementDisplayed(getLoginBtn()));
     }
 
 

@@ -15,8 +15,12 @@ public class OpenProductAdminPageTest {
 
     @BeforeClass
     public void fileWriter() {
-        Application.get(ApplicationSourceRepository.get().chromeServer7());
+        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
     }
+
+//    public void fileWriter() {
+//        Application.get(ApplicationSourceRepository.get().firefoxVisibleServer7());
+//    }
 
     @DataProvider(name = "OpenProductPageData")
     public Object[][] ValidData() {

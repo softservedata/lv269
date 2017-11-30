@@ -74,8 +74,10 @@ public class BrowserWrapper {
             }
         }
         driver = currentBrowser.runBrowser(applicationSource);
-        // TODO Move to Search Class
-        driver.manage().timeouts().implicitlyWait(applicationSource.getImplicitWaitTimeOut(),
+        // TODO Move to search Class *********************************
+//        driver.manage().timeouts().implicitlyWait(applicationSource.getImplicitWaitTimeOut(),
+//                TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(0,
                 TimeUnit.SECONDS);
     }
 

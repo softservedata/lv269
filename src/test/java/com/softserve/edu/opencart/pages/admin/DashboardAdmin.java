@@ -1,13 +1,12 @@
 package com.softserve.edu.opencart.pages.admin;
 
-import com.softserve.edu.opencart.tools.SearchManager;
 
 public class DashboardAdmin extends AHeaderComponentAdmin {
 
     // Fields
 
-    public DashboardAdmin(SearchManager searchManager) {
-        super(searchManager);
+    public DashboardAdmin() {
+        super();
     }
 
 

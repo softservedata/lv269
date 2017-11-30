@@ -4,8 +4,7 @@ import com.softserve.edu.opencart.data.ProductShort;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
-import com.softserve.edu.opencart.tools.SearchManager;
-import org.openqa.selenium.By;
+import com.softserve.edu.opencart.tools.Operations;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -21,7 +20,9 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         TO_LAST_PAGE_SYMBOL(">|"),
         PAGINATION_ACTIVE_BTNS_SELECTOR_CSS(".pagination > li >a"),
         PAGINATION_CURRENT_PAGE_SELECTOR_CSS(".pagination > li > span"),
-        PAGINATION_LAST_BTN_ON_PAGE_SELECTOR_CSS(".pagination > li:last-child > a"),
+        PAGINATION_LAST_BTN_ACTIVE_ON_PAGE_SELECTOR_CSS(".pagination > li:last-child > a"),
+        PAGINATION_LAST_BTN_ON_PAGE_SELECTOR_CSS(".pagination > li:last-child"),
+
         PAGINATION_FIRST_BTN_ON_PAGE_SELECTOR_CSS(".pagination > li:first-child > a"),
 
         NO_PAGINATION_MESSAGE("On ProductAdminPage, there is no pagination "),
@@ -71,12 +72,15 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
     private ProductListTable productListTable;
     protected Integer lastProductAdminPageAllPagesNumber;
     protected List<ProductShort> productShortListAllPages;
+    private Integer itemsOnAllPagesExceptLast;
+    private int pagesPaginationQuantity;
 
-    public ProductAdminPage(SearchManager searchManager) {
-        super(searchManager);
-        addProductBtn = searchManager.findElement(By.xpath("//a[child::i[@class='fa fa-plus']]"));
-        copyProductBtn = searchManager.findElement(By.className("btn-default"));
-        deleteProductBtn = searchManager.findElement(By.className("btn-danger"));
+
+    public ProductAdminPage() {
+        super();
+        addProductBtn = search.xpath("//a[child::i[@class='fa fa-plus']]");
+        copyProductBtn = search.className("btn-default");
+        deleteProductBtn = search.className("btn-danger");
 
         filterSettings = new FilterSettings();
         productListTable = new ProductListTable();
@@ -86,12 +90,9 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
     }
 
     private void initPagination() {
-        if (searchManager.isElementVisible(By.cssSelector(PaginationData.PAGINATION_ACTIVE_BTNS_SELECTOR_CSS
-                .toString()))) {
-            paginationActiveBtns = searchManager.findElements(
-                    By.cssSelector(PaginationData.PAGINATION_ACTIVE_BTNS_SELECTOR_CSS.toString()));
-            paginationCurrentPage = searchManager.findElement(
-                    By.cssSelector(PaginationData.PAGINATION_CURRENT_PAGE_SELECTOR_CSS.toString()));
+        if (search.isVisibleCssSelector(PaginationData.PAGINATION_ACTIVE_BTNS_SELECTOR_CSS.toString())) {
+            paginationActiveBtns = search.cssSelectors(PaginationData.PAGINATION_ACTIVE_BTNS_SELECTOR_CSS.toString());
+            paginationCurrentPage = search.cssSelector(PaginationData.PAGINATION_CURRENT_PAGE_SELECTOR_CSS.toString());
         } else {
             paginationActiveBtns = null;
             paginationActiveBtns = null;
@@ -146,16 +147,16 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         return paginationCurrentPage;
     }
 
-    public WebElement getLastPaginationBtnOnPage() {
+    public WebElement getLastPaginationBtnActiveOnPage() {
         ErrorUtils.createElementIsNotDisplayedException((paginationCurrentPage == null),
                 PaginationData.NO_PAGINATION_MESSAGE.toString());
-        return searchManager.findElement(By.cssSelector(PaginationData.PAGINATION_LAST_BTN_ON_PAGE_SELECTOR_CSS.toString()));
+        return search.cssSelector(PaginationData.PAGINATION_LAST_BTN_ACTIVE_ON_PAGE_SELECTOR_CSS.toString());
     }
 
     public WebElement getFirstPaginationBtnOnPage() {
         ErrorUtils.createElementIsNotDisplayedException((paginationCurrentPage == null),
                 PaginationData.NO_PAGINATION_MESSAGE.toString());
-        return searchManager.findElement(By.cssSelector(PaginationData.PAGINATION_FIRST_BTN_ON_PAGE_SELECTOR_CSS.toString()));
+        return search.cssSelector(PaginationData.PAGINATION_FIRST_BTN_ON_PAGE_SELECTOR_CSS.toString());
     }
 
     public Integer getLastProductAdminPageAllPagesNumber() {
@@ -168,6 +169,18 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         ErrorUtils.createInitPaginationBeforeGetException((productShortListAllPages == null),
                 INIT_BEFORE_PRODUCT_ADMIN_PAGE_MESSAGE);
         return productShortListAllPages;
+    }
+
+    private WebElement getLastPaginationBtnOnPage() {
+        return search.cssSelector(PaginationData.PAGINATION_LAST_BTN_ON_PAGE_SELECTOR_CSS.toString());
+    }
+
+    public Integer getItemsOnAllPagesExceptLast() {
+        return itemsOnAllPagesExceptLast;
+    }
+
+    public int getPagesPaginationQuantity() {
+        return pagesPaginationQuantity;
     }
 
     // get Functional
@@ -193,8 +206,10 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         return result;
     }
 
-    public String getLastPaginationBtnOnPageText() {
-        return getLastPaginationBtnOnPage().getText();
+
+
+    public String getLastPaginationBtnActiveOnPageText() {
+        return getLastPaginationBtnActiveOnPage().getText();
     }
 
     public WebElement getToFirstPagePaginationBtnOnPage() {
@@ -213,7 +228,14 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         return getPaginationBtnByName(PaginationData.TO_LAST_PAGE_SYMBOL.toString());
     }
 
+    private String getLastPaginationBtnOnPageText() {
+        return getLastPaginationBtnOnPage().getText();
+    }
+
     public boolean isLastPageOpened() {
+        String temp =  getLastPaginationBtnOnPageText();
+        int temp2 = getCurrentPageNumber();
+
         return (getLastPaginationBtnOnPageText().matches(RegexPatterns.ALL_DIGITS.toString())
                 && (Integer.parseUnsignedInt(getLastPaginationBtnOnPageText()) == getCurrentPageNumber()));
     }
@@ -222,6 +244,10 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         return getProductListTable().getProductsShortList();
     }
 
+
+    public List<WebElement> getProductRowsFromTable() {
+        return getProductListTable().getProductRows();
+    }
     //TODO get from filter fields' text
     //TODO get and click for headers active element (sort by them desc, asc); get and click edit button by ProductShort
     //TODO get ProductShortList by Name, Model....
@@ -230,43 +256,43 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
     // set data
 
     public void clickAddProductBtn() {
-        searchManager.clickElement(getAddProductBtn());
+        Operations.clickElement(getAddProductBtn());
     }
 
     public void clickCopyProductBtn() {
-        searchManager.clickElement(copyProductBtn);
+        Operations.clickElement(copyProductBtn);
     }
 
     public void clickDeleteProductBtn() {
-        searchManager.clickElement(deleteProductBtn);
+        Operations.clickElement(deleteProductBtn);
     }
 
     public void clickToFirstPagePaginationBtn() {
-        searchManager.clickElement(getToFirstPagePaginationBtnOnPage());
+        Operations.clickElement(getToFirstPagePaginationBtnOnPage());
     }
 
     public void clickToPreviousPagePaginationBtn() {
-        searchManager.clickElement(getToPreviousPagePaginationBtn());
+        Operations.clickElement(getToPreviousPagePaginationBtn());
     }
 
     public void clickToNextPagePaginationBtn() {
-        searchManager.clickElement(getToNextPagePaginationBtn());
+        Operations.clickElement(getToNextPagePaginationBtn());
     }
 
-    public void clickLastPaginationBtnOnPage() {
-        searchManager.clickElement(getLastPaginationBtnOnPage());
+    public void clickLastPaginationBtnActiveOnPage() {
+        Operations.clickElement(getLastPaginationBtnActiveOnPage());
     }
 
     public void clickFirstPaginationBtnOnPage() {
-        searchManager.clickElement(getFirstPaginationBtnOnPage());
+        Operations.clickElement(getFirstPaginationBtnOnPage());
     }
 
     public void clickToLastPagePaginationBtn() {
-        searchManager.clickElement(getToFirstPagePaginationBtnOnPage());
+        Operations.clickElement(getToFirstPagePaginationBtnOnPage());
     }
 
     public void clickPaginationBtnByName(String paginationBtnName) {
-        searchManager.clickElement(getPaginationBtnByName(paginationBtnName));
+        Operations.clickElement(getPaginationBtnByName(paginationBtnName));
     }
 
     protected void setLastProductAdminPageAllPagesNumber(Integer lastProductAdminPageAllPagesNumber) {
@@ -277,6 +303,14 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         this.productShortListAllPages = productShortListAllPages;
     }
 
+    public void setItemsOnAllPagesExceptLast(Integer itemsOnAllPagesExceptLast) {
+        this.itemsOnAllPagesExceptLast = itemsOnAllPagesExceptLast;
+    }
+
+    public void setPagesPaginationQuantity(int pagesPaginationQuantity) {
+        this.pagesPaginationQuantity = pagesPaginationQuantity;
+    }
+
     // set Functional
 
     // Business Logic
@@ -284,22 +318,27 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
     public ProductAdminPage filterProductAdminPage(ProductShort product) {
         filterSettings.setFilterFields(product);
         filterSettings.clickFilterButton();
-        return new ProductAdminPage(searchManager);
+        return new ProductAdminPage();
     }
 
     public ProductAdminPage toLastProductAdminPageAllPages() {
-        clickLastPaginationBtnOnPage();
-        return new ProductAdminPage(searchManager);
+        clickLastPaginationBtnActiveOnPage();
+        return new ProductAdminPage();
     }
 
     public ProductAdminPage toFirstProductAdminPageAllPages() {
         clickFirstPaginationBtnOnPage();
-        return new ProductAdminPage(searchManager);
+        return new ProductAdminPage();
     }
 
     protected ProductAdminPage toProductAdminPageByNumber(int productAdminPageNumber) {
         clickPaginationBtnByName(String.valueOf(productAdminPageNumber));
-        return new ProductAdminPage(searchManager);
+        return new ProductAdminPage();
+    }
+
+    public ProductAdminPage toNextProductAdminPage() {
+        clickToNextPagePaginationBtn();
+        return new ProductAdminPage();
     }
 
 
@@ -316,13 +355,13 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         private WebElement filterButton;
 
         public FilterSettings() {
-            productNameField = searchManager.findElement(By.id("input-name"));
-            modelField = searchManager.findElement(By.id("input-model"));
-            priceField = searchManager.findElement(By.id("input-price"));
-            quantityField = searchManager.findElement(By.id("input-quantity"));
-            statusDropDown = new Select(searchManager.findElement(By.id("input-status")));
-            imageDropDown = new Select(searchManager.findElement(By.id("input-image")));
-            filterButton = searchManager.findElement(By.id("button-filter"));
+            productNameField = search.id("input-name");
+            modelField = search.id("input-model");
+            priceField = search.id("input-price");
+            quantityField = search.id("input-quantity");
+            statusDropDown = new Select(search.id("input-status"));
+            imageDropDown = new Select(search.id("input-image"));
+            filterButton = search.id("button-filter");
         }
         // PageObject
         // get data
@@ -368,32 +407,32 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         // set data
 
         public void setProductNameField(String name) {
-            searchManager.fillInputField(getProductNameField(), name);
+            Operations.fillInputField(getProductNameField(), name);
         }
 
         public void settModelField(String model) {
-            searchManager.fillInputField(getModelField(), model);
+            Operations.fillInputField(getModelField(), model);
         }
 
         public void setPriceField(String price) {
-            searchManager.fillInputField(getPriceField(), price);
+            Operations.fillInputField(getPriceField(), price);
         }
 
         public void setQuantityField(String quantity) {
-            searchManager.fillInputField(getQuantityField(), quantity);
+            Operations.fillInputField(getQuantityField(), quantity);
         }
 
         // set Functional
         public void setStatusDropDownByStatusText(String value) {
-            searchManager.selectByVisibleText(getStatusDropDown(), value);
+            Operations.selectByVisibleText(getStatusDropDown(), value);
         }
 
         public void setImageDropDownByImageText(String value) {
-            searchManager.selectByVisibleText(getImageDropDown(), value);
+            Operations.selectByVisibleText(getImageDropDown(), value);
         }
 
         public void clickFilterButton() {
-            searchManager.clickElement(getFilterButton());
+            Operations.clickElement(getFilterButton());
         }
 
         public void setFilterFields(ProductShort product) {
@@ -423,9 +462,9 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         private List<ProductShort> productsShortList;
 
         public ProductListTable() {
-            allProductsMarkCheckbox = searchManager.findElement(By.cssSelector("thead > tr > td > input"));
-            activeProductListHeaderTitles = searchManager.findElements(By.cssSelector("thead > tr > td > a"));
-            productRows = searchManager.findElements(By.cssSelector("tbody > tr"));
+            allProductsMarkCheckbox = search.cssSelector("thead > tr > td > input");
+            activeProductListHeaderTitles = search.cssSelectors("thead > tr > td > a");
+            productRows = search.cssSelectors("tbody > tr");
             initProductsFromProductsTable();
         }
 
@@ -443,7 +482,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
                     .setPrice(getPriceTextFromProductRow(productRow))
                     .setQuantity(getQuantityTextFromProductRow(productRow))
                     .setImageFlag(getImageFlagTextFromProductRow(productRow))
-                    .setStatusText(getStatusTextFromProductRow(productRow));
+                    .setStatusFlag(getStatusTextFromProductRow(productRow));
         }
 
         //GetData
@@ -466,8 +505,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
 
         //GetFunctional
         public WebElement getProductNameFromProductRow(WebElement productRow) {
-            return searchManager.findElementInsideElement(productRow, By.xpath(
-                    ProductTableData.PRODUCT_NAME_SELECTOR_XPATH.toString()));
+            return search.xpath(ProductTableData.PRODUCT_NAME_SELECTOR_XPATH.toString(), productRow);
         }
 
         public String getProductNameTextFromProductRow(WebElement productRow) {
@@ -475,8 +513,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         }
 
         public WebElement getModelFromProductRow(WebElement productRow) {
-            return searchManager.findElementInsideElement(productRow, By.xpath(
-                    ProductTableData.PRODUCT_MODEL_SELECTOR_XPATH.toString()));
+            return search.xpath(ProductTableData.PRODUCT_MODEL_SELECTOR_XPATH.toString(), productRow);
         }
 
         public String getModelTextFromProductRow(WebElement productRow) {
@@ -484,8 +521,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         }
 
         public WebElement getPriceFromProductRow(WebElement productRow) {
-            return searchManager.findElementInsideElement(productRow, By.xpath(
-                    ProductTableData.PRICE_SELECTOR_XPATH.toString()));
+            return search.xpath(ProductTableData.PRICE_SELECTOR_XPATH.toString(), productRow);
         }
 
         public String getPriceTextFromProductRow(WebElement productRow) {
@@ -495,8 +531,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         //TODO make get price with discount if it will be necessary
 
         public WebElement getQuantityFromProductRow(WebElement productRow) {
-            return searchManager.findElementInsideElement(productRow, By.xpath(
-                    ProductTableData.QUANTITY_SELECTOR_XPATH.toString()));
+            return search.xpath(ProductTableData.QUANTITY_SELECTOR_XPATH.toString(), productRow);
         }
 
         public String getQuantityTextFromProductRow(WebElement productRow) {
@@ -504,8 +539,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         }
 
         public WebElement getImageFromProductRow(WebElement productRow) {
-            return searchManager.findElementInsideElement(productRow, By.xpath(
-                    ProductTableData.IMAGE_SELECTOR_XPATH.toString()));
+            return search.xpath(ProductTableData.IMAGE_SELECTOR_XPATH.toString(), productRow);
         }
 
         public String getImageUrlFromProductRow(WebElement productRow) {
@@ -524,8 +558,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         }
 
         public WebElement getStatusFromProductRow(WebElement productRow) {
-            return searchManager.findElementInsideElement(productRow, By.xpath(
-                    ProductTableData.STATUS_SELECTOR_XPATH.toString()));
+            return search.xpath(ProductTableData.STATUS_SELECTOR_XPATH.toString(), productRow);
         }
 
         public String getStatusTextFromProductRow(WebElement productRow) {
@@ -574,14 +607,14 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         public void setProductNameColumnDescendant() {
             if (getClassNameFromElement(getProductNameHeaderBtn()).equalsIgnoreCase(ASC)
                     || getClassNameFromElement(getProductNameHeaderBtn()).isEmpty()) {
-                searchManager.clickElement(getProductNameHeaderBtn());
+                Operations.clickElement(getProductNameHeaderBtn());
             }
         }
 
         public void setProductNameColumnAscendant() {
             if (getClassNameFromElement(getProductNameHeaderBtn()).equalsIgnoreCase(DESC)
                     || getClassNameFromElement(getProductNameHeaderBtn()).isEmpty()) {
-                searchManager.clickElement(getProductNameHeaderBtn());
+                Operations.clickElement(getProductNameHeaderBtn());
             }
         }
 
@@ -589,65 +622,65 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         public void setModelColumnDescendant() {
             if (getClassNameFromElement(getModelHeaderBtn()).equalsIgnoreCase(ASC)
                     || getClassNameFromElement(getModelHeaderBtn()).isEmpty()) {
-                searchManager.clickElement(getModelHeaderBtn());
+                Operations.clickElement(getModelHeaderBtn());
             }
         }
 
         public void setModelColumnAscendant() {
             if (getClassNameFromElement(getModelHeaderBtn()).equalsIgnoreCase(DESC)
                     || getClassNameFromElement(getModelHeaderBtn()).isEmpty()) {
-                searchManager.clickElement(getModelHeaderBtn());
+                Operations.clickElement(getModelHeaderBtn());
             }
         }
 
         public void setPriceColumnDescendant() {
             if (getClassNameFromElement(getPriceHeaderBtn()).equalsIgnoreCase(ASC)
                     || getClassNameFromElement(getPriceHeaderBtn()).isEmpty()) {
-                searchManager.clickElement(getPriceHeaderBtn());
+                Operations.clickElement(getPriceHeaderBtn());
             }
         }
 
         public void setPriceColumnAscendant() {
             if (getClassNameFromElement(getPriceHeaderBtn()).equalsIgnoreCase(DESC)
                     || getClassNameFromElement(getPriceHeaderBtn()).isEmpty()) {
-                searchManager.clickElement(getPriceHeaderBtn());
+                Operations.clickElement(getPriceHeaderBtn());
             }
         }
 
         public void setQuantityColumnDescendant() {
             if (getClassNameFromElement(getQuantityHeaderBtn()).equalsIgnoreCase(ASC)
                     || getClassNameFromElement(getQuantityHeaderBtn()).isEmpty()) {
-                searchManager.clickElement(getQuantityHeaderBtn());
+                Operations.clickElement(getQuantityHeaderBtn());
             }
         }
 
         public void setQuantityColumnAscendant() {
             if (getClassNameFromElement(getQuantityHeaderBtn()).equalsIgnoreCase(DESC)
                     || getClassNameFromElement(getQuantityHeaderBtn()).isEmpty()) {
-                searchManager.clickElement(getQuantityHeaderBtn());
+                Operations.clickElement(getQuantityHeaderBtn());
             }
         }
 
         public void setStatusColumnDescendant() {
             if (getClassNameFromElement(getStatusHeaderBtn()).equalsIgnoreCase(ASC)
                     || getClassNameFromElement(getStatusHeaderBtn()).isEmpty()) {
-                searchManager.clickElement(getStatusHeaderBtn());
+                Operations.clickElement(getStatusHeaderBtn());
             }
         }
 
         public void setStatusColumnAscendant() {
             if (getClassNameFromElement(getStatusHeaderBtn()).equalsIgnoreCase(DESC)
                     || getClassNameFromElement(getStatusHeaderBtn()).isEmpty()) {
-                searchManager.clickElement(getStatusHeaderBtn());
+                Operations.clickElement(getStatusHeaderBtn());
             }
         }
 
         public void selectAllProductMarkCheckbox() {
-            searchManager.selectCheckBox(getAllProductsMarkCheckbox());
+            Operations.selectCheckBox(getAllProductsMarkCheckbox());
         }
 
         public void deselectAllProductMarkCheckbox() {
-            searchManager.deselectCheckBox(getAllProductsMarkCheckbox());
+            Operations.deselectCheckBox(getAllProductsMarkCheckbox());
         }
     }
 
@@ -656,11 +689,15 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
     public ProductAdminPage initLastProductAdminPageNumberAllPages() {
         ProductAdminPage result = this;
         if (isPaganationOnPage()) {
-            result = new ProductAdminPageController(searchManager, this)
-                    .getLastProductAdminPageNumberAllPages();
+            result = new ProductAdminPageController(this)
+                    .getLastProductAdminPageNumberAllPagesAndItemsPerEveryPage();
+        } else {
+            setItemsOnAllPagesExceptLast(getProductRowsFromTable().size());
+            setPagesPaginationQuantity(1);
         }
         return result;
     }
+
 
 }
 

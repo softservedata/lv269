@@ -6,7 +6,7 @@ import com.softserve.edu.opencart.data.pathnames.IStoreSettingOptionSet;
 import com.softserve.edu.opencart.data.pathnames.StoreSettingOptionSet;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
-import com.softserve.edu.opencart.tools.SearchManager;
+import com.softserve.edu.opencart.tools.Operations;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class StoreSettingPage extends AHeaderComponentAdmin {
 
-//TODO create enum
+    //TODO create enum
     private static final String ACTIVE_BTNS_SELECTOR_CSS = "li:not(.active) > a";
     private static final String INACTIVE_BTN_SELECTOR_CSS = ".nav-tabs > li.active > a";
     private static final String NO_SUCH_BTN_MESSAGE = "Element %s not found";
@@ -33,11 +33,11 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     //TODO remake without static
     private static StoreSettingOptionSet defaultOptionsList;
 
-    StoreSettingPage(SearchManager searchManager) {
-        super(searchManager);
-        saveOptionsBtn = searchManager.findElement(By.xpath("//button[child::i[@class='fa fa-save']]"));
-        cancelChangesBtn = searchManager.findElement(By.xpath("//a[child::i[@class='fa fa-reply']]"));
-        optionsTabBtnsPanel = searchManager.findElement(By.className("nav-tabs"));
+    StoreSettingPage() {
+        super();
+        saveOptionsBtn = search.xpath("//button[child::i[@class='fa fa-save']]");
+        cancelChangesBtn = search.xpath("//a[child::i[@class='fa fa-reply']]");
+        optionsTabBtnsPanel = search.className("nav-tabs");
         currentTabOptions = new OptionsTab();
     }
 
@@ -61,7 +61,6 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
                 String optionValue = (paginationData.getOptionName().equalsIgnoreCase(currentOption.getOptionName()))
                         ? String.valueOf(paginationData.getItemsPerPageNumber()) : currentOption.getOptionValue();
                 currentTabOptions.actOptionByName(currentOption.getOptionName(), optionValue);
-
             }
             if (currentOption.getOptionFlag() != null) {
                 currentTabOptions.actOptionByName(currentOption.getOptionName(), currentOption.getOptionFlag());
@@ -105,13 +104,11 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     //GetFunctional
 
     public WebElement getInactiveOptionsTabBtn() {
-        return searchManager.findElementInsideElement(getOptionsTabBtnsPanel(),
-                By.cssSelector(INACTIVE_BTN_SELECTOR_CSS));
+        return search.cssSelector(INACTIVE_BTN_SELECTOR_CSS, getOptionsTabBtnsPanel());
     }
 
     public List<WebElement> getActiveTabBtns() {
-        return searchManager.findElementsInsideElement(getOptionsTabBtnsPanel(),
-                By.cssSelector(ACTIVE_BTNS_SELECTOR_CSS));
+        return search.cssSelectors(ACTIVE_BTNS_SELECTOR_CSS, getOptionsTabBtnsPanel());
     }
 
     private WebElement getActiveTabBtnByName(String TabOptionsName) {
@@ -129,18 +126,18 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     //SetData
 
     public void clickSaveOptionsBtn() {
-        searchManager.clickElement(getSaveOptionsBtn());
+        Operations.clickElement(getSaveOptionsBtn());
     }
 
     public void clickCancelChangesBtn() {
-        searchManager.clickElement(getCancelChangesBtn());
+        Operations.clickElement(getCancelChangesBtn());
     }
 
     //Set Functional
 
     public void actTabBtnByName(String TabBtnName) {
         if (!getInactiveOptionsTabBtn().getText().toLowerCase().equals(TabBtnName.toLowerCase())) {
-            searchManager.clickElement(getActiveTabBtnByName(TabBtnName));
+            Operations.clickElement(getActiveTabBtnByName(TabBtnName));
         }
         currentTabOptions = new OptionsTab();
     }
@@ -149,30 +146,30 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
 
     public SettingPage changeOptionsSet(IPathnames paginationPathnames, IPagination paginationData) {
         enterOptionsFromOptionsList(paginationPathnames.getStoreSettingOptionSet(), paginationData);
-        searchManager.clickElement(getSaveOptionsBtn());
-        return new SettingPage(searchManager);
+        Operations.clickElement(getSaveOptionsBtn());
+        return new SettingPage();
     }
 
     public SettingPage changeOptionByTabNameAndOptionName(String tabName, String optionName, String newData) {
         actTabBtnByName(tabName);
         currentTabOptions.actOptionByName(optionName, newData);
-        searchManager.clickElement(getSaveOptionsBtn());
-        return new SettingPage(searchManager);
+        Operations.clickElement(getSaveOptionsBtn());
+        return new SettingPage();
     }
 
     public SettingPage changeOptionByTabNameAndOptionName(String tabName, String optionName, boolean newData) {
         actTabBtnByName(tabName);
         currentTabOptions.actOptionByName(optionName, newData);
-        searchManager.clickElement(getSaveOptionsBtn());
-        return new SettingPage(searchManager);
+        Operations.clickElement(getSaveOptionsBtn());
+        return new SettingPage();
     }
 
     public SettingPage changeOptionByTabNameAndOptionName(String tabName, String optionName,
                                                           Map<String, Boolean> newData) {
         actTabBtnByName(tabName);
         currentTabOptions.actOptionByName(optionName, newData);
-        searchManager.clickElement(getSaveOptionsBtn());
-        return new SettingPage(searchManager);
+        Operations.clickElement(getSaveOptionsBtn());
+        return new SettingPage();
     }
 
 //----------------------------------------------------------------------
@@ -203,7 +200,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
 
         private void setSelectors() {
             //TODO Experimental
-        if (searchManager.isElementVisible(By.cssSelector(DEFAULT_OPTIONS_SELECTOR_CSS))) {
+            if (search.isVisibleCssSelector(DEFAULT_OPTIONS_SELECTOR_CSS)) {
                 optionsSelectorCss = DEFAULT_OPTIONS_SELECTOR_CSS;
                 optionActiveElementSelectorXpath = DEFAULT_OPTION_ACTIVE_ELEMENT_SELECTOR_CSS;
                 optionNameSelectorCss = DEFAULT_OPTION_NAME_SELECTOR_CSS;
@@ -215,12 +212,12 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         }
 
         private void initOptionsList() {
-            optionsList = searchManager.findElements(By.cssSelector(optionsSelectorCss));
+            optionsList = search.cssSelectors(optionsSelectorCss);
         }
 
         //GetData
         private String getOptionName(WebElement option) {
-            return searchManager.findElementInsideElement(option, By.cssSelector(optionNameSelectorCss)).getText();
+            return search.cssSelector(optionNameSelectorCss,option).getText();
         }
 
 
@@ -239,8 +236,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         }
 
         public WebElement getActiveElementFromOption(WebElement optionElement) {
-            return searchManager.findElementInsideElement(optionElement,
-                    By.xpath(optionActiveElementSelectorXpath));
+            return search.xpath(optionActiveElementSelectorXpath, optionElement);
         }
 
         public WebElement getActiveElementByName(String optionName) {
@@ -297,12 +293,12 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         }
 
         private void actOptionAsDropdown(String optionName, String data) {
-            searchManager.selectByVisibleText(new Select(getActiveElementFromOption(getOptionByName(optionName))),
+            Operations.selectByVisibleText(new Select(getActiveElementFromOption(getOptionByName(optionName))),
                     data);
         }
 
         private void actOptionAsInputField(String optionName, String data) {
-            searchManager.fillInputField(getActiveElementFromOption(getOptionByName(optionName)), data);
+            Operations.fillInputField(getActiveElementFromOption(getOptionByName(optionName)), data);
         }
     }
 }

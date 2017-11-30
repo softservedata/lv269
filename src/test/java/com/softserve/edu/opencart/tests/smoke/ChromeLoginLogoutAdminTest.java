@@ -24,7 +24,7 @@ public class ChromeLoginLogoutAdminTest {
 
     @BeforeClass
     public void fileWriter() {
-        Application.get(ApplicationSourceRepository.get().chromeServer7());
+        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
     }
 
     @DataProvider(name = "ValidAdminData")

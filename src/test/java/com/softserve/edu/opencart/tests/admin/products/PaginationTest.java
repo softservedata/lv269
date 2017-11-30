@@ -12,11 +12,13 @@ import com.softserve.edu.opencart.pages.admin.ProductAdminPage;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.util.List;
+
 public class PaginationTest {
 
-    @BeforeClass
-    public void fileWriter() {
-        Application.get(ApplicationSourceRepository.get().chromeServer7());
+    public void browserOpen() {
+//        Application.get(ApplicationSourceRepository.get().firefoxVisibleServer7());
+        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
     }
 
     @DataProvider(name = "PaginationItemsPerPage")
@@ -39,14 +41,19 @@ public class PaginationTest {
                 .changeOptionsSet(paginationPathnames, paginationData)
                 .openProductAdminPage(paginationPathnames)
                 .initLastProductAdminPageNumberAllPages();
-        int actual = productAdminPage.getLastProductAdminPageAllPagesNumber();
+        int actualPagesPaginationQuantity = productAdminPage.getPagesPaginationQuantity();
+        Integer actualItemsOnAllPagesExceptLast = productAdminPage.getItemsOnAllPagesExceptLast();
         productAdminPage.openSettingAdminPage(paginationPathnames)
                 .openStoreSettingsPageByUrl(paginationPathnames)
                 .changeOptionsSet(paginationPathnames, paginationData);
-        Assert.assertEquals(actual, (paginationData.getItemsNumber() + paginationData.getItemsNumber() - 1)
-                        / paginationData.getItemsNumber(),
+        Assert.assertEquals(actualPagesPaginationQuantity,
+                (paginationData.getItemsNumber() + paginationData.getItemsPerPageNumber() - 1) / paginationData
+                        .getItemsPerPageNumber(),
                 String.format(ErrorMessages.WRONG_NUMBER_PAGES_PAGINATION.toString(), paginationData.getItemsNumber(),
-                       paginationData.getItemsPerPageNumber()));
+                        paginationData.getItemsPerPageNumber()));
+        Assert.assertTrue((actualItemsOnAllPagesExceptLast != null) && (actualItemsOnAllPagesExceptLast
+                        == Integer.min(paginationData.getItemsNumber(), paginationData.getItemsPerPageNumber())),
+                ErrorMessages.WRONG_NUMBER_ITEMS_PER_PAGES.toString());
     }
 
     @AfterMethod

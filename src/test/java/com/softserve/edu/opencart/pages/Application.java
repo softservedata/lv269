@@ -5,10 +5,7 @@ import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.pages.admin.LoginAdminPage;
 import com.softserve.edu.opencart.pages.admin.LogoutAdminPage;
 import com.softserve.edu.opencart.pages.user.HomePage;
-import com.softserve.edu.opencart.tools.BrowserWrapper;
-import com.softserve.edu.opencart.tools.FileManager;
-import com.softserve.edu.opencart.tools.SearchManager;
-import com.softserve.edu.opencart.tools.TextUtils;
+import com.softserve.edu.opencart.tools.*;
 
 import java.util.List;
 
@@ -22,21 +19,19 @@ public class Application {
     // TODO Change for parallel work
     private IApplicationSource applicationSource;
     private BrowserWrapper browser;
-    private SearchManager searchManager;
+
+    private Search search;
     private FileManager fileManager;
     private String token;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
         this.applicationSource = applicationSource;
-        initBrowser(applicationSource);
-        initSearchStrategy();
         // initAccessToDB();
     }
 
-    private void initSearchStrategy() {
-        searchManager = new SearchManager(browser.getDriver());
-        fileManager = new FileManager();
+    private void initSearchStrategy(IApplicationSource applicationSource) {
+        this.search = new Search(applicationSource);
     }
 
     public static Application get() {
@@ -51,10 +46,17 @@ public class Application {
                         applicationSource = ApplicationSourceRepository.get().base();
                     }
                     instance = new Application(applicationSource);
+                    instance.initBrowser(applicationSource);
+                    instance.initSearchStrategy(applicationSource);
+                    instance.initFileManager(applicationSource);
                 }
             }
         }
         return instance;
+    }
+
+    private void initFileManager(IApplicationSource applicationSource) {
+        fileManager = new FileManager();
     }
 
     public static void remove() {
@@ -66,7 +68,7 @@ public class Application {
     }
 
     // TODO Change for parallel work
-    public IApplicationSource getApplicationSources() {
+    public IApplicationSource getApplicationSource() {
         return applicationSource;
     }
 
@@ -80,8 +82,8 @@ public class Application {
         return fileManager;
     }
 
-    public SearchManager getSearchManager() {
-        return searchManager;
+    public Search search() {
+        return search;
     }
 
     //TODO Remake it by rules without magic numbers and symbols, with saving in the proper place
@@ -99,8 +101,8 @@ public class Application {
     }
 
     //TODO Change it after demo
-    public void initSearchManager() {
-        searchManager = new SearchManager(getBrowser().getDriver());
+    public void initSearchManager(IApplicationSource applicationSource) {
+        this.search = new Search(applicationSource);
     }
 
     public HomePage loadHomePage() {
@@ -112,12 +114,12 @@ public class Application {
     public LoginAdminPage loginAdmin() {
         getBrowser().openUrl(applicationSource.getAdminLoginUrl());
         //TODO Remove SearchManager
-        return new LoginAdminPage(searchManager);
+        return new LoginAdminPage();
     }
 
     public LogoutAdminPage logoutAdmin() {
         getBrowser().openUrl(applicationSource.getAdminLogoutUrl() + getToken());
-        return new LogoutAdminPage(searchManager);
+        return new LogoutAdminPage();
     }
 
 
