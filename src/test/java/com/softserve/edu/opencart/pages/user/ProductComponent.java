@@ -1,17 +1,16 @@
 package com.softserve.edu.opencart.pages.user;
 
-import org.openqa.selenium.WebElement;
-
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
+import org.openqa.selenium.WebElement;
 
 public class ProductComponent {
 
     // Fields
 
-	protected ISearch search;
+    protected ISearch search;
     private WebElement productLayout;
     //
     private WebElement name;

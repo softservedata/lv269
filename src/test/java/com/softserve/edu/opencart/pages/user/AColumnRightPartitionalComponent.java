@@ -1,7 +1,5 @@
 package com.softserve.edu.opencart.pages.user;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 abstract class AColumnRightPartitionalComponent extends ANavigatePanelComponent {
@@ -25,16 +23,16 @@ abstract class AColumnRightPartitionalComponent extends ANavigatePanelComponent 
     protected AColumnRightPartitionalComponent() {
         super();
 
-        myAccountRigthPanel = driver.findElement(By.cssSelector("a.list-group-item[href*='account/account']"));
-        addressBook = driver.findElement(By.cssSelector("a.list-group-item[href*='address']"));
-        wishListRigthPanel = driver.findElement(By.cssSelector("a.list-group-item[href*='wishlist']"));
-        orderHistory = driver.findElement(By.cssSelector("a.list-group-item[href*='order']"));
-        downloads = driver.findElement(By.cssSelector("a.list-group-item[href*='download']"));
-        recurringPayments = driver.findElement(By.cssSelector("a.list-group-item[href*='recurring']"));
-        rewardPoints = driver.findElement(By.cssSelector("a.list-group-item[href*='reward']"));
-        returns = driver.findElement(By.cssSelector("a.list-group-item[href*='return']"));
-        transactions = driver.findElement(By.cssSelector("a.list-group-item[href*='transaction']"));
-        newsletter = driver.findElement(By.cssSelector("a.list-group-item[href*='newsletter']"));
+        myAccountRigthPanel = search.cssSelector("a.list-group-item[href*='account/account']");
+        addressBook = search.cssSelector("a.list-group-item[href*='address']");
+        wishListRigthPanel = search.cssSelector("a.list-group-item[href*='wishlist']");
+        orderHistory = search.cssSelector("a.list-group-item[href*='order']");
+        downloads = search.cssSelector("a.list-group-item[href*='download']");
+        recurringPayments = search.cssSelector("a.list-group-item[href*='recurring']");
+        rewardPoints = search.cssSelector("a.list-group-item[href*='reward']");
+        returns = search.cssSelector("a.list-group-item[href*='return']");
+        transactions = search.cssSelector("a.list-group-item[href*='transaction']");
+        newsletter = search.cssSelector("a.list-group-item[href*='newsletter']");
 
 
     }
@@ -133,13 +131,11 @@ abstract class AColumnRightPartitionalComponent extends ANavigatePanelComponent 
     // set Functional
 
     // Business Logic
-    
+
     public WishListPage gotoWishListPageRightColumn() {
-    	clickRigthPanelWishList();
-    	return new WishListPage();
+        clickRigthPanelWishList();
+        return new WishListPage();
     }
-
-
 
 
 }

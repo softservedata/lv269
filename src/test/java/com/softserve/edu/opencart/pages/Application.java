@@ -45,6 +45,7 @@ public class Application {
                     instance = new Application(applicationSource);
                     instance.initBrowser(applicationSource);
                     instance.initSearch(applicationSource);
+                    instance.initDataBase(applicationSource);
                     // initAccessToDB();
                 }
             }

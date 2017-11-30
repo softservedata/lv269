@@ -14,12 +14,11 @@ public class AColumnRightGuestComponent extends AColumnRightPartitionalComponent
     private WebElement forgotttenPassword;
 
 
-    public AColumnRightGuestComponent(WebDriver driver) {
-        super(driver);
-
-        login = driver.findElement(By.cssSelector("a.list-group-item[href*='login']"));
-        register = driver.findElement(By.cssSelector("a.list-group-item[href*='register']"));
-        forgotttenPassword = driver.findElement(By.cssSelector("a.list-group-item[href*='forgotten']"));
+    public AColumnRightGuestComponent() {
+        super( );
+        login = search.cssSelector("a.list-group-item[href*='login']");
+        register = search.cssSelector("a.list-group-item[href*='register']");
+        forgotttenPassword = search.cssSelector("a.list-group-item[href*='forgotten']");
 
     }
 

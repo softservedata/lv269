@@ -18,11 +18,11 @@ public class LoginPage extends AColumnRightGuestComponent {
     public final static String EXPECTED_SECOND_WARNING = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
 
 
-    public LoginPage(WebDriver driver) {
-        super(driver);
-        eMailAddressField = driver.findElement(By.name("email"));
-        passwordField = driver.findElement(By.name("password"));
-        LoginButton = driver.findElement(By.xpath("//*[@value='Login'] [@class='btn btn-primary']"));
+    public LoginPage() {
+        super();
+        eMailAddressField = search.name("email");
+        passwordField = search.name("password");
+        LoginButton = search.xpath("//*[@value='Login'] [@class='btn btn-primary']");
 
     }
 

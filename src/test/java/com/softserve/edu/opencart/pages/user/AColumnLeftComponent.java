@@ -1,8 +1,8 @@
 package com.softserve.edu.opencart.pages.user;
 
-import java.util.List;
-
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 abstract class AColumnLeftComponent extends ANavigatePanelComponent {
 

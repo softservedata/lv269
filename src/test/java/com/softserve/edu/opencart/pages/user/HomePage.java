@@ -1,13 +1,12 @@
 package com.softserve.edu.opencart.pages.user;
 
-import java.util.List;
-
-import org.openqa.selenium.By;
-
 import com.softserve.edu.opencart.data.categories.DetailCategory;
 import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.pages.Application;
+import org.openqa.selenium.By;
+
+import java.util.List;
 
 public class HomePage extends AHeaderComponent {
 
@@ -56,7 +55,7 @@ public class HomePage extends AHeaderComponent {
     // set Functional
 
     // Business Logic
-    
+
     public HomePage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
         clickCurrencyByPartialName(detailCategory.getOptionName());
         //return new HomePage(driver); 
@@ -75,12 +74,12 @@ public class HomePage extends AHeaderComponent {
         //return new SuccesSearchPage(driver);
         return new SuccesSearchPage();
     }
-    
+
     public HomePage gotoHomePageClickAddToWish(IProduct product) {
-    	clickAddToWishByProductName(product.getName());
-    	// TODO ChromeDriver/Chrome java script execution BUG!!!
-    	Application.get().browser().refreshPage();
-    	//try {Thread.sleep(1000);} catch (InterruptedException ex) {}
-    	return new HomePage();
+        clickAddToWishByProductName(product.getName());
+        // TODO ChromeDriver/Chrome java script execution BUG!!!
+        Application.get().browser().refreshPage();
+        //try {Thread.sleep(1000);} catch (InterruptedException ex) {}
+        return new HomePage();
     }
 }

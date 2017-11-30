@@ -1,13 +1,5 @@
 package com.softserve.edu.opencart.pages.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
@@ -15,6 +7,11 @@ import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 abstract class AHeaderComponent {
 
@@ -97,19 +94,19 @@ abstract class AHeaderComponent {
             return field;
         }
     }
-    
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     private enum MyAccountOptions {
-    	REGISTER("Register"),
-    	LOGIN("Login"),
+        REGISTER("Register"),
+        LOGIN("Login"),
         MY_ACCOUNT("My Account"),
         ORDER_HISTORY("Order History"),
         TRANSACTIONS("Transactions"),
         DOWNLOADS("Downloads"),
         LOGOUT("Logout");
-    	
-    	private String field;
+
+        private String field;
 
         private MyAccountOptions(String field) {
             this.field = field;
@@ -118,7 +115,7 @@ abstract class AHeaderComponent {
         @Override
         public String toString() {
             return field;
-        }    	
+        }
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -185,14 +182,14 @@ abstract class AHeaderComponent {
         menuTop = search.cssSelectors("ul.nav.navbar-nav > li");
     }
 
-	protected void initProductComponents(By searchLocator) {
-		productComponents = new ArrayList<>();
-		//List<WebElement> productWebElements = driver.findElements(searchLocator);
-		List<WebElement> productWebElements = search.getWebElements(searchLocator);
-		for (WebElement current : productWebElements) {
-			productComponents.add(new ProductComponent(current));
-		}
-	}
+    protected void initProductComponents(By searchLocator) {
+        productComponents = new ArrayList<>();
+        //List<WebElement> productWebElements = driver.findElements(searchLocator);
+        List<WebElement> productWebElements = search.getWebElements(searchLocator);
+        for (WebElement current : productWebElements) {
+            productComponents.add(new ProductComponent(current));
+        }
+    }
 
     // Warning.
 
@@ -202,8 +199,7 @@ abstract class AHeaderComponent {
         private WebElement alertSuccessBody;
 
         public AlertSuccess() {
-        	// TODO ALERT URGENT
-            alertSuccessBody = null; //driver.findElement(By.className("alert alert-success"));
+             alertSuccessBody = search.className("alert alert-success");
         }
 
 
@@ -218,8 +214,8 @@ abstract class AHeaderComponent {
         private WebElement alertDangerBody;
 
         public AlertDanger() {
-        	// TODO ALERT URGENT
-            alertDangerBody = null; //driver.findElement(By.cssSelector(".alert.alert-danger"));
+
+            alertDangerBody = search.cssSelector(".alert.alert-danger");
         }
 
 
@@ -248,15 +244,13 @@ abstract class AHeaderComponent {
     }
 
     public boolean isPresentAlertDanger() {
-    	// TODO ALERT URGENT
-        //return driver.findElements(By.cssSelector(".alert.alert-danger")).size() >= 1;
-    	return false; // FIX IT
+
+        return search.cssSelectors(".alert.alert-danger").size() >= 1;
+
     }
 
     public boolean isPresentAlertSuccess() {
-    	// TODO ALERT URGENT
-        //return driver.findElements(By.className("alert alert-success")).size() > 1;
-    	return false; // FIX IT
+        return search.classNames("alert alert-success").size() > 1;
     }
 
 
@@ -369,7 +363,7 @@ abstract class AHeaderComponent {
     }
 
     public String getWishListText() {
-    	// return getWishList().getText();
+        // return getWishList().getText();
         return getWishList().getAttribute(TITLE_ATTRIBUTE);
     }
 
@@ -560,43 +554,43 @@ abstract class AHeaderComponent {
                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_XPATH.toString(), categoryName)));
         return dropdownOptions.getListOptionByPartialNameTexts();
     }
-    
+
     public boolean isUserSignedIn() {
-    	return getMyAccountOptions().size() == 5 ? true : false;
+        return getMyAccountOptions().size() == 5 ? true : false;
     }
 
-	// -----------------------------------------------
-	// MyAccount options atomic click block
-	// -----------------------------------------------
-	public void clickMyAccountOptionRegister() {
-		clickMyAccountByPartialName(MyAccountOptions.REGISTER.toString());
-	}
+    // -----------------------------------------------
+    // MyAccount options atomic click block
+    // -----------------------------------------------
+    public void clickMyAccountOptionRegister() {
+        clickMyAccountByPartialName(MyAccountOptions.REGISTER.toString());
+    }
 
-	public void clickMyAccountOptionLogin() {
-		clickMyAccountByPartialName(MyAccountOptions.LOGIN.toString());
-	}
-	// -----------------------------------------------
+    public void clickMyAccountOptionLogin() {
+        clickMyAccountByPartialName(MyAccountOptions.LOGIN.toString());
+    }
+    // -----------------------------------------------
 
-	public void clickMyAccountOptionMyAccount() {
-		clickMyAccountByPartialName(MyAccountOptions.MY_ACCOUNT.toString());
-	}
+    public void clickMyAccountOptionMyAccount() {
+        clickMyAccountByPartialName(MyAccountOptions.MY_ACCOUNT.toString());
+    }
 
-	public void clickMyAccountOptionOrderHistory() {
-		clickMyAccountByPartialName(MyAccountOptions.ORDER_HISTORY.toString());
-	}
+    public void clickMyAccountOptionOrderHistory() {
+        clickMyAccountByPartialName(MyAccountOptions.ORDER_HISTORY.toString());
+    }
 
-	public void clickMyAccountOptionTransactions() {
-		clickMyAccountByPartialName(MyAccountOptions.TRANSACTIONS.toString());
-	}
+    public void clickMyAccountOptionTransactions() {
+        clickMyAccountByPartialName(MyAccountOptions.TRANSACTIONS.toString());
+    }
 
-	public void clickMyAccountOptionDownloads() {
-		clickMyAccountByPartialName(MyAccountOptions.DOWNLOADS.toString());
-	}
+    public void clickMyAccountOptionDownloads() {
+        clickMyAccountByPartialName(MyAccountOptions.DOWNLOADS.toString());
+    }
 
-	public void clickMyAccountOptionLogout() {
-		clickMyAccountByPartialName(MyAccountOptions.LOGOUT.toString());
-	}
-	// -----------------------------------------------
+    public void clickMyAccountOptionLogout() {
+        clickMyAccountByPartialName(MyAccountOptions.LOGOUT.toString());
+    }
+    // -----------------------------------------------
 
 
     // Business Logic
@@ -607,20 +601,20 @@ abstract class AHeaderComponent {
     // }
 
     public LoginPage gotoLoginPageFromMyAccount() {
-    	clickMyAccountOptionLogin();
+        clickMyAccountOptionLogin();
         //return new LoginPage(driver);
         return new LoginPage();
     }
 
     public LogoutPage gotoLogoutPage() {
-    	clickMyAccountOptionLogout();
+        clickMyAccountOptionLogout();
         //return new LogoutPage(driver);
         return new LogoutPage();
     }
-    
+
     public MyAccountPage gotoMyAccountPageFromHomePage() {
         //clickMyAccountByPartialName("logout");
-    	clickMyAccountOptionMyAccount();
+        clickMyAccountOptionMyAccount();
         //return new MyAccountPage(driver);
         return new MyAccountPage();
     }
@@ -629,10 +623,8 @@ abstract class AHeaderComponent {
     public SubCategoryProductsPage gotoMenuTopByPartialName(String categoryName, String optionName) {
         clickMenuTopByPartialName(categoryName, optionName);
         //return new SubCategoryProductsPage(driver);
-         return new SubCategoryProductsPage();
+        return new SubCategoryProductsPage();
     }
-    
-    
 
 
 }
