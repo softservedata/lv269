@@ -6,6 +6,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.GeneralLocators;
@@ -674,6 +676,8 @@ abstract class AHeaderComponent {
         clickMenuTopByPartialName(categoryName, optionName);
         return new SubCategoryProductsPage(driver);
     }
+    
+    
 
 
 }

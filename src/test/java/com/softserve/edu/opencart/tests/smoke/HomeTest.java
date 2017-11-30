@@ -36,7 +36,7 @@ public class HomeTest {
     @DataProvider//(parallel = true)
     public Object[][] productData() {
         // Read from ...
-        return new Object[][] {
+        return new Object[][] { 
             //{ "MacBook", 500.0 },
             //{ "iPhone", 101.0 },
             //{ "Canon EOS 5D", 80.00 },

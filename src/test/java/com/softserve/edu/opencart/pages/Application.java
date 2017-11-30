@@ -13,7 +13,7 @@ import com.softserve.edu.opencart.tools.Search;
 import java.sql.SQLException;
 
 public class Application {
-
+    private final String DELETE_UNBLOCK_USER = "DELETE FROM oc_customer_login WHERE email  = '%s';";
     // Use Singleton, Repository
     private static volatile Application instance;
     //
@@ -22,8 +22,8 @@ public class Application {
     // TODO Change for parallel work
     private IApplicationSource applicationSource;
     private BrowserWrapper browser;
-    //private ISearch search;
     private DataBaseWraper dataBase;
+    //private ISearch search;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
@@ -59,14 +59,14 @@ public class Application {
         }
     }
 
-    public static void closeConnection() throws SQLException {
+    public static void closeDB()  {
         if (instance != null) {
             instance.getDataBase().close();
         }
     }
 
     // TODO Change for parallel work
-    public IApplicationSource getApplicationSources() {
+    public IApplicationSource getApplicationSource() {
         return applicationSource;
     }
 
@@ -91,21 +91,17 @@ public class Application {
         return new HomePage(getBrowser().getDriver());
     }
 
-    public void deleteAllCookies() {
-    	getBrowser().deleteAllCookies();
-    }
-
     public LoginPage login() {
-       getBrowser().openUrl(applicationSource.getUserLoginUrl());
-       return new LoginPage();
-   }
+        getBrowser().openUrl(applicationSource.getUserLoginUrl());
+        return new LoginPage(getBrowser().getDriver());
+    }
 
     public LogoutPage logout() {
         getBrowser().openUrl(applicationSource.getUserLogoutUrl());
-        return new LogoutPage();
+        return new LogoutPage(getBrowser().getDriver());
     }
 
-    public void initDataBase(IApplicationSource applicationSource) {
+    public void initDataBase(IApplicationSource applicationSource)   {
         this.dataBase = new DataBaseWraper();
     }
 
@@ -114,14 +110,12 @@ public class Application {
         return dataBase;
     }
 
-    public void executeQuery(String query) throws SQLException {
+    public void executeQuery(String query)   {
         getDataBase().executeQuery(query);
     }
 
-    public void unlockUserByQuery(IUser user, String query) throws SQLException {
-        System.out.println(String.format(query, user.getEmail()));
-        getDataBase().executeQuery(String.format(query, user.getEmail()));
-
+    public void unlockUserByQuery(IUser user)   {
+        getDataBase().executeQuery(String.format(DELETE_UNBLOCK_USER, user.getEmail()));
     }
 
 }

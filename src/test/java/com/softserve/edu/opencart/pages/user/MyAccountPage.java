@@ -10,5 +10,12 @@ public class MyAccountPage extends AColumnRightUserComponent {
 		super(driver);
 	}
 	
-	//  For navigation from page use elements from RightColumnComponent
+	 //----------Bussiness logic
+
+	public EditAccountPage gotoEditAccountPageFromRightColumn(){
+		clickEditAccount();
+		return new EditAccountPage(driver);
+	}
+
+
 }
