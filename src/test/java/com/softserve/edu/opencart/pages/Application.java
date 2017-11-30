@@ -7,7 +7,6 @@ import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
-import com.softserve.edu.opencart.tools.DataBaseWraper;
 import com.softserve.edu.opencart.tools.Search;
 
 import java.sql.SQLException;
