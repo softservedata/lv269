@@ -19,7 +19,8 @@ import com.softserve.edu.opencart.pages.Application;
  */
 public class TestCurrency {
 	
-	private final String PRICES_NOT_EQUALS = "Prices not equals:";
+//	private String PRICES_NOT_EQUALS = String.format("Prices not equals: actual = %s; expected = %s");
+	private String PRICES_NOT_EQUALS = "Prices not equals:";
 
     @BeforeClass
     public void beforeClass() {
