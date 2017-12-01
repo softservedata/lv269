@@ -16,6 +16,8 @@ public interface IApplicationSource {
     
     String getSearchStrategy();
 
+    boolean getConsoleOutput();
+
     String getBaseUrl();
 
     String getUserLoginUrl();

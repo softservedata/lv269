@@ -1,5 +1,13 @@
 package com.softserve.edu.opencart.pages.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
@@ -7,11 +15,7 @@ import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.softserve.edu.opencart.tools.ReporterWrapper;
 
 abstract class AHeaderComponent {
 
@@ -50,7 +54,7 @@ abstract class AHeaderComponent {
             }
             return result;
         }
-
+        
         public List<String> getListOptionByPartialNameTexts() {
             List<String> result = new ArrayList<>();
             for (WebElement current : getListOptions()) {
@@ -58,7 +62,7 @@ abstract class AHeaderComponent {
             }
             return result;
         }
-
+        
         public void clickDropdownOptionByPartialName(String optionName) {
             getDropdownOptionByPartialName(optionName).click();
         }
@@ -69,19 +73,19 @@ abstract class AHeaderComponent {
     private class DropdownCart {
         // TODO
     }
-
+    
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+    
     private enum AHeaderComponentLocators {
-        CART_TOTAL_ID("cart-total"),
-        MY_ACCOUNT_OPTIONS_CSS(".list-inline > li > a.dropdown-toggle + ul > li > a"),
-        CURRENCY_OPTIONS_CSS(".btn.btn-link.dropdown-toggle + ul > li > button"),
+        CART_TOTAL_ID ("cart-total"),
+        MY_ACCOUNT_OPTIONS_CSS (".list-inline > li > a.dropdown-toggle + ul > li > a"),
+        CURRENCY_OPTIONS_CSS (".btn.btn-link.dropdown-toggle + ul > li > button"),
         // Do not Work with CSS ver. 3.x
         //MENUTOP_OPTIONS_CSS ("li:has(a:contains('%s')) li > a"),
-        MENUTOP_OPTIONS_XPATH("//li/a[contains(text(),'%s')]/..//li/a"),
+        MENUTOP_OPTIONS_XPATH ("//li/a[contains(text(),'%s')]/..//li/a"),
         // Do not Work with CSS ver. 3.x
         //MENUTOP_LAST_OPTION_CSS ("li:has(a:contains('%s')) div > a");
-        MENUTOP_LAST_OPTION_XPATH("//a[contains(text(),'Show All %s')]");
+        MENUTOP_LAST_OPTION_XPATH ("//a[contains(text(),'Show All %s')]");
         //
         private String field;
 
@@ -126,8 +130,10 @@ abstract class AHeaderComponent {
 
     // Fields
 
+    protected final Logger logger;
+    protected final ReporterWrapper reporter;
     //protected WebDriver driver;
-    protected ISearch search;
+    protected final ISearch search;
     //
     private WebElement currency;
     private WebElement myAccount;
@@ -151,6 +157,8 @@ abstract class AHeaderComponent {
 
     //protected AHeaderComponent(WebDriver driver) {
     protected AHeaderComponent() {
+        this.logger = LoggerFactory.getLogger(this.getClass());
+        this.reporter = Application.get().reporter();
         //this.driver = driver;
         this.search = Application.get().search();
         //
@@ -426,134 +434,134 @@ abstract class AHeaderComponent {
 
     // set Data
 
-    public void setSearchProductField(String text) {
-        getSearchProductField().sendKeys(text);
-    }
+     public void setSearchProductField(String text) {
+         getSearchProductField().sendKeys(text);
+     }
+    
+     public void clearSearchProductField() {
+         getSearchProductField().clear();
+     }
+    
+     public void clickCurrency() {
+         getCurrency().click();
+     }
 
-    public void clearSearchProductField() {
-        getSearchProductField().clear();
-    }
+     public void clickMyAccount() {
+         getMyAccount().click();
+     }
 
-    public void clickCurrency() {
-        getCurrency().click();
-    }
+     public void clickWishList() {
+         getWishList().click();
+     }
 
-    public void clickMyAccount() {
-        getMyAccount().click();
-    }
+     public void clickShoppingCart() {
+         getShoppingCart().click();
+     }
 
-    public void clickWishList() {
-        getWishList().click();
-    }
+     public void clickCheckout() {
+         getCheckout().click();
+     }
 
-    public void clickShoppingCart() {
-        getShoppingCart().click();
-    }
+     public void clickLogo() {
+         getLogo().click();
+     }
 
-    public void clickCheckout() {
-        getCheckout().click();
-    }
+     public void clickSearchProductField() {
+         getSearchProductField().click();
+     }
 
-    public void clickLogo() {
-        getLogo().click();
-    }
+     public void clickSearchProductButton() {
+         getSearchProductButton().click();
+     }
 
-    public void clickSearchProductField() {
-        getSearchProductField().click();
-    }
+     public void clickCart() {
+         getCart().click();
+     }
 
-    public void clickSearchProductButton() {
-        getSearchProductButton().click();
-    }
+     protected void clickAddToCartByProductName(String productName) {
+         getProductComponentByProductName(productName).clickAddToCart();
+     }
 
-    public void clickCart() {
-        getCart().click();
-    }
+     protected void clickAddToWishByProductName(String productName) {
+         getProductComponentByProductName(productName).clickAddToWish();
+     }
 
-    protected void clickAddToCartByProductName(String productName) {
-        getProductComponentByProductName(productName).clickAddToCart();
-    }
+     // set Functional
 
-    protected void clickAddToWishByProductName(String productName) {
-        getProductComponentByProductName(productName).clickAddToWish();
-    }
+     private void createDropdownOptions(By searchLocator, By lastLocator) {
+         if (lastLocator == null) { 
+             dropdownOptions = new DropdownOptions(searchLocator);
+         } else {
+             dropdownOptions = new DropdownOptions(searchLocator, lastLocator);
+         }
+     }
 
-    // set Functional
+     private void clickDropdownOptionByPartialName(String optionName, By searchLocator, By lastLocator) {
+         boolean isClickable = false;
+         createDropdownOptions(searchLocator, lastLocator);
+         for (String current : dropdownOptions.getListOptionByPartialNameTexts()) {
+             if (current.toLowerCase().contains(optionName.toLowerCase())) {
+                 isClickable = true;
+             }
+         }
+         ErrorUtils.createCustomException(!isClickable,
+                 String.format(OPTION_NOT_FOUND_MESSAGE,
+                         optionName, dropdownOptions.getListOptionByPartialNameTexts().toString()));
+         dropdownOptions.clickDropdownOptionByPartialName(optionName);
+     }
+     
+     public void clickMenuTopByCategoryPartialName(String categoryName) {
+         boolean isClickable = false; 
+         for (String current : getMenuTopTexts()) {
+             if (current.toLowerCase().contains(categoryName.toLowerCase())) {
+                 isClickable = true;
+             }
+         }
+         ErrorUtils.createCustomException(!isClickable,
+                 String.format(OPTION_NOT_FOUND_MESSAGE,
+                         categoryName, getMenuTopTexts().toString()));
+         getMenuTopByCategoryPartialName(categoryName).click();
+     }
 
-    private void createDropdownOptions(By searchLocator, By lastLocator) {
-        if (lastLocator == null) {
-            dropdownOptions = new DropdownOptions(searchLocator);
-        } else {
-            dropdownOptions = new DropdownOptions(searchLocator, lastLocator);
-        }
-    }
+     public void clickCurrencyByPartialName(String optionName) {
+         clickCurrency();
+         clickDropdownOptionByPartialName(optionName,
+                 By.cssSelector(AHeaderComponentLocators.CURRENCY_OPTIONS_CSS.toString()), null);
+     }
 
-    private void clickDropdownOptionByPartialName(String optionName, By searchLocator, By lastLocator) {
-        boolean isClickable = false;
-        createDropdownOptions(searchLocator, lastLocator);
-        for (String current : dropdownOptions.getListOptionByPartialNameTexts()) {
-            if (current.toLowerCase().contains(optionName.toLowerCase())) {
-                isClickable = true;
-            }
-        }
-        ErrorUtils.createCustomException(!isClickable,
-                String.format(OPTION_NOT_FOUND_MESSAGE,
-                        optionName, dropdownOptions.getListOptionByPartialNameTexts().toString()));
-        dropdownOptions.clickDropdownOptionByPartialName(optionName);
-    }
+     public void clickMyAccountByPartialName(String optionName) {
+         clickMyAccount();
+         clickDropdownOptionByPartialName(optionName,
+                 By.cssSelector(AHeaderComponentLocators.MY_ACCOUNT_OPTIONS_CSS.toString()), null);
+     }
 
-    public void clickMenuTopByCategoryPartialName(String categoryName) {
-        boolean isClickable = false;
-        for (String current : getMenuTopTexts()) {
-            if (current.toLowerCase().contains(categoryName.toLowerCase())) {
-                isClickable = true;
-            }
-        }
-        ErrorUtils.createCustomException(!isClickable,
-                String.format(OPTION_NOT_FOUND_MESSAGE,
-                        categoryName, getMenuTopTexts().toString()));
-        getMenuTopByCategoryPartialName(categoryName).click();
-    }
+     public void clickMenuTopByPartialName(String categoryName, String optionName) {
+         clickMenuTopByCategoryPartialName(categoryName);
+         clickDropdownOptionByPartialName(optionName,
+                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_OPTIONS_XPATH.toString(), categoryName)),
+                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_XPATH.toString(), categoryName)));
+     }
 
-    public void clickCurrencyByPartialName(String optionName) {
-        clickCurrency();
-        clickDropdownOptionByPartialName(optionName,
-                By.cssSelector(AHeaderComponentLocators.CURRENCY_OPTIONS_CSS.toString()), null);
-    }
+     public List<String> getCurrencyOptions() {
+         clickCurrency();
+         createDropdownOptions(By.cssSelector(AHeaderComponentLocators.CURRENCY_OPTIONS_CSS.toString()), null);
+         
+         return dropdownOptions.getListOptionByPartialNameTexts();
+     }
+     
+     public List<String> getMyAccountOptions() {
+         clickMyAccount();
+         createDropdownOptions(By.cssSelector(AHeaderComponentLocators.MY_ACCOUNT_OPTIONS_CSS.toString()), null);
+         return dropdownOptions.getListOptionByPartialNameTexts();
+     }
 
-    public void clickMyAccountByPartialName(String optionName) {
-        clickMyAccount();
-        clickDropdownOptionByPartialName(optionName,
-                By.cssSelector(AHeaderComponentLocators.MY_ACCOUNT_OPTIONS_CSS.toString()), null);
-    }
-
-    public void clickMenuTopByPartialName(String categoryName, String optionName) {
-        clickMenuTopByCategoryPartialName(categoryName);
-        clickDropdownOptionByPartialName(optionName,
-                By.xpath(String.format(AHeaderComponentLocators.MENUTOP_OPTIONS_XPATH.toString(), categoryName)),
-                By.xpath(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_XPATH.toString(), categoryName)));
-    }
-
-    public List<String> getCurrencyOptions() {
-        clickCurrency();
-        createDropdownOptions(By.cssSelector(AHeaderComponentLocators.CURRENCY_OPTIONS_CSS.toString()), null);
-
-        return dropdownOptions.getListOptionByPartialNameTexts();
-    }
-
-    public List<String> getMyAccountOptions() {
-        clickMyAccount();
-        createDropdownOptions(By.cssSelector(AHeaderComponentLocators.MY_ACCOUNT_OPTIONS_CSS.toString()), null);
-        return dropdownOptions.getListOptionByPartialNameTexts();
-    }
-
-    public List<String> getMenuTopOptionsByPartialNameTexts(String categoryName) {
-        clickMenuTopByCategoryPartialName(categoryName);
-        createDropdownOptions(
-                By.xpath(String.format(AHeaderComponentLocators.MENUTOP_OPTIONS_XPATH.toString(), categoryName)),
-                By.xpath(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_XPATH.toString(), categoryName)));
-        return dropdownOptions.getListOptionByPartialNameTexts();
-    }
+     public List<String> getMenuTopOptionsByPartialNameTexts(String categoryName) {
+         clickMenuTopByCategoryPartialName(categoryName);
+         createDropdownOptions(
+                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_OPTIONS_XPATH.toString(), categoryName)),
+                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_XPATH.toString(), categoryName)));
+         return dropdownOptions.getListOptionByPartialNameTexts();
+     }
 
     public boolean isUserSignedIn() {
         return getMyAccountOptions().size() == 5 ? true : false;
@@ -625,6 +633,5 @@ abstract class AHeaderComponent {
         //return new SubCategoryProductsPage(driver);
         return new SubCategoryProductsPage();
     }
-
 
 }

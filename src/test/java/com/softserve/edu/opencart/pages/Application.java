@@ -9,6 +9,7 @@ import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
 import com.softserve.edu.opencart.tools.DataBaseWraper;
 import com.softserve.edu.opencart.tools.ISearch;
+import com.softserve.edu.opencart.tools.ReporterWrapper;
 import com.softserve.edu.opencart.tools.Search;
 
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ public class Application {
     //
     // TODO Change for parallel work
     private IApplicationSource applicationSource;
+    private ReporterWrapper reporter;
     private BrowserWrapper browser;
     private DataBaseWraper dataBase;
     private ISearch search;
@@ -43,6 +45,7 @@ public class Application {
                         applicationSource = ApplicationSourceRepository.get().base();
                     }
                     instance = new Application(applicationSource);
+                    instance.initReporter(applicationSource);
                     instance.initBrowser(applicationSource);
                     instance.initSearch(applicationSource);
                     instance.initDataBase(applicationSource);
@@ -72,7 +75,10 @@ public class Application {
         return applicationSource;
     }
 
-    // TODO Change for parallel work
+    public ReporterWrapper reporter() {
+        return reporter;
+    }
+
     public BrowserWrapper browser() {
         return browser;
     }
@@ -82,6 +88,10 @@ public class Application {
     }
 
     // TODO Change for parallel work
+    public void initReporter(IApplicationSource applicationSource) {
+        this.reporter = new ReporterWrapper(applicationSource);
+    }
+
     public void initBrowser(IApplicationSource applicationSource) {
         this.browser = new BrowserWrapper(applicationSource);
     }
