@@ -138,7 +138,7 @@ abstract class AColumnRightPartitionalComponent extends ANavigatePanelComponent 
     }
     public AddressBookPage gotoAddressBookPageRightColumn() {
         clickAddressBook();
-        return new AddressBookPage(driver);
+        return new AddressBookPage();
     }
 
 

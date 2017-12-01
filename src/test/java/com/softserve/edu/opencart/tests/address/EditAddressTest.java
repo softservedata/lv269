@@ -16,8 +16,8 @@ import org.testng.annotations.*;
 public class EditAddressTest {
     @BeforeClass
     public void beforClass(){
-        //Application.get(ApplicationSourceRepository.get().chromeServer7());
-        Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
+        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
+        //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
     }
 
     @AfterClass
@@ -32,6 +32,7 @@ public class EditAddressTest {
     public void afterMethod(){
         Application.get().logout();
     }
+
     @DataProvider(name = "editAddress")
     public Object[][] userData() {
         return new Object[][] {
@@ -42,16 +43,18 @@ public class EditAddressTest {
                 {UserRepository.get().userZvarych(), UserRepository.get().userWithoutCountry(), AlertsText.NOT_SELECTED_COUNTRY.toString()},
                 {UserRepository.get().userZvarych(), UserRepository.get().userWithoutRegion(), AlertsText.NOT_SELECTED_REGION.toString()},
         };
-
     }
+
     @Test(dataProvider = "editAddress")
     public void checkEmptyField(IUser user, IUser wrongField, String expected){
         EditAddressPage editAddressPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount()
                 .gotoLoginForLoginPageToMyAccountPage(user)
                 .gotoAddressBookPageRightColumn().modifyAddressBookData(user);
+
         editAddressPage.changeFieldAddress(wrongField);
         editAddressPage.saveChangesAddress();
         String acttual = editAddressPage.getWarningDangerTextforField();
+
         Assert.assertEquals(acttual, expected);
 
     }

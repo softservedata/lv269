@@ -32,11 +32,6 @@ public class ApplicationSourceRepository {
                 .getResource("/lib/geckodriver32.exe").getPath().substring(1);
     }
 
-    public String geckoDriverPath32() {
-        return ApplicationSourceRepository.class
-                .getResource("/lib/geckodriver32.exe").getPath().substring(1);
-    }
-
     public String chromeDriverPath() {
         return ApplicationSourceRepository.class
                 .getResource("/lib/chromedriver.exe").getPath().substring(1);

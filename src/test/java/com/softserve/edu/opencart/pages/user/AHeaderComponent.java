@@ -181,13 +181,11 @@ abstract class AHeaderComponent {
         searchProductButton = search.cssSelector(".btn.btn-default.btn-lg");
         //cart = driver.findElement(By.cssSelector("#cart > button"));
         cart = search.cssSelector("#cart > button");
-        //menuTop = driver.findElements(By.cssSelector("ul.nav.navbar-nav > li"));
         menuTop = search.cssSelectors("ul.nav.navbar-nav > li");
     }
 
     protected void initProductComponents(By searchLocator) {
         productComponents = new ArrayList<>();
-        //List<WebElement> productWebElements = driver.findElements(searchLocator);
         List<WebElement> productWebElements = search.getWebElements(searchLocator);
         for (WebElement current : productWebElements) {
             productComponents.add(new ProductComponent(current));
@@ -205,7 +203,6 @@ abstract class AHeaderComponent {
              alertSuccessBody = search.className("alert alert-success");
         }
 
-
         public WebElement getAlertSuccessBody() {
             return alertSuccessBody;
         }
@@ -216,7 +213,7 @@ abstract class AHeaderComponent {
         private WebElement alertWarningBody;
 
         public AlertWarning(){
-            alertWarningBody = driver.findElement(By.cssSelector(".alert.alert-warning"));
+            alertWarningBody = search.cssSelector(".alert.alert-warning");
         }
         public WebElement getAlertWarningBody(){
             return alertWarningBody;
@@ -227,10 +224,10 @@ abstract class AHeaderComponent {
         private WebElement alertTextDangerBody;
 
         public AlertTextDanger(){
-            alertTextDangerBody = driver.findElement(By.cssSelector(".text-danger"));
+            alertTextDangerBody = search.cssSelector(".text-danger");
         }
         public WebElement getAlertTextDangerBody(){
-        return alertTextDangerBody;
+            return alertTextDangerBody;
     }
     }
 
@@ -243,7 +240,6 @@ abstract class AHeaderComponent {
 
             alertDangerBody = search.cssSelector(".alert.alert-danger");
         }
-
 
         public WebElement getAlertDangerBody() {
             return alertDangerBody;
@@ -289,10 +285,10 @@ abstract class AHeaderComponent {
 
     }
     public boolean isPresentAlertTextDanger() {
-        return driver.findElements(By.cssSelector(".text-danger")).size() >= 1;
+        return search.cssSelectors(".text-danger").size() >= 1;
     }
     public boolean isPresentAlertWarning() {
-        return driver.findElements(By.cssSelector(".alert.alert-warning")).size() >= 1;
+        return search.cssSelectors(".alert.alert-warning").size() >= 1;
     }
 
     public boolean isPresentAlertSuccess() {

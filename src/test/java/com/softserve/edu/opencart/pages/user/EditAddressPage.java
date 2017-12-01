@@ -23,19 +23,19 @@ public class EditAddressPage extends AddressBookPage {
     private WebElement continueButton;
     private WebElement backButton;
 
-    public EditAddressPage(WebDriver driver) {
-        super(driver);
-        fieldFirstName = driver.findElement(By.id("input-firstname"));
-        fieldLastName = driver.findElement(By.id("input-lastname"));
-        fieldFirstAddress = driver.findElement(By.id("input-address-1"));
-        fieldSecondAddress = driver.findElement(By.id("input-address-2"));
-        fieldCompany = driver.findElement(By.id("input-company"));
-        fieldCity = driver.findElement(By.id("input-city"));
-        fieldPostCode = driver.findElement(By.id("input-postcode"));
-        fieldCountry = new Select(driver.findElement(By.id("input-country")));
-        fieldRegion = new Select(driver.findElement(By.id("input-zone")));
-        continueButton = driver.findElement(By.cssSelector(".btn.btn-primary"));
-        backButton = driver.findElement(By.xpath(".//a[contains( text(),'Back')]"));
+    public EditAddressPage() {
+        super();
+        fieldFirstName = search.id("input-firstname");
+        fieldLastName = search.id("input-lastname");
+        fieldFirstAddress = search.id("input-address-1");
+        fieldSecondAddress = search.id("input-address-2");
+        fieldCompany = search.id("input-company");
+        fieldCity = search.id("input-city");
+        fieldPostCode = search.id("input-postcode");
+        fieldCountry = new Select(search.id("input-country"));
+        fieldRegion = new Select(search.id("input-zone"));
+        continueButton = search.cssSelector(".btn.btn-primary");
+        backButton = search.xpath(".//a[contains( text(),'Back')]");
     }
     // PageObject
     // get Data
@@ -227,26 +227,22 @@ public class EditAddressPage extends AddressBookPage {
         getFieldPostCode().sendKeys(text);
     }
 
-    public WebElement findField(GeneralLocators locatorName) {
-        return driver.findElement(By.id(locatorName.toString()));
-    }
-
     //* Business Logic
 
     public AddressBookPage saveChangesAddress() {
         clickContinueButton();
-        return new AddressBookPage(driver);
+        return new AddressBookPage();
     }
 
     public AddressBookPage backWithoutChangesAddress() {
         clickBackButton();
-        return new AddressBookPage(driver);
+        return new AddressBookPage();
     }
 
 
     public EditAddressPage saveWrongChangesAddress(){
         clickContinueButton();
-        return new EditAddressPage(driver);
+        return new EditAddressPage();
     }
 
     public void changeFieldAddress(IUser user){
