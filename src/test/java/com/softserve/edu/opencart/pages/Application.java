@@ -7,6 +7,8 @@ import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
+import com.softserve.edu.opencart.tools.DataBaseWraper;
+import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.Search;
 
 import java.sql.SQLException;
@@ -22,18 +24,18 @@ public class Application {
     private IApplicationSource applicationSource;
     private BrowserWrapper browser;
     private DataBaseWraper dataBase;
-    //private ISearch search;
+    private ISearch search;
     // etc.
 
-    private Application(IApplicationSource applicationSource) {
+    private Application(IApplicationSource applicationSource)   {
         this.applicationSource = applicationSource;
     }
 
-    public static Application get() {
+    public static Application get()   {
         return get(null);
     }
 
-    public static Application get(IApplicationSource applicationSource) {
+    public static Application get(IApplicationSource applicationSource)  {
         if (instance == null) {
             synchronized (Application.class) {
                 if (instance == null) {
@@ -43,17 +45,18 @@ public class Application {
                     instance = new Application(applicationSource);
                     instance.initBrowser(applicationSource);
                     instance.initSearch(applicationSource);
+                    instance.initDataBase(applicationSource);
                     // initAccessToDB();
                 }
             }
         }
         return instance;
     }
-    
+
     public static void remove() {
         if (instance != null) {
             // TODO Change for parallel work
-            instance.getBrowser().quit();
+            instance.browser().quit();
             instance = null;
         }
     }
@@ -70,34 +73,40 @@ public class Application {
     }
 
     // TODO Change for parallel work
-    public BrowserWrapper getBrowser() {
+    public BrowserWrapper browser() {
         return browser;
+    }
+
+    public ISearch search() {
+        return search;
     }
 
     // TODO Change for parallel work
     public void initBrowser(IApplicationSource applicationSource) {
         this.browser = new BrowserWrapper(applicationSource);
     }
-
+    
     public void initSearch(IApplicationSource applicationSource) {
-        //this.search = new Search(applicationSource);
-        Search.initSearch(applicationSource);
+        this.search = new Search(applicationSource);
     }
 
     public HomePage loadHomePage() {
-        getBrowser().openUrl(applicationSource.getBaseUrl());
+        browser().openUrl(applicationSource.getBaseUrl());
         // TODO Remove getBrowser().getDriver()
-        return new HomePage(getBrowser().getDriver());
+        //return new HomePage(browser().getDriver());
+        return new HomePage();
     }
 
     public LoginPage login() {
-        getBrowser().openUrl(applicationSource.getUserLoginUrl());
-        return new LoginPage(getBrowser().getDriver());
+    	browser().openUrl(applicationSource.getUserLoginUrl());
+        //return new LoginPage(getBrowser().getDriver());
+        return new LoginPage();
     }
 
     public LogoutPage logout() {
-        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
-        return new LogoutPage(getBrowser().getDriver());
+    	browser().openUrl(applicationSource.getUserLogoutUrl());
+        //return new LogoutPage(getBrowser().getDriver());
+        return new LogoutPage();
     }
 
     public void initDataBase(IApplicationSource applicationSource)   {

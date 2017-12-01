@@ -10,16 +10,16 @@ public abstract class ASearch implements ISearch {
     private static final String NO_SUCH_ELEMENT = "Unable to locate element(s): %s";
     //
 
-    protected abstract WebElement getWebElement(By by);
+    //protected abstract WebElement getWebElement(By by);
 
-    protected abstract WebElement getWebElement(By by, WebElement fromWebElement);
+    //protected abstract WebElement getWebElement(By by, WebElement fromWebElement);
 
-    protected abstract List<WebElement> getWebElements(By by);
+    //protected abstract List<WebElement> getWebElements(By by);
 
-    protected abstract List<WebElement> getWebElements(By by, WebElement fromWebElement);
+    //protected abstract List<WebElement> getWebElements(By by, WebElement fromWebElement);
 
-    @Override
-    public abstract boolean stalenessOf(WebElement webElement);
+    //@Override
+    //public abstract boolean stalenessOf(WebElement webElement);
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

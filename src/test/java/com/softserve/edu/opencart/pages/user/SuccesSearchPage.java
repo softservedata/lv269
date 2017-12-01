@@ -1,11 +1,11 @@
 package com.softserve.edu.opencart.pages.user;
 
-import org.openqa.selenium.WebDriver;
-
 public class SuccesSearchPage extends ANavigatePanelComponent {
-    
-    public SuccesSearchPage(WebDriver driver) {
-        super(driver);
+
+    //public SuccesSearchPage(WebDriver driver) {
+    public SuccesSearchPage() {
+        //super(driver);
+        super();
     }
 
     // PageObject

@@ -2,9 +2,18 @@ package com.softserve.edu.opencart.tools;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public interface ISearch {
+
+    WebElement getWebElement(By by);
+
+    WebElement getWebElement(By by, WebElement fromWebElement);
+
+    List<WebElement> getWebElements(By by);
+
+    List<WebElement> getWebElements(By by, WebElement fromWebElement);
 
     boolean stalenessOf(WebElement webElement);
 

@@ -1,12 +1,10 @@
 package com.softserve.edu.opencart.pages.user;
 
-import java.util.List;
-
+import com.softserve.edu.opencart.data.categories.DetailCategory;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.softserve.edu.opencart.data.categories.DetailCategory;
+import java.util.List;
 
 public class SubCategoryProductsPage extends AColumnLeftComponent {
 
@@ -15,8 +13,10 @@ public class SubCategoryProductsPage extends AColumnLeftComponent {
     private List<WebElement> leftSubCategories;
     private List<ProductComponent> productComponents;
 
-    public SubCategoryProductsPage(WebDriver driver) {
-        super(driver);
+    //public SubCategoryProductsPage(WebDriver driver) {
+    public SubCategoryProductsPage() {
+        //super(driver);
+        super();
         initProductComponents(By.cssSelector(".product-layout"));
     }
 
@@ -59,7 +59,8 @@ public class SubCategoryProductsPage extends AColumnLeftComponent {
 
     public SubCategoryProductsPage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
         clickCurrencyByPartialName(detailCategory.getOptionName());
-        return new SubCategoryProductsPage(driver); 
+        //return new SubCategoryProductsPage(driver);
+        return new SubCategoryProductsPage();
     }
 
 }

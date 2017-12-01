@@ -1,15 +1,16 @@
 package com.softserve.edu.opencart.pages.user;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
+import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.RegexPatterns;
+import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
+import org.openqa.selenium.WebElement;
 
 public class ProductComponent {
 
     // Fields
 
+    protected ISearch search;
     private WebElement productLayout;
     //
     private WebElement name;
@@ -18,15 +19,18 @@ public class ProductComponent {
     private WebElement addToWish;
 
     public ProductComponent(WebElement productLayout) {
+        this.search = Application.get().search();
         this.productLayout = productLayout;
         //
-        name = productLayout.findElement(By.cssSelector("h4 a"));
-        price = productLayout.findElement(By.cssSelector(".price"));
+        //name = productLayout.findElement(By.cssSelector("h4 a"));
+        name = search.cssSelector("h4 a", productLayout);
+        //price = productLayout.findElement(By.cssSelector(".price"));
+        price = search.cssSelector(".price", productLayout);
         // TODO
-
-        addToCart = productLayout.findElement(By.cssSelector(".fa.fa-shopping-cart"));
-
-        addToWish = productLayout.findElement(By.cssSelector(".fa.fa-heart"));
+        //addToCart = productLayout.findElement(By.cssSelector(".fa.fa-shopping-cart"));
+        addToCart = search.cssSelector(".fa.fa-shopping-cart", productLayout);
+        //addToWish = productLayout.findElement(By.cssSelector(".fa.fa-heart"));
+        addToWish = search.cssSelector(".fa.fa-heart", productLayout);
     }
 
     // PageObject

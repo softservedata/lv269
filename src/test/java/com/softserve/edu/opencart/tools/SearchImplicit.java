@@ -21,18 +21,18 @@ public class SearchImplicit extends ASearch {
     }
 
     private void initImplicitWaits() {
-        Application.get().getBrowser().getDriver().manage().timeouts()
+        Application.get().browser().getDriver().manage().timeouts()
                 .implicitlyWait(Application.get().getApplicationSource().getImplicitWaitTimeOut(), TimeUnit.SECONDS);
-        Application.get().getBrowser().getDriver().manage().timeouts()
+        Application.get().browser().getDriver().manage().timeouts()
                 .pageLoadTimeout(Application.get().getApplicationSource().getImplicitLoadTimeOut(), TimeUnit.SECONDS);
-        Application.get().getBrowser().getDriver().manage().timeouts()
+        Application.get().browser().getDriver().manage().timeouts()
                 .setScriptTimeout(Application.get().getApplicationSource().getImplicitScriptTimeOut(), TimeUnit.SECONDS);
     }
 
     private void removeImplicitWaits() {
-        Application.get().getBrowser().getDriver().manage().timeouts().implicitlyWait(0L, TimeUnit.SECONDS);
-        Application.get().getBrowser().getDriver().manage().timeouts().pageLoadTimeout(0L, TimeUnit.SECONDS);
-        Application.get().getBrowser().getDriver().manage().timeouts().setScriptTimeout(0L, TimeUnit.SECONDS);
+        Application.get().browser().getDriver().manage().timeouts().implicitlyWait(0L, TimeUnit.SECONDS);
+        Application.get().browser().getDriver().manage().timeouts().pageLoadTimeout(0L, TimeUnit.SECONDS);
+        Application.get().browser().getDriver().manage().timeouts().setScriptTimeout(0L, TimeUnit.SECONDS);
     }
 
     /**
@@ -42,9 +42,9 @@ public class SearchImplicit extends ASearch {
      * @return visible WebElement.
      */
     @Override
-    protected WebElement getWebElement(By by) {
-        System.out.println("\t\t\t*** Class SearchImplicit");
-        return Application.get().getBrowser().getDriver().findElement(by);
+    public WebElement getWebElement(By by) {
+        //System.out.println("\t\t\t*** Class SearchImplicit");
+        return Application.get().browser().getDriver().findElement(by);
     }
 
     /**
@@ -57,7 +57,7 @@ public class SearchImplicit extends ASearch {
      * @return visible WebElement.
      */
     @Override
-    protected WebElement getWebElement(By by, WebElement fromWebElement) {
+    public WebElement getWebElement(By by, WebElement fromWebElement) {
         return fromWebElement.findElement(by);
     }
 
@@ -68,19 +68,19 @@ public class SearchImplicit extends ASearch {
      * @return visible WebElement.
      */
     @Override
-    protected List<WebElement> getWebElements(By by) {
-        return Application.get().getBrowser().getDriver().findElements(by);
+    public List<WebElement> getWebElements(By by) {
+        return Application.get().browser().getDriver().findElements(by);
     }
 
     @Override
-    protected List<WebElement> getWebElements(By by, WebElement fromWebElement) {
+    public List<WebElement> getWebElements(By by, WebElement fromWebElement) {
         return fromWebElement.findElements(by);
     }
 
     @Override
     public boolean stalenessOf(WebElement webElement) {
         removeImplicitWaits();
-        new WebDriverWait(Application.get().getBrowser().getDriver(),
+        new WebDriverWait(Application.get().browser().getDriver(),
                 Application.get().getApplicationSource().getExplicitTimeOut())
                         .until(ExpectedConditions.stalenessOf(webElement));
         initImplicitWaits();

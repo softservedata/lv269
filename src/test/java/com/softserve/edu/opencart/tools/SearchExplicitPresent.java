@@ -22,12 +22,12 @@ public class SearchExplicitPresent extends SearchExplicitVisible {
      * @return present webelement.
      */
     @Override
-    protected WebElement getWebElement(By by) {
+    public WebElement getWebElement(By by) {
         return getWait().until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
     @Override
-    protected WebElement getWebElement(By by, WebElement fromWebElement) {
+    public WebElement getWebElement(By by, WebElement fromWebElement) {
         return getWait().until(ExpectedConditions.presenceOfNestedElementLocatedBy(fromWebElement, by));
     }
 
@@ -38,12 +38,12 @@ public class SearchExplicitPresent extends SearchExplicitVisible {
      * @return present webelements.
      */
     @Override
-    protected List<WebElement> getWebElements(By by) {
+    public List<WebElement> getWebElements(By by) {
         return getWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
     }
 
     @Override
-    protected List<WebElement> getWebElements(By by, WebElement fromWebElement) {
+    public List<WebElement> getWebElements(By by, WebElement fromWebElement) {
         // TODO Use presenceOfNestedElementLocatedBy Method
         return super.getWebElements(by, fromWebElement);
     }

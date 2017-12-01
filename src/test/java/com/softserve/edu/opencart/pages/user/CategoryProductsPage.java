@@ -1,13 +1,13 @@
 package com.softserve.edu.opencart.pages.user;
 
-import org.openqa.selenium.WebDriver;
-
 public class CategoryProductsPage extends SubCategoryProductsPage {
 
     // Fields
 
-    public CategoryProductsPage(WebDriver driver) {
-        super(driver);
+    //public CategoryProductsPage(WebDriver driver) {
+    public CategoryProductsPage() {
+        //super(driver);
+        super();
     }
 
     // PageObject

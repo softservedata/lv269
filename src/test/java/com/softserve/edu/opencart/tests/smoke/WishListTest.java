@@ -30,7 +30,7 @@ public class WishListTest {
 	@BeforeClass
 	public void beforeClass() {
 		Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
-		//Application.get(ApplicationSourceRepository.get().firefoxServer7x32());
+		//Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7x32());
 	}
 
 	@AfterClass
@@ -42,21 +42,21 @@ public class WishListTest {
 	public void beforeMethod() {
 		
 	}
-
+	
 	@AfterMethod
-	public void afterMethod() {
-		Application.get().getBrowser().deleteAllCookies();
+	public void afterMethod() {	
+		Application.get().browser().deleteAllCookies();
 	}
 
 	@DataProvider
 	public Object[][] userData() {
-		return new Object[][] {
-				{
-					UserRepository.get().userKutaiev()
-				}
+		return new Object[][] { 
+				{ 
+					UserRepository.get().userKutaiev() 
+				} 
 			};
 	}
-
+	
 	@Test(dataProvider = "userData")
 	public void checkEmptyWishList(IUser user) {
 		Assert.assertEquals(

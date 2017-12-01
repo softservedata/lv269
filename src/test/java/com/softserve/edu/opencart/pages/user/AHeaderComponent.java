@@ -1,21 +1,17 @@
 package com.softserve.edu.opencart.pages.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
+import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
-import com.softserve.edu.opencart.tools.Search;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 abstract class AHeaderComponent {
 
@@ -29,11 +25,13 @@ abstract class AHeaderComponent {
 
         public DropdownOptions(By searchLocator, By lastLocator) {
             initListOptions(searchLocator);
-            listOptions.add(driver.findElement(lastLocator));
+            //listOptions.add(driver.findElement(lastLocator));
+            listOptions.add(search.getWebElement(lastLocator));
         }
 
         private void initListOptions(By searchLocator) {
-            listOptions = driver.findElements(searchLocator);
+            //listOptions = driver.findElements(searchLocator);
+            listOptions = search.getWebElements(searchLocator);
             //listOptions = driver.findElements(By.cssSelector(".list-inline > li > a.dropdown-toggle + ul > li > a"));
             //listOptions = myAccount.findElements(By.cssSelector("+ ul > li > a"));
         }
@@ -96,19 +94,19 @@ abstract class AHeaderComponent {
             return field;
         }
     }
-    
-	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     private enum MyAccountOptions {
-    	REGISTER("Register"),
-    	LOGIN("Login"),
+        REGISTER("Register"),
+        LOGIN("Login"),
         MY_ACCOUNT("My Account"),
         ORDER_HISTORY("Order History"),
         TRANSACTIONS("Transactions"),
         DOWNLOADS("Downloads"),
         LOGOUT("Logout");
-    	
-    	private String field;
+
+        private String field;
 
         private MyAccountOptions(String field) {
             this.field = field;
@@ -117,7 +115,7 @@ abstract class AHeaderComponent {
         @Override
         public String toString() {
             return field;
-        }    	
+        }
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -128,8 +126,8 @@ abstract class AHeaderComponent {
 
     // Fields
 
-    protected WebDriver driver;
-    //protected ISearch search;
+    //protected WebDriver driver;
+    protected ISearch search;
     //
     private WebElement currency;
     private WebElement myAccount;
@@ -154,35 +152,43 @@ abstract class AHeaderComponent {
     private DropdownOptions dropdownOptions;
     //private DropdownCart dropdownCart;
 
-    protected AHeaderComponent(WebDriver driver) {
-        this.driver = driver;
-        //this.search = Application.get().getSearch();
+    //protected AHeaderComponent(WebDriver driver) {
+    protected AHeaderComponent() {
+        //this.driver = driver;
+        this.search = Application.get().search();
         //
         //currency = driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
-        currency = Search.cssSelector(".btn.btn-link.dropdown-toggle");
-        myAccount = driver.findElement(By.cssSelector(".list-inline > li > a.dropdown-toggle"));
-        //myAccount = Search.cssSelector(".list-inline > li > a.dropdown-toggle");
-        wishList = driver.findElement(By.id("wishlist-total"));
-        //wishList = Search.id("wishlist-total");
+        currency = search.cssSelector(".btn.btn-link.dropdown-toggle");
+        //myAccount = driver.findElement(By.cssSelector(".list-inline > li > a.dropdown-toggle"));
+        myAccount = search.cssSelector(".list-inline > li > a.dropdown-toggle");
+        //wishList = driver.findElement(By.id("wishlist-total"));
+        wishList = search.id("wishlist-total");
         // shoppingCart=driver.findElement(By.partialLinkText("Shopping Cart"));
         // Do not Work with CSS ver. 3.x
         //shoppingCart = null;//driver.findElement(By.cssSelector("a:has('.fa.fa-shopping-cart')"));
-        shoppingCart = driver.findElement(By.cssSelector("a[title='Shopping Cart']"));
-        //shoppingCart = Search.cssSelector("a[title='Shopping Cart']");
+        //shoppingCart = driver.findElement(By.cssSelector("a[title='Shopping Cart']"));
+        shoppingCart = search.cssSelector("a[title='Shopping Cart']");
         // checkout=driver.findElement(By.partialLinkText("Checkout"));
         // Do not Work with CSS ver. 3.x
         //checkout = null; //driver.findElement(By.cssSelector("a:has('.fa.fa-share')"));
-        checkout = driver.findElement(By.cssSelector("a[title='Checkout']"));
-        logo = driver.findElement(By.cssSelector("#logo > a"));
-        searchProductField = driver.findElement(By.name("search"));
-        searchProductButton = driver.findElement(By.cssSelector(".btn.btn-default.btn-lg"));
-        cart = driver.findElement(By.cssSelector("#cart > button"));
-        menuTop = driver.findElements(By.cssSelector("ul.nav.navbar-nav > li"));
+        //checkout = driver.findElement(By.cssSelector("a[title='Checkout']"));
+        checkout = search.cssSelector("a[title='Checkout']");
+        //logo = driver.findElement(By.cssSelector("#logo > a"));
+        logo = search.cssSelector("#logo > a");
+        //searchProductField = driver.findElement(By.name("search"));
+        searchProductField = search.name("search");
+        //searchProductButton = driver.findElement(By.cssSelector(".btn.btn-default.btn-lg"));
+        searchProductButton = search.cssSelector(".btn.btn-default.btn-lg");
+        //cart = driver.findElement(By.cssSelector("#cart > button"));
+        cart = search.cssSelector("#cart > button");
+        //menuTop = driver.findElements(By.cssSelector("ul.nav.navbar-nav > li"));
+        menuTop = search.cssSelectors("ul.nav.navbar-nav > li");
     }
 
     protected void initProductComponents(By searchLocator) {
         productComponents = new ArrayList<>();
-        List<WebElement> productWebElements = driver.findElements(searchLocator);
+        //List<WebElement> productWebElements = driver.findElements(searchLocator);
+        List<WebElement> productWebElements = search.getWebElements(searchLocator);
         for (WebElement current : productWebElements) {
             productComponents.add(new ProductComponent(current));
         }
@@ -196,7 +202,7 @@ abstract class AHeaderComponent {
         private WebElement alertSuccessBody;
 
         public AlertSuccess() {
-            alertSuccessBody = driver.findElement(By.className("alert alert-success"));
+             alertSuccessBody = search.className("alert alert-success");
         }
 
 
@@ -234,7 +240,8 @@ abstract class AHeaderComponent {
         private WebElement alertDangerBody;
 
         public AlertDanger() {
-            alertDangerBody = driver.findElement(By.cssSelector(".alert.alert-danger"));
+
+            alertDangerBody = search.cssSelector(".alert.alert-danger");
         }
 
 
@@ -277,7 +284,9 @@ abstract class AHeaderComponent {
     }
 
     public boolean isPresentAlertDanger() {
-        return driver.findElements(By.cssSelector(".alert.alert-danger")).size() >= 1;
+
+        return search.cssSelectors(".alert.alert-danger").size() >= 1;
+
     }
     public boolean isPresentAlertTextDanger() {
         return driver.findElements(By.cssSelector(".text-danger")).size() >= 1;
@@ -287,7 +296,7 @@ abstract class AHeaderComponent {
     }
 
     public boolean isPresentAlertSuccess() {
-        return driver.findElements(By.className("alert alert-success")).size() > 1;
+        return search.classNames("alert alert-success").size() > 1;
     }
 
 
@@ -418,7 +427,7 @@ abstract class AHeaderComponent {
     }
 
     public String getWishListText() {
-    	// return getWishList().getText();
+        // return getWishList().getText();
         return getWishList().getAttribute(TITLE_ATTRIBUTE);
     }
 
@@ -609,43 +618,43 @@ abstract class AHeaderComponent {
                 By.xpath(String.format(AHeaderComponentLocators.MENUTOP_LAST_OPTION_XPATH.toString(), categoryName)));
         return dropdownOptions.getListOptionByPartialNameTexts();
     }
-    
+
     public boolean isUserSignedIn() {
-    	return getMyAccountOptions().size() == 5 ? true : false;
+        return getMyAccountOptions().size() == 5 ? true : false;
     }
 
-	// -----------------------------------------------
-	// MyAccount options atomic click block
-	// -----------------------------------------------
-	public void clickMyAccountOptionRegister() {
-		clickMyAccountByPartialName(MyAccountOptions.REGISTER.toString());
-	}
+    // -----------------------------------------------
+    // MyAccount options atomic click block
+    // -----------------------------------------------
+    public void clickMyAccountOptionRegister() {
+        clickMyAccountByPartialName(MyAccountOptions.REGISTER.toString());
+    }
 
-	public void clickMyAccountOptionLogin() {
-		clickMyAccountByPartialName(MyAccountOptions.LOGIN.toString());
-	}
-	// -----------------------------------------------
+    public void clickMyAccountOptionLogin() {
+        clickMyAccountByPartialName(MyAccountOptions.LOGIN.toString());
+    }
+    // -----------------------------------------------
 
-	public void clickMyAccountOptionMyAccount() {
-		clickMyAccountByPartialName(MyAccountOptions.MY_ACCOUNT.toString());
-	}
+    public void clickMyAccountOptionMyAccount() {
+        clickMyAccountByPartialName(MyAccountOptions.MY_ACCOUNT.toString());
+    }
 
-	public void clickMyAccountOptionOrderHistory() {
-		clickMyAccountByPartialName(MyAccountOptions.ORDER_HISTORY.toString());
-	}
+    public void clickMyAccountOptionOrderHistory() {
+        clickMyAccountByPartialName(MyAccountOptions.ORDER_HISTORY.toString());
+    }
 
-	public void clickMyAccountOptionTransactions() {
-		clickMyAccountByPartialName(MyAccountOptions.TRANSACTIONS.toString());
-	}
+    public void clickMyAccountOptionTransactions() {
+        clickMyAccountByPartialName(MyAccountOptions.TRANSACTIONS.toString());
+    }
 
-	public void clickMyAccountOptionDownloads() {
-		clickMyAccountByPartialName(MyAccountOptions.DOWNLOADS.toString());
-	}
+    public void clickMyAccountOptionDownloads() {
+        clickMyAccountByPartialName(MyAccountOptions.DOWNLOADS.toString());
+    }
 
-	public void clickMyAccountOptionLogout() {
-		clickMyAccountByPartialName(MyAccountOptions.LOGOUT.toString());
-	}
-	// -----------------------------------------------
+    public void clickMyAccountOptionLogout() {
+        clickMyAccountByPartialName(MyAccountOptions.LOGOUT.toString());
+    }
+    // -----------------------------------------------
 
 
     // Business Logic
@@ -656,28 +665,30 @@ abstract class AHeaderComponent {
     // }
 
     public LoginPage gotoLoginPageFromMyAccount() {
-    	clickMyAccountOptionLogin();
-        return new LoginPage(driver);
+        clickMyAccountOptionLogin();
+        //return new LoginPage(driver);
+        return new LoginPage();
     }
 
     public LogoutPage gotoLogoutPage() {
-    	clickMyAccountOptionLogout();
-        return new LogoutPage(driver);
+        clickMyAccountOptionLogout();
+        //return new LogoutPage(driver);
+        return new LogoutPage();
     }
-    
+
     public MyAccountPage gotoMyAccountPageFromHomePage() {
         //clickMyAccountByPartialName("logout");
-    	clickMyAccountOptionMyAccount();
-        return new MyAccountPage(driver);
+        clickMyAccountOptionMyAccount();
+        //return new MyAccountPage(driver);
+        return new MyAccountPage();
     }
 
 
     public SubCategoryProductsPage gotoMenuTopByPartialName(String categoryName, String optionName) {
         clickMenuTopByPartialName(categoryName, optionName);
-        return new SubCategoryProductsPage(driver);
+        //return new SubCategoryProductsPage(driver);
+        return new SubCategoryProductsPage();
     }
-    
-    
 
 
 }

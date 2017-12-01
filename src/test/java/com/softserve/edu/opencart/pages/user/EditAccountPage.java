@@ -1,7 +1,5 @@
 package com.softserve.edu.opencart.pages.user;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class EditAccountPage extends AColumnRightUserComponent {
@@ -10,9 +8,9 @@ public class EditAccountPage extends AColumnRightUserComponent {
 
     private WebElement email;
 
-    public EditAccountPage(WebDriver driver) {
-        super(driver);
-        email = driver.findElement(By.name("email"));
+    public EditAccountPage() {
+        super();
+        email = search.name("email");
 
     }
 

@@ -5,12 +5,15 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.softserve.edu.App;
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.categories.CurrencyRepository;
 import com.softserve.edu.opencart.data.categories.DetailCategory;
@@ -21,10 +24,12 @@ import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.SubCategoryProductsPage;
 
 public class HomeTest {
-
+    public static final Logger logger = LoggerFactory.getLogger(HomeTest.class);
+    
     @BeforeClass
     public void beforeClass() {
         Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
+        //Application.get(ApplicationSourceRepository.get().chromeVisibleServer7());
         //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
     }
 
@@ -48,6 +53,7 @@ public class HomeTest {
     @Test(dataProvider = "productData")
     //public void checkProduct(String productName, double expectedPrice) throws Exception {
     public void checkProduct(DetailCategory detailCurency, Product product) throws Exception {
+        logger.info(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
         //
         // Precondition
         //
@@ -79,6 +85,7 @@ public class HomeTest {
         //
         //Assert.assertEquals(actualPrice, expectedPrice, 0.001);
         // TODO getPrices(detailCurency)
+        logger.debug("checkProduct() debug");
         double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
         Assert.assertEquals(actualPrice, expectedPrice, 0.001);
         Thread.sleep(1000);
@@ -87,6 +94,7 @@ public class HomeTest {
         //
         //Thread.sleep(2000);
         //driver.quit();
+        logger.info("checkProduct() done");
     }
     
     //@Test
@@ -102,7 +110,9 @@ public class HomeTest {
         driver.get("http://server7.pp.ua");
         Thread.sleep(1000);
         //
-        HomePage homePage = new HomePage(driver);
+        //HomePage homePage = new HomePage(driver);
+        Application.get();
+        HomePage homePage = new HomePage(); // ERROR
         Thread.sleep(1000);
         //
         // Steps
@@ -139,7 +149,9 @@ public class HomeTest {
         //
         // Steps
         //
-        SubCategoryProductsPage subCategoryProductsPage = new HomePage(driver)
+        //SubCategoryProductsPage subCategoryProductsPage = new HomePage(driver)
+        Application.get();
+        SubCategoryProductsPage subCategoryProductsPage = new HomePage()
                     .gotoMenuTopByPartialName("Desktops", "Mac");
         Thread.sleep(1000);
         //
