@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.GeneralLocators;
@@ -13,6 +15,7 @@ import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
+import com.softserve.edu.opencart.tools.ReporterWrapper;
 
 abstract class AHeaderComponent {
 
@@ -103,8 +106,10 @@ abstract class AHeaderComponent {
 
     // Fields
 
+    protected final Logger logger;
+    protected final ReporterWrapper reporter;
     //protected WebDriver driver;
-    protected ISearch search;
+    protected final ISearch search;
     //
     private WebElement currency;
     private WebElement myAccount;
@@ -123,6 +128,8 @@ abstract class AHeaderComponent {
 
     //protected AHeaderComponent(WebDriver driver) {
     protected AHeaderComponent() {
+        this.logger = LoggerFactory.getLogger(this.getClass());
+        this.reporter = Application.get().reporter();
         //this.driver = driver;
         this.search = Application.get().search();
         //

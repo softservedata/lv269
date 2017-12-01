@@ -1,17 +1,22 @@
 package com.softserve.edu.opencart.pages.user;
 
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
+import com.softserve.edu.opencart.tools.ReporterWrapper;
 
 public class ProductComponent {
 
     // Fields
 
-    protected ISearch search;
+    protected final Logger logger;
+    protected final ReporterWrapper reporter;
+    protected final ISearch search;
     private WebElement productLayout;
     //
     private WebElement name;
@@ -20,6 +25,8 @@ public class ProductComponent {
     private WebElement addToWish;
 
     public ProductComponent(WebElement productLayout) {
+        this.logger = LoggerFactory.getLogger(this.getClass());
+        this.reporter = Application.get().reporter();
         this.search = Application.get().search();
         this.productLayout = productLayout;
         //

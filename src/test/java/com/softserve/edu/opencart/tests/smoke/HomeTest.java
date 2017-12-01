@@ -4,16 +4,10 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.softserve.edu.App;
-import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.categories.CurrencyRepository;
 import com.softserve.edu.opencart.data.categories.DetailCategory;
 import com.softserve.edu.opencart.data.products.Product;
@@ -21,21 +15,10 @@ import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.SubCategoryProductsPage;
+import com.softserve.edu.opencart.tests.TestRunner;
 
-public class HomeTest {
-    public static final Logger logger = LoggerFactory.getLogger(HomeTest.class);
-    
-    @BeforeClass
-    public void beforeClass() {
-        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
-        //Application.get(ApplicationSourceRepository.get().chromeVisibleServer7());
-        //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
-    }
-
-    @AfterClass
-    public void afterClass() {
-        Application.remove();
-    }
+public class HomeTest extends TestRunner {
+    //public static final Logger logger = LoggerFactory.getLogger(HomeTest.class);
     
     @DataProvider//(parallel = true)
     public Object[][] productData() {
@@ -53,6 +36,7 @@ public class HomeTest {
     //public void checkProduct(String productName, double expectedPrice) throws Exception {
     public void checkProduct(DetailCategory detailCurency, Product product) throws Exception {
         logger.info(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
+        reporter.display(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
         //
         // Precondition
         //
@@ -94,6 +78,7 @@ public class HomeTest {
         //Thread.sleep(2000);
         //driver.quit();
         logger.info("checkProduct() done");
+        reporter.display("checkProduct() done");
     }
     
     //@Test

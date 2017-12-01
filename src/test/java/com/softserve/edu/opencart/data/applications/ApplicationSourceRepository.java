@@ -38,7 +38,7 @@ public class ApplicationSourceRepository {
         System.out.println("Path = " + chromeDriverPath());
         return new ApplicationSource("chrome", chromeDriverPath(),
                 10L, 30L, 10L, 5L,
-                "Implicit",
+                "Implicit", true,
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
@@ -52,7 +52,7 @@ public class ApplicationSourceRepository {
         System.out.println("Path = " + chromeDriverPath());
         return new ApplicationSource("chrome", chromeDriverPath(),
                 10L, 30L, 10L, 5L,
-                "Visible",
+                "Visible", true,
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
@@ -66,7 +66,7 @@ public class ApplicationSourceRepository {
         //System.out.println("Path = " + chromeDriverPath());
         return new ApplicationSource("firefox", geckoDriverPath(),
                 10L, 30L, 10L, 5L,
-                "Implicit",
+                "Implicit", true,
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",

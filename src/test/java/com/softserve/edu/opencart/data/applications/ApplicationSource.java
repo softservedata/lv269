@@ -24,6 +24,9 @@ public class ApplicationSource implements IApplicationSource {
     // Logger Strategy
     // private String loggerStrategy;
     //
+    // Reporter Console Output
+    private boolean consoleOutput;
+    //
     // URLs
     private String baseUrl;
     private String userLoginUrl;
@@ -36,7 +39,8 @@ public class ApplicationSource implements IApplicationSource {
 
     public ApplicationSource(String browserName, String driverPath,
             long implicitWaitTimeOut, long implicitLoadTimeOut,
-            long implicitScriptTimeOut, long explicitTimeOut, String searchStrategy,
+            long implicitScriptTimeOut, long explicitTimeOut,
+            String searchStrategy, boolean consoleOutput,
             String baseUrl, String userLoginUrl, String userLogoutUrl,
             String adminLoginUrl, String adminLogoutUrl) {
         this.browserName = browserName;
@@ -46,6 +50,7 @@ public class ApplicationSource implements IApplicationSource {
         this.implicitScriptTimeOut = implicitScriptTimeOut;
         this.explicitTimeOut = explicitTimeOut;
         this.searchStrategy = searchStrategy;
+        this.consoleOutput = consoleOutput;
         this.baseUrl = baseUrl;
         this.userLoginUrl = userLoginUrl;
         this.userLogoutUrl = userLogoutUrl;
@@ -81,6 +86,10 @@ public class ApplicationSource implements IApplicationSource {
 
     public void setSearchStrategy(String searchStrategy) {
         this.searchStrategy = searchStrategy;
+    }
+
+    public void setConsoleOutput(boolean consoleOutput) {
+        this.consoleOutput = consoleOutput;
     }
 
     public void setBaseUrl(String baseUrl) {
@@ -133,6 +142,10 @@ public class ApplicationSource implements IApplicationSource {
         return searchStrategy;
     }
 
+    public boolean getConsoleOutput() {
+        return consoleOutput;
+    }
+    
     public String getBaseUrl() {
         return baseUrl;
     }
