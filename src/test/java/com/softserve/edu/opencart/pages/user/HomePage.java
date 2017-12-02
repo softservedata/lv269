@@ -55,8 +55,10 @@ public class HomePage extends AHeaderComponent {
     // set Functional
 
     // Business Logic
-
+    
     public HomePage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
+        logger.debug("Choose detailCategory.getOptionName() = " + detailCategory.getOptionName());
+        reporter.debug("Choose detailCategory.getOptionName() = " + detailCategory.getOptionName());
         clickCurrencyByPartialName(detailCategory.getOptionName());
         //return new HomePage(driver); 
         return new HomePage();
