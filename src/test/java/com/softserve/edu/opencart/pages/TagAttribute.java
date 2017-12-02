@@ -20,10 +20,12 @@ public enum TagAttribute {
     MODEL ("Model"),
     PRICE ("Price"),
     QUANTITY ("Quantity"),
-    STATUS ("Disabled"),
+    STATUS ("Status"),
     IMAGE ("Image"),
     ENABLED("Enabled"),
-    DISABLED("Disabled");
+    DISABLED("Disabled"),
+    ASC ("asc"),
+    DESC ("desc");
 
     private String field;
 

@@ -25,7 +25,7 @@ public class OpenProductAdminPageTest {
     @DataProvider(name = "OpenProductPageData")
     public Object[][] ValidData() {
         return new Object[][]{
-                {PathNamesRepository.get().openProductAdminPage(),
+                {PathNamesRepository.get().openProductAdminPagePathnames(),
                         ExpectedStringsRepository.get().productsPageName()}
         };
     }

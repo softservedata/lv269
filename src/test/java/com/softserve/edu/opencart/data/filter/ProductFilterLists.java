@@ -33,7 +33,7 @@ public class ProductFilterLists implements IProductFilterLists {
 
     public ProductFilterLists readCurrentProductListFromFile (String fileName) {
         currentProductList = new ArrayList<>();
-        for (String current : Application.get().getFileManager().readFromFile(ApplicationSourceRepository.class
+        for (String current : Application.get().fileManager().readFromFile(ApplicationSourceRepository.class
                 .getResource(fileName).getPath().substring(1))) {
             currentProductList.add(new ProductShort(current, PARAMETERS_DELIMITER));
         }

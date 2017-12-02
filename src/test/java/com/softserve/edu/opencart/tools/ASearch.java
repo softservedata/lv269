@@ -1,6 +1,8 @@
 package com.softserve.edu.opencart.tools;
 
+import com.softserve.edu.opencart.pages.Application;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -219,9 +221,9 @@ public abstract class ASearch implements ISearch {
     //IsVisible
 
     @Override
-    //TODO How to write WebElements for id
     public boolean isVisibleId(String id) {
-        return false;
+        return ((WebElement)((JavascriptExecutor) Application.get().browser().getDriver())
+                .executeScript("return document.getElementById(arguments[0])", id) != null);
     }
 
     @Override

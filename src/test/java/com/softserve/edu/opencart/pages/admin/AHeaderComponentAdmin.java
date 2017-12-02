@@ -4,7 +4,6 @@ import com.softserve.edu.opencart.data.pathnames.IPathnames;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ abstract class AHeaderComponentAdmin {
 
     //Fields
     protected Search search;
+    protected Operations operations;
 
     private WebElement sBarPanel;
     private WebElement logo;
@@ -43,6 +43,7 @@ abstract class AHeaderComponentAdmin {
 
     public AHeaderComponentAdmin() {
         this.search = Application.get().search();
+        this.operations = Application.get().operations();
         sBarPanel = search.id("menu");
         logo = search.className("navbar-brand");
         statBtn = search.xpath(".//a[child::i[@class='fa fa-bell fa-lg']]");
@@ -57,7 +58,7 @@ abstract class AHeaderComponentAdmin {
 
     private void setSBarMainOptionsList() {
         sBarMainOptionsList = new ArrayList<>();
-        List <WebElement> temp = search.xpaths(MAIN_OPTIONS_LIST_XPTH, sBarPanel);
+        List<WebElement> temp = search.xpaths(MAIN_OPTIONS_LIST_XPTH, sBarPanel);
         for (WebElement current : search.xpaths(MAIN_OPTIONS_LIST_XPTH, sBarPanel)) {
             sBarMainOptionsList.add(new SBarMainOption(current));
         }
@@ -141,24 +142,23 @@ abstract class AHeaderComponentAdmin {
     // Get Functional
 
     public String getCurrentPageNameText() {
-        System.out.println(getCurrentPageName().getText());
-        return getCurrentPageName().getText();
+        return operations.getText(getCurrentPageName());
     }
 
     public String getPathnameText() {
         String result = "";
         for (WebElement current : getPathnamePageBtns()) {
-            result += current.getText();
+            result += operations.getText(current);
         }
         return result;
     }
 
     public String getPathnamePageBtnLastText() {
-        return getPathnamePageBtnLast().getText();
+        return operations.getText(getPathnamePageBtnLast());
     }
 
     public String getPathnamePageBtnFirstText() {
-        return getPathnamePageBtnFirst().getText();
+        return operations.getText(getPathnamePageBtnFirst());
     }
 
     //Set data
@@ -175,26 +175,26 @@ abstract class AHeaderComponentAdmin {
     }
 
     public void clickLogo() {
-        Operations.clickElement(getLogo());
+        operations.clickElement(getLogo());
     }
 
     public void clickLogoutBtn() {
-        Operations.clickElement(getLogoutBtn());
+        operations.clickElement(getLogoutBtn());
     }
 
     //Set Function
     public void clickToStoreBtn() {
-        Operations.clickElement(getToStoreBtn());
+        operations.clickElement(getToStoreBtn());
         toStoreOptionsList = (toStoreOptionsList == null) ? new OptionsList(toStoreBtn) : null;
     }
 
     public void clickStatBtn() {
-        Operations.clickElement(getStatBtn());
+        operations.clickElement(getStatBtn());
         statOptionsList = (statOptionsList == null) ? new StatOptionsList(statBtn) : null;
     }
 
     public void clickHelpBtn() {
-        Operations.clickElement(getHelpBtn());
+        operations.clickElement(getHelpBtn());
         helpOptionsList = (helpOptionsList == null) ? new OptionsList(helpBtn) : null;
     }
 
@@ -249,11 +249,11 @@ abstract class AHeaderComponentAdmin {
     }
 
     public void clickPathnamePageBtnLast() {
-        Operations.clickElement(getPathnamePageBtnLast());
+        operations.clickElement(getPathnamePageBtnLast());
     }
 
     public void clickPathnamePageBtnFirst() {
-        Operations.clickElement(getPathnamePageBtnFirst());
+        operations.clickElement(getPathnamePageBtnFirst());
     }
 
 //-------------------------------------------------------------------------------
@@ -275,7 +275,7 @@ abstract class AHeaderComponentAdmin {
         public WebElement getOptionByPartialName(String value) {
             WebElement result = null;
             for (WebElement current : optionsList) {
-                if (current.getText().toLowerCase().contains(value.toLowerCase())) {
+                if (operations.getText(current).toLowerCase().contains(value.toLowerCase())) {
                     result = current;
                     break;
                 }
@@ -284,7 +284,7 @@ abstract class AHeaderComponentAdmin {
         }
 
         public void clickOptionByPartialName(String value) {
-            Operations.clickElement(getOptionByPartialName(value));
+            operations.clickElement(getOptionByPartialName(value));
         }
 
 
@@ -300,8 +300,8 @@ abstract class AHeaderComponentAdmin {
         }
 
         public int getOptionAmountByPartialName(String value) {
-            return NumberUtils.stringToInt(search.cssSelector(OPTION_AMOUNT_TEXT_CSS, getOptionByPartialName(value))
-                    .getText());
+            return NumberUtils.stringToInt(operations.getText(search.cssSelector(OPTION_AMOUNT_TEXT_CSS,
+                    getOptionByPartialName(value))));
         }
     }
 
@@ -332,8 +332,8 @@ abstract class AHeaderComponentAdmin {
 
         public void setOptionText() {
             setOptionTextSelector();
-            optionText = search.cssSelector(optionTextSelector, parentElement)
-                    .getAttribute(TagAttribute.TEXT_CONTENT.toString());
+            optionText = operations.getAttribute(search.cssSelector(optionTextSelector, parentElement),
+                    TagAttribute.TEXT_CONTENT.toString());
         }
 
         private void setOptionBtn() {
@@ -377,7 +377,7 @@ abstract class AHeaderComponentAdmin {
         //Set
 
         private void clickOptionBtn() {
-            Operations.clickElement(getOptionBtn());
+            operations.clickElement(getOptionBtn());
         }
 
         //Set Functional

@@ -24,7 +24,7 @@
 //        Application.get(ApplicationSourceRepository.get().chromeServer7());
 //        List<ProductShort> list = Application.get().loginAdmin()
 //                .validEnterAdminProfile(null)
-//                .openProductAdminPage()
+//                .openProductAdminPagePathnames()
 //                .getProductShortListAllPages();
 //        File file = new File("productlist.txt");
 //        FileWriter fw = new FileWriter(file.getAbsoluteFile());

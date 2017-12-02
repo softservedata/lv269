@@ -10,6 +10,7 @@ public class LoginAdminPage {
 
  //Field
     protected Search search;
+    protected Operations operations;
     private WebElement logo;
     private WebElement loginField;
     private WebElement passwordField;
@@ -18,6 +19,7 @@ public class LoginAdminPage {
 
     public LoginAdminPage() {
         this.search = Application.get().search();
+        this.operations = Application.get().operations();
         logo = search.cssSelector(".navbar-header > a");
         loginField = search.id("input-username");
         passwordField = search.id("input-password");
@@ -61,15 +63,15 @@ public class LoginAdminPage {
     }
 
     public void setLoginField(String loginText) {
-        Operations.fillInputField(getLoginField(), loginText);
+        operations.fillInputField(getLoginField(), loginText);
     }
 
     public void setPasswordField(String passwordText) {
-        Operations.fillInputField(getPasswordField(), passwordText);
+        operations.fillInputField(getPasswordField(), passwordText);
     }
 
     public void clickForgotPassworBtn () {
-        Operations.clickElement(getLoginBtn());
+        operations.clickElement(getLoginBtn());
     }
 
     // set Functional
@@ -92,7 +94,7 @@ public class LoginAdminPage {
     }
 
     public boolean isLoginAdminPageOpened () {
-        return (Operations.isElementDisplayed(getLoginBtn()));
+        return (operations.isElementDisplayed(getLoginBtn()));
     }
 
 

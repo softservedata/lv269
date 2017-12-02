@@ -6,7 +6,6 @@ import com.softserve.edu.opencart.data.pathnames.IStoreSettingOptionSet;
 import com.softserve.edu.opencart.data.pathnames.StoreSettingOptionSet;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
-import com.softserve.edu.opencart.tools.Operations;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -41,9 +40,9 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         currentTabOptions = new OptionsTab();
     }
 
-    public void enterOptionsFromOptionsList(IStoreSettingOptionSet optionList, IPagination paginationData) {
+    public void enterOptionsFromOptionsList(IStoreSettingOptionSet optionList, Map<String, String> optionsReplaceValue) {
         if (defaultOptionsList == null) {
-            enterOptionsFromRecievedOptionsList(optionList, paginationData);
+            enterOptionsFromRecievedOptionsList(optionList, optionsReplaceValue);
         } else {
             enterOptionsFromDefaultOptionsList();
         }
@@ -51,15 +50,18 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     }
 
     //TODO remake all this page, add a good way to change option, to save their current value and return back
-    public void enterOptionsFromRecievedOptionsList(IStoreSettingOptionSet optionList, IPagination paginationData) {
+    public void enterOptionsFromRecievedOptionsList(IStoreSettingOptionSet optionList,
+                                                    Map<String, String> optionsReplaceValue){
         defaultOptionsList = new StoreSettingOptionSet();
         for (StoreSettingOptionSet.IStoreSettingOption currentOption : optionList.getStoreSettingOptionsSetList()) {
             actTabBtnByName(currentOption.getOptionTab());
             if (currentOption.getOptionValue() != null) {
                 defaultOptionsList.addStoreSettingOption(currentOption.getOptionName(), currentOption.getOptionTab(),
                         currentTabOptions.getActiveElementValueByName(currentOption.getOptionName()));
-                String optionValue = (paginationData.getOptionName().equalsIgnoreCase(currentOption.getOptionName()))
-                        ? String.valueOf(paginationData.getItemsPerPageNumber()) : currentOption.getOptionValue();
+                String optionValue = currentOption.getOptionValue();
+                if ((optionsReplaceValue != null) && (optionsReplaceValue.containsKey(currentOption.getOptionName()))) {
+                    optionValue = optionsReplaceValue.get(currentOption.getOptionName());
+                }
                 currentTabOptions.actOptionByName(currentOption.getOptionName(), optionValue);
             }
             if (currentOption.getOptionFlag() != null) {
@@ -114,7 +116,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     private WebElement getActiveTabBtnByName(String TabOptionsName) {
         WebElement result = null;
         for (WebElement current : getActiveTabBtns()) {
-            if (current.getText().toLowerCase().equals(TabOptionsName.toLowerCase())) {
+            if (operations.getText(current).equalsIgnoreCase(TabOptionsName)) {
                 result = current;
                 break;
             }
@@ -126,41 +128,48 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     //SetData
 
     public void clickSaveOptionsBtn() {
-        Operations.clickElement(getSaveOptionsBtn());
+        operations.clickElement(getSaveOptionsBtn());
     }
 
     public void clickCancelChangesBtn() {
-        Operations.clickElement(getCancelChangesBtn());
+        operations.clickElement(getCancelChangesBtn());
     }
 
     //Set Functional
 
     public void actTabBtnByName(String TabBtnName) {
-        if (!getInactiveOptionsTabBtn().getText().toLowerCase().equals(TabBtnName.toLowerCase())) {
-            Operations.clickElement(getActiveTabBtnByName(TabBtnName));
+        if (!operations.getText(getInactiveOptionsTabBtn()).equalsIgnoreCase(TabBtnName)) {
+            operations.clickElement(getActiveTabBtnByName(TabBtnName));
         }
         currentTabOptions = new OptionsTab();
     }
 
     // BusinessLogic
 
-    public SettingPage changeOptionsSet(IPathnames paginationPathnames, IPagination paginationData) {
-        enterOptionsFromOptionsList(paginationPathnames.getStoreSettingOptionSet(), paginationData);
-        Operations.clickElement(getSaveOptionsBtn());
+    public SettingPage changeOptionsSet(IPathnames paginationPathnames, Map<String, String> optionsReplaceValue) {
+        enterOptionsFromOptionsList(paginationPathnames.getStoreSettingOptionSet(), optionsReplaceValue);
+        operations.clickElement(getSaveOptionsBtn());
         return new SettingPage();
     }
+
+    public SettingPage changeOptionsSet(IPathnames paginationPathnames) {
+        enterOptionsFromOptionsList(paginationPathnames.getStoreSettingOptionSet(), null);
+        operations.clickElement(getSaveOptionsBtn());
+        return new SettingPage();
+    }
+
 
     public SettingPage changeOptionByTabNameAndOptionName(String tabName, String optionName, String newData) {
         actTabBtnByName(tabName);
         currentTabOptions.actOptionByName(optionName, newData);
-        Operations.clickElement(getSaveOptionsBtn());
+        operations.clickElement(getSaveOptionsBtn());
         return new SettingPage();
     }
 
     public SettingPage changeOptionByTabNameAndOptionName(String tabName, String optionName, boolean newData) {
         actTabBtnByName(tabName);
         currentTabOptions.actOptionByName(optionName, newData);
-        Operations.clickElement(getSaveOptionsBtn());
+        operations.clickElement(getSaveOptionsBtn());
         return new SettingPage();
     }
 
@@ -168,7 +177,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
                                                           Map<String, Boolean> newData) {
         actTabBtnByName(tabName);
         currentTabOptions.actOptionByName(optionName, newData);
-        Operations.clickElement(getSaveOptionsBtn());
+        operations.clickElement(getSaveOptionsBtn());
         return new SettingPage();
     }
 
@@ -217,7 +226,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
 
         //GetData
         private String getOptionName(WebElement option) {
-            return search.cssSelector(optionNameSelectorCss,option).getText();
+            return operations.getText(search.cssSelector(optionNameSelectorCss,option));
         }
 
 
@@ -244,7 +253,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         }
 
         public String getActiveElementValueByName(String optionName) {
-            return getActiveElementByName(optionName).getAttribute("Value");
+            return operations.getAttribute(getActiveElementByName(optionName), "Value");
         }
 
         //SetData
@@ -293,12 +302,12 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         }
 
         private void actOptionAsDropdown(String optionName, String data) {
-            Operations.selectByVisibleText(new Select(getActiveElementFromOption(getOptionByName(optionName))),
+            operations.selectByVisibleText(new Select(getActiveElementFromOption(getOptionByName(optionName))),
                     data);
         }
 
         private void actOptionAsInputField(String optionName, String data) {
-            Operations.fillInputField(getActiveElementFromOption(getOptionByName(optionName)), data);
+            operations.fillInputField(getActiveElementFromOption(getOptionByName(optionName)), data);
         }
     }
 }

@@ -7,8 +7,6 @@ import com.softserve.edu.opencart.pages.admin.LogoutAdminPage;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.tools.*;
 
-import java.util.List;
-
 public class Application {
 
     // Use Singleton, Repository
@@ -23,6 +21,7 @@ public class Application {
     private Search search;
     private FileManager fileManager;
     private String token;
+    private Operations operations;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
@@ -32,6 +31,7 @@ public class Application {
 
     private void initSearchStrategy(IApplicationSource applicationSource) {
         this.search = new Search(applicationSource);
+        operations = new Operations();
     }
 
     public static Application get() {
@@ -62,7 +62,7 @@ public class Application {
     public static void remove() {
         if (instance != null) {
             // TODO Change for parallel work
-            instance.getBrowser().quit();
+            instance.browser().quit();
             instance = null;
         }
     }
@@ -74,11 +74,11 @@ public class Application {
 
     // TODO Change for parallel work
     //TODO Delete 3 methods below
-    public BrowserWrapper getBrowser() {
+    public BrowserWrapper browser() {
         return browser;
     }
 
-    public FileManager getFileManager() {
+    public FileManager fileManager() {
         return fileManager;
     }
 
@@ -86,9 +86,13 @@ public class Application {
         return search;
     }
 
+    public Operations operations() {
+        return operations;
+    }
+
     //TODO Remake it by rules without magic numbers and symbols, with saving in the proper place
     public void setToken () {
-        token = "&" + TextUtils.splittoList(getBrowser().getUrlPage(), "&").get(1);
+        token = "&" + TextUtils.splittoList(browser().getUrlPage(), "&").get(1);
     }
 
     private String getToken () {
@@ -106,30 +110,30 @@ public class Application {
     }
 
     public HomePage loadHomePage() {
-        getBrowser().openUrl(applicationSource.getBaseUrl());
-        // TODO Remove getBrowser().getDriver()
-        return new HomePage(getBrowser().getDriver());
+        browser().openUrl(applicationSource.getBaseUrl());
+        // TODO Remove browser().getDriver()
+        return new HomePage(browser().getDriver());
     }
 
     public LoginAdminPage loginAdmin() {
-        getBrowser().openUrl(applicationSource.getAdminLoginUrl());
+        browser().openUrl(applicationSource.getAdminLoginUrl());
         //TODO Remove SearchManager
         return new LoginAdminPage();
     }
 
     public LogoutAdminPage logoutAdmin() {
-        getBrowser().openUrl(applicationSource.getAdminLogoutUrl() + getToken());
+        browser().openUrl(applicationSource.getAdminLogoutUrl() + getToken());
         return new LogoutAdminPage();
     }
 
 
 //    public LoginPage login() {
-//        getBrowser().openUrl(applicationSource.getUserLoginUrl());
+//        browser().openUrl(applicationSource.getUserLoginUrl());
 //        return new LoginPage();
 //    }
 
 //    public LogoutPage logoutAdmin() {
-//        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
+//        browser().openUrl(applicationSource.getUserLogoutUrl());
 //        return new LogoutPage();
 //    }
 

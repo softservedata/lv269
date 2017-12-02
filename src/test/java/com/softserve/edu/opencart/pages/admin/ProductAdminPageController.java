@@ -1,6 +1,7 @@
 package com.softserve.edu.opencart.pages.admin;
 
 import com.softserve.edu.opencart.data.ProductShort;
+import com.softserve.edu.opencart.data.sort.IAdminProductSort;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,23 +49,26 @@ public class ProductAdminPageController {
     }
 
 
-//    public ProductAdminPage getProductsShortListFromAllPages() {
-//        productShortListAllPages = new ArrayList<>();
-//        currentProductAdminPage = addProductShortListAndToNextPage();
-//        do {
-//            currentProductAdminPage = addProductShortListAndToNextPage();
-//        } while (!currentProductAdminPage.isLastPageOpened());
-//        currentProductAdminPage = currentProductAdminPage.toFirstProductAdminPageAllPages();
-//        currentProductAdminPage.setProductShortListAllPages(productShortListAllPages);
-//        return currentProductAdminPage;
-//    }
+    public ProductAdminPage getProductsShortListFromAllPages() {
+        productShortListAllPages = new ArrayList<>();
+        productShortListAllPages.addAll(currentProductAdminPage.getProductsShortListFromPage());
+        while (!currentProductAdminPage.isLastPageOpened()) {
+            currentProductAdminPage = currentProductAdminPage.toNextProductAdminPage();
+            productShortListAllPages.addAll(currentProductAdminPage.getProductsShortListFromPage());
+        }
+        currentProductAdminPage = currentProductAdminPage.toFirstProductAdminPageAllPages();
+        currentProductAdminPage.setProductShortListAllPages(productShortListAllPages);
+        return currentProductAdminPage;
+    }
 
-//    private ProductAdminPage addProductShortListAndToNextPage() {
-//        productShortListAllPages.addAll(currentProductAdminPage.getProductsShortListFromPage());
-//        return currentProductAdminPage.toProductAdminPageByNumber(
-//                currentProductAdminPage.getCurrentPageNumber() + 1);
-//
-//    }
+    public ProductAdminPage sortProductPageTable(IAdminProductSort adminProductSort) {
+        ProductAdminPage nextProductadminPage = currentProductAdminPage.sortByColumnName(adminProductSort);
+        while (currentProductAdminPage != nextProductadminPage) {
+            currentProductAdminPage = nextProductadminPage;
+            nextProductadminPage = currentProductAdminPage.sortByColumnName(adminProductSort);
+        }
+        return nextProductadminPage;
+    }
 
 //    public ProductAdminPage initLastProductAdminPageNumberAllPages() {
 //        ProductAdminPage result = this;

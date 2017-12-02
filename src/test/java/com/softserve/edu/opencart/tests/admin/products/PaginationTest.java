@@ -12,8 +12,6 @@ import com.softserve.edu.opencart.pages.admin.ProductAdminPage;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import java.util.List;
-
 public class PaginationTest {
 
     public void browserOpen() {
@@ -24,10 +22,10 @@ public class PaginationTest {
     @DataProvider(name = "PaginationItemsPerPage")
     public Object[][] ValidData() {
         return new Object[][]{
-                {PathNamesRepository.get().pagination(), PaginationRepository.get().itemsPerPageOne()},
-                {PathNamesRepository.get().pagination(), PaginationRepository.get().itemsPerPageHalfItemsPlusOne()},
-                {PathNamesRepository.get().pagination(), PaginationRepository.get().itemsPerPageItemsPerPage()},
-                {PathNamesRepository.get().pagination(), PaginationRepository.get().itemsPerPageMoreThanItemsPerPage()}
+                {PathNamesRepository.get().paginationPathnames(), PaginationRepository.get().itemsPerPageOne()},
+                {PathNamesRepository.get().paginationPathnames(), PaginationRepository.get().itemsPerPageHalfItemsPlusOne()},
+                {PathNamesRepository.get().paginationPathnames(), PaginationRepository.get().itemsPerPageItemsPerPage()},
+                {PathNamesRepository.get().paginationPathnames(), PaginationRepository.get().itemsPerPageMoreThanItemsPerPage()}
         };
     }
 
@@ -38,14 +36,14 @@ public class PaginationTest {
                 .validEnterAdminProfile(UserRepository.get().admin())
                 .openSettingAdminPage(paginationPathnames)
                 .openStoreSettingsPageByUrl(paginationPathnames)
-                .changeOptionsSet(paginationPathnames, paginationData)
+                .changeOptionsSet(paginationPathnames, paginationData.getOptionsReplaceValues())
                 .openProductAdminPage(paginationPathnames)
                 .initLastProductAdminPageNumberAllPages();
         int actualPagesPaginationQuantity = productAdminPage.getPagesPaginationQuantity();
         Integer actualItemsOnAllPagesExceptLast = productAdminPage.getItemsOnAllPagesExceptLast();
         productAdminPage.openSettingAdminPage(paginationPathnames)
                 .openStoreSettingsPageByUrl(paginationPathnames)
-                .changeOptionsSet(paginationPathnames, paginationData);
+                .changeOptionsSet(paginationPathnames, paginationData.getOptionsReplaceValues());
         Assert.assertEquals(actualPagesPaginationQuantity,
                 (paginationData.getItemsNumber() + paginationData.getItemsPerPageNumber() - 1) / paginationData
                         .getItemsPerPageNumber(),

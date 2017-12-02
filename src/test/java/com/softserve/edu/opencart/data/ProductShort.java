@@ -2,6 +2,7 @@ package com.softserve.edu.opencart.data;
 
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
+import org.openqa.selenium.WebElement;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +61,10 @@ public class ProductShort {
     }
 
     //GetFunctional
+
+    public String getProductParameterByName (String parameterName) {
+        return getProductMap().get(parameterName);
+    }
 
     public String getName() {
         return getProductMap().get(TagAttribute.PRODUCT_NAME.toString());

@@ -3,7 +3,6 @@ package com.softserve.edu.opencart.pages.admin;
 import com.softserve.edu.opencart.data.pathnames.IPathnames;
 import com.softserve.edu.opencart.data.pathnames.StoreSettingOptionSet;
 import com.softserve.edu.opencart.tools.ErrorUtils;
-import com.softserve.edu.opencart.tools.Operations;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -90,19 +89,19 @@ public class SettingPage extends AHeaderComponentAdmin {
 
     //Set Data
     public void clickAddStoreBtn() {
-        Operations.clickElement(getAddStoreBtn());
+        operations.clickElement(getAddStoreBtn());
     }
 
     public void clickDeleteStoreBtn() {
-        Operations.clickElement(getDeleteStoreBtn());
+        operations.clickElement(getDeleteStoreBtn());
     }
 
     public void selectAllStoreCheckbox() {
-        Operations.selectCheckBox(getHeaderAllStoreSelectCheckbox());
+        operations.selectCheckBox(getHeaderAllStoreSelectCheckbox());
     }
 
     public void deselectAllStoreCheckbox() {
-        Operations.deselectCheckBox(getHeaderAllStoreSelectCheckbox());
+        operations.deselectCheckBox(getHeaderAllStoreSelectCheckbox());
     }
 
     //SetFunctional
@@ -167,31 +166,31 @@ public class SettingPage extends AHeaderComponentAdmin {
         // get Functional
 
         public boolean isStoreSelectCheckboxStatusSelected() {
-            return Operations.isCheckboxSelected(getStoreSelectCheckbox());
+            return operations.isCheckboxSelected(getStoreSelectCheckbox());
         }
 
         public String getStoreNameText() {
-            return getStoreName().getText();
+            return operations.getText(getStoreName());
         }
 
         public String getStoreUrlText() {
-            return getStoreUrl().getText();
+            return operations.getText(getStoreUrl());
         }
 
         //setData
 
         public void clickStoreEditSettingBtn () {
-            Operations.clickElement(getStoreEditSettingsBtn());
+            operations.clickElement(getStoreEditSettingsBtn());
         }
 
         //setFunctional
 
         public void selectStoreCheckbox() {
-            Operations.selectCheckBox(getStoreSelectCheckbox());
+            operations.selectCheckBox(getStoreSelectCheckbox());
         }
 
         public void deselectStoreCheckbox() {
-            Operations.selectCheckBox(getStoreSelectCheckbox());
+            operations.selectCheckBox(getStoreSelectCheckbox());
         }
 
         // Business Logic

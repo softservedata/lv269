@@ -3,16 +3,20 @@ package com.softserve.edu.opencart.data.pagination;
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.pages.Application;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Pagination implements IPagination {
 
     //TODO make protection from wrong input
 
-    private String optionName;
+    private Map<String, String> optionsReplaceValues;
     private int itemsNumber;
     private int itemsPerPageNumber;
 
     public Pagination() {
+        optionsReplaceValues = new HashMap<>();
     }
 
     public int getItemsNumber() {
@@ -23,12 +27,12 @@ public class Pagination implements IPagination {
         return itemsPerPageNumber;
     }
 
-    public String getOptionName() {
-        return optionName;
+    public Map<String, String> getOptionsReplaceValues() {
+        return optionsReplaceValues;
     }
 
     public Pagination readItemsNumberFromFile(String fileName) {
-        itemsNumber = Application.get().getFileManager().readFromFile(ApplicationSourceRepository.class
+        itemsNumber = Application.get().fileManager().readFromFile(ApplicationSourceRepository.class
                 .getResource("/" + fileName).getPath().substring(1)).size();
         return this;
     }
@@ -37,8 +41,7 @@ public class Pagination implements IPagination {
         this.itemsPerPageNumber = itemsPerPageNumber;
     }
 
-    public Pagination setOptionName(String optionName) {
-        this.optionName = optionName;
-        return this;
+    public void addOptionReplaceValue(String optionReplaceName, String optionReplaceValue) {
+        optionsReplaceValues.put(optionReplaceName, optionReplaceValue);
     }
 }

@@ -1,17 +1,5 @@
 package com.softserve.edu.opencart.data.pagination;
 
-import com.softserve.edu.opencart.data.ProductShort;
-import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
-import com.softserve.edu.opencart.pages.Application;
-import org.seleniumhq.jetty9.server.handler.IPAccessHandler;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.LineNumberReader;
-import java.util.ArrayList;
-import java.util.List;
-
 public class PaginationRepository {
 
 
@@ -32,36 +20,37 @@ public class PaginationRepository {
         }
         return instance;
     }
+
     //TODO Without filename here
     public IPagination itemsPerPageOne() {
-        Pagination result = new Pagination()
-                .readItemsNumberFromFile("productlist.txt")
-                .setOptionName("Default Items Per Page (Admin)");
+        Pagination result = new Pagination().readItemsNumberFromFile("productlist.txt");
         result.setItemsPerPageNumber(1);
+        result.addOptionReplaceValue("Default Items Per Page (Admin)",
+                String.valueOf(result.getItemsPerPageNumber()));
         return result;
     }
 
     public IPagination itemsPerPageHalfItemsPlusOne() {
-        Pagination result = new Pagination()
-                .readItemsNumberFromFile("productlist.txt")
-                .setOptionName("Default Items Per Page (Admin)");
-        result.setItemsPerPageNumber(result.getItemsNumber()/2+1);
+        Pagination result = new Pagination().readItemsNumberFromFile("productlist.txt");
+        result.setItemsPerPageNumber(result.getItemsNumber() / 2 + 1);
+        result.addOptionReplaceValue("Default Items Per Page (Admin)",
+                String.valueOf(result.getItemsPerPageNumber()));
         return result;
     }
 
     public IPagination itemsPerPageItemsPerPage() {
-        Pagination result = new Pagination()
-                .readItemsNumberFromFile("productlist.txt")
-                .setOptionName("Default Items Per Page (Admin)");
+        Pagination result = new Pagination().readItemsNumberFromFile("productlist.txt");
         result.setItemsPerPageNumber(result.getItemsNumber());
+        result.addOptionReplaceValue("Default Items Per Page (Admin)",
+                String.valueOf(result.getItemsPerPageNumber()));
         return result;
     }
 
     public IPagination itemsPerPageMoreThanItemsPerPage() {
-        Pagination result = new Pagination()
-                .readItemsNumberFromFile("productlist.txt")
-                .setOptionName("Default Items Per Page (Admin)");
-        result.setItemsPerPageNumber(result.getItemsNumber()+1);
+        Pagination result = new Pagination().readItemsNumberFromFile("productlist.txt");
+        result.setItemsPerPageNumber(result.getItemsNumber() + 1);
+        result.addOptionReplaceValue("Default Items Per Page (Admin)",
+                String.valueOf(result.getItemsPerPageNumber()));
         return result;
     }
 }

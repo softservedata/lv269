@@ -8,7 +8,6 @@ public class WrongLoginAdminPage extends LoginAdminPage {
     private WebElement wrongLoginMessage;
 
     public WrongLoginAdminPage() {
-
         wrongLoginMessage = search.className("alert");
     }
 
@@ -24,7 +23,7 @@ public class WrongLoginAdminPage extends LoginAdminPage {
     // Get Functional
 
     public String getWrongLoginMessageText () {
-        return getWrongLoginMessage().getText().split("\n")[0];
+        return operations.getText(getWrongLoginMessage()).split("\n")[0];
     }
 
     // set data
