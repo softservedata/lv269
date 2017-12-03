@@ -159,8 +159,9 @@ abstract class AHeaderComponent {
 
     //protected AHeaderComponent(WebDriver driver) {
     protected AHeaderComponent() {
+    	this.logger = LoggerFactory.getLogger(this.getClass());
+        this.reporter = Application.get().reporter();
         //this.driver = driver;
-    	this.logger = 
         this.search = Application.get().search();
         //
         //currency = driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
