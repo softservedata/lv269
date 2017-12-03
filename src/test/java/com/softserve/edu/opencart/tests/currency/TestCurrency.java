@@ -13,27 +13,28 @@ import com.softserve.edu.opencart.data.categories.IDetailCategory;
 import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.tests.TestRunner;
 
 /**
  * @author Yurii Ivanytskyi
  */
-public class TestCurrency {
+public class TestCurrency extends TestRunner{
 	
 //	private String PRICES_NOT_EQUALS = String.format("Prices not equals: actual = %s; expected = %s");
 	private String PRICES_NOT_EQUALS = "Prices not equals:";
 
-    @BeforeClass
-    public void beforeClass() {
-        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
-        //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
-        Application.get().loadHomePage().chooseCurrencyByDetailCategory(CurrencyRepository.get().dollar());
-    }
-
-    @AfterClass
-    public void afterClass() {
-        Application.get().loadHomePage().chooseCurrencyByDetailCategory(CurrencyRepository.get().dollar());
-        Application.remove();
-    }
+//    @BeforeClass
+//    public void beforeClass() {
+//        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
+//        //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
+//        Application.get().loadHomePage().chooseCurrencyByDetailCategory(CurrencyRepository.get().dollar());
+//    }
+//
+//    @AfterClass
+//    public void afterClass() {
+//        Application.get().loadHomePage().chooseCurrencyByDetailCategory(CurrencyRepository.get().dollar());
+//        Application.remove();
+//    }
 
     @DataProvider
     public Object[][] currencyData() {
@@ -45,6 +46,8 @@ public class TestCurrency {
 
     @Test(dataProvider = "currencyData")
     public void checkChangeCurrency(IDetailCategory detailCurency, Product product) {
+    	logger.info(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
+        reporter.display(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
         double actualPrice = Application.get().loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceAmountByProduct(product);
         double expectedPrice = product.getPrices().get(detailCurency.getOptionName());

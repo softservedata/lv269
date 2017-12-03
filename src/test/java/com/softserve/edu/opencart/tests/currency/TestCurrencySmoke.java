@@ -6,24 +6,26 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.tests.TestRunner;
+
 
 /**
  * @author Yurii Ivanytskyi
  */
-public class TestCurrencySmoke {
+public class TestCurrencySmoke extends TestRunner{
 	
 	private final String ASSERT_MESSAGE = "Web element(s) not found!";
 
-	@BeforeClass
-	public void beforeClass() {
-		Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
-//		Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
-	}
-
-	@AfterClass
-	public void afterClass() throws InterruptedException {
-		Application.remove();
-	}
+//	@BeforeClass
+//	public void beforeClass() {
+//		Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
+////		Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
+//	}
+//
+//	@AfterClass
+//	public void afterClass() throws InterruptedException {
+//		Application.remove();
+//	}
 	
 	@Test
 	public void enableCurrencyTest() {
