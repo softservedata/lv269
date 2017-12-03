@@ -1,7 +1,5 @@
 package com.softserve.edu.opencart.pages.user;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 
@@ -14,11 +12,11 @@ public class AColumnRightUserComponent extends AColumnRightPartitionalComponent 
     private WebElement logout;
 
 
-    public AColumnRightUserComponent(WebDriver driver) {
-        super(driver);
-        logout = driver.findElement(By.cssSelector("a.list-group-item[href*='logout']"));
-        password = driver.findElement(By.cssSelector("a.list-group-item[href*='password']"));
-        editAccount = driver.findElement(By.cssSelector("a.list-group-item[href*='edit']"));
+    public AColumnRightUserComponent() {
+        super();
+        logout = search.cssSelector("a.list-group-item[href*='logout']");
+        password = search.cssSelector("a.list-group-item[href*='password']");
+        editAccount = search.cssSelector("a.list-group-item[href*='edit']");
     }
 
     // PageObject
@@ -57,10 +55,10 @@ public class AColumnRightUserComponent extends AColumnRightPartitionalComponent 
     // set Functional
 
     // Business Logic
-    
+
     public LogoutPage gotoLogoutPageRightColumn() {
-    	clickLogoutRightColumn();
-    	return new LogoutPage(driver);
+        clickLogoutRightColumn();
+        return new LogoutPage();
     }
 
 }

@@ -1,20 +1,21 @@
 package com.softserve.edu.opencart.pages.user;
 
-import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-
 import com.softserve.edu.opencart.data.categories.DetailCategory;
-import com.softserve.edu.opencart.data.categories.IDetailCategory;
+import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.Product;
+import com.softserve.edu.opencart.pages.Application;
+import org.openqa.selenium.By;
+
+import java.util.List;
 
 public class HomePage extends AHeaderComponent {
 
     // Fields
 
-    public HomePage(WebDriver driver) {
-        super(driver);
+    //public HomePage(WebDriver driver) {
+    public HomePage() {
+        //super(driver);
+        super();
         initProductComponents(By.cssSelector(".product-layout"));
     }
 
@@ -55,9 +56,12 @@ public class HomePage extends AHeaderComponent {
 
     // Business Logic
     
-    public HomePage chooseCurrencyByDetailCategory(IDetailCategory detailCategory) {
+    public HomePage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
+        logger.debug("Choose detailCategory.getOptionName() = " + detailCategory.getOptionName());
+        reporter.debug("Choose detailCategory.getOptionName() = " + detailCategory.getOptionName());
         clickCurrencyByPartialName(detailCategory.getOptionName());
-        return new HomePage(driver); 
+        //return new HomePage(driver); 
+        return new HomePage();
     }
 
     public double getPriceAmountByProduct(Product product) {
@@ -69,7 +73,15 @@ public class HomePage extends AHeaderComponent {
         clearSearchProductField();
         setSearchProductField(partialProductName);
         clickSearchProductButton();
-        return new SuccesSearchPage(driver); 
+        //return new SuccesSearchPage(driver);
+        return new SuccesSearchPage();
     }
 
+    public HomePage gotoHomePageClickAddToWish(IProduct product) {
+        clickAddToWishByProductName(product.getName());
+        // TODO ChromeDriver/Chrome java script execution BUG!!!
+        Application.get().browser().refreshPage();
+        //try {Thread.sleep(1000);} catch (InterruptedException ex) {}
+        return new HomePage();
+    }
 }

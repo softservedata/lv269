@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.pages.user;
 
+import com.softserve.edu.opencart.data.users.IUser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,11 +14,15 @@ public class LoginPage extends AColumnRightGuestComponent {
     private WebElement LoginButton;
     private WebElement warning;
 
-    public LoginPage(WebDriver driver) {
-        super(driver);
-        eMailAddressField = driver.findElement(By.name("email"));
-        passwordField = driver.findElement(By.name("password"));
-        LoginButton = driver.findElement(By.xpath("//*[@value='Login'] [@class='btn btn-primary']"));
+    public final static String EXPECTED_FIRST_WARNING = "Warning: No match for E-Mail Address and/or Password.";
+    public final static String EXPECTED_SECOND_WARNING = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
+
+
+    public LoginPage() {
+        super();
+        eMailAddressField = search.name("email");
+        passwordField = search.name("password");
+        LoginButton = search.xpath("//*[@value='Login'] [@class='btn btn-primary']");
 
     }
 
@@ -41,8 +46,15 @@ public class LoginPage extends AColumnRightGuestComponent {
     public WebElement getWarningText() {
         return getWarningText();
     }
-// get Functional
 
+    // get Functional
+    public String getEmailAddressFieldText() {
+        return geteMailAddressField().getText();
+    }
+
+    public String getPasswordFieldText() {
+        return getPasswordField().getText();
+    }
     // set Data
 
     public void clickEMailAddressField() {
@@ -88,25 +100,33 @@ public class LoginPage extends AColumnRightGuestComponent {
         inputInPasswordField(passwordField);
     }
 
-    // Business Logic
 
-    public MyAccountPage loginForLoginPageToMyAccountPage(String email, String password) {
+    public void loginForLoginPageToMyAccountPage(String email, String password) {
         inputEMailAdress(email);
         inputPassword(password);
         clickLoginButton();
-        return new MyAccountPage(driver);
     }
 
-    public LoginPage loginForLoginPageToWarning(String email, String wrongPassword) {
+    public void loginForLoginPageToWarning(String email, String wrongPassword) {
         inputEMailAdress(email);
         inputPassword(wrongPassword);
         clickLoginButton();
-        return new LoginPage(driver);
     }
-     public String getWarningDangerText(){
 
-            return getAlertDangerText();
+    // Business Logic
 
+    public MyAccountPage gotoLoginForLoginPageToMyAccountPage(IUser user) {
+        loginForLoginPageToMyAccountPage(user.getEmail(), user.getPassword());
+        return new MyAccountPage();
+    }
+
+    public LoginPage gotoLoginForLoginPageToWarning(IUser user) {
+        loginForLoginPageToWarning(user.getEmail(), user.getPassword());
+        return new LoginPage();
+    }
+
+    public String getWarningDangerText() {
+        return getAlertDangerText();
     }
 
 }

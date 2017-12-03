@@ -13,6 +13,10 @@ public interface IApplicationSource {
     long getImplicitScriptTimeOut();
 
     long getExplicitTimeOut();
+    
+    String getSearchStrategy();
+
+    boolean getConsoleOutput();
 
     String getBaseUrl();
 

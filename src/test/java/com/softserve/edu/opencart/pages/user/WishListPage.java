@@ -3,14 +3,10 @@ package com.softserve.edu.opencart.pages.user;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
+import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.Product;
-import com.softserve.edu.opencart.tools.ErrorUtils;
-	//TODO replace extended class to ARightColumnUserComponent
+
 public class WishListPage extends AColumnRightUserComponent {
 
 	private class TableRow {
@@ -19,8 +15,8 @@ public class WishListPage extends AColumnRightUserComponent {
 			private WebElement delete;
 
 			public Action(WebElement rowLocator) {
-				addToCart = rowLocator.findElement(By.cssSelector(".btn.btn-primary"));
-				delete = rowLocator.findElement(By.cssSelector(".btn.btn-danger"));
+				addToCart = search.cssSelector(".btn.btn-primary", rowLocator);
+				delete = search.cssSelector(".btn.btn-danger", rowLocator);
 			}
 
 			public WebElement getAddToCart() {
@@ -47,12 +43,12 @@ public class WishListPage extends AColumnRightUserComponent {
 		private WebElement unitPrice;
 		private Action action;
 
-		public TableRow(WebElement rowLocator) {
-			image = rowLocator.findElement(By.cssSelector(".text-center > a"));
-			productName = rowLocator.findElement(By.cssSelector(".text-left > a"));
-			model = rowLocator.findElement(By.xpath(".//td[text()=.]"));
-			stock = rowLocator.findElement(By.cssSelector(".text-right"));
-			unitPrice = rowLocator.findElement(By.cssSelector(".price"));
+		public TableRow(WebElement rowLocator) {			
+			image = search.cssSelector(".text-center > a", rowLocator);
+			productName = search.cssSelector(".text-left > a", rowLocator);
+			model = search.xpath(".//td[text()=.]", rowLocator);
+			stock = search.cssSelector(".text-right", rowLocator);
+			unitPrice = search.cssSelector(".price", rowLocator);
 			action = new Action(rowLocator);
 		}
 
@@ -130,12 +126,12 @@ public class WishListPage extends AColumnRightUserComponent {
 
 		// tableLocator should have "thead>tr" locator
 		public TableHeader(WebElement tableLocator) {
-			image = tableLocator.findElement(By.xpath(".//td[text()='Image']"));
-			productName = tableLocator.findElement(By.xpath(".//td[text()='Product Name']"));
-			model = tableLocator.findElement(By.xpath(".//td[text()='Model']"));
-			stock = tableLocator.findElement(By.xpath(".//td[text()='Stock']"));
-			unitPrice = tableLocator.findElement(By.xpath(".//td[text()='Unit Price']"));
-			action = tableLocator.findElement(By.xpath(".//td[text()='Action']"));
+			image = search.xpath(".//td[text()='Image']", tableLocator);
+			productName = search.xpath(".//td[text()='Product Name']", tableLocator);
+			model = search.xpath(".//td[text()='Model']", tableLocator);
+			stock = search.xpath(".//td[text()='Stock']", tableLocator);
+			unitPrice = search.xpath(".//td[text()='Unit Price']", tableLocator);
+			action = search.xpath(".//td[text()='Action']", tableLocator);
 		}
 
 		// get Data
@@ -193,8 +189,6 @@ public class WishListPage extends AColumnRightUserComponent {
 
 	//----------------------------------------------------------------------------
 	
-	// TODO Check for not used methods
-	
 	private WebElement textTop;
 	private TableHeader tableHeader;
 	private List<TableRow> tableBody;
@@ -202,44 +196,36 @@ public class WishListPage extends AColumnRightUserComponent {
 	private WebElement continueButton;
 
 	private final static String CSS_TABLE_LOCATOR = ".table.table-bordered.table-hover";
-	private final static String CSS_ROW_TABLE_LOCATOR = "//tbody/tr[%s]";
+	private final static String CSS_ROW_TABLE_LOCATOR = ".//tbody/tr[%s]";
+	private final static String ID_CONTENT_LOCATOR = "content";
+	private final static String WISH_LIST_EMPTY = "Your wish list is empty.";
 
 	private final String PRODUCT_NAME_NOT_FOUND_MESSAGE = "Product %s not found in Wish List";
 
-	public WishListPage(WebDriver driver) {
-		super(driver);
-		textTop = driver.findElement(By.cssSelector("#content > h2"));
-		continueButton = driver.findElement(By.cssSelector(".pull-right > .btn.btn-primary"));
+	public WishListPage() {
+		super();
+		textTop = search.cssSelector("#content > h2");
+		continueButton = search.cssSelector(".pull-right > .btn.btn-primary");
 		tableBody = new ArrayList<>();
 		initWishListTable("#content > p", "thead > tr", "tbody > tr");
 	}
 
 	private void initWishListTable(String mainTextLocator, String tableHeadLocator, String tableBodyLocator) {
-		if (isElementPresent(mainTextLocator)) {
-			contentData = driver.findElement(By.cssSelector(mainTextLocator));
-		} else if (isElementPresent(CSS_TABLE_LOCATOR)) {
-			tableHeader = new TableHeader(driver.findElement(By.cssSelector(tableHeadLocator)));
-			int tableRowCounter = driver.findElements(By.cssSelector(tableBodyLocator)).size();
-			WebElement tablePointer = driver.findElement(By.cssSelector(CSS_TABLE_LOCATOR));
-			for (int i = 1; i <= tableRowCounter; i++) {
-				tableBody.add(new TableRow(tablePointer.findElement(By.xpath(String.format(CSS_ROW_TABLE_LOCATOR, i)))));
+		if (isWishListEmpty()) {
+			contentData = search.cssSelector(mainTextLocator);
+		} else {
+			tableHeader = new TableHeader(search.cssSelector(tableHeadLocator));
+			int tableRowCounter = search.cssSelectors(tableBodyLocator).size();
+			WebElement tablePointer = search.cssSelector(CSS_TABLE_LOCATOR);
+			for (int i = 1; i <= tableRowCounter; i++) {				
+				tableBody.add(new TableRow(search.xpath(String.format(CSS_ROW_TABLE_LOCATOR, i), tablePointer)));
 			}
 		}
 	}
 
-	public boolean isElementPresent(String locator) {
-		// TODO fix waiting on check
-		try {
-			driver.findElement(By.cssSelector(locator));
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
+	public boolean isWishListEmpty() {
+		return search.id(ID_CONTENT_LOCATOR).getText().contains(WISH_LIST_EMPTY);
 	}
-	
-	//----------------------------------------------------------------------------
-	// PageObject
-	//----------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------
 	// get Data
@@ -296,7 +282,6 @@ public class WishListPage extends AColumnRightUserComponent {
 				result = current;
 			}
 		}
-		ErrorUtils.createCustomException((result == null), String.format(PRODUCT_NAME_NOT_FOUND_MESSAGE, productName));
         return result;
 	}
 	
@@ -307,8 +292,6 @@ public class WishListPage extends AColumnRightUserComponent {
 	public void clickAddToCartButton(String productName) {
 		getProductByName(productName).clickActionAddToCart();
 	}
-
-	// Business Logic
 	
 	public List<String> getProductNamesFromWishList() {
 		List<String> productNames = new ArrayList<>();
@@ -317,20 +300,38 @@ public class WishListPage extends AColumnRightUserComponent {
 		}
 		return productNames;
 	}
+
+	public boolean checkWhetherProductExistsInWishList(IProduct product) {
+		if (getProductByName(product.getName()) != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void doWishListEmpty() {
+		if (!isWishListEmpty()) {
+			List<String> products = getProductNamesFromWishList();
+			if (products.size() > 0) {
+				for (String product : products) {
+					new WishListPage().clickDeleteProductFromWishList(product);
+				}
+			}
+		}
+	}
 	
 	public MyAccountPage gotoMyAccountPageByClickContinueButton() {
 		clickContinueButton();
-		return new MyAccountPage(driver);
+		return new MyAccountPage();
 	}
 	
 	public WishListPage clickDeleteProductFromWishList(Product product) {
 		clickDeleteButton(product.getName());
-		return new WishListPage(driver);
+		return new WishListPage();
 	}
 	
 	public WishListPage clickDeleteProductFromWishList(String productName) {
 		clickDeleteButton(productName);
-		return new WishListPage(driver);
-	}
-	
+		return new WishListPage();
+	}	
 }
