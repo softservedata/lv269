@@ -24,8 +24,8 @@ public class TestCurrency {
 
     @BeforeClass
     public void beforeClass() {
-        Application.get(ApplicationSourceRepository.get().chromeServer7());
-        // Application.get(ApplicationSourceRepository.get().firefoxServer7());
+        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
+        //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
         Application.get().loadHomePage().chooseCurrencyByDetailCategory(CurrencyRepository.get().dollar());
     }
 
