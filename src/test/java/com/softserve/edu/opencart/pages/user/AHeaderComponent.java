@@ -125,7 +125,8 @@ abstract class AHeaderComponent {
     private final String TITLE_ATTRIBUTE = "title";
 
     // Fields
-
+    protected final Logger logger;
+    protected final ReporterWrapper reporter;
     //protected WebDriver driver;
     protected ISearch search;
     //
