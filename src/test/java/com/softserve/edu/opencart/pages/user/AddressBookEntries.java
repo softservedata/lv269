@@ -3,7 +3,7 @@ package com.softserve.edu.opencart.pages.user;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class AddressBookEntries extends AddressBookPage{
+public class AddressBookEntries extends AHeaderComponent{
 
     private WebElement  editButton;
     private WebElement deleteButton;

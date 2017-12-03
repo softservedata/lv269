@@ -16,8 +16,8 @@ import org.testng.annotations.*;
 public class EditAddressTest {
     @BeforeClass
     public void beforClass(){
-        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
-        //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
+        //Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
+        Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
     }
 
     @AfterClass
