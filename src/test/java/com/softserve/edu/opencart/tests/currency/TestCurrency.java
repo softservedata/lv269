@@ -1,13 +1,9 @@
 package com.softserve.edu.opencart.tests.currency;
 
 import org.testng.Assert;
-
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.categories.CurrencyRepository;
 import com.softserve.edu.opencart.data.categories.IDetailCategory;
 import com.softserve.edu.opencart.data.products.Product;
@@ -20,21 +16,7 @@ import com.softserve.edu.opencart.tests.TestRunner;
  */
 public class TestCurrency extends TestRunner{
 	
-//	private String PRICES_NOT_EQUALS = String.format("Prices not equals: actual = %s; expected = %s");
 	private String PRICES_NOT_EQUALS = "Prices not equals:";
-
-//    @BeforeClass
-//    public void beforeClass() {
-//        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
-//        //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
-//        Application.get().loadHomePage().chooseCurrencyByDetailCategory(CurrencyRepository.get().dollar());
-//    }
-//
-//    @AfterClass
-//    public void afterClass() {
-//        Application.get().loadHomePage().chooseCurrencyByDetailCategory(CurrencyRepository.get().dollar());
-//        Application.remove();
-//    }
 
     @DataProvider
     public Object[][] currencyData() {
@@ -48,10 +30,11 @@ public class TestCurrency extends TestRunner{
     public void checkChangeCurrency(IDetailCategory detailCurency, Product product) {
     	logger.info(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
         reporter.display(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
-        double actualPrice = Application.get().loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
-                .getPriceAmountByProduct(product);
-        double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
-        Assert.assertEquals(actualPrice, expectedPrice, 0.001, PRICES_NOT_EQUALS);
+        
+        Assert.assertEquals(Application.get()
+        		.loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
+                .getPriceAmountByProduct(product), 
+                product.getPrices().get(detailCurency.getOptionName()), 0.001, PRICES_NOT_EQUALS);
     }
 
 }
