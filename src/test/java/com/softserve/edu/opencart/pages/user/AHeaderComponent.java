@@ -7,8 +7,12 @@ import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
+import com.softserve.edu.opencart.tools.ReporterWrapper;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,6 +160,7 @@ abstract class AHeaderComponent {
     //protected AHeaderComponent(WebDriver driver) {
     protected AHeaderComponent() {
         //this.driver = driver;
+    	this.logger = 
         this.search = Application.get().search();
         //
         //currency = driver.findElement(By.cssSelector(".btn.btn-link.dropdown-toggle"));
