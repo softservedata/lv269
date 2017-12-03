@@ -34,15 +34,15 @@ public class ApplicationSource implements IApplicationSource {
     //
     private String adminLoginUrl;
     private String adminLogoutUrl;
-    
+
     // TODO Develop Builder
 
     public ApplicationSource(String browserName, String driverPath,
-            long implicitWaitTimeOut, long implicitLoadTimeOut,
-            long implicitScriptTimeOut, long explicitTimeOut,
-            String searchStrategy, boolean consoleOutput,
-            String baseUrl, String userLoginUrl, String userLogoutUrl,
-            String adminLoginUrl, String adminLogoutUrl) {
+                             long implicitWaitTimeOut, long implicitLoadTimeOut,
+                             long implicitScriptTimeOut, long explicitTimeOut,
+                             String searchStrategy, boolean consoleOutput,
+                             String baseUrl, String userLoginUrl, String userLogoutUrl,
+                             String adminLoginUrl, String adminLogoutUrl) {
         this.browserName = browserName;
         this.driverPath = driverPath;
         this.implicitWaitTimeOut = implicitWaitTimeOut;
@@ -59,7 +59,7 @@ public class ApplicationSource implements IApplicationSource {
     }
 
     // setters
-    
+
     public void setBrowserName(String browserName) {
         this.browserName = browserName;
     }
@@ -113,7 +113,7 @@ public class ApplicationSource implements IApplicationSource {
     }
 
     // getters
-    
+
     public String getBrowserName() {
         return browserName;
     }
@@ -145,7 +145,7 @@ public class ApplicationSource implements IApplicationSource {
     public boolean getConsoleOutput() {
         return consoleOutput;
     }
-    
+
     public String getBaseUrl() {
         return baseUrl;
     }

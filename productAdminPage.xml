@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Admin">
+	<test name="ProductAdminPage">
+		<classes>
+			<class name="com.softserve.edu.opencart.tests.smoke.OpenProductAdminPageTest">
+				<methods>
+					<include name="openProductAdminPageTest" />
+				</methods>
+			</class>
+			<class name="com.softserve.edu.opencart.tests.admin.products.PaginationTest">
+				<methods>
+					<include name="paginationPageNumbersTest" />
+				</methods>
+			</class>
+			<class name="com.softserve.edu.opencart.tests.admin.products.SortTest">
+				<methods>
+					<include name="sortProductAdminTest"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

@@ -3,14 +3,12 @@ package com.softserve.edu.opencart.pages;
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.data.users.IUser;
+import com.softserve.edu.opencart.pages.admin.LoginAdminPage;
+import com.softserve.edu.opencart.pages.admin.LogoutAdminPage;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
-import com.softserve.edu.opencart.tools.BrowserWrapper;
-import com.softserve.edu.opencart.tools.DataBaseWraper;
-import com.softserve.edu.opencart.tools.ISearch;
-import com.softserve.edu.opencart.tools.ReporterWrapper;
-import com.softserve.edu.opencart.tools.Search;
+import com.softserve.edu.opencart.tools.*;
 
 import java.sql.SQLException;
 
@@ -27,6 +25,9 @@ public class Application {
     private BrowserWrapper browser;
     private DataBaseWraper dataBase;
     private ISearch search;
+    private FileManager fileManager;
+    private String token;
+    private Operations operations;
     // etc.
 
     private Application(IApplicationSource applicationSource)   {
@@ -48,7 +49,9 @@ public class Application {
                     instance.initReporter(applicationSource);
                     instance.initBrowser(applicationSource);
                     instance.initSearch(applicationSource);
+                    instance.initFileManager(applicationSource);
                     instance.initDataBase(applicationSource);
+                    instance.initOperations(applicationSource);
                     // initAccessToDB();
                 }
             }
@@ -87,6 +90,18 @@ public class Application {
         return search;
     }
 
+    public FileManager fileManager() {
+        return fileManager;
+    }
+
+    private String getToken () {
+        return token;
+    }
+
+    public Operations operations() {
+        return operations;
+    }
+
     // TODO Change for parallel work
     public void initReporter(IApplicationSource applicationSource) {
         this.reporter = new ReporterWrapper(applicationSource);
@@ -98,6 +113,20 @@ public class Application {
     
     public void initSearch(IApplicationSource applicationSource) {
         this.search = new Search(applicationSource);
+    }
+
+
+    private void initFileManager(IApplicationSource applicationSource) {
+        fileManager = new FileManager();
+    }
+
+    //TODO Remake it by rules without magic numbers and symbols, with saving in the proper place
+    public void setToken () {
+        token = "&" + TextUtils.splitToList(browser().getUrlPage(), "&").get(1);
+    }
+
+    public void initOperations (IApplicationSource applicationSource) {
+        this.operations = new Operations();
     }
 
     public HomePage loadHomePage() {
@@ -119,10 +148,20 @@ public class Application {
         return new LogoutPage();
     }
 
+    public LoginAdminPage loginAdmin() {
+        browser().openUrl(applicationSource.getAdminLoginUrl());
+        //TODO Remove SearchManager
+        return new LoginAdminPage();
+    }
+
+    public LogoutAdminPage logoutAdmin() {
+        browser().openUrl(applicationSource.getAdminLogoutUrl() + getToken());
+        return new LogoutAdminPage();
+    }
+
     public void initDataBase(IApplicationSource applicationSource)   {
         this.dataBase = new DataBaseWraper();
     }
-
 
     public DataBaseWraper getDataBase() {
         return dataBase;

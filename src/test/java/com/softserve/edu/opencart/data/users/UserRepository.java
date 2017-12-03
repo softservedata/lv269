@@ -20,18 +20,38 @@ public final class UserRepository {
         return instance;
     }
 
+
     public IUser admin() {
         return User.get()
                 .setFirstname("firstname")
                 .setLastname("lastname")
-                .setEmail("email")
+                .setEmail("admin")
                 .setPhoneNumber("phoneNumber")
                 .setAddressFirst("addressFirst")
                 .setCity("city")
                 .setPostCode("postCode")
                 .setCountry("country")
                 .setRegion("region")
-                .setPassword("password")
+                .setPassword("269lv269lv")
+                .setAddressSecond("addressSecond")
+                .setCompany("company")
+                .setFax("fax")
+                .setSubscribe(true)
+                .build();
+    }
+
+    public IUser validUser() {
+        return User.get()
+                .setFirstname("firstname")
+                .setLastname("lastname")
+                .setEmail("jar@inboxbear.com")
+                .setPhoneNumber("phoneNumber")
+                .setAddressFirst("addressFirst")
+                .setCity("city")
+                .setPostCode("postCode")
+                .setCountry("country")
+                .setRegion("region")
+                .setPassword("jarjar")
                 .setAddressSecond("addressSecond")
                 .setCompany("company")
                 .setFax("fax")

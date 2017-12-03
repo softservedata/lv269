@@ -2,6 +2,7 @@ package com.softserve.edu.opencart.tools;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -84,8 +85,17 @@ public class BrowserWrapper {
         return driver;
     }
 
+    public JavascriptExecutor getJsExecutor() {
+        return (JavascriptExecutor)getDriver();
+    }
+
     public void openUrl(String url) {
         getDriver().get(url);
+    }
+
+
+    public String getUrlPage () {
+        return getDriver().getCurrentUrl();
     }
 
     public void navigateForward() {

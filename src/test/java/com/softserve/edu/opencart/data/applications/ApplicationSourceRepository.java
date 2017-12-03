@@ -44,13 +44,28 @@ public class ApplicationSourceRepository {
         return new ApplicationSource("chrome", chromeDriverPath(),
                 10L, 30L, 10L, 5L,
                 "Implicit", true,
-                "http://server7.pp.ua",
+                "http://server7.pp.ua/",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
                 "http://server7.pp.ua/admin/index.php?route=common/logout");
     }
-    
+
+    public IApplicationSource chromePresentServer7() {
+        //System.out.println("Full Path = " + ApplicationSourceRepository.class
+        //        .getResource("/lib/geckodriver.exe").getPath());
+//        System.out.println("Path = " + chromeDriverPath());
+        return new ApplicationSource("chrome", chromeDriverPath(),
+                10L, 30L, 10L, 5L,
+                "Present", true,
+                "http://server7.pp.ua/",
+                "http://server7.pp.ua/index.php?route=account/login",
+                "http://server7.pp.ua/index.php?route=account/logoutAdmin",
+                "http://server7.pp.ua/admin/",
+                "http://server7.pp.ua/admin/index.php?route=common/logout");
+    }
+
+
     public IApplicationSource chromeVisibleServer7() {
         //System.out.println("Full Path = " + ApplicationSourceRepository.class
         //        .getResource("/lib/geckodriver.exe").getPath());
@@ -58,7 +73,7 @@ public class ApplicationSourceRepository {
         return new ApplicationSource("chrome", chromeDriverPath(),
                 10L, 30L, 10L, 5L,
                 "Visible", true,
-                "http://server7.pp.ua",
+                "http://server7.pp.ua/",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
@@ -93,5 +108,32 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/admin/index.php?route=common/logout");
     }
 
+    public IApplicationSource firefoxPresentServer7() {
+//        System.out.println("Full Path = " + ApplicationSourceRepository.class
+//                .getResource("/lib/geckodriver.exe").getPath());
+        //System.out.println("Path = " + chromeDriverPath());
+        return new ApplicationSource("firefox", geckoDriverPath(),
+                10L, 30L, 10L, 5L,
+                "Present", true,
+                "http://server7.pp.ua/",
+                "http://server7.pp.ua/index.php?route=account/login",
+                "http://server7.pp.ua/index.php?route=account/logoutAdmin",
+                "http://server7.pp.ua/admin/",
+                "http://server7.pp.ua/admin/index.php?route=common/logout");
+    }
+
+    public IApplicationSource firefoxVisibleServer7() {
+//        System.out.println("Full Path = " + ApplicationSourceRepository.class
+//                .getResource("/lib/geckodriver.exe").getPath());
+        //System.out.println("Path = " + chromeDriverPath());
+        return new ApplicationSource("firefox", geckoDriverPath(),
+                10L, 30L, 10L, 5L,
+                "Visible", true,
+                "http://server7.pp.ua/",
+                "http://server7.pp.ua/index.php?route=account/login",
+                "http://server7.pp.ua/index.php?route=account/logoutAdmin",
+                "http://server7.pp.ua/admin/",
+                "http://server7.pp.ua/admin/index.php?route=common/logout");
+    }
 
 }
