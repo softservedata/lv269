@@ -1,13 +1,16 @@
 package com.softserve.edu.opencart.pages.user;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.tools.ISearch;
 
 /**
  * @author Yurii Ivanytskyi
  */
 public class PersonalDetailsComponent {
+	
+	private final ISearch search;
 
 	private WebElement fieldFirstName;
 	private WebElement fieldLastName;
@@ -15,12 +18,13 @@ public class PersonalDetailsComponent {
 	private WebElement fieldTelephone;
 	private WebElement fieldFax;
 
-	public PersonalDetailsComponent(WebDriver driver) {
-		fieldFirstName = driver.findElement(By.id("input-firstname"));
-		fieldLastName = driver.findElement(By.id("input-lastname"));
-		fieldEmail = driver.findElement(By.id("input-email"));
-		fieldTelephone = driver.findElement(By.id("input-telephone"));
-		fieldFax = driver.findElement(By.id("input-fax"));
+	public PersonalDetailsComponent() {
+		this.search = Application.get().search();
+		fieldFirstName = search.id("input-firstname");
+		fieldLastName = search.id("input-lastname");
+		fieldEmail = search.id("input-email");
+		fieldTelephone = search.id("input-telephone");
+		fieldFax = search.id("input-fax");
 	}
 
 	// Page Object

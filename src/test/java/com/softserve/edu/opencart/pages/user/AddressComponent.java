@@ -1,14 +1,17 @@
 package com.softserve.edu.opencart.pages.user;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
+import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.tools.ISearch;
 
 /**
  * @author Yurii Ivanytskyi
  */
 public class AddressComponent {
+	
+	protected final ISearch search;
 
 	private WebElement fieldCompany;
 	private WebElement fieldAddressFirst;
@@ -18,14 +21,15 @@ public class AddressComponent {
 	private Select country;
 	private Select zone;
 
-	public AddressComponent(WebDriver driver) {
-		fieldCompany = driver.findElement(By.id("input-company"));
-		fieldAddressFirst = driver.findElement(By.id("input-address-1"));
-		fieldAddressSecond = driver.findElement(By.id("input-address-2"));
-		fieldCity = driver.findElement(By.id("input-city"));
-		fieldPostCode = driver.findElement(By.id("input-postcode"));
-		country = new Select(driver.findElement(By.id("input-country")));
-		zone = new Select(driver.findElement(By.id("input-zone")));
+	public AddressComponent() {
+		this.search = Application.get().search();
+		fieldCompany = search.id("input-company");
+		fieldAddressFirst = search.id("input-address-1");
+		fieldAddressSecond = search.id("input-address-2");
+		fieldCity = search.id("input-city");
+		fieldPostCode = search.id("input-postcode");
+		country = new Select(search.id("input-country"));
+		zone = new Select(search.id("input-zone"));
 	}
 
 	// get Data

@@ -1,20 +1,24 @@
 package com.softserve.edu.opencart.pages.user;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.tools.ISearch;
 
 /**
  * @author Yurii Ivanytskyi
  */
 public class PasswordComponent {
+	
+	private final ISearch search;
 
 	private WebElement fieldPassword;
 	private WebElement fieldConfirmPassword;
 
-	public PasswordComponent(WebDriver driver) {
-		fieldPassword = driver.findElement(By.id("input-password"));
-		fieldConfirmPassword = driver.findElement(By.id("input-confirm"));
+	public PasswordComponent() {
+		this.search = Application.get().search();
+		fieldPassword = search.id("input-password");
+		fieldConfirmPassword = search.id("input-confirm");
 	}
 
 	// get Data
