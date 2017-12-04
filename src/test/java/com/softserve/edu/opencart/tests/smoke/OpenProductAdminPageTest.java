@@ -8,35 +8,33 @@ import com.softserve.edu.opencart.data.texts.IExpectedStrings;
 import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.admin.ProductAdminPage;
+import com.softserve.edu.opencart.tests.TestContextAttributes;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.*;
 
 public class OpenProductAdminPageTest {
 
     @BeforeClass
-    public void fileWriter() {
+    public void preparations(ITestContext context) {
         Application.get(ApplicationSourceRepository.get().chromePresentServer7());
+        context.setAttribute(TestContextAttributes.PATHNAMES.toString(), PathNamesRepository.get().paginationPathnames());
     }
-
-//    public void fileWriter() {
-//        Application.get(ApplicationSourceRepository.get().firefoxVisibleServer7());
-//    }
 
     @DataProvider(name = "OpenProductPageData")
     public Object[][] ValidData() {
         return new Object[][]{
-                {PathNamesRepository.get().openProductAdminPagePathnames(),
-                        ExpectedStringsRepository.get().productsPageName()}
+                {ExpectedStringsRepository.get().productsPageName()}
         };
     }
 
-    @Test (dataProvider = "OpenProductPageData" )
-    public void openProductAdminPageTest(IPathnames openProductPathnames,
-                                     IExpectedStrings adminProductPageName) {
+    @Test(dataProvider = "OpenProductPageData")
+    public void openProductAdminPageTest(ITestContext context,
+                                         IExpectedStrings adminProductPageName) {
         ProductAdminPage productAdminPage = Application.get()
                 .loginAdmin()
                 .validEnterAdminProfile(UserRepository.get().admin())
-                .openProductAdminPage(openProductPathnames);
+                .openProductAdminPage(context);
         Assert.assertEquals(productAdminPage.getCurrentPageNameText().toLowerCase(),
                 adminProductPageName.getExpectedString().toLowerCase());
     }

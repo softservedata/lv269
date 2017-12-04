@@ -2,8 +2,10 @@ package com.softserve.edu.opencart.pages.admin;
 
 import com.softserve.edu.opencart.data.pathnames.IPathnames;
 import com.softserve.edu.opencart.data.pathnames.StoreSettingOptionSet;
+import com.softserve.edu.opencart.tests.TestContextAttributes;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import org.openqa.selenium.WebElement;
+import org.testng.ITestContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,8 +122,9 @@ public class SettingPage extends AHeaderComponentAdmin {
 
 
     // Business Logic
-    public StoreSettingPage openStoreSettingsPageByUrl(IPathnames pathnames) {
-        clickStoreEditSettingBtnByUrl(pathnames.getStoreUrl());
+    public StoreSettingPage openStoreSettingsPageByStoreUrl(ITestContext context) {
+        clickStoreEditSettingBtnByUrl(((IPathnames)context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
+                .getStoreUrl());
         return new StoreSettingPage();
     }
 

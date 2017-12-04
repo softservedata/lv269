@@ -3,10 +3,12 @@ package com.softserve.edu.opencart.pages.admin;
 import com.softserve.edu.opencart.data.pathnames.IPathnames;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.TagAttribute;
+import com.softserve.edu.opencart.tests.TestContextAttributes;
 import com.softserve.edu.opencart.tools.*;
 import com.softserve.edu.opencart.tools.search.ISearch;
 
 import org.openqa.selenium.WebElement;
+import org.testng.ITestContext;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -430,14 +432,16 @@ abstract class AHeaderComponentAdmin {
 
     //Business Logic
 
-    public ProductAdminPage openProductAdminPage(IPathnames pathnames) {
-        checkSBarPathnames(pathnames.getsBarPathnamesList());
+    public ProductAdminPage openProductAdminPage(ITestContext context) {
+        checkSBarPathnames(((IPathnames)context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
+                .getsBarPathnamesList());
         clickSBarOptionByPathname(sBarPathnames.get(0));
         return new ProductAdminPage();
     }
 
-    public SettingPage openSettingAdminPage(IPathnames pathnames) {
-        checkSBarPathnames(pathnames.getsBarPathnamesList());
+    public SettingPage openSettingAdminPage(ITestContext context) {
+        checkSBarPathnames(((IPathnames)context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
+                .getsBarPathnamesList());
         clickSBarOptionByPathname(sBarPathnames.get(0));
         return new SettingPage();
     }

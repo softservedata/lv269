@@ -4,9 +4,11 @@ import com.softserve.edu.opencart.data.pathnames.IPathnames;
 import com.softserve.edu.opencart.data.pathnames.IStoreSettingOptionSet;
 import com.softserve.edu.opencart.data.pathnames.StoreSettingOptionSet;
 import com.softserve.edu.opencart.pages.TagAttribute;
+import com.softserve.edu.opencart.tests.TestContextAttributes;
 import com.softserve.edu.opencart.tools.ErrorUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.ITestContext;
 
 import java.util.List;
 import java.util.Map;
@@ -144,8 +146,9 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
 
     // BusinessLogic
 
-    public SettingPage changeOptionsSet(IPathnames paginationPathnames, Map<String, String> optionsReplaceValue) {
-        enterOptionsFromOptionsList(paginationPathnames.getStoreSettingOptionSet(), optionsReplaceValue);
+    public SettingPage changeOptionsSet(ITestContext context, Map<String, String> optionsReplaceValue) {
+        enterOptionsFromOptionsList(((IPathnames)context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
+                .getStoreSettingOptionSet(), optionsReplaceValue);
         operations.clickElement(getSaveOptionsBtn());
         return new SettingPage();
     }
