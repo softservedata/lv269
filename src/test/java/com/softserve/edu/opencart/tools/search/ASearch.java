@@ -1,8 +1,10 @@
-package com.softserve.edu.opencart.tools.search;
+package com.softserve.edu.opencart.tools;
 
 import java.util.List;
 
+import com.softserve.edu.opencart.pages.Application;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 public abstract class ASearch implements ISearch {
@@ -146,9 +148,13 @@ public abstract class ASearch implements ISearch {
 
     // Get List
 
-    @Override
     public List<WebElement> names(String name) {
         return searchWebElements(By.name(name));
+    }
+
+    @Override
+    public List<WebElement> names(String name, WebElement fromWebElement) {
+        return searchWebElements(By.name(name), fromWebElement);
     }
 
     @Override
@@ -167,8 +173,18 @@ public abstract class ASearch implements ISearch {
     }
 
     @Override
+    public List<WebElement> cssSelectors(String cssSelector, WebElement fromWebElement) {
+        return searchWebElements(By.cssSelector(cssSelector), fromWebElement);
+    }
+
+    @Override
     public List<WebElement> classNames(String className) {
         return searchWebElements(By.className(className));
+    }
+
+    @Override
+    public List<WebElement> classNames(String className, WebElement fromWebElement) {
+        return searchWebElements(By.className(className), fromWebElement);
     }
 
     @Override
@@ -177,13 +193,71 @@ public abstract class ASearch implements ISearch {
     }
 
     @Override
+    public List<WebElement> partialLinkTexts(String partialLinkText, WebElement fromWebElement) {
+        return searchWebElements(By.partialLinkText(partialLinkText), fromWebElement);
+    }
+
+    @Override
     public List<WebElement> linkTexts(String linkText) {
         return searchWebElements(By.linkText(linkText));
     }
 
     @Override
+    public List<WebElement> linkTexts(String linkText, WebElement fromWebElement) {
+        return searchWebElements(By.linkText(linkText), fromWebElement);
+    }
+
+    @Override
     public List<WebElement> tagNames(String tagName) {
         return searchWebElements(By.tagName(tagName));
+    }
+
+    @Override
+    public List<WebElement> tagNames(String tagName, WebElement fromWebElement) {
+        return searchWebElements(By.tagName(tagName), fromWebElement);
+    }
+
+    //IsVisible
+
+    @Override
+    public boolean isVisibleId(String id) {
+        return ((WebElement)((JavascriptExecutor) Application.get().browser().getDriver())
+                .executeScript("return document.getElementById(arguments[0])", id) != null);
+    }
+
+    @Override
+    public boolean isVisibleName(String name) {
+        return (names(name).size()>0);
+    }
+
+    @Override
+    public boolean isVisibleXpath(String xpath) {
+        return (xpaths(xpath).size() >0);
+    }
+
+    @Override
+    public boolean isVisibleCssSelector(String cssSelector) {
+        return (cssSelectors(cssSelector).size() >0);
+    }
+
+    @Override
+    public boolean isVisibleClassName(String className) {
+        return (classNames(className).size() >0);
+    }
+
+    @Override
+    public boolean isVisiblePartialLinkText(String partialLinkText) {
+        return (partialLinkTexts(partialLinkText).size() >0);
+    }
+
+    @Override
+    public boolean isVisibleLinkText(String linkText) {
+        return (linkTexts(linkText).size() >0);
+    }
+
+    @Override
+    public boolean isVisibleTagName(String tagName) {
+        return (tagNames(tagName).size() >0);
     }
 
 }

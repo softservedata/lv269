@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.tools.search;
+package com.softserve.edu.opencart.tools;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.softserve.edu.opencart.pages.Application;
 
 /**
@@ -40,10 +39,6 @@ public class SearchExplicitVisible extends ASearch {
      */
     @Override
     public WebElement getWebElement(By by) {
-        //try {
-        //    Thread.sleep(100);
-        //} catch (InterruptedException e) {
-        //}
         //System.out.println("\t\t\t*** Class SearchExplicitVisible");
         // return new WebDriverWait(Application.get().getBrowser(),
         // EXPLICIT_WAIT_TIMEOUT)
@@ -76,5 +71,54 @@ public class SearchExplicitVisible extends ASearch {
     @Override
     public boolean stalenessOf(WebElement webElement) {
         return getWait().until(ExpectedConditions.stalenessOf(webElement));
+    }
+
+    //IsVisible
+
+    @Override
+    public boolean isVisibleName(String name) {
+        List <WebElement> foundElements = (List)(Application.get().browser().getJsExecutor())
+                .executeScript("return document.getElementsByName(arguments[0])", name);
+        return (foundElements.size()>0);
+    }
+
+    @Override
+    public boolean isVisibleXpath(String xpath) {
+        List <WebElement> foundElements = (List)(Application.get().browser().getJsExecutor())
+                .executeScript("return $x (arguments[0])", xpath);
+        return (foundElements.size()>0);
+    }
+
+    @Override
+    public boolean isVisibleCssSelector(String cssSelector) {
+        List <WebElement> foundElements = (List)(Application.get().browser().getJsExecutor())
+                .executeScript("return $ (arguments[0])", cssSelector);
+        return (foundElements.size()>0);
+    }
+
+    @Override
+    public boolean isVisibleClassName(String className) {
+        List <WebElement> foundElements = (List)(Application.get().browser().getJsExecutor())
+                .executeScript("return document.getElementsByClassName(arguments[0])", className);
+        return (foundElements.size()>0);
+    }
+
+    @Override
+    public boolean isVisiblePartialLinkText(String partialLinkText) {
+        List <WebElement> foundElements = (List)(Application.get().browser().getJsExecutor())
+                .executeScript("return $x (arguments[0])", String.format("//a[contains(text(),'%s')]", partialLinkText));
+        return (foundElements.size()>0);
+    }
+
+    @Override
+    public boolean isVisibleLinkText(String linkText) {
+        return (linkTexts(linkText).size() > 0);
+    }
+
+    @Override
+    public boolean isVisibleTagName(String tagName) {
+        List <WebElement> foundElements = (List)(Application.get().browser().getJsExecutor())
+                .executeScript("return document.getElementsByTagName(arguments[0])", tagName);
+        return (foundElements.size()>0);
     }
 }
