@@ -1,8 +1,9 @@
-package com.softserve.edu.opencart.tools;
+package com.softserve.edu.opencart.tools.search;
 
 import java.util.List;
 
 import com.softserve.edu.opencart.pages.Application;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;

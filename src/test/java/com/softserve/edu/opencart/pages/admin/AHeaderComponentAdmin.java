@@ -4,6 +4,8 @@ import com.softserve.edu.opencart.data.pathnames.IPathnames;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.*;
+import com.softserve.edu.opencart.tools.search.ISearch;
+
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;

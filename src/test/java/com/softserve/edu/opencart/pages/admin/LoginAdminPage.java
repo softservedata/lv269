@@ -2,8 +2,9 @@ package com.softserve.edu.opencart.pages.admin;//package server7.testng;
 
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.pages.Application;
-import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.Operations;
+import com.softserve.edu.opencart.tools.search.ISearch;
+
 import org.openqa.selenium.WebElement;
 
 public class LoginAdminPage {
