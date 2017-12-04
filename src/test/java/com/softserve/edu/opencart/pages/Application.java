@@ -4,9 +4,9 @@ import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
-import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
-import com.softserve.edu.opencart.tools.Search;
+import com.softserve.edu.opencart.tools.search.ISearch;
+import com.softserve.edu.opencart.tools.search.Search;
 
 public class Application {
 
