@@ -29,7 +29,7 @@ public class ReporterWrapper {
     }
     
     private enum ReporterLevels {
-        ERROR_LEVEL(3),
+        ERROR_LEVEL(2),
         WARNING_LEVEL(5),
         INFO_LEVEL(7),
         DEBUG_LEVEL(9);
@@ -45,6 +45,10 @@ public class ReporterWrapper {
         }
     }
 
+    //private static final String IMG_TEMPLATE = "<br><img src='%s' alt='could not take screen shot' width='80%' height='80%'>";
+    private static final String IMG_TEMPLATE = "<br><div><image style=\"max-width:90%%\" src=\"%s\"  alt=\"could not take screen shot\" /></div>";
+    private static final String SCREENSHOT_FILENAME = "<br><p>Screenshot filename is %s</p>";
+    private static final String SOURCECODE_FILENAME = "<br><p><a href='%s'>Source Code</a> filename is %s</p>";
     private final String TIME_TEMPLATE = "yyyy/MM/dd HH:mm:ss";
     private final String SPACE_SYMBOL = " ";
     private boolean consoleOutput;
@@ -86,5 +90,20 @@ public class ReporterWrapper {
                 + getCurrentTime() + message,
                 ReporterLevels.DEBUG_LEVEL.getLevel(), consoleOutput);
     }
+
+    public String addHtmlSourceCode() {
+//        String sourceCodeFileName = new CaptureScreen().takeSourceCode();
+//        Reporter.log(String.format(SOURCECODE_FILENAME, sourceCodeFileName, sourceCodeFileName));
+//        return sourceCodeFileName;
+        return null;
+    }
+
+    public String addScreenShot() {
+//      String screenFileName = new CaptureScreen().takeScreen();
+//      Reporter.log(String.format(SCREENSHOT_FILENAME, screenFileName));
+//      Reporter.log(String.format(IMG_TEMPLATE, screenFileName));
+//      return screenFileName;
+      return null;
+  }
 
 }

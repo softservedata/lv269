@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.RegexPatterns;
-import com.softserve.edu.opencart.tools.ISearch;
+import com.softserve.edu.opencart.tools.search.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
 import org.openqa.selenium.WebElement;

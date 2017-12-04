@@ -9,6 +9,10 @@ import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tools.*;
+import com.softserve.edu.opencart.tools.BrowserWrapper;
+import com.softserve.edu.opencart.tools.ReporterWrapper;
+import com.softserve.edu.opencart.tools.search.ISearch;
+import com.softserve.edu.opencart.tools.search.Search;
 
 import java.sql.SQLException;
 

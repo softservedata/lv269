@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.tools;
+package com.softserve.edu.opencart.tools.search;
 
 import java.util.List;
 

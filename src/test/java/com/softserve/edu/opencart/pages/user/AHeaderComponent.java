@@ -13,9 +13,9 @@ import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.ErrorUtils;
-import com.softserve.edu.opencart.tools.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
+import com.softserve.edu.opencart.tools.search.ISearch;
 
 abstract class AHeaderComponent {
 
