@@ -1,29 +1,16 @@
 package com.softserve.edu.opencart.tests.login;
 
-import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.LoginPage;
+import com.softserve.edu.opencart.tests.TestRunner;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 
-
-public class NegativeLoginTest {
-    @BeforeClass
-    public void beforeClass()   {
-//        Application.get(ApplicationSourceRepository.get().chromeServer7());
-        Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
-    }
-
-    @AfterClass
-    public void afterClass() {
-        Application.remove();
-    }
+public class NegativeLoginTest extends TestRunner {
 
     @DataProvider(name = "Authentication")
     public static Object[][] credentials() {
@@ -32,7 +19,9 @@ public class NegativeLoginTest {
     }
 
     @Test(dataProvider = "Authentication")
-    public void checkSuccessfulLogin(IUser user)   {
+    public void checkNegativeLogin(IUser user) {
+        logger.info(String.format("check Negative Logining of User: %s", user.getEmail()));
+        reporter.info(String.format("check Negative Logining of User: %s", user.getEmail()));
 
         LoginPage loginPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount();
         loginPage = loginPage.gotoLoginForLoginPageToWarning(user);
