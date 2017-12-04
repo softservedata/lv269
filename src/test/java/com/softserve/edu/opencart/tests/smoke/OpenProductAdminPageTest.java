@@ -18,7 +18,13 @@ public class OpenProductAdminPageTest {
     @BeforeClass
     public void preparations(ITestContext context) {
         Application.get(ApplicationSourceRepository.get().chromePresentServer7());
-        context.setAttribute(TestContextAttributes.PATHNAMES.toString(), PathNamesRepository.get().paginationPathnames());
+        context.setAttribute(TestContextAttributes.PATHNAMES.toString(), PathNamesRepository.get()
+                .openProductAdminPagePathnames());
+    }
+
+    @BeforeMethod
+    public void setTokenEmpty (ITestContext context) {
+        context.setAttribute(TestContextAttributes.TOKEN.toString(), null);
     }
 
     @DataProvider(name = "OpenProductPageData")
@@ -33,15 +39,17 @@ public class OpenProductAdminPageTest {
                                          IExpectedStrings adminProductPageName) {
         ProductAdminPage productAdminPage = Application.get()
                 .loginAdmin()
-                .validEnterAdminProfile(UserRepository.get().admin())
+                .validEnterAdminProfile(context, UserRepository.get().admin())
                 .openProductAdminPage(context);
         Assert.assertEquals(productAdminPage.getCurrentPageNameText().toLowerCase(),
                 adminProductPageName.getExpectedString().toLowerCase());
     }
 
     @AfterMethod
-    public void logoutAdminPage() {
-        Application.get().logoutAdmin();
+    public void logoutAdminPage(ITestContext context) {
+        if ((String) context.getAttribute(TestContextAttributes.TOKEN.toString()) != null) {
+            Application.get().logoutAdmin(context);
+        }
     }
 
     @AfterClass

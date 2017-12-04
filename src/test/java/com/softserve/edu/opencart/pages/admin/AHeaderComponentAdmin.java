@@ -42,7 +42,7 @@ abstract class AHeaderComponentAdmin {
     private List<SBarMainOption> sBarMainOptionsList;
     private List<WebElement> pathnamePageBtns;
 
-    protected static List<String> sBarPathnames;
+    protected List<String> sBarPathnames;
     //TODO Change
 
     public AHeaderComponentAdmin() {
@@ -67,20 +67,6 @@ abstract class AHeaderComponentAdmin {
             sBarMainOptionsList.add(new SBarMainOption(current));
         }
     }
-
-    //TODO Change next 2 methods
-    protected void checkSBarPathnames(List<String> sBarPathnames) {
-        if (isSBarPathnamesNull()) {
-            this.sBarPathnames = new ArrayList<>();
-            this.sBarPathnames.addAll(sBarPathnames);
-        }
-        ErrorUtils.createWrongParameterSizeException((sBarPathnames.size() == 0), SBAR_LINK_OPEN_MORE_PATHNAMES_MESSAGE);
-    }
-
-    protected boolean isSBarPathnamesNull() {
-        return (sBarPathnames == null);
-    }
-
 
     //Page Object
 
@@ -227,16 +213,14 @@ abstract class AHeaderComponentAdmin {
         return statOptionsList.getOptionAmountByPartialName(value);
     }
 
-    public void clickSBarOptionByPathname(String pathname) {
-        ErrorUtils.createInputDataIsEmptyException(pathname.isEmpty(), INPUT_DATA_IS_EMPTY_MESSAGE);
+    public void clickSBarOptionByPathname(List<String> sBarPathnamesList) {
+        ErrorUtils.createInputDataIsEmptyException(sBarPathnamesList.isEmpty(), INPUT_DATA_IS_EMPTY_MESSAGE);
         List<String> pathnameList = new LinkedList<>();
-        pathnameList.addAll(TextUtils.splitToList(pathname, "/"));
+        pathnameList.addAll(TextUtils.splitToList(sBarPathnamesList.get(0), "/"));
         SBarMainOption foundOption = getMainSBarOptionByPartialName(pathnameList.get(0));
         pathnameList.remove(0);
         foundOption.actOptionByPathname(pathnameList);
-        //TODO delete after solving problem with pathnames
-        sBarPathnames.remove(0);
-        sBarPathnames = (sBarPathnames.size() == 0) ? null : sBarPathnames;
+        sBarPathnamesList.remove(0);
     }
 
     private SBarMainOption getMainSBarOptionByPartialName(String name) {
@@ -433,16 +417,19 @@ abstract class AHeaderComponentAdmin {
     //Business Logic
 
     public ProductAdminPage openProductAdminPage(ITestContext context) {
-        checkSBarPathnames(((IPathnames)context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
-                .getsBarPathnamesList());
-        clickSBarOptionByPathname(sBarPathnames.get(0));
+        List<String> sBarPathnames = ((IPathnames) context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
+                .getsBarPathnamesList();
+        clickSBarOptionByPathname(sBarPathnames);
         return new ProductAdminPage();
     }
 
     public SettingPage openSettingAdminPage(ITestContext context) {
-        checkSBarPathnames(((IPathnames)context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
-                .getsBarPathnamesList());
-        clickSBarOptionByPathname(sBarPathnames.get(0));
+        List<String> sBarPathnames = ((IPathnames) context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
+                .getsBarPathnamesList();
+        clickSBarOptionByPathname(sBarPathnames);
+//        setSBarPathnames(((IPathnames) context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
+//                .getsBarPathnamesList());
+//        clickSBarOptionByPathname(sBarPathnames.get(0));
         return new SettingPage();
     }
 }

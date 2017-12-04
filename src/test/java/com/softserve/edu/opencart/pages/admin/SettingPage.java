@@ -123,6 +123,7 @@ public class SettingPage extends AHeaderComponentAdmin {
 
     // Business Logic
     public StoreSettingPage openStoreSettingsPageByStoreUrl(ITestContext context) {
+        IPathnames temp = (IPathnames)context.getAttribute(TestContextAttributes.PATHNAMES.toString());
         clickStoreEditSettingBtnByUrl(((IPathnames)context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
                 .getStoreUrl());
         return new StoreSettingPage();

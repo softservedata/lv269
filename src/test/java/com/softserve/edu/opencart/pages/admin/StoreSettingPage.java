@@ -30,7 +30,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     private OptionsTab currentTabOptions;
 
     //TODO remake without static
-    private static StoreSettingOptionSet defaultOptionsList;
+    private StoreSettingOptionSet defaultOptionsList;
 
     StoreSettingPage() {
         super();
@@ -40,7 +40,8 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
         currentTabOptions = new OptionsTab();
     }
 
-    public void enterOptionsFromOptionsList(IStoreSettingOptionSet optionList, Map<String, String> optionsReplaceValue) {
+    public void enterOptionsFromOptionsList(IStoreSettingOptionSet optionList,
+                                            Map<String, String> optionsReplaceValue) {
         if (defaultOptionsList == null) {
             enterOptionsFromRecievedOptionsList(optionList, optionsReplaceValue);
         } else {
@@ -51,7 +52,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
 
     //TODO remake all this page, add a good way to change option, to save their current value and return back
     public void enterOptionsFromRecievedOptionsList(IStoreSettingOptionSet optionList,
-                                                    Map<String, String> optionsReplaceValue){
+                                                    Map<String, String> optionsReplaceValue) {
         defaultOptionsList = new StoreSettingOptionSet();
         for (StoreSettingOptionSet.IStoreSettingOption currentOption : optionList.getStoreSettingOptionsSetList()) {
             actTabBtnByName(currentOption.getOptionTab());
@@ -147,18 +148,22 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
     // BusinessLogic
 
     public SettingPage changeOptionsSet(ITestContext context, Map<String, String> optionsReplaceValue) {
-        enterOptionsFromOptionsList(((IPathnames)context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
+        return setOptionsFromOptionSet(context, optionsReplaceValue);
+    }
+
+    public SettingPage changeOptionsSet(ITestContext context) {
+        return setOptionsFromOptionSet(context, null);
+    }
+
+    private SettingPage setOptionsFromOptionSet(ITestContext context, Map<String, String> optionsReplaceValue) {
+        defaultOptionsList = (StoreSettingOptionSet) context.getAttribute(TestContextAttributes
+                .DEFAULT_SETTING_OPTIONS_LIST.toString());
+        enterOptionsFromOptionsList(((IPathnames) context.getAttribute(TestContextAttributes.PATHNAMES.toString()))
                 .getStoreSettingOptionSet(), optionsReplaceValue);
         operations.clickElement(getSaveOptionsBtn());
+        context.setAttribute(TestContextAttributes.DEFAULT_SETTING_OPTIONS_LIST.toString(), defaultOptionsList);
         return new SettingPage();
     }
-
-    public SettingPage changeOptionsSet(IPathnames paginationPathnames) {
-        enterOptionsFromOptionsList(paginationPathnames.getStoreSettingOptionSet(), null);
-        operations.clickElement(getSaveOptionsBtn());
-        return new SettingPage();
-    }
-
 
     public SettingPage changeOptionByTabNameAndOptionName(String tabName, String optionName, String newData) {
         actTabBtnByName(tabName);
@@ -227,7 +232,7 @@ public class StoreSettingPage extends AHeaderComponentAdmin {
 
         //GetData
         private String getOptionName(WebElement option) {
-            return operations.getText(search.cssSelector(optionNameSelectorCss,option));
+            return operations.getText(search.cssSelector(optionNameSelectorCss, option));
         }
 
 

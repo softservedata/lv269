@@ -7,6 +7,7 @@ public class Pathnames implements IPathnames {
 
     //TODO make protection from wrong input
 
+
     private List<String> sBarPathnamesList;
 
     private IStoreSettingOptionSet storeSettingOptionSet;
@@ -35,12 +36,21 @@ public class Pathnames implements IPathnames {
     }
 
     public Pathnames setStoreSettingOptionSet(IStoreSettingOptionSet storeSettingOptionSet) {
-        this. storeSettingOptionSet = storeSettingOptionSet;
+        this.storeSettingOptionSet = storeSettingOptionSet;
         return this;
     }
 
     public Pathnames setStoreUrl(String storeUrl) {
         this.storeUrl = storeUrl;
         return this;
+    }
+
+    public Object clone() {
+        IPathnames result = null;
+        try {
+            result = (Pathnames) super.clone();
+        } catch (CloneNotSupportedException e) {
+        }
+        return result;
     }
 }
