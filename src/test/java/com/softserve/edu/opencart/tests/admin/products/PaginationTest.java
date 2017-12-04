@@ -5,6 +5,7 @@ import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.pagination.IPagination;
 import com.softserve.edu.opencart.data.pagination.PaginationRepository;
 import com.softserve.edu.opencart.data.pathnames.PathNamesRepository;
+import com.softserve.edu.opencart.data.pathnames.StoreSettingOptionSet;
 import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.admin.ProductAdminPage;
@@ -19,9 +20,18 @@ public class PaginationTest {
     public void browserOpen(ITestContext context) {
 //        Application.get(ApplicationSourceRepository.get().firefoxPresentServer7());
 //        Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
-        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
+//        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
         Application.get(ApplicationSourceRepository.get().chromePresentServer7());
         context.setAttribute(TestContextAttributes.PATHNAMES.toString(), PathNamesRepository.get().paginationPathnames());
+    }
+
+    @BeforeMethod
+    public void setTestContextNull(ITestContext context) {
+        context.setAttribute(TestContextAttributes.TOKEN.toString(), null);
+        context.setAttribute(TestContextAttributes.DEFAULT_SETTING_OPTIONS_LIST.toString(), null);
+        context.setAttribute(TestContextAttributes.PRODUCT_ADMIN_PAGE.toString(), null);
+        context.setAttribute(TestContextAttributes.PATHNAMES.toString(), PathNamesRepository.get().paginationPathnames()
+                .clone());
     }
 
     @DataProvider(name = "PaginationItemsPerPage")
@@ -38,17 +48,15 @@ public class PaginationTest {
     public void paginationPageNumbersTest(ITestContext context,
                                           IPagination paginationData) {
         ProductAdminPage productAdminPage = Application.get().loginAdmin()
-                .validEnterAdminProfile(UserRepository.get().admin())
+                .validEnterAdminProfile(context, UserRepository.get().admin())
                 .openSettingAdminPage(context)
                 .openStoreSettingsPageByStoreUrl(context)
                 .changeOptionsSet(context, paginationData.getOptionsReplaceValues())
                 .openProductAdminPage(context)
                 .initLastProductAdminPageNumberAllPages();
+        context.setAttribute(TestContextAttributes.PRODUCT_ADMIN_PAGE.toString(), productAdminPage);
         int actualPagesPaginationQuantity = productAdminPage.getPagesPaginationQuantity();
         Integer actualItemsOnAllPagesExceptLast = productAdminPage.getItemsOnAllPagesExceptLast();
-        productAdminPage.openSettingAdminPage(context)
-                .openStoreSettingsPageByStoreUrl(context)
-                .changeOptionsSet(context, paginationData.getOptionsReplaceValues());
         Assert.assertEquals(actualPagesPaginationQuantity,
                 (paginationData.getItemsNumber() + paginationData.getItemsPerPageNumber() - 1) / paginationData
                         .getItemsPerPageNumber(),
@@ -60,8 +68,17 @@ public class PaginationTest {
     }
 
     @AfterMethod
-    public void logoutAdminPage() {
-        Application.get().logoutAdmin();
+    public void logoutAdminPage(ITestContext context) {
+        if ((String) context.getAttribute(TestContextAttributes.TOKEN.toString()) != null) {
+            if ((StoreSettingOptionSet) context.getAttribute(TestContextAttributes.DEFAULT_SETTING_OPTIONS_LIST
+                    .toString()) != null) {
+                ((ProductAdminPage) context.getAttribute(TestContextAttributes.PRODUCT_ADMIN_PAGE.toString()))
+                        .openSettingAdminPage(context)
+                        .openStoreSettingsPageByStoreUrl(context)
+                        .changeOptionsSet(context);
+            }
+            Application.get().logoutAdmin(context);
+        }
     }
 
     @AfterClass

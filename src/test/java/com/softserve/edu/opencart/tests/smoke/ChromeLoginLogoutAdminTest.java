@@ -10,7 +10,9 @@ import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.admin.DashboardAdmin;
 import com.softserve.edu.opencart.pages.admin.WrongLoginAdminPage;
+import com.softserve.edu.opencart.tests.TestContextAttributes;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.*;
 
 
@@ -39,9 +41,9 @@ public class ChromeLoginLogoutAdminTest {
 
 
     @Test(dataProvider = "ValidAdminData")
-    public void LoginValidTest(IUser validUser, IExpectedStrings dashBoardPageName) {
+    public void LoginValidTest(ITestContext context, IUser validUser, IExpectedStrings dashBoardPageName) {
         DashboardAdmin dashboardAdmin = Application.get().loginAdmin()
-                .validEnterAdminProfile(validUser);
+                .validEnterAdminProfile(context, validUser);
         Assert.assertEquals(dashboardAdmin.getCurrentPageNameText().toLowerCase(),
                 dashBoardPageName.getExpectedString().toLowerCase(),
                 ErrorMessages.WRONG_LOGIN_ADMIN_VALID.toString());
@@ -57,8 +59,10 @@ public class ChromeLoginLogoutAdminTest {
     }
 
     @AfterMethod
-    public void logoutAdminPage () {
-        Application.get().logoutAdmin();
+    public void logoutAdminPage (ITestContext context) {
+        if ((String)context.getAttribute(TestContextAttributes.TOKEN.toString())!=null) {
+            Application.get().logoutAdmin(context);
+        }
     }
 
     @AfterClass

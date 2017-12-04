@@ -2,7 +2,10 @@ package com.softserve.edu.opencart.tests;
 
 public enum TestContextAttributes {
 
-    PATHNAMES("Pathnnames");
+    PATHNAMES("Pathnnames"),
+    DEFAULT_SETTING_OPTIONS_LIST ("DefaultSettingOptionsList"),
+    TOKEN ("Token"),
+    PRODUCT_ADMIN_PAGE("ProductAdminPage");
     //
     private String field;
 

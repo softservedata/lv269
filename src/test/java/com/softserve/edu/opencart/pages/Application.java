@@ -8,11 +8,13 @@ import com.softserve.edu.opencart.pages.admin.LogoutAdminPage;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
+import com.softserve.edu.opencart.tests.TestContextAttributes;
 import com.softserve.edu.opencart.tools.*;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
 import com.softserve.edu.opencart.tools.search.ISearch;
 import com.softserve.edu.opencart.tools.search.Search;
+import org.testng.ITestContext;
 
 import java.sql.SQLException;
 
@@ -30,7 +32,6 @@ public class Application {
     private DataBaseWraper dataBase;
     private ISearch search;
     private FileManager fileManager;
-    private String token;
     private Operations operations;
     // etc.
 
@@ -98,10 +99,6 @@ public class Application {
         return fileManager;
     }
 
-    private String getToken () {
-        return token;
-    }
-
     public Operations operations() {
         return operations;
     }
@@ -125,9 +122,6 @@ public class Application {
     }
 
     //TODO Remake it by rules without magic numbers and symbols, with saving in the proper place
-    public void setToken () {
-        token = "&" + TextUtils.splitToList(browser().getUrlPage(), "&").get(1);
-    }
 
     public void initOperations (IApplicationSource applicationSource) {
         this.operations = new Operations();
@@ -158,8 +152,9 @@ public class Application {
         return new LoginAdminPage();
     }
 
-    public LogoutAdminPage logoutAdmin() {
-        browser().openUrl(applicationSource.getAdminLogoutUrl() + getToken());
+    public LogoutAdminPage logoutAdmin(ITestContext context) {
+        browser().openUrl(applicationSource.getAdminLogoutUrl() + context.getAttribute(TestContextAttributes
+                .TOKEN.toString()));
         return new LogoutAdminPage();
     }
 
