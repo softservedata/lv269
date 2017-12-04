@@ -486,6 +486,10 @@ abstract class AHeaderComponent {
     protected String getPriceTextByProductName(String productName) {
         return getProductComponentByProductName(productName).getPriceText();
     }
+    
+    protected String getPriceSymbolByProductName(String productName) {
+        return getProductComponentByProductName(productName).getPriceSymbol();
+    }
 
     protected double getPriceAmountByProductName(String productName) {
         return getProductComponentByProductName(productName).getPriceAmount();

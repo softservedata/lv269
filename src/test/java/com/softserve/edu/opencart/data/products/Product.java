@@ -9,8 +9,6 @@ public class Product implements IProduct {
     private String description;
     private Map<String, Double> prices;
     
-    // TODO Develop Builder
- 
     public Product(String name, String description, Map<String, Double> prices) {
         this.name = name;
         this.description = description;

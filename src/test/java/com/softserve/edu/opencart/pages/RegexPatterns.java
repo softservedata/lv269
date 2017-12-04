@@ -4,8 +4,9 @@ public enum RegexPatterns {
     ALL_DIGITS("\\d+"),
     FIRST_DIGITS("^\\d+"),
     LAST_DOUBLE("\\d+\\.\\d+$"),
-    NUMBER_DOUBLE("\\d+\\.\\d+");
-    //
+    NUMBER_DOUBLE("\\d+\\.\\d+"),
+//	PRICE_SYMBOL("^\\W+");
+    PRICE_SYMBOL("[€\\£\\$]");
     private String field;
 
     private RegexPatterns(String field) {

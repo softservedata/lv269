@@ -12,11 +12,20 @@
 			</class>
 		</classes>
 	</test>
-	<test name="Currency test">
+	<test name="Currency test 1">
 		<classes>
 			<class name="com.softserve.edu.opencart.tests.currency.TestCurrency">
 				<methods>
-					<include name="checkChangeCurrency" />
+					<include name="checkChangeCurrencyByPrice" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Currency test 2">
+		<classes>
+			<class name="com.softserve.edu.opencart.tests.currency.TestCurrencyBySymbol">
+				<methods>
+					<include name="checkChangeCurrencyBySymbol" />
 				</methods>
 			</class>
 		</classes>

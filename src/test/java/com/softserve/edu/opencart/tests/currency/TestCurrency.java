@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.tests.currency;
+ package com.softserve.edu.opencart.tests.currency;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -16,7 +16,7 @@ import com.softserve.edu.opencart.tests.TestRunner;
  */
 public class TestCurrency extends TestRunner{
 	
-	private String PRICES_NOT_EQUALS = "Prices not equals:";
+	private final String PRICES_NOT_EQUALS = "Prices not equals:";
 
     @DataProvider
     public Object[][] currencyData() {
@@ -27,7 +27,7 @@ public class TestCurrency extends TestRunner{
     }
 
     @Test(dataProvider = "currencyData")
-    public void checkChangeCurrency(IDetailCategory detailCurency, Product product) {
+    public void checkChangeCurrencyByPrice(IDetailCategory detailCurency, Product product) {
     	logger.info(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
         reporter.display(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
         
@@ -36,5 +36,4 @@ public class TestCurrency extends TestRunner{
                 .getPriceAmountByProduct(product), 
                 product.getPrices().get(detailCurency.getOptionName()), 0.001, PRICES_NOT_EQUALS);
     }
-
 }

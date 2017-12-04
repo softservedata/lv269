@@ -48,4 +48,12 @@ public final class NumberUtils {
         }
         return result;
     }
+    public static String extractSymbol(String pattern,  String text) {
+		String result = null;
+		String extractText = extractString(pattern, text);
+		if(!text.isEmpty()) {
+			result = extractText;
+		}
+		return result;
+	}
 }

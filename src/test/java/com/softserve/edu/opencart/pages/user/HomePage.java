@@ -2,6 +2,7 @@ package com.softserve.edu.opencart.pages.user;
 
 import com.softserve.edu.opencart.data.categories.IDetailCategory;
 import com.softserve.edu.opencart.data.products.IProduct;
+import com.softserve.edu.opencart.data.products.PriceSymbolProduct;
 import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.pages.Application;
 import org.openqa.selenium.By;
@@ -34,6 +35,11 @@ public class HomePage extends AHeaderComponent {
     public String getPriceTextByProductName(String productName) {
         return super.getPriceTextByProductName(productName);
     }
+    
+    @Override
+    public String getPriceSymbolByProductName(String productName) {
+        return super.getPriceSymbolByProductName(productName);
+    }
 
     @Override
     public double getPriceAmountByProductName(String productName) {
@@ -62,6 +68,10 @@ public class HomePage extends AHeaderComponent {
         clickCurrencyByPartialName(detailCategory.getOptionName());
         //return new HomePage(driver); 
         return new HomePage();
+    }
+    
+    public String getPriceSymbolByProduct(PriceSymbolProduct priceSymbolProduct) {
+        return getPriceSymbolByProductName(priceSymbolProduct.getName());
     }
 
     public double getPriceAmountByProduct(Product product) {

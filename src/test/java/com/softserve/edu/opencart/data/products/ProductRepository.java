@@ -24,9 +24,9 @@ public class ProductRepository {
 
     public IProduct macBook() {
         Map<String, Double> macBookPrices = new HashedMap<>();
-        macBookPrices.put("Euro", 430.06);
-        macBookPrices.put("Pound Sterling", 379.02);
-        macBookPrices.put("US Dollar", 500.0);
+        macBookPrices.put("Euro", 369.85);
+        macBookPrices.put("Pound Sterling", 325.96);
+        macBookPrices.put("US Dollar", 430.00);
         return new Product("MacBook",
                 "Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1..",
                 macBookPrices);
@@ -40,7 +40,7 @@ public class ProductRepository {
         iPhonePrices.put("US Dollar", CalculatePriceValue.dollarPrice(defaultValue));
         return new Product("iPhone",
                 "iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a nam..",
-                iPhonePrices);
+                 iPhonePrices);
     }
     
     public IProduct canonEOS5D() {
