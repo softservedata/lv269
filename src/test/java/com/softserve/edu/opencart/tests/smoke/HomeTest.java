@@ -36,7 +36,7 @@ public class HomeTest extends TestRunner {
     //public void checkProduct(String productName, double expectedPrice) throws Exception {
     public void checkProduct(DetailCategory detailCurency, Product product) throws Exception {
         logger.info(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
-        reporter.display(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
+        reporter.display(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getOptionName(), product.getName()));
         //
         // Precondition
         //

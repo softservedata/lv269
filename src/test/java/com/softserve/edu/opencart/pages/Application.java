@@ -12,6 +12,8 @@ import com.softserve.edu.opencart.tests.TestContextAttributes;
 import com.softserve.edu.opencart.tools.*;
 import com.softserve.edu.opencart.tools.BrowserWrapper;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
+import com.softserve.edu.opencart.tools.browsers.BrowserWrapper;
+import com.softserve.edu.opencart.tools.browsers.CaptureUtils;
 import com.softserve.edu.opencart.tools.search.ISearch;
 import com.softserve.edu.opencart.tools.search.Search;
 import org.testng.ITestContext;
@@ -27,6 +29,7 @@ public class Application {
     //
     // TODO Change for parallel work
     private IApplicationSource applicationSource;
+    private CaptureUtils captureUtils;
     private ReporterWrapper reporter;
     private BrowserWrapper browser;
     private DataBaseWraper dataBase;
@@ -35,15 +38,15 @@ public class Application {
     private Operations operations;
     // etc.
 
-    private Application(IApplicationSource applicationSource)   {
+    private Application(IApplicationSource applicationSource) {
         this.applicationSource = applicationSource;
     }
 
-    public static Application get()   {
+    public static Application get() {
         return get(null);
     }
 
-    public static Application get(IApplicationSource applicationSource)  {
+    public static Application get(IApplicationSource applicationSource) {
         if (instance == null) {
             synchronized (Application.class) {
                 if (instance == null) {
@@ -51,6 +54,7 @@ public class Application {
                         applicationSource = ApplicationSourceRepository.get().base();
                     }
                     instance = new Application(applicationSource);
+                    instance.initCaptureUtils();
                     instance.initReporter(applicationSource);
                     instance.initBrowser(applicationSource);
                     instance.initSearch(applicationSource);
@@ -63,7 +67,7 @@ public class Application {
         }
         return instance;
     }
-
+    
     public static void remove() {
         if (instance != null) {
             // TODO Change for parallel work
@@ -81,6 +85,10 @@ public class Application {
     // TODO Change for parallel work
     public IApplicationSource getApplicationSource() {
         return applicationSource;
+    }
+
+    public CaptureUtils captureUtils() {
+        return captureUtils;
     }
 
     public ReporterWrapper reporter() {
@@ -104,6 +112,11 @@ public class Application {
     }
 
     // TODO Change for parallel work
+    public void initCaptureUtils() {
+        // TODO  Add parameters to applicationSource
+        this.captureUtils = new CaptureUtils();
+    }
+
     public void initReporter(IApplicationSource applicationSource) {
         this.reporter = new ReporterWrapper(applicationSource);
     }
@@ -111,7 +124,7 @@ public class Application {
     public void initBrowser(IApplicationSource applicationSource) {
         this.browser = new BrowserWrapper(applicationSource);
     }
-    
+
     public void initSearch(IApplicationSource applicationSource) {
         this.search = new Search(applicationSource);
     }

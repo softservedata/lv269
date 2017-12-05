@@ -12,9 +12,9 @@ import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
-import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.NumberUtils;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
+import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
 import com.softserve.edu.opencart.tools.search.ISearch;
 
 abstract class AHeaderComponent {
@@ -32,14 +32,14 @@ abstract class AHeaderComponent {
             //listOptions.add(driver.findElement(lastLocator));
             listOptions.add(search.getWebElement(lastLocator));
         }
-
-        private void initListOptions(By searchLocator) {
+        
+        private void initListOptions(By searchLocator){
             //listOptions = driver.findElements(searchLocator);
             listOptions = search.getWebElements(searchLocator);
             //listOptions = driver.findElements(By.cssSelector(".list-inline > li > a.dropdown-toggle + ul > li > a"));
             //listOptions = myAccount.findElements(By.cssSelector("+ ul > li > a"));
         }
-
+        
         public List<WebElement> getListOptions() {
             return listOptions;
         }
@@ -189,11 +189,13 @@ abstract class AHeaderComponent {
         searchProductButton = search.cssSelector(".btn.btn-default.btn-lg");
         //cart = driver.findElement(By.cssSelector("#cart > button"));
         cart = search.cssSelector("#cart > button");
+        //menuTop = driver.findElements(By.cssSelector("ul.nav.navbar-nav > li"));
         menuTop = search.cssSelectors("ul.nav.navbar-nav > li");
     }
 
     protected void initProductComponents(By searchLocator) {
         productComponents = new ArrayList<>();
+        //List<WebElement> productWebElements = driver.findElements(searchLocator);
         List<WebElement> productWebElements = search.getWebElements(searchLocator);
         for (WebElement current : productWebElements) {
             productComponents.add(new ProductComponent(current));
