@@ -36,8 +36,8 @@ public class ProductRepository {
     	double defaultValue = 101.0;
         Map<String, Prices> iPhonePrices = new HashedMap<>();    
         iPhonePrices.put("Euro", new Prices("€",CalculatePriceValue.euroPrice(defaultValue)));
-        iPhonePrices.put("Pound Sterling", new Prices("€", CalculatePriceValue.poundPrice(defaultValue)));
-        iPhonePrices.put("US Dollar", new Prices("€", CalculatePriceValue.dollarPrice(defaultValue)));
+        iPhonePrices.put("Pound Sterling", new Prices("£", CalculatePriceValue.poundPrice(defaultValue)));
+        iPhonePrices.put("US Dollar", new Prices("$", CalculatePriceValue.dollarPrice(defaultValue)));
         return new Product("iPhone",
                 "iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a nam..",
                  iPhonePrices);

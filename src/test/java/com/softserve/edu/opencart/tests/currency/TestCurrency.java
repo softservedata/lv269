@@ -9,12 +9,12 @@ import com.softserve.edu.opencart.data.categories.IDetailCategory;
 import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.pages.Application;
-import com.softserve.edu.opencart.tests.TestRunner;
+import com.softserve.edu.opencart.tests.CurrencyTestRunner;
 
 /**
  * @author Yurii Ivanytskyi
  */
-public class TestCurrency extends TestRunner{
+public class TestCurrency extends CurrencyTestRunner{
 	
 	private final String PRICES_NOT_EQUALS = "Prices not equals:";
 
