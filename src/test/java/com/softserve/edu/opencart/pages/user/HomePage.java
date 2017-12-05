@@ -1,6 +1,6 @@
 package com.softserve.edu.opencart.pages.user;
 
-import com.softserve.edu.opencart.data.categories.DetailCategory;
+import com.softserve.edu.opencart.data.categories.IDetailCategory;
 import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.pages.Application;
@@ -34,6 +34,11 @@ public class HomePage extends AHeaderComponent {
     public String getPriceTextByProductName(String productName) {
         return super.getPriceTextByProductName(productName);
     }
+    
+    @Override
+    public String getPriceSymbolByProductName(String productName) {
+        return super.getPriceSymbolByProductName(productName);
+    }
 
     @Override
     public double getPriceAmountByProductName(String productName) {
@@ -56,14 +61,18 @@ public class HomePage extends AHeaderComponent {
 
     // Business Logic
     
-    public HomePage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
+    public HomePage chooseCurrencyByDetailCategory(IDetailCategory detailCategory) {
         logger.debug("Choose detailCategory.getOptionName() = " + detailCategory.getOptionName());
         reporter.debug("Choose detailCategory.getOptionName() = " + detailCategory.getOptionName());
         clickCurrencyByPartialName(detailCategory.getOptionName());
         //return new HomePage(driver); 
         return new HomePage();
     }
-
+    
+    public String getPriceSymbolByProduct(Product product) {
+        return getPriceSymbolByProductName(product.getName());
+    }
+    
     public double getPriceAmountByProduct(Product product) {
         return getPriceAmountByProductName(product.getName());
     }

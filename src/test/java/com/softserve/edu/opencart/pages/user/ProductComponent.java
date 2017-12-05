@@ -6,10 +6,9 @@ import org.slf4j.LoggerFactory;
 
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.RegexPatterns;
-import com.softserve.edu.opencart.tools.search.ISearch;
 import com.softserve.edu.opencart.tools.NumberUtils;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
-import org.openqa.selenium.WebElement;
+import com.softserve.edu.opencart.tools.search.ISearch;
 
 public class ProductComponent {
 
@@ -74,6 +73,10 @@ public class ProductComponent {
 
     public String getPriceText() {
         return getPrice().getText();
+    }
+    
+    public String getPriceSymbol() {
+    	return NumberUtils.extractSymbol(RegexPatterns.PRICE_SYMBOL.toString(), getPriceText());
     }
 
     public double getPriceAmount() {
