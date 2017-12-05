@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Currency suite">
+	<test name="Currency smoke test">
+		<classes>
+			<class name="com.softserve.edu.opencart.tests.currency.TestCurrencySmoke">
+				<methods>
+					<include name="enableCurrencyTest" />
+					<include name="enableCurrencyOptionsTest" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Currency test 1">
+		<classes>
+			<class name="com.softserve.edu.opencart.tests.currency.TestCurrency">
+				<methods>
+					<include name="checkChangeCurrencyByPrice" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="Currency test 2">
+		<classes>
+			<class name="com.softserve.edu.opencart.tests.currency.TestCurrencyBySymbol">
+				<methods>
+					<include name="checkChangeCurrencyBySymbol" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>
