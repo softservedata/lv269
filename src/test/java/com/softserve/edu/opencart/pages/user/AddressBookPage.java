@@ -18,7 +18,7 @@ public class AddressBookPage extends AColumnRightUserComponent {
     private final String STREET_NOT_FOUND_MESSAGE = "Street %s not found ";
 
     public AddressBookPage() {
-        super();
+        //super();
         newAddressBook = search.cssSelector(".btn.btn-primary");
         backButton = search.xpath(".//a[contains( text(),'Back')]");
         initAddressBookEntries(By.cssSelector("table.table.table-bordered.table-hover>tbody>tr"));

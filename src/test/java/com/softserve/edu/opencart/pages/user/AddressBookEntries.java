@@ -1,9 +1,11 @@
 package com.softserve.edu.opencart.pages.user;
 
+import com.softserve.edu.opencart.tools.ISearch;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class AddressBookEntries extends AHeaderComponent{
+public class AddressBookEntries extends AColumnRightUserComponent {
+
 
     private WebElement  editButton;
     private WebElement deleteButton;
