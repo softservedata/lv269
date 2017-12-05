@@ -5,6 +5,6 @@ public interface IProduct {
 
     String getDescription();
 
-    double getDescription(String key);
+    Prices getDescription(String key);
 
 }

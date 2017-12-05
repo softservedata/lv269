@@ -21,9 +21,9 @@ public class TestCurrency extends TestRunner{
     @DataProvider
     public Object[][] currencyData() {
         return new Object[][] { 
-        	{ CurrencyRepository.get().euro(), ProductRepository.get().macBook() },
-            { CurrencyRepository.get().dollar(), ProductRepository.get().macBook() },
-            { CurrencyRepository.get().poundSterling(), ProductRepository.get().macBook() } };
+        	{ CurrencyRepository.get().euro(), ProductRepository.get().iPhone() },
+            { CurrencyRepository.get().dollar(), ProductRepository.get().iPhone() },
+            { CurrencyRepository.get().poundSterling(), ProductRepository.get().iPhone() } };
     }
 
     @Test(dataProvider = "currencyData")

@@ -7,11 +7,9 @@ public class Product implements IProduct {
 
     private String name;
     private String description;
-    private Map<String, Double> prices;
+    private Map<String, Prices> prices;
     
-    // TODO Develop Builder
- 
-    public Product(String name, String description, Map<String, Double> prices) {
+    public Product(String name, String description, Map<String, Prices> prices) {
         this.name = name;
         this.description = description;
         this.prices = prices;
@@ -31,11 +29,11 @@ public class Product implements IProduct {
         return description;
     }
 
-    public double getDescription(String key) {
+    public Prices getDescription(String key) {
         return getPrices().get(key);
     }
 
-    public Map<String, Double> getPrices() {
+    public Map<String, Prices> getPrices() {
         return prices;
     }
 
@@ -47,11 +45,11 @@ public class Product implements IProduct {
         this.description = description;
     }
 
-    public void setPrice(String currency, double price) {
+    public void setPrice(String currency, Prices price) {
         getPrices().put(currency, price);
     }
 
-    public void setPrices(Map<String, Double> prices) {
+    public void setPrices(Map<String, Prices> prices) {
         this.prices = prices;
     }
     
