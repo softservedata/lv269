@@ -22,7 +22,7 @@ import java.util.List;
 
 public class EditAddressTest {
     @BeforeClass
-    public void beforClass(){
+    public void beforClass() {
         //Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
         Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
     }
@@ -31,24 +31,25 @@ public class EditAddressTest {
     public void afterClass() {
         Application.remove();
     }
+
     @BeforeMethod
-    public void beforMethod(){
+    public void beforMethod() {
     }
 
     @AfterMethod
-    public void afterMethod(){
+    public void afterMethod() {
         Application.get().logout();
     }
 
     @DataProvider(name = "editAddress")
-    public Iterator<Object[]> userData(){
-        List<Object[]> data =  ListOfFieldsRepository.get().nehgativeFields().getData();
+    public Iterator<Object[]> userData() {
+        List<Object[]> data = ListOfFieldsRepository.get().nehgativeFields().getData();
         return data.iterator();
     }
 
 
     @Test(dataProvider = "editAddress")
-    public void checkEmptyField(IUser user, IUser wrongField, String expected){
+    public void checkEmptyField(IUser user, IUser wrongField, String expected) {
         EditAddressPage editAddressPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount()
                 .gotoLoginForLoginPageToMyAccountPage(user)
                 .gotoAddressBookPageRightColumn().modifyAddressBookData(user);
