@@ -16,7 +16,7 @@ public class HomePage extends AHeaderComponent {
     public HomePage() {
         //super(driver);
         super();
-        initProductComponents(By.cssSelector(".product-layout"));
+        initProductComponents(By.cssSelector(".product-layout1"));
     }
 
     // PageObject

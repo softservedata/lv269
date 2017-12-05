@@ -12,9 +12,9 @@ import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
-import com.softserve.edu.opencart.tools.ErrorUtils;
 import com.softserve.edu.opencart.tools.NumberUtils;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
+import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
 import com.softserve.edu.opencart.tools.search.ISearch;
 
 abstract class AHeaderComponent {
@@ -102,7 +102,7 @@ abstract class AHeaderComponent {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     private final String OPTION_NOT_FOUND_MESSAGE = "Option %s not found in %s";
-    private final String PRODUCT_NAME_NOT_FOUND_MESSAGE = "Product name %s not found in %s";
+    private final String PRODUCT_NAME_NOT_FOUND_MESSAGE = "Product name %s not found in list: %s";
 
     // Fields
 

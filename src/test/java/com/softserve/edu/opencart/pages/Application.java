@@ -3,8 +3,9 @@ package com.softserve.edu.opencart.pages;
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.pages.user.HomePage;
-import com.softserve.edu.opencart.tools.BrowserWrapper;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
+import com.softserve.edu.opencart.tools.browsers.BrowserWrapper;
+import com.softserve.edu.opencart.tools.browsers.CaptureUtils;
 import com.softserve.edu.opencart.tools.search.ISearch;
 import com.softserve.edu.opencart.tools.search.Search;
 
@@ -17,6 +18,7 @@ public class Application {
     //
     // TODO Change for parallel work
     private IApplicationSource applicationSource;
+    private CaptureUtils captureUtils;
     private ReporterWrapper reporter;
     private BrowserWrapper browser;
     private ISearch search;
@@ -38,6 +40,7 @@ public class Application {
                         applicationSource = ApplicationSourceRepository.get().base();
                     }
                     instance = new Application(applicationSource);
+                    instance.initCaptureUtils();
                     instance.initReporter(applicationSource);
                     instance.initBrowser(applicationSource);
                     instance.initSearch(applicationSource);
@@ -61,6 +64,10 @@ public class Application {
         return applicationSource;
     }
 
+    public CaptureUtils captureUtils() {
+        return captureUtils;
+    }
+
     public ReporterWrapper reporter() {
         return reporter;
     }
@@ -74,6 +81,11 @@ public class Application {
     }
 
     // TODO Change for parallel work
+    public void initCaptureUtils() {
+        // TODO  Add parameters to applicationSource
+        this.captureUtils = new CaptureUtils();
+    }
+
     public void initReporter(IApplicationSource applicationSource) {
         this.reporter = new ReporterWrapper(applicationSource);
     }

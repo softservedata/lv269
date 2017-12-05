@@ -1,7 +1,10 @@
-package com.softserve.edu.opencart.tools;
+package com.softserve.edu.opencart.tools.browsers;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -82,6 +85,18 @@ public class BrowserWrapper {
     // TODO Change to default package 
     public WebDriver getDriver() {
         return driver;
+    }
+
+    // TODO Zoom page before take screen or move to element. Yandex Ashot
+    //https://github.com/assertthat/selenium-shutterbug
+    //document.body.scrollHeight
+    //document.body.style.zoom = 0.5
+    public File getScreenshot() {
+        return ((TakesScreenshot)getDriver()).getScreenshotAs(OutputType.FILE);
+    }
+    
+    public String getSourceCode() {
+        return getDriver().getPageSource();   
     }
 
     public void openUrl(String url) {

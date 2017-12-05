@@ -27,7 +27,7 @@
 		<org.seleniumhq.selenium.version>3.7.0</org.seleniumhq.selenium.version>
 		<!-- <org.seleniumhq.selenium.htmlunit-driver>2.26</org.seleniumhq.selenium.htmlunit-driver> -->
 		<!-- - - - - - Reports - - - - - -->
-		<testng.reports.directory>./target/surefire-reports/test-output</testng.reports.directory>
+		<testng.reports.directory>target/surefire-reports/test-output</testng.reports.directory>
 		<!-- <allure.version>1.5.0</allure.version> -->
 		<!-- <aspectj.version>1.8.5</aspectj.version> -->
 		<!-- - - - - - Mocks - - - - - -->

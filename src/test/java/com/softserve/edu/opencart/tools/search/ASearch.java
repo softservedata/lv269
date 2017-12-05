@@ -5,6 +5,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.tools.exceptions.ScreenCaptureException;
+
 public abstract class ASearch implements ISearch {
 
     private static final String NO_SUCH_ELEMENT = "Unable to locate element(s): %s";
@@ -29,10 +31,8 @@ public abstract class ASearch implements ISearch {
         try {
             return getWebElement(by);
         } catch (Exception e) {
-            // throw new
-            // ScreenCapturingCustomException(String.format(NO_SUCH_ELEMENT,
-            // by.toString()));
-            throw new RuntimeException(String.format(NO_SUCH_ELEMENT, by.toString()));
+            throw new ScreenCaptureException(String.format(NO_SUCH_ELEMENT, by.toString()));
+            //throw new RuntimeException(String.format(NO_SUCH_ELEMENT, by.toString()));
         }
     }
 
@@ -40,7 +40,8 @@ public abstract class ASearch implements ISearch {
         try {
             return getWebElement(by, fromWebElement);
         } catch (Exception e) {
-            throw new RuntimeException(String.format(NO_SUCH_ELEMENT, by.toString()));
+            throw new ScreenCaptureException(String.format(NO_SUCH_ELEMENT, by.toString()));
+            //throw new RuntimeException(String.format(NO_SUCH_ELEMENT, by.toString()));
         }
     }
 
@@ -48,7 +49,8 @@ public abstract class ASearch implements ISearch {
         try {
             return getWebElements(by);
         } catch (Exception e) {
-            throw new RuntimeException(String.format(NO_SUCH_ELEMENT, by.toString()));
+            throw new ScreenCaptureException(String.format(NO_SUCH_ELEMENT, by.toString()));
+            //throw new RuntimeException(String.format(NO_SUCH_ELEMENT, by.toString()));
         }
     }
 
@@ -56,7 +58,8 @@ public abstract class ASearch implements ISearch {
         try {
             return getWebElements(by, fromWebElement);
         } catch (Exception e) {
-            throw new RuntimeException(String.format(NO_SUCH_ELEMENT, by.toString()));
+            throw new ScreenCaptureException(String.format(NO_SUCH_ELEMENT, by.toString()));
+            //throw new RuntimeException(String.format(NO_SUCH_ELEMENT, by.toString()));
         }
     }
 

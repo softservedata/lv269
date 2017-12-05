@@ -1,11 +1,10 @@
 package com.softserve.edu.opencart.tools;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.testng.Reporter;
 
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
+import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.tools.browsers.CaptureUtils;
 
 public class ReporterWrapper {
     
@@ -49,17 +48,20 @@ public class ReporterWrapper {
     private static final String IMG_TEMPLATE = "<br><div><image style=\"max-width:90%%\" src=\"%s\"  alt=\"could not take screen shot\" /></div>";
     private static final String SCREENSHOT_FILENAME = "<br><p>Screenshot filename is %s</p>";
     private static final String SOURCECODE_FILENAME = "<br><p><a href='%s'>Source Code</a> filename is %s</p>";
-    private final String TIME_TEMPLATE = "yyyy/MM/dd HH:mm:ss";
     private final String SPACE_SYMBOL = " ";
+    private TimeUtils timeUtils;
+    private CaptureUtils captureUtils;
     private boolean consoleOutput;
 
     public ReporterWrapper(IApplicationSource applicationSource) {
+        this.timeUtils = new TimeUtils(TimeUtils.TimeTemplates.TIME_REPORT);
+        this.captureUtils = Application.get().captureUtils();
         this.consoleOutput = applicationSource.getConsoleOutput();
         // TODO Set default verbose.
     }
 
     private String getCurrentTime() {
-		return SPACE_SYMBOL + new SimpleDateFormat(TIME_TEMPLATE).format(new Date()) + SPACE_SYMBOL;
+		return SPACE_SYMBOL + timeUtils.getTimeText() + SPACE_SYMBOL;
 	}
     
     public void display(String message){
@@ -92,18 +94,16 @@ public class ReporterWrapper {
     }
 
     public String addHtmlSourceCode() {
-//        String sourceCodeFileName = new CaptureScreen().takeSourceCode();
-//        Reporter.log(String.format(SOURCECODE_FILENAME, sourceCodeFileName, sourceCodeFileName));
-//        return sourceCodeFileName;
-        return null;
+        String sourceCodeFileName = captureUtils.takeSourceCode(); 
+        display(String.format(SOURCECODE_FILENAME, sourceCodeFileName, sourceCodeFileName));
+        return sourceCodeFileName;
     }
 
     public String addScreenShot() {
-//      String screenFileName = new CaptureScreen().takeScreen();
-//      Reporter.log(String.format(SCREENSHOT_FILENAME, screenFileName));
-//      Reporter.log(String.format(IMG_TEMPLATE, screenFileName));
-//      return screenFileName;
-      return null;
+      String screenFileName = captureUtils.takeScreen();
+      display(String.format(SCREENSHOT_FILENAME, screenFileName));
+      display(String.format(IMG_TEMPLATE, screenFileName));
+      return screenFileName;
   }
 
 }

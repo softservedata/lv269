@@ -1,6 +1,4 @@
-package com.softserve.edu.opencart.tools;
-
-import com.softserve.edu.opencart.tools.exceptions.ScreenCapturingException;
+package com.softserve.edu.opencart.tools.exceptions;
 
 // TODO Change after develop AssertWrapper class
 public final class ErrorUtils {
@@ -12,7 +10,7 @@ public final class ErrorUtils {
         if (isThrown) {
             // TODO Develop Custom Exception
             //throw new GeneralException(message);
-            throw new ScreenCapturingException(message);
+            throw new ScreenCaptureException(message);
         }
     }
 
