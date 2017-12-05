@@ -3,7 +3,7 @@ package com.softserve.edu.opencart.pages.admin;
 import com.softserve.edu.opencart.data.pathnames.IPathnames;
 import com.softserve.edu.opencart.data.pathnames.StoreSettingOptionSet;
 import com.softserve.edu.opencart.tests.TestContextAttributes;
-import com.softserve.edu.opencart.tools.ErrorUtils;
+import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
 import org.openqa.selenium.WebElement;
 import org.testng.ITestContext;
 

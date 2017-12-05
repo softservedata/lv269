@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.tools;
 
+import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
+
 import java.util.Arrays;
 import java.util.List;
 

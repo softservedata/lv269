@@ -4,7 +4,7 @@ import com.softserve.edu.opencart.data.ProductShort;
 import com.softserve.edu.opencart.data.sort.IAdminProductSort;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
-import com.softserve.edu.opencart.tools.ErrorUtils;
+import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 

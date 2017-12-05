@@ -5,7 +5,7 @@ import com.softserve.edu.opencart.data.pathnames.IStoreSettingOptionSet;
 import com.softserve.edu.opencart.data.pathnames.StoreSettingOptionSet;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tests.TestContextAttributes;
-import com.softserve.edu.opencart.tools.ErrorUtils;
+import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.ITestContext;

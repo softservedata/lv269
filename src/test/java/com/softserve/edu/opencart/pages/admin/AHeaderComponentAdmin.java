@@ -5,6 +5,7 @@ import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tests.TestContextAttributes;
 import com.softserve.edu.opencart.tools.*;
+import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
 import com.softserve.edu.opencart.tools.search.ISearch;
 
 import org.openqa.selenium.WebElement;

@@ -1,7 +1,7 @@
 package com.softserve.edu.opencart.data;
 
 import com.softserve.edu.opencart.pages.TagAttribute;
-import com.softserve.edu.opencart.tools.ErrorUtils;
+import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
 
 import java.util.HashMap;
 import java.util.Map;

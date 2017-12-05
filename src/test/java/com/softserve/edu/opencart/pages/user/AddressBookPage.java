@@ -1,7 +1,7 @@
 package com.softserve.edu.opencart.pages.user;
 
 import com.softserve.edu.opencart.data.users.IUser;
-import com.softserve.edu.opencart.tools.ErrorUtils;
+import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
