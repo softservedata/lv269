@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="AddressBook">
+    <test name="AddressBookEntriesTest">
+        <classes>
+
+            <class name="com.softserve.edu.opencart.tests.address.DefaultAddressBookTest">
+                <methods>
+                    <include name="checkDeleteDefoltAddress"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.opencart.tests.address.EditAddressTest">
+                <methods>
+                    <include name="checkEmptyField"/>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+</suite>
