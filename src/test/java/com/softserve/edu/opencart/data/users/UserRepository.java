@@ -65,7 +65,8 @@ public final class UserRepository {
 
     public IUser invalid() {
         // TODO
-        return null;
+        //return null;
+        return valid();
     }
 
     public List<IUser> fromCVSFile() {
