@@ -204,6 +204,7 @@
 					</systemPropertyVariables>
 					<suiteXmlFiles>
 						<suiteXmlFile>testng2.xml</suiteXmlFile>
+						<suiteXmlFile>testngShevchuk.xml</suiteXmlFile>
 					</suiteXmlFiles>
 					<reportsDirectory>${testng.reports.directory}</reportsDirectory>
 				</configuration>
