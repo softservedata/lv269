@@ -211,7 +211,7 @@ abstract class AHeaderComponent {
         private WebElement alertSuccessBody;
 
         public AlertSuccess() {
-             alertSuccessBody = search.className("alert alert-success");
+             alertSuccessBody = search.className("alert-success");
         }
 
         public WebElement getAlertSuccessBody() {
@@ -256,7 +256,7 @@ abstract class AHeaderComponent {
             return alertDangerBody;
         }
     }
-//---------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
 
     public void createAlertSuccess() {
         alertSuccess = new AlertSuccess();
@@ -301,9 +301,8 @@ abstract class AHeaderComponent {
     public boolean isPresentAlertWarning() {
         return search.cssSelectors(".alert.alert-warning").size() >= 1;
     }
-
     public boolean isPresentAlertSuccess() {
-        return search.classNames("alert alert-success").size() > 1;
+        return search.classNames("alert-success").size() > 1;
     }
 
 

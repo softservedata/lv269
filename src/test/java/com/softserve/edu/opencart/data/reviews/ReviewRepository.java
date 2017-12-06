@@ -24,7 +24,7 @@ public class ReviewRepository {
     public IReview validNameValidTextWithRating() {
         return Review.get().setName("Name")
                 .setText("Input valid review there.")
-                .setRating(2)
+                .setRating(0)
                 .build();
     }
 
@@ -60,7 +60,7 @@ public class ReviewRepository {
     public IReview validNameNotValidShortTextWithRating() {
         return Review.get().setName("Name")
                 .setText("Input is notValid review")
-                .setRating(5)
+                .setRating(4)
                 .build();
     }
 
@@ -74,7 +74,7 @@ public class ReviewRepository {
     public IReview validNameNotValidLongTextWithRating() {
         return Review.get().setName("Name")
                 .setText(type1000()+"1")
-                .setRating(2)
+                .setRating(0)
                 .build();
     }
 
@@ -117,7 +117,7 @@ public class ReviewRepository {
     public IReview validNameOnlySpaceForTextWithRating() {
         return Review.get().setName("Name")
                 .setText("                         ")
-                .setRating(2)
+                .setRating(1)
                 .build();
     }
 

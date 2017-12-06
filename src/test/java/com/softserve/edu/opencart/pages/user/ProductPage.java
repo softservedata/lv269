@@ -59,7 +59,7 @@ public class ProductPage extends ANavigatePanelComponent {
             nameField = search.id("input-name");
             textField = search.id("input-review");
             button = search.id("button-review");
-            rating = search.classNames("rating");
+            rating = search.names("rating");
             reviewsExist = search.cssSelectors(".table.table-striped.table-bordered");
         }
 
@@ -250,7 +250,7 @@ public class ProductPage extends ANavigatePanelComponent {
     }
 
     public void setReviewRating(Integer rating) {
-        getReview().getRating().get(rating-1).click();
+        getReview().getRating().get(rating).click();
     }
 
     public void clickReviewButton() {

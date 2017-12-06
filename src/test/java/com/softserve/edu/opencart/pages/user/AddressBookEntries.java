@@ -1,6 +1,6 @@
 package com.softserve.edu.opencart.pages.user;
 
-import com.softserve.edu.opencart.tools.ISearch;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
