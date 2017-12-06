@@ -9,15 +9,15 @@ import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.admin.ProductAdminPage;
 import com.softserve.edu.opencart.tests.TestContextAttributes;
+import com.softserve.edu.opencart.tests.TestRunnerPresent;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
-public class OpenProductAdminPageTest {
+public class OpenProductAdminPageTest extends TestRunnerPresent {
 
     @BeforeClass
     public void preparations(ITestContext context) {
-        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
         context.setAttribute(TestContextAttributes.PATHNAMES.toString(), PathNamesRepository.get()
                 .openProductAdminPagePathnames());
     }
@@ -37,6 +37,8 @@ public class OpenProductAdminPageTest {
     @Test(dataProvider = "OpenProductPageData")
     public void openProductAdminPageTest(ITestContext context,
                                          IExpectedStrings adminProductPageName) {
+        logger.info("Smoke test: open ProductAdminPage");
+        reporter.info("Smoke test: open ProductAdminPage");
         ProductAdminPage productAdminPage = Application.get()
                 .loginAdmin()
                 .validEnterAdminProfile(context, UserRepository.get().admin())
@@ -50,11 +52,6 @@ public class OpenProductAdminPageTest {
         if ((String) context.getAttribute(TestContextAttributes.TOKEN.toString()) != null) {
             Application.get().logoutAdmin(context);
         }
-    }
-
-    @AfterClass
-    public void quitWebdriver() {
-        Application.get().remove();
     }
 }
 

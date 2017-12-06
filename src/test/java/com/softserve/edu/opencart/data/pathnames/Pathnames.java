@@ -1,9 +1,12 @@
 package com.softserve.edu.opencart.data.pathnames;
 
+import com.softserve.edu.opencart.tools.exceptions.GeneralException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pathnames implements IPathnames {
+
+    private final String OBJECT_CANT_BE_COPIED = "%s object can't be copired";
 
     //TODO make protection from wrong input
 
@@ -50,6 +53,7 @@ public class Pathnames implements IPathnames {
         try {
             result = (Pathnames) super.clone();
         } catch (CloneNotSupportedException e) {
+            throw new GeneralException (String.format(OBJECT_CANT_BE_COPIED, this.getClass().getName()));
         }
         return result;
     }

@@ -11,19 +11,12 @@ import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.ProductPageUtils;
 import com.softserve.edu.opencart.pages.admin.ProductAdminPage;
 import com.softserve.edu.opencart.tests.TestContextAttributes;
+import com.softserve.edu.opencart.tests.TestRunnerPresent;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
-public class SortTest {
-
-    @BeforeClass
-    public void browserOpen(ITestContext context) {
-//        Application.get(ApplicationSourceRepository.get().firefoxPresentServer7());
-//        Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
-//        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
-        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
-    }
+public class SortTest extends TestRunnerPresent {
 
     @BeforeMethod
     public void setTestContextNull(ITestContext context) {
@@ -53,6 +46,10 @@ public class SortTest {
     @Test(dataProvider = "SortData")
     public void sortProductAdminTest(ITestContext context,
                                      IAdminProductSort adminProductSort) {
+        logger.info(String.format("Sort ProductsAdminPage by %s in %s order", adminProductSort.getColumnName(),
+                adminProductSort.getSortOrder()));
+        reporter.info(String.format("Sort ProductsAdminPage by %s in %s order", adminProductSort.getColumnName(),
+                adminProductSort.getSortOrder()));
         ProductAdminPage productAdminPage = Application.get().loginAdmin()
                 .validEnterAdminProfile(context, UserRepository.get().admin())
                 .openSettingAdminPage(context)
@@ -79,10 +76,5 @@ public class SortTest {
             }
             Application.get().logoutAdmin(context);
         }
-    }
-
-    @AfterClass
-    public void quitWebdriver() {
-        Application.get().remove();
     }
 }

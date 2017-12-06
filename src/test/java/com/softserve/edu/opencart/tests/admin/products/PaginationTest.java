@@ -10,18 +10,15 @@ import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.admin.ProductAdminPage;
 import com.softserve.edu.opencart.tests.TestContextAttributes;
+import com.softserve.edu.opencart.tests.TestRunnerPresent;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
-public class PaginationTest {
+public class PaginationTest extends TestRunnerPresent {
 
     @BeforeClass
     public void browserOpen(ITestContext context) {
-//        Application.get(ApplicationSourceRepository.get().firefoxPresentServer7());
-//        Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
-//        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
-        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
         context.setAttribute(TestContextAttributes.PATHNAMES.toString(), PathNamesRepository.get().paginationPathnames());
     }
 
@@ -47,6 +44,10 @@ public class PaginationTest {
     @Test(dataProvider = "PaginationItemsPerPage")
     public void paginationPageNumbersTest(ITestContext context,
                                           IPagination paginationData) {
+        logger.info(String.format("Pagination test with %s items(s) per page",
+                String.valueOf(paginationData.getItemsPerPageNumber())));
+        reporter.info(String.format("Pagination test with %s items(s) per page",
+                String.valueOf(paginationData.getItemsPerPageNumber())));
         ProductAdminPage productAdminPage = Application.get().loginAdmin()
                 .validEnterAdminProfile(context, UserRepository.get().admin())
                 .openSettingAdminPage(context)
@@ -79,10 +80,5 @@ public class PaginationTest {
             }
             Application.get().logoutAdmin(context);
         }
-    }
-
-    @AfterClass
-    public void quitWebdriver() {
-        Application.get().remove();
     }
 }

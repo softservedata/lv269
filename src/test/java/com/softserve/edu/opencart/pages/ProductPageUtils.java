@@ -71,4 +71,9 @@ public class ProductPageUtils {
         return result;
     }
 
+    public boolean filterProductListandCompare (IAdminProductSort sort, List<ProductShort> fromPagesProductsList) {
+        return false;
+    }
+
+
 }

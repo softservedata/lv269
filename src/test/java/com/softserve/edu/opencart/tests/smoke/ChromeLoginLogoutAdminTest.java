@@ -11,6 +11,7 @@ import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.admin.DashboardAdmin;
 import com.softserve.edu.opencart.pages.admin.WrongLoginAdminPage;
 import com.softserve.edu.opencart.tests.TestContextAttributes;
+import com.softserve.edu.opencart.tests.TestRunnerPresent;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -20,12 +21,7 @@ import org.testng.annotations.*;
  * This class checks login (using buttons and Enter) and logoutAdmin
  * process on Chrome.
  */
-public class ChromeLoginLogoutAdminTest {
-
-    @BeforeClass
-    public void fileWriter() {
-        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
-    }
+public class ChromeLoginLogoutAdminTest extends TestRunnerPresent {
 
     @DataProvider(name = "ValidAdminData")
     public Object[][] ValidData() {
@@ -42,6 +38,8 @@ public class ChromeLoginLogoutAdminTest {
 
     @Test(dataProvider = "ValidAdminData")
     public void LoginValidTest(ITestContext context, IUser validUser, IExpectedStrings dashBoardPageName) {
+		        logger.info("Login to the AdminPRofile with valid Data");
+        reporter.info("Login to the AdminPRofile with valid Data");
         DashboardAdmin dashboardAdmin = Application.get().loginAdmin()
                 .validEnterAdminProfile(context, validUser);
         Assert.assertEquals(dashboardAdmin.getCurrentPageNameText().toLowerCase(),
@@ -51,11 +49,15 @@ public class ChromeLoginLogoutAdminTest {
 
     @Test(dataProvider = "InvalidAdminData")
     public void LoginInvalidTest(IUser invalidUser, IExpectedStrings wrongLoginAdminMessage) {
+		logger.info("Smoke test: Login to the AdminProfile with invalid Data");
+        reporter.display("Smoke test: Login to the AdminProfile with invalid Data");
         WrongLoginAdminPage wrongLoginAdminPage = Application.get().loginAdmin()
                 .invalidEnterAdminProfile(invalidUser);
         Assert.assertEquals(wrongLoginAdminPage.getWrongLoginMessageText().toLowerCase(),
                 wrongLoginAdminMessage.getExpectedString().toLowerCase(),
                 ErrorMessages.WRONG_LOGIN_ADMIN_INVALID.toString());
+		logger.info("Smoke test: Login to the AdminProfile done");
+        reporter.display("Smoke test: Login to the AdminProfile done");
     }
 
     @AfterMethod
@@ -64,10 +66,4 @@ public class ChromeLoginLogoutAdminTest {
             Application.get().logoutAdmin(context);
         }
     }
-
-    @AfterClass
-    public void quitWebdriver() {
-        Application.get().remove();
-    }
-
 }
