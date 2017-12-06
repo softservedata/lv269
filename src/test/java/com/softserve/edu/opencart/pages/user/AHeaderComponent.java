@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.pages.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.softserve.edu.opencart.data.products.IProduct;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -552,6 +553,10 @@ abstract class AHeaderComponent {
          getProductComponentByProductName(productName).clickAddToWish();
      }
 
+    protected void clickNameByProductName(String productName) {
+        getProductComponentByProductName(productName).clickName();
+    }
+
      // set Functional
 
      private void createDropdownOptions(By searchLocator, By lastLocator) {
@@ -698,6 +703,11 @@ abstract class AHeaderComponent {
         clickMenuTopByPartialName(categoryName, optionName);
         //return new SubCategoryProductsPage(driver);
         return new SubCategoryProductsPage();
+    }
+
+    public ProductPage goToProductPage(IProduct product) {
+        clickNameByProductName(product.getName());
+        return new ProductPage();
     }
 
 }
