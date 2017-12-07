@@ -27,7 +27,8 @@ public abstract class TestRunner {
         //System.out.println("@BeforeClass");
         //
         //Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
-        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7WithoutUIWindows());
+        //Application.get(ApplicationSourceRepository.get().chromeImplicitServer7WithoutUIWindows());
+        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7WithoutUILinux());
         //Application.get(ApplicationSourceRepository.get().phantomJSImplicitServer7Windows());
         //Application.get(ApplicationSourceRepository.get().chromeVisibleServer7());
         //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());

@@ -11,23 +11,24 @@
 	<test verbose="5" name="Test1">
 		<parameter name="number" value="2" />
 		<classes>
-			<class name="com.softserve.edu.AppTest">
-				<methods>
-					<include name="testApp2" />
-					<include name="testApp3" />
-				</methods>
-			</class>
+<!-- 			<class name="com.softserve.edu.AppTest"> -->
+<!-- 				<methods> -->
+<!-- 					<include name="testApp2" /> -->
+<!-- 					<include name="testApp3" /> -->
+<!-- 				</methods> -->
+<!-- 			</class> -->
+
 <!-- 			<class name="com.softserve.edu.SelenRes"> -->
 <!-- 				<methods> -->
 <!-- 					<include name="testSelenIde" /> -->
 <!-- 				</methods> -->
 <!-- 			</class> -->
 
-<!-- 			<class name="com.softserve.edu.opencart.tests.smoke.HomeTest"> -->
-<!-- 				<methods> -->
-<!-- 					<include name="checkProduct" /> -->
-<!-- 				</methods> -->
-<!-- 			</class> -->
+			<class name="com.softserve.edu.opencart.tests.smoke.HomeTest">
+				<methods>
+					<include name="checkProduct" />
+				</methods>
+			</class>
 		</classes>
 	</test> <!-- Test -->
 
