@@ -7,7 +7,9 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 
@@ -33,12 +35,38 @@ public class BrowserWrapper {
         }
     }
 
+    private static class ChromeWithoutUI implements IBrowser {
+        public WebDriver getBrowser(IApplicationSource applicationSource) {
+            System.setProperty("webdriver.chrome.driver",
+                    applicationSource.getDriverPath());
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless");
+            WebDriver driver = new ChromeDriver(options);
+            driver.manage().window().maximize();
+            System.out.println("\t\t\t*** ChromeWithoutUI: new ChromeDriver(options)");
+            return driver;
+        }
+    }
+
+    private static class PhantomJS implements IBrowser {
+        public WebDriver getBrowser(IApplicationSource applicationSource) {
+            System.setProperty("phantomjs.binary.path",
+                    applicationSource.getDriverPath());
+            //System.out.println("\t\t\t*** PhantomJS: new PhantomJSDriver()");
+            WebDriver driver = new PhantomJSDriver();
+            driver.manage().window().maximize();
+            return driver;
+        }
+    }
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     public static enum Browsers {
         DEFAULT_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         FIREFOX5X_TEMPORARY("FireFox5xTemporary", new Firefox5xTemporary()),
-        CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary());
+        CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
+        CHROME_WITHOUTUI("ChromeWithoutUI", new ChromeWithoutUI()),
+        PHANTOM_JS("PhantomJS", new PhantomJS());
         //
         private String browserName;
         private IBrowser browser;
