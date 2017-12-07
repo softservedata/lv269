@@ -206,6 +206,7 @@
 						<suiteXmlFile>testng2.xml</suiteXmlFile>
 						<suiteXmlFile>testngShevchuk.xml</suiteXmlFile>
 						<suiteXmlFile>testngAddress.xml</suiteXmlFile>
+						<suiteXmlFile>productPageReviews</suiteXmlFile>
 					</suiteXmlFiles>
 					<reportsDirectory>${testng.reports.directory}</reportsDirectory>
 				</configuration>
