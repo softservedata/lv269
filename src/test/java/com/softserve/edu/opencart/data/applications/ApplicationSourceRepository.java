@@ -81,7 +81,7 @@ public class ApplicationSourceRepository {
         //        .getResource("/lib/geckodriver.exe").getPath());
         System.out.println("\t*** Path = " + chromeDriverPathLinux());
         return new ApplicationSource("ChromeWithoutUI", chromeDriverPathLinux(),
-                10L, 30L, 10L, 5L,
+                40L, 40L, 40L, 10L,
                 "Implicit", true,
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
