@@ -43,8 +43,9 @@ public class ApplicationSourceRepository {
     }
 
     public String chromeDriverPathLinux() {
-        return ApplicationSourceRepository.class
-                .getResource("/lib/chromedriver").getPath();
+        //return ApplicationSourceRepository.class
+        //        .getResource("/lib/chromedriver").getPath();
+        return "/var/lib/jenkins/workspace/chromedriver";
     }
 
     public IApplicationSource chromeImplicitServer7() {
