@@ -48,6 +48,12 @@ public class ApplicationSourceRepository {
         return "/var/lib/jenkins/workspace/chromedriver";
     }
 
+    public String chromeDriver215PathLinux() {
+        //return ApplicationSourceRepository.class
+        //        .getResource("/lib/chromedriver").getPath();
+        return "/var/lib/jenkins/workspace/chromedriver215";
+    }
+
     public IApplicationSource chromeImplicitServer7() {
         //System.out.println("Full Path = " + ApplicationSourceRepository.class
         //        .getResource("/lib/geckodriver.exe").getPath());
@@ -81,6 +87,20 @@ public class ApplicationSourceRepository {
         //        .getResource("/lib/geckodriver.exe").getPath());
         System.out.println("\t*** Path = " + chromeDriverPathLinux());
         return new ApplicationSource("ChromeWithoutUI", chromeDriverPathLinux(),
+                40L, 40L, 40L, 10L,
+                "Implicit", true,
+                "http://server7.pp.ua",
+                "http://server7.pp.ua/index.php?route=account/login",
+                "http://server7.pp.ua/index.php?route=account/logout",
+                "http://server7.pp.ua/admin/",
+                "http://server7.pp.ua/admin/index.php?route=common/logout");
+    }
+
+    public IApplicationSource chromeImplicitServer7WithoutUILinux215() {
+        //System.out.println("Full Path = " + ApplicationSourceRepository.class
+        //        .getResource("/lib/geckodriver.exe").getPath());
+        System.out.println("\t*** Path = " + chromeDriverPathLinux());
+        return new ApplicationSource("ChromeWithoutUI", chromeDriver215PathLinux(),
                 40L, 40L, 40L, 10L,
                 "Implicit", true,
                 "http://server7.pp.ua",

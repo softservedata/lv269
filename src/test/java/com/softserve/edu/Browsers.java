@@ -380,7 +380,7 @@ public class Browsers {
     }
 
 	// Use Selenium 2.52; Must be fixed for 3.x.x
-	//@Test
+	@Test
 	public void testHtmlUnit() throws Exception {
 		//WebDriver driver = new FirefoxDriver();
 		WebDriver driver = new HtmlUnitDriver(true);
@@ -460,7 +460,7 @@ public class Browsers {
 		driver.quit();
 	}
 
-	@BeforeClass
+	//@BeforeClass
 	public void createService() throws Exception {
 		service = new ChromeDriverService.Builder()
 				.usingDriverExecutable(new File("./lib/chromedriver.exe"))
@@ -470,7 +470,7 @@ public class Browsers {
 		System.out.println("\t+++Service Start");
 	}
 
-	@Test
+	//@Test
 	public void testRemout() throws Exception {
 		//
 		ChromeOptions options = new ChromeOptions();
@@ -502,7 +502,7 @@ public class Browsers {
 		System.out.println("\t+++driver.quit()");
 	}
 
-	@AfterClass
+	//@AfterClass
 	public void StopService() {
 		if (service != null) {
 			service.stop();
