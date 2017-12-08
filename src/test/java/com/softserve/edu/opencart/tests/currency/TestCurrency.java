@@ -15,8 +15,6 @@ import com.softserve.edu.opencart.tests.CurrencyTestRunner;
  * @author Yurii Ivanytskyi
  */
 public class TestCurrency extends CurrencyTestRunner{
-	
-	private final String PRICES_NOT_EQUALS = "Prices not equals:";
 
     @DataProvider
     public Object[][] currencyData() {
@@ -28,13 +26,16 @@ public class TestCurrency extends CurrencyTestRunner{
 
     @Test(dataProvider = "currencyData")
     public void checkChangeCurrencyByPrice(IDetailCategory detailCurency, Product product) {
-    	logger.info(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
-        reporter.display(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getCategoryName(), product.getName()));
+    	logger.info(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getOptionName(), product.getName()));
+        reporter.display(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getOptionName(), product.getName()));
         
+        reporter.debug(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getOptionName(), product.getName()));
         Assert.assertEquals(Application.get()
         		.loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceAmountByProduct(product), 
                 product.getPrices().get(detailCurency.getOptionName()).getValue(), 0.001, PRICES_NOT_EQUALS);
+        
+        reporter.debug(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getOptionName(), product.getName()));
         Assert.assertEquals(Application.get()
         		.loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceSymbolByProduct(product), 

@@ -203,7 +203,7 @@
 						</selenium-version>
 					</systemPropertyVariables>
 					<suiteXmlFiles>
-						<suiteXmlFile>testng2.xml</suiteXmlFile>
+						<suiteXmlFile>testngCurrency.xml</suiteXmlFile>
 						<suiteXmlFile>testngShevchuk.xml</suiteXmlFile>
 						<suiteXmlFile>testngAddress.xml</suiteXmlFile>
 						<suiteXmlFile>productPageReviews.xml</suiteXmlFile>
