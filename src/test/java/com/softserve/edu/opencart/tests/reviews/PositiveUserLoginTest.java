@@ -22,6 +22,9 @@ public class PositiveUserLoginTest extends ALoginForTest {
 
     @Test(dataProvider = "productData")
     public void testValidFields(IProduct product, IReview myReview) {
+        logger.info("Check valid fields when user is login");
+        reporter.info("Check valid fields when user is login");
+
         Application.get().loadHomePage().goToProductPage(product)
                 .validReviewFields(myReview);
     }

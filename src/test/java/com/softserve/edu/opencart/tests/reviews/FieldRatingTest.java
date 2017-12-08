@@ -23,11 +23,17 @@ public class FieldRatingTest extends ALoginForTest {
 
     @Test(dataProvider = "ratingData")
     public void testOnlyRatingData(IProduct product, IReview myReview) {
+        logger.info(String.format("Check field for %s", product.getName()));
+        reporter.info(String.format("Check field for %s", product.getName()));
+
         Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview);
     }
 
     @Test(dataProvider = "ratingData")
     public void testValidDataWithOutRating(IProduct product, IReview myReview) {
+        logger.info(String.format("Check field for %s", product.getName()));
+        reporter.info(String.format("Check field for %s", product.getName()));
+
         Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview);
     }
 

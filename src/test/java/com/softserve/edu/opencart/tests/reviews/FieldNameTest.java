@@ -34,11 +34,21 @@ public class FieldNameTest extends ALoginForTest {
 
     @Test(dataProvider = "notValidNameData")
     public void testNotValidData(IProduct product, IReview myReview) {
+        logger.info(String.format("Check field for %s using valid data: \"%s\"", product.getName(),
+                myReview.getName()));
+        reporter.info(String.format("Check field for %s using valid data: \"%s\"", product.getName(),
+                myReview.getName()));
+
         Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview);
     }
 
     @Test(dataProvider = "validNameData")
     public void testValidData(IProduct product, IReview myReview) {
+        logger.info(String.format("Check field for %s using not valid data: \"%s\"", product.getName(),
+                myReview.getName()));
+        reporter.info(String.format("Check field for %s using not valid data: \"%s\"", product.getName(),
+                myReview.getName()));
+
         Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview);
     }
 

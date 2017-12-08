@@ -4,19 +4,15 @@ import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.ProductPage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import com.softserve.edu.opencart.tests.TestRunner;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Serhiienko.
  */
-public class ProductPageTest {
+public class ProductPageTest extends TestRunner {
 
     @BeforeClass
     public static void precondition() {
@@ -32,6 +28,8 @@ public class ProductPageTest {
 
     @Test
     public void testCheckProductPage() {
+        logger.info("Check ProductPage.");
+        reporter.info("Check ProductPage.");
 
         ProductPage productPage = Application.get().loadHomePage()
                 .goToProductPage(ProductRepository.get().macBook())

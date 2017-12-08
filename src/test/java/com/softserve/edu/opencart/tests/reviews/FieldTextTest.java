@@ -33,11 +33,21 @@ public class FieldTextTest extends ALoginForTest {
 
     @Test(dataProvider = "notValidTextData")
     public void testNotValidData(IProduct product, IReview myReview) {
+        logger.info(String.format("Check field for %s using not valid data: \"%s\"", product.getName(),
+                myReview.getText()));
+        reporter.info(String.format("Check field for %s using not valid data: \"%s\"", product.getName(),
+                myReview.getText()));
+
         Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview);
     }
 
     @Test(dataProvider = "validTextData")
     public void testValidData(IProduct product, IReview myReview) {
+        logger.info(String.format("Check field for %s using valid data: \"%s\"", product.getName(),
+                myReview.getText()));
+        reporter.info(String.format("Check field for %s using valid data: \"%s\"", product.getName(),
+                myReview.getText()));
+
         Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview);
     }
 
