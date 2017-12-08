@@ -15,11 +15,15 @@ public class TestCurrencySmoke extends TestRunner{
 	
 	@Test
 	public void enableCurrencyTest() {
+		logger.info(String.format("Started enableCurrencyTest()"));
+        reporter.display(String.format("Started enableCurrencyTest()"));
 		Assert.assertTrue(Application.get().loadHomePage().getCurrency().isEnabled(), ASSERT_MESSAGE);
 	}
 	
 	@Test
 	public void enableCurrencyOptionsTest() {
+		logger.info(String.format("Started enableCurrencyOptionsTest()"));
+        reporter.display(String.format("Started enableCurrencyOptionsTest()"));
 		Assert.assertTrue(!Application.get().loadHomePage().getCurrencyOptions().isEmpty(), ASSERT_MESSAGE);
 	}
 	
