@@ -1,7 +1,6 @@
 package com.softserve.edu.opencart.tests.admin.products;
 
 import com.softserve.edu.opencart.data.ErrorMessages;
-import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.pagination.IPagination;
 import com.softserve.edu.opencart.data.pagination.PaginationRepository;
 import com.softserve.edu.opencart.data.pathnames.PathNamesRepository;
@@ -46,7 +45,7 @@ public class PaginationTest extends TestRunnerPresent {
                                           IPagination paginationData) {
         logger.info(String.format("Pagination test with %s items(s) per page",
                 String.valueOf(paginationData.getItemsPerPageNumber())));
-        reporter.info(String.format("Pagination test with %s items(s) per page",
+        reporter.display(String.format("Pagination test with %s items(s) per page",
                 String.valueOf(paginationData.getItemsPerPageNumber())));
         ProductAdminPage productAdminPage = Application.get().loginAdmin()
                 .validEnterAdminProfile(context, UserRepository.get().admin())
