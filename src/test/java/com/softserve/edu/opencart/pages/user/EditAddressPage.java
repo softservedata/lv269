@@ -1,10 +1,8 @@
 package com.softserve.edu.opencart.pages.user;
 
 import com.softserve.edu.opencart.data.users.IUser;
-import com.softserve.edu.opencart.data.users.User;
-import com.softserve.edu.opencart.pages.GeneralLocators;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.tools.Operations;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -22,9 +20,11 @@ public class EditAddressPage extends AddressBookPage {
     private Select fieldRegion;
     private WebElement continueButton;
     private WebElement backButton;
+    private Operations operations;
 
     public EditAddressPage() {
         super();
+        //this.operations = Application.get().operations();
         fieldFirstName = search.id("input-firstname");
         fieldLastName = search.id("input-lastname");
         fieldFirstAddress = search.id("input-address-1");
@@ -134,10 +134,12 @@ public class EditAddressPage extends AddressBookPage {
 
     public void selectFieldCountry(String text) {
         getFieldCountry().selectByVisibleText(text);
+        //operations.selectByVisibleText(getFieldCountry(), text);
     }
 
     public void selectFieldRegion(String text) {
-        getFieldRegion().selectByVisibleText(text);
+       getFieldRegion().selectByVisibleText(text);
+        //operations.selectByVisibleText(getFieldRegion(), text);
     }
 
     public void clearFieldFirstName() {

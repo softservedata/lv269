@@ -26,7 +26,8 @@ public abstract class TestRunner {
         logger.info("@BeforeClass for " + this.getClass().getName());
         //System.out.println("@BeforeClass");
         //
-        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
+//        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7());
+        Application.get(ApplicationSourceRepository.get().chromeImplicitServer7WithoutUIWindows());
         //Application.get(ApplicationSourceRepository.get().chromeVisibleServer7());
         //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
         //
