@@ -8,6 +8,8 @@ import com.softserve.edu.opencart.pages.Application;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static com.softserve.edu.opencart.tests.TestContextAttributes.REVIEW_FIELD_MESSAGE;
+
 /**
  * Created by Serhiienko.
  */
@@ -22,8 +24,10 @@ public class PositiveUserLoginTest extends ALoginForTest {
 
     @Test(dataProvider = "productData")
     public void testValidFields(IProduct product, IReview myReview) {
-        logger.info("Check valid fields when user is login");
-        reporter.info("Check valid fields when user is login");
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
 
         Application.get().loadHomePage().goToProductPage(product)
                 .validReviewFields(myReview);

@@ -10,4 +10,6 @@ public interface IReview {
     String getText();
 
     Integer getRating();
+
+    String getCriterion();
 }

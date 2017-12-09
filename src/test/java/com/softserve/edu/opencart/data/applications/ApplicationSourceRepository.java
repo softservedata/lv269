@@ -136,4 +136,23 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/admin/index.php?route=common/logout");
     }
 
+    public String phantomJSDriverPathWindows() {
+        return ApplicationSourceRepository.class
+                .getResource("/lib/phantomjs.exe").getPath().substring(1);
+    }
+
+    public IApplicationSource phantomJSImplicitServer7Windows() {
+        //System.out.println("Full Path = " + ApplicationSourceRepository.class
+        //        .getResource("/lib/geckodriver.exe").getPath());
+        //System.out.println("Path = " + chromeDriverPath());
+        return new ApplicationSource("phantomJS", phantomJSDriverPathWindows(),
+                10L, 30L, 10L, 5L,
+                "Implicit", true,
+                "http://server7.pp.ua",
+                "http://server7.pp.ua/index.php?route=account/login",
+                "http://server7.pp.ua/index.php?route=account/logout",
+                "http://server7.pp.ua/admin/",
+                "http://server7.pp.ua/admin/index.php?route=common/logout");
+    }
+
 }

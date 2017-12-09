@@ -10,6 +10,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static com.softserve.edu.opencart.tests.TestContextAttributes.REVIEW_FIELD_MESSAGE;
+
 public class NegativeUserLogoutTest extends TestRunner {
 
 
@@ -27,6 +29,11 @@ public class NegativeUserLogoutTest extends TestRunner {
 
     @Test(dataProvider = "productData")
     public void testValidFields(IProduct product, IReview myReview) {
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
+
         Application.get().loadHomePage().goToProductPage(product)
                 .validReviewFieldsUserLogOut(myReview);
     }

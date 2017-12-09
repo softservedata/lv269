@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 public class BrowserWrapper {
 
@@ -34,12 +35,24 @@ public class BrowserWrapper {
         }
     }
 
+    private static class PhantomJS implements IBrowser {
+        public WebDriver getBrowser(IApplicationSource applicationSource) {
+            System.setProperty("phantomjs.binary.path",
+                    applicationSource.getDriverPath());
+            //System.out.println("\t\t\t*** PhantomJS: new PhantomJSDriver()");
+            WebDriver driver = new PhantomJSDriver();
+            driver.manage().window().maximize();
+            return driver;
+        }
+    }
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     public static enum Browsers {
         DEFAULT_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         FIREFOX5X_TEMPORARY("FireFox5xTemporary", new Firefox5xTemporary()),
-        CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary());
+        CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
+        PHANTOM_JS("PhantomJS", new PhantomJS());
         //
         private String browserName;
         private IBrowser browser;

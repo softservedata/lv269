@@ -8,6 +8,9 @@ import com.softserve.edu.opencart.pages.Application;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static com.softserve.edu.opencart.tests.TestContextAttributes.REVIEW_FIELD_MESSAGE;
+
+
 /**
  * Created by Serhiienko.
  */
@@ -23,16 +26,20 @@ public class FieldRatingTest extends ALoginForTest {
 
     @Test(dataProvider = "ratingData")
     public void testOnlyRatingData(IProduct product, IReview myReview) {
-        logger.info(String.format("Check field for %s", product.getName()));
-        reporter.info(String.format("Check field for %s", product.getName()));
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
 
         Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview);
     }
 
     @Test(dataProvider = "ratingData")
     public void testValidDataWithOutRating(IProduct product, IReview myReview) {
-        logger.info(String.format("Check field for %s", product.getName()));
-        reporter.info(String.format("Check field for %s", product.getName()));
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
 
         Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview);
     }

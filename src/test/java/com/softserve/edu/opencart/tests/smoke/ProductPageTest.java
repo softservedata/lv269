@@ -5,6 +5,7 @@ import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.ProductPage;
 import com.softserve.edu.opencart.tests.TestRunner;
+import com.softserve.edu.opencart.tests.TestRunnerPhantomJS;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -12,18 +13,17 @@ import org.testng.annotations.Test;
 /**
  * Created by Serhiienko.
  */
-public class ProductPageTest extends TestRunner {
+public class ProductPageTest extends TestRunnerPhantomJS {
 
     @BeforeClass
-    public static void precondition() {
-        Application.get().login().loginForLoginPageToMyAccountPage(UserRepository.get().valid().getEmail(),
+    public void precondition() {
+        appl.login().loginForLoginPageToMyAccountPage(UserRepository.get().valid().getEmail(),
                 UserRepository.get().valid().getPassword());
     }
 
     @AfterClass
-    public static void logOut() {
-        Application.get().logout();
-        Application.remove();
+    public void logOut() {
+        appl.logout();
     }
 
     @Test
@@ -31,7 +31,7 @@ public class ProductPageTest extends TestRunner {
         logger.info("Check ProductPage.");
         reporter.info("Check ProductPage.");
 
-        ProductPage productPage = Application.get().loadHomePage()
+        ProductPage productPage = appl.loadHomePage()
                 .goToProductPage(ProductRepository.get().macBook())
                 .checkClickToAddToCart().checkClickToAddToWish();
 
@@ -54,7 +54,6 @@ public class ProductPageTest extends TestRunner {
 
         productPage.clickSpecification();
         productPage.clickDescription();
-
 
     }
 }

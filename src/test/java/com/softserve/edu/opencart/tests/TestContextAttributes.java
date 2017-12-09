@@ -5,7 +5,8 @@ public enum TestContextAttributes {
     PATHNAMES("Pathnnames"),
     DEFAULT_SETTING_OPTIONS_LIST ("DefaultSettingOptionsList"),
     TOKEN ("Token"),
-    PRODUCT_ADMIN_PAGE("ProductAdminPage");
+    PRODUCT_ADMIN_PAGE("ProductAdminPage"),
+    REVIEW_FIELD_MESSAGE("Check field for %s using: %s");
     //
     private String field;
 

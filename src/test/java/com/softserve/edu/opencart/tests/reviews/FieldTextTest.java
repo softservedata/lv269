@@ -8,6 +8,8 @@ import com.softserve.edu.opencart.pages.Application;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static com.softserve.edu.opencart.tests.TestContextAttributes.REVIEW_FIELD_MESSAGE;
+
 /**
  * Created by Serhiienko.
  */
@@ -33,20 +35,20 @@ public class FieldTextTest extends ALoginForTest {
 
     @Test(dataProvider = "notValidTextData")
     public void testNotValidData(IProduct product, IReview myReview) {
-        logger.info(String.format("Check field for %s using not valid data: \"%s\"", product.getName(),
-                myReview.getText()));
-        reporter.info(String.format("Check field for %s using not valid data: \"%s\"", product.getName(),
-                myReview.getText()));
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
 
         Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview);
     }
 
     @Test(dataProvider = "validTextData")
     public void testValidData(IProduct product, IReview myReview) {
-        logger.info(String.format("Check field for %s using valid data: \"%s\"", product.getName(),
-                myReview.getText()));
-        reporter.info(String.format("Check field for %s using valid data: \"%s\"", product.getName(),
-                myReview.getText()));
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
+        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion()));
 
         Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview);
     }
