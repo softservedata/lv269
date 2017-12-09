@@ -17,13 +17,13 @@ public class ProductPageTest extends TestRunnerPhantomJS {
 
     @BeforeClass
     public void precondition() {
-        appl.login().loginForLoginPageToMyAccountPage(UserRepository.get().valid().getEmail(),
+        Application.get().login().loginForLoginPageToMyAccountPage(UserRepository.get().valid().getEmail(),
                 UserRepository.get().valid().getPassword());
     }
 
     @AfterClass
     public void logOut() {
-        appl.logout();
+        Application.get().logout();
     }
 
     @Test
@@ -31,7 +31,7 @@ public class ProductPageTest extends TestRunnerPhantomJS {
         logger.info("Check ProductPage.");
         reporter.info("Check ProductPage.");
 
-        ProductPage productPage = appl.loadHomePage()
+        ProductPage productPage = Application.get().loadHomePage()
                 .goToProductPage(ProductRepository.get().macBook())
                 .checkClickToAddToCart().checkClickToAddToWish();
 
