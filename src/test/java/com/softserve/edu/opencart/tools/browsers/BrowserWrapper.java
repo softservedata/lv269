@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.io.File;
@@ -24,6 +25,16 @@ public class BrowserWrapper {
             System.setProperty("webdriver.gecko.driver",
                     applicationSource.getDriverPath());
             return new FirefoxDriver();
+        }
+    }
+
+    private static class FirefoxWithoutUI implements IBrowser {
+        public WebDriver getBrowser(IApplicationSource applicationSource) {
+            System.setProperty("webdriver.gecko.driver",
+                    applicationSource.getDriverPath());
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--headless");
+            return new FirefoxDriver(options);
         }
     }
 
@@ -64,8 +75,10 @@ public class BrowserWrapper {
     public static enum Browsers {
         DEFAULT_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         FIREFOX5X_TEMPORARY("FireFox5xTemporary", new Firefox5xTemporary()),
+        FIREFOX5X_WITHOUTUI("FireFox5xWithoutUI", new FirefoxWithoutUI()),
         CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         CHROME_WITHOUTUI("ChromeWithoutUI", new ChromeWithoutUI()),
+
         PHANTOM_JS("PhantomJS", new PhantomJS());
         //
         private String browserName;

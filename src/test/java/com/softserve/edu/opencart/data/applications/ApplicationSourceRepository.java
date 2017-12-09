@@ -125,6 +125,19 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/admin/",
                 "http://server7.pp.ua/admin/index.php?route=common/logout");
     }
+    public IApplicationSource firefoxImplicitServer7WithoutUIWindows() {
+        System.out.println("Full Path = " + ApplicationSourceRepository.class
+                .getResource("/lib/geckodriver.exe").getPath());
+        //System.out.println("Path = " + chromeDriverPathWindows());
+        return new ApplicationSource("FireFox5xWithoutUI", geckoDriverPath(),
+                10L, 30L, 10L, 5L,
+                "Implicit", true,
+                "http://server7.pp.ua",
+                "http://server7.pp.ua/index.php?route=account/login",
+                "http://server7.pp.ua/index.php?route=account/logout",
+                "http://server7.pp.ua/admin/",
+                "http://server7.pp.ua/admin/index.php?route=common/logout");
+    }
     
     public IApplicationSource firefoxImplicitServer7x32() {
         /*System.out.println("Full Path = " + ApplicationSourceRepository.class

@@ -7,10 +7,11 @@ import com.softserve.edu.opencart.pages.AlertsText;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.AddressBookPage;
 import com.softserve.edu.opencart.tests.TestRunner;
+import com.softserve.edu.opencart.tests.TestRunnerFireFox;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-public class DefaultAddressBookTest extends TestRunner {
+public class DefaultAddressBookTest extends TestRunnerFireFox {
 
     @DataProvider(name = "addressPage")
     public Object[][] defaultUser() {

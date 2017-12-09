@@ -6,13 +6,14 @@ import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.EditAddressPage;
 import com.softserve.edu.opencart.tests.TestRunner;
+import com.softserve.edu.opencart.tests.TestRunnerFireFox;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.util.Iterator;
 import java.util.List;
 
-public class EditAddressTest extends TestRunner {
+public class EditAddressTest extends TestRunnerFireFox {
 
 
     @AfterMethod
