@@ -51,13 +51,7 @@ public class Operations {
         boolean flag = false;
         int selectedValueNumber = -1;
         for (WebElement current : selectElement.getOptions()) {
-            System.out.println(current.getText());
-            String temp1 = current.getText().toLowerCase();
-            String temp2 = valueText.toLowerCase();
-            System.out.println(temp1);
-            System.out.println(temp2);
-            if (temp1.contains(temp2)) {
-//            if (current.getText().toLowerCase().contains(valueText.toLowerCase())) {
+           if (current.getText().toLowerCase().contains(valueText.toLowerCase())) {
                 valueText = current.getText();
                 flag = true;
                 break;
