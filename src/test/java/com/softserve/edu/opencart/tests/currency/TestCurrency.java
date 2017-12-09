@@ -11,12 +11,14 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static com.softserve.edu.opencart.tests.TestContextAttributes.STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE;
+import static com.softserve.edu.opencart.tests.TestContextAttributes.PRICES_NOT_EQUALS;
+import static com.softserve.edu.opencart.tests.TestContextAttributes.SYMBOLS_NOT_EQUALS;;
+
 /**
  * @author Yurii Ivanytskyi
  */
 public class TestCurrency extends TestRunner{
-
-    protected final String PRICES_NOT_EQUALS = "Prices not equals:";
 
     @BeforeClass
     public void setCurrency () {
@@ -33,19 +35,19 @@ public class TestCurrency extends TestRunner{
 
     @Test(dataProvider = "currencyData")
     public void checkChangeCurrencyByPrice(IDetailCategory detailCurency, Product product) {
-    	logger.info(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getOptionName(), product.getName()));
-        reporter.display(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getOptionName(), product.getName()));
+    	logger.info(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));
+        reporter.display(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));
         
-        reporter.debug(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getOptionName(), product.getName()));
+        reporter.debug(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));
         Assert.assertEquals(Application.get()
         		.loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceAmountByProduct(product), 
-                product.getPrices().get(detailCurency.getOptionName()).getValue(), 0.001, PRICES_NOT_EQUALS);
+                product.getPrices().get(detailCurency.getOptionName()).getValue(), 0.001, PRICES_NOT_EQUALS.toString());
         
-        reporter.debug(String.format("Started checkProduct(DetailCategory %s, Product %s)", detailCurency.getOptionName(), product.getName()));
+        reporter.debug(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));
         Assert.assertEquals(Application.get()
         		.loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceSymbolByProduct(product), 
-                product.getPrices().get(detailCurency.getOptionName()).getSymbol(), PRICES_NOT_EQUALS);
+                product.getPrices().get(detailCurency.getOptionName()).getSymbol(), SYMBOLS_NOT_EQUALS.toString());
     }
 }
