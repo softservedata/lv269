@@ -10,12 +10,12 @@ import org.testng.annotations.*;
  */
 public abstract class ALoginForTest extends TestRunnerPhantomJS {
 
-    @BeforeTest
+    @BeforeClass
     public void precondition() {
         Application.get().login().gotoLoginForLoginPageToMyAccountPage(UserRepository.get().valid());
     }
 
-    @AfterTest
+    @AfterClass
     public void logOut() {
         Application.get().logout();
     }
