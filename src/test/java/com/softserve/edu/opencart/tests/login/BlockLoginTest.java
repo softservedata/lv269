@@ -32,8 +32,8 @@ public class BlockLoginTest extends TestRunner {
 
     @Test(dataProvider = "Authentication")
     public void checkBlockUser(IUser userWithWrongPassword, IUser userWithCorectPassword) {
-        logger.info(String.format("check Blocking of User: %s", userWithCorectPassword.getEmail()));
-        reporter.info(String.format("check Blocking of User: %s", userWithCorectPassword.getEmail()));
+        logger.info(String.format("start check Blocking of User: %s", userWithCorectPassword.getEmail()));
+        reporter.info(String.format("start check Blocking of User: %s", userWithCorectPassword.getEmail()));
 
         String actual;
         LoginPage loginPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount();
@@ -60,6 +60,9 @@ public class BlockLoginTest extends TestRunner {
         actual = loginPage.getWarningDangerText();
 
         Assert.assertEquals(actual, LoginPage.EXPECTED_SECOND_WARNING);
+
+        logger.info(String.format("finish check Blocking of User: %s", userWithCorectPassword.getEmail()));
+        reporter.info(String.format("finish check Blocking of User: %s", userWithCorectPassword.getEmail()));
 
     }
 }

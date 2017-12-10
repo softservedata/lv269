@@ -204,7 +204,7 @@
 					</systemPropertyVariables>
 					<suiteXmlFiles>
 						<suiteXmlFile>testngCurrency.xml</suiteXmlFile>
-						<suiteXmlFile>testngShevchuk.xml</suiteXmlFile>
+						<suiteXmlFile>testngLogging.xml</suiteXmlFile>
 						<suiteXmlFile>testngAddress.xml</suiteXmlFile>
 						<suiteXmlFile>productPageReviews.xml</suiteXmlFile>
 						<suiteXmlFile>productAdminPage.xml</suiteXmlFile>
