@@ -5,9 +5,7 @@ import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.reviews.IReview;
 import com.softserve.edu.opencart.data.reviews.ReviewRepository;
 import com.softserve.edu.opencart.pages.Application;
-import com.softserve.edu.opencart.tests.TestRunner;
 import com.softserve.edu.opencart.tests.TestRunnerPhantomJS;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

@@ -1,13 +1,9 @@
 package com.softserve.edu.opencart.tests.smoke;
 
 import com.softserve.edu.opencart.data.products.ProductRepository;
-import com.softserve.edu.opencart.data.users.UserRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.ProductPage;
-import com.softserve.edu.opencart.tests.TestRunner;
 import com.softserve.edu.opencart.tests.TestRunnerPhantomJS;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**

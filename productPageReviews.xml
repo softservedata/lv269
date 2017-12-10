@@ -3,51 +3,52 @@
 
 <suite name="Review">
 
-	<!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
+    <!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
 
-	<test verbose="7" name="ProductPageSmoke">
-		<classes>
-			<class name="com.softserve.edu.opencart.tests.smoke.ProductPageTest">
-				<methods>
-					<include name="test"/>
-				</methods>
-			</class>
-		</classes>
-	</test>
+    <test verbose="7" name="ProductPageSmoke">
+        <classes>
+            <class name="com.softserve.edu.opencart.tests.smoke.ProductPageTest">
+                <methods>
+                    <include name="test"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 
-	<test verbose="7" name="UserLogOut">
-		<classes>
-			<class name="com.softserve.edu.opencart.tests.reviews.NegativeUserLogoutTest">
-				<methods>
-					<include name="test"/>
-				</methods>
-			</class>
-		</classes>
-	</test>
+    <test verbose="7" name="ReviewsForm User Logout/Login">
+        <classes>
+            <class name="com.softserve.edu.opencart.tests.reviews.NegativeUserLogoutTest">
+                <methods>
+                    <include name="test"/>
+                </methods>
+            </class>
 
-	<test verbose="7" name="ReviewFieldsTest">
-		<classes>
-			<class name="com.softserve.edu.opencart.tests.reviews.PositiveUserLoginTest">
-				<methods>
-					<include name="test"/>
-				</methods>
-			</class>
-			<class name="com.softserve.edu.opencart.tests.reviews.FieldRatingTest">
-				<methods>
-					<include name="test"/>
-				</methods>
-			</class>
-			<class name="com.softserve.edu.opencart.tests.reviews.FieldNameTest">
-				<methods>
-					<include name="test"/>
-				</methods>
-			</class>
-			<class name="com.softserve.edu.opencart.tests.reviews.FieldTextTest">
-				<methods>
-					<include name="test"/>
-				</methods>
-			</class>
-		</classes>
-	</test>
+            <class name="com.softserve.edu.opencart.tests.reviews.PositiveUserLoginTest">
+                <methods>
+                    <include name="test"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="7" name="ReviewFieldsTest">
+        <classes>
+            <class name="com.softserve.edu.opencart.tests.reviews.FieldRatingTest">
+                <methods>
+                    <include name="test"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.reviews.FieldNameTest">
+                <methods>
+                    <include name="test"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.reviews.FieldTextTest">
+                <methods>
+                    <include name="test"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 
 </suite>
