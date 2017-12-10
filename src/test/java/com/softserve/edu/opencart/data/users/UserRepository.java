@@ -90,13 +90,14 @@ public final class UserRepository {
                 .setCountry("Ukraine")
                 .setRegion("L'vivs'ka Oblast'")
                 .setPassword("vitochka24")
-                .setAddressSecond("Volodymyra Velukogo")
+                .setAddressSecond("Volodymyra Velykogo")
                 .setCompany("Softserve.edu")
                 .setFax("000")
                 .setSubscribe(false)
                 .build();
 
     }
+
     public IUser userWithoutName(){
         return User.get()
                 .setFirstname("")

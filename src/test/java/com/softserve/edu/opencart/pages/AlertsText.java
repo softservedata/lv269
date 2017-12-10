@@ -7,7 +7,8 @@ public enum AlertsText {
     CITY_MUST_BE_2_TO_128("City must be between 2 and 128 characters!"),
     NOT_SELECTED_COUNTRY("Please select a country!"),
     NOT_SELECTED_REGION("Please select a region / state!"),
-    CAN_NOT_DELETE_ADDRESS("Warning: You can not delete your default address!");
+    CAN_NOT_DELETE_ADDRESS("Warning: You can not delete your default address!"),
+    SUCCESS_ADDRESS_TEXT("Your address has been successfully updated");
 
 
     //

@@ -79,7 +79,7 @@ public class AddressBookPage extends AColumnRightUserComponent {
 
     // Business Logic
     public EditAddressPage modifyAddressBookData(IUser user) {
-        getAddressBookEntriesByStreetName(user.getAddressFirst()).clickEditButton();
+        getAddressBookEntriesByStreetName(user.getAddressSecond()).clickEditButton();
         return new EditAddressPage();
     }
 
@@ -92,8 +92,13 @@ public class AddressBookPage extends AColumnRightUserComponent {
         clickNewAddress();
         return new EditAddressPage();
     }
+
     public String getWarningDeleteAddressText() {
         return getAlertWarningText();
+    }
+
+    public String getSuccessText() {
+        return getAlertSuccessText();
     }
 
 

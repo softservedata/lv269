@@ -1,11 +1,10 @@
 package com.softserve.edu.opencart.tests.address;
 
-import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
+
 import com.softserve.edu.opencart.data.field.ListOfFieldsRepository;
 import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.EditAddressPage;
-import com.softserve.edu.opencart.tests.TestRunner;
 import com.softserve.edu.opencart.tests.TestRunnerFireFox;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -13,7 +12,7 @@ import org.testng.annotations.*;
 import java.util.Iterator;
 import java.util.List;
 
-public class EditAddressTest extends TestRunnerFireFox {
+public class EditNegativeAddressTest extends TestRunnerFireFox {
 
 
     @AfterMethod
