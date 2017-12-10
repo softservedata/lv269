@@ -27,7 +27,7 @@ public class NegativeUserLogoutTest extends TestRunnerPhantomJS {
     public void testValidFields(IProduct product, IReview myReview) {
         logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
                 myReview.getCriterion()));
-        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+        reporter.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
                 myReview.getCriterion()));
 
         Application.get().loadHomePage().goToProductPage(product)

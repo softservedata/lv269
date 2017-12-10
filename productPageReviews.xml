@@ -3,7 +3,9 @@
 
 <suite name="Review">
 
-	<test name="ProductPageSmoke">
+	<!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
+
+	<test verbose="7" name="ProductPageSmoke">
 		<classes>
 			<class name="com.softserve.edu.opencart.tests.smoke.ProductPageTest">
 				<methods>
@@ -13,7 +15,7 @@
 		</classes>
 	</test>
 
-	<test name="UserLogOut">
+	<test verbose="7" name="UserLogOut">
 		<classes>
 			<class name="com.softserve.edu.opencart.tests.reviews.NegativeUserLogoutTest">
 				<methods>
@@ -23,7 +25,7 @@
 		</classes>
 	</test>
 
-	<test name="ReviewFieldsTest">
+	<test verbose="7" name="ReviewFieldsTest">
 		<classes>
 			<class name="com.softserve.edu.opencart.tests.reviews.PositiveUserLoginTest">
 				<methods>

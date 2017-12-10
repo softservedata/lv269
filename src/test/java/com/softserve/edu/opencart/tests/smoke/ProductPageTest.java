@@ -15,17 +15,6 @@ import org.testng.annotations.Test;
  */
 public class ProductPageTest extends TestRunnerPhantomJS {
 
-    @BeforeClass
-    public void precondition() {
-        Application.get().login().loginForLoginPageToMyAccountPage(UserRepository.get().valid().getEmail(),
-                UserRepository.get().valid().getPassword());
-    }
-
-    @AfterClass
-    public void logOut() {
-        Application.get().logout();
-    }
-
     @Test
     public void testCheckProductPage() {
         logger.info("Check ProductPage.");

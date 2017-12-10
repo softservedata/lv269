@@ -28,7 +28,7 @@ public class FieldRatingTest extends ALoginForTest {
     public void testOnlyRatingData(IProduct product, IReview myReview) {
         logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
                 myReview.getCriterion()));
-        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+        reporter.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
                 myReview.getCriterion()));
 
         Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview);
@@ -38,7 +38,7 @@ public class FieldRatingTest extends ALoginForTest {
     public void testValidDataWithOutRating(IProduct product, IReview myReview) {
         logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
                 myReview.getCriterion()));
-        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+        reporter.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
                 myReview.getCriterion()));
 
         Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview);
