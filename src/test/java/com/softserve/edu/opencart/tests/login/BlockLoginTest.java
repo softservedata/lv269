@@ -8,6 +8,7 @@ import com.softserve.edu.opencart.tests.TestRunner;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -21,7 +22,7 @@ public class BlockLoginTest extends TestRunner {
                 {UserRepository.get().userTestWrongPassword(), UserRepository.get().userTestCorectPassword()}};
 
     }
-
+ 
     @AfterMethod
     public void closeDB(ITestResult result) {
         Application.get().unlockUserByQuery((IUser) result.getParameters()[0]);

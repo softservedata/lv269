@@ -6,6 +6,8 @@ import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.tests.TestRunner;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -16,6 +18,14 @@ public class NegativeLoginTest extends TestRunner {
     public static Object[][] credentials() {
         return new Object[][]{{UserRepository.get().userUnknown()}};
 
+    }
+
+    @AfterMethod
+    public void closeDB(ITestResult result) {
+        Application.get().unlockUserByQuery((IUser) result.getParameters()[0]);
+        logger.debug(String.format("unBlocking of User: %s, after test", ((IUser) result.getParameters()[0]).getEmail()));
+        reporter.debug(String.format("unBlocking of User: %s, after test", ((IUser) result.getParameters()[0]).getEmail()));
+        Application.closeDB();
     }
 
     @Test(dataProvider = "Authentication")
