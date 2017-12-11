@@ -44,8 +44,16 @@ public class FilterTest extends TestRunnerPresent {
     @Test(dataProvider = "FilterData")
     public void filterProductAdminTest(ITestContext context,
                                      IAdminProductFilterLists adminProductLists) {
-        logger.info(String.format("Filter ProductsAdminPage by template %s", adminProductLists.getFilterTemplate()));
-        reporter.info(String.format("Filter ProductsAdminPage by template %s", adminProductLists.getFilterTemplate()));
+        logger.info(String.format("Filter ProductsAdminPage by template: '%s' / '%s' / '%s' / '%s' / '%s' / '%s' ",
+                adminProductLists.getFilterTemplate().getName(), adminProductLists.getFilterTemplate().getModel(),
+                adminProductLists.getFilterTemplate().getPrice(), adminProductLists.getFilterTemplate().getQuantity(),
+                adminProductLists.getFilterTemplate().getStatusText(), adminProductLists.getFilterTemplate()
+                        .getImageText()));
+        reporter.info(String.format("Filter ProductsAdminPage by template: '%s' / '%s' / '%s' / '%s' / '%s' / '%s' ",
+                adminProductLists.getFilterTemplate().getName(), adminProductLists.getFilterTemplate().getModel(),
+                adminProductLists.getFilterTemplate().getPrice(), adminProductLists.getFilterTemplate().getQuantity(),
+                adminProductLists.getFilterTemplate().getStatusText(), adminProductLists.getFilterTemplate()
+                        .getImageText()));
         ProductAdminPage productAdminPage = Application.get().loginAdmin()
                 .validEnterAdminProfile(context, UserRepository.get().admin())
                 .openProductAdminPage(context)
