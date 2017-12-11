@@ -4,10 +4,10 @@ import com.softserve.edu.opencart.data.ProductShort;
 
 import java.util.List;
 
-public interface IProductFilterLists {
+public interface IAdminProductFilterLists {
 
     ProductShort getFilterTemplate();
 
-    List<ProductShort> getCurrentProductList();
+    List<ProductShort> getCurrentProductShortList();
 
 }

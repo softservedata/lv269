@@ -21,6 +21,11 @@
                     <include name="sortProductAdminTest"/>
                 </methods>
             </class>
+            <class name="com.softserve.edu.opencart.tests.admin.products.FilterTest">
+                <methods>
+                    <include name="filterProductAdminTest"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

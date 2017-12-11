@@ -1,7 +1,6 @@
 package com.softserve.edu.opencart.tests.admin.products;
 
 import com.softserve.edu.opencart.data.ErrorMessages;
-import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.pathnames.PathNamesRepository;
 import com.softserve.edu.opencart.data.pathnames.StoreSettingOptionSet;
 import com.softserve.edu.opencart.data.sort.AdminProductSortRepository;
@@ -14,7 +13,10 @@ import com.softserve.edu.opencart.tests.TestContextAttributes;
 import com.softserve.edu.opencart.tests.TestRunnerPresent;
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 public class SortTest extends TestRunnerPresent {
 

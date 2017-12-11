@@ -10,7 +10,7 @@ public enum ErrorMessages {
     WRONG_NUMBER_PAGES_PAGINATION ("Wrong Number of pages in pagination on AdminProductPage, items =%d, items per page = %d)"),
     WRONG_NUMBER_ITEMS_PER_PAGES ("Wrong number of items on every page, it is not equal to the first one"),
     WRONG_SORTED_LIST ("Wrong sorted list was displayed"),
-
+    WRONG_FILTER_LIST ("Wrong filtered list was displayed"),
     WRONG_PATHNAMES_LIST_SIZE_EXC ("Wrong pathnamesListSize for %s");
 
     //TODO Clear extra

@@ -14,6 +14,7 @@ public abstract class TestRunnerPresent extends TestRunner {
         //System.out.println("@BeforeClass");
         //
         Application.get(ApplicationSourceRepository.get().chromePresentServer7WithoutUIWindows());
+//        Application.get(ApplicationSourceRepository.get().chromePresentServer7());
         //Application.get(ApplicationSourceRepository.get().chromeVisibleServer7());
         //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
         //

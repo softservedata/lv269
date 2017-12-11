@@ -1,6 +1,7 @@
 package com.softserve.edu.opencart.pages.admin;
 
 import com.softserve.edu.opencart.data.ProductShort;
+import com.softserve.edu.opencart.data.filter.IAdminProductFilterLists;
 import com.softserve.edu.opencart.data.sort.IAdminProductSort;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
@@ -167,6 +168,10 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         return lastProductAdminPageAllPagesNumber;
     }
 
+    public FilterSettings getFilterSettings() {
+        return filterSettings;
+    }
+
     public List<ProductShort> getProductShortListAllPages() {
         ErrorUtils.createInitPaginationBeforeGetException((productShortListAllPages == null),
                 INIT_BEFORE_PRODUCT_ADMIN_PAGE_MESSAGE);
@@ -312,15 +317,15 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         this.pagesPaginationQuantity = pagesPaginationQuantity;
     }
 
+    private void makeFilterProductAdminPage(ProductShort product) {
+        getFilterSettings().setFilterFields(product);
+        getFilterSettings().clickFilterButton();
+    }
     // set Functional
 
     // Business Logic
 
-    public ProductAdminPage filterProductAdminPage(ProductShort product) {
-        filterSettings.setFilterFields(product);
-        filterSettings.clickFilterButton();
-        return new ProductAdminPage();
-    }
+
 
     public ProductAdminPage toLastProductAdminPageAllPages() {
         clickLastPaginationBtnActiveOnPage();
@@ -339,6 +344,11 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
 
     public ProductAdminPage toNextProductAdminPage() {
         clickToNextPagePaginationBtn();
+        return new ProductAdminPage();
+    }
+
+    public ProductAdminPage filterProductTableByTemplate(IAdminProductFilterLists adminProductLists) {
+        makeFilterProductAdminPage (adminProductLists.getFilterTemplate());
         return new ProductAdminPage();
     }
 
@@ -427,7 +437,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
             operations.fillInputField(getProductNameField(), name);
         }
 
-        public void settModelField(String model) {
+        public void setModelField(String model) {
             operations.fillInputField(getModelField(), model);
         }
 
@@ -453,10 +463,10 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         }
 
         public void setFilterFields(ProductShort product) {
+            setModelField(product.getModel());
             setProductNameField(product.getName());
-            settModelField(product.getModel());
-            setPriceField(product.getPrice());
             setQuantityField(product.getQuantity());
+            setPriceField(product.getPrice());
             setImageDropDownByImageText(product.getImageText());
             setStatusDropDownByStatusText(product.getStatusText());
         }
@@ -469,6 +479,7 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
 
         private final String ADM_PRODUCT_PG_DEFAULT_SMALL_IMAGE_URL = "http://server7.pp.ua/image/cache/no_image-40x40.png";
         private final String IMAGE_URL_IS_EMPTY = "The image's URL of the product %s is empty";
+        private final String NO_RESULTS = "No results!";
 
 
         private WebElement allProductsMarkCheckbox;
@@ -485,18 +496,25 @@ public class ProductAdminPage extends AHeaderComponentAdmin {
         public List<ProductShort> initProductsFromProductsTable() {
             productsShortList = new ArrayList<>();
             for (WebElement current : getProductRows()) {
-                productsShortList.add(initProductShortFromProductRow(current));
+                ProductShort currentProduct = initProductShortFromProductRow(current);
+                if (currentProduct != null) {
+                    productsShortList.add(currentProduct);
+                }
             }
             return productsShortList;
         }
 
         private ProductShort initProductShortFromProductRow(WebElement productRow) {
-            return new ProductShort().setName(getProductNameTextFromProductRow(productRow))
-                    .setModel(getModelTextFromProductRow(productRow))
-                    .setPrice(getPriceTextFromProductRow(productRow))
-                    .setQuantity(getQuantityTextFromProductRow(productRow))
-                    .setImageFlag(getImageFlagTextFromProductRow(productRow))
-                    .setStatusFlag(getStatusTextFromProductRow(productRow));
+            ProductShort result = null;
+            if (!operations.getText(productRow).equalsIgnoreCase(NO_RESULTS)) {
+                result= new ProductShort().setName(getProductNameTextFromProductRow(productRow))
+                        .setModel(getModelTextFromProductRow(productRow))
+                        .setPrice(getPriceTextFromProductRow(productRow))
+                        .setQuantity(getQuantityTextFromProductRow(productRow))
+                        .setImageFlag(getImageFlagTextFromProductRow(productRow))
+                        .setStatusFlag(getStatusTextFromProductRow(productRow));
+            }
+            return result;
         }
 
         //GetData

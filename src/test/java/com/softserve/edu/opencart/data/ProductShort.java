@@ -16,10 +16,11 @@ public class ProductShort {
     private final String WRONG_STRING_RECIEVED_AS_PRODUCT_PARAMETERS
             = "For ProductShort wrong string with parameters = %s and delimiter = %s was recieved";
 
-    private final int NUMBER_OF_PARAMETERS = 6;
+    private final int NUMBER_OF_PARAMETERS = 7;
 
     //Fields
     private Map<String, String> productMap;
+    private Integer id;
 
     public ProductShort() {
         initProductMap();
@@ -34,23 +35,23 @@ public class ProductShort {
         String[] parametersArray = parameters.split(delimiter);
         ErrorUtils.createWrongStringStructureException((parametersArray.length != NUMBER_OF_PARAMETERS),
                 String.format(WRONG_STRING_RECIEVED_AS_PRODUCT_PARAMETERS, parameters, delimiter));
-        this.setName(parametersArray[0])
-                .setModel(parametersArray[1])
-                .setPrice(parametersArray[2])
-                .setQuantity(parametersArray[3])
-                .setStatusFlag(parametersArray[4])
-                .setImageFlag(parametersArray[5]);
-
+        this.setId(Integer.parseUnsignedInt(parametersArray[0]))
+                .setName(parametersArray[1])
+                .setModel(parametersArray[2])
+                .setPrice(parametersArray[3])
+                .setQuantity(parametersArray[4])
+                .setStatusFlag(parametersArray[5])
+                .setImageFlag(parametersArray[6]);
     }
 
     private void initProductMap() {
         productMap = new HashMap<>();
         setName("");
         setModel("");
+        setQuantity("");
         setPrice("");
         setImageFlag("");
         setStatusFlag("");
-
     }
 
     // GetData
@@ -61,7 +62,7 @@ public class ProductShort {
 
     //GetFunctional
 
-    public String getProductParameterByName (String parameterName) {
+    public String getProductParameterByName(String parameterName) {
         return getProductMap().get(parameterName);
     }
 
@@ -108,6 +109,10 @@ public class ProductShort {
         return flag;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     //SetData
 
     public ProductShort setName(String nameValue) {
@@ -150,6 +155,12 @@ public class ProductShort {
                 || text.equals(TagAttribute.ENABLED.toString().toLowerCase())
                 || text.isEmpty()));
     }
+
+    public ProductShort setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
     //SetFunctional
 
     private String setFlagText(Boolean flag) {
@@ -188,5 +199,53 @@ public class ProductShort {
         setQuantity(quantity);
         setStatusFlag(status);
         setImageFlag(image);
+    }
+
+    public boolean isUnderTemplate(ProductShort filterTemplate) {
+        boolean result = true;
+        if ((!filterTemplate.getName().isEmpty()
+                && (!getName().toLowerCase().contains(filterTemplate.getName().toLowerCase())))) {
+            result = false;
+        }
+        if ((!filterTemplate.getModel().isEmpty()
+                && (!getModel().toLowerCase().contains(filterTemplate.getModel().toLowerCase())))) {
+            result = false;
+        }
+
+        if ((!filterTemplate.getPrice().isEmpty()
+                && (!getPrice().toLowerCase().contains(filterTemplate.getPrice().toLowerCase())))) {
+            result = false;
+        }
+//        if (!filterTemplate.getPrice().isEmpty()) {
+//            if ((!org.apache.commons.lang3.math.NumberUtils.isParsable(filterTemplate.getPrice()))
+//                    ||(Double.parseDouble(getPrice()) != Double.parseDouble(filterTemplate.getPrice()))) {
+//                result = false;
+//            }
+//        }
+
+//        if ((!org.apache.commons.lang3.math.NumberUtils.isParsable(filterTemplate.getQuantity()))
+//                || ((!filterTemplate.getQuantity().isEmpty())
+//                && (Double.parseDouble(getQuantity()) != Double.parseDouble(filterTemplate.getQuantity())))) {
+//            result = false;
+//        }
+
+        if (!filterTemplate.getQuantity().isEmpty()) {
+            if ((!org.apache.commons.lang3.math.NumberUtils.isParsable(filterTemplate.getQuantity()))
+                    ||(Double.parseDouble(getQuantity()) != Double.parseDouble(filterTemplate.getQuantity()))) {
+                result = false;
+            }
+        }
+
+
+        if ((!filterTemplate.getStatusText().isEmpty()
+                && (!getStatusText().equalsIgnoreCase(filterTemplate.getStatusText())))) {
+            result = false;
+        }
+
+        if ((!filterTemplate.getImageText().isEmpty()
+                && (!getImageText().toLowerCase().contains(filterTemplate.getImageText().toLowerCase())))) {
+            result = false;
+        }
+        return result;
     }
 }

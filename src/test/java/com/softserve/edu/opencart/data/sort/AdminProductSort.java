@@ -15,6 +15,7 @@ public class AdminProductSort implements IAdminProductSort {
     //TODO make protection from wrong input
     private final String DELIMITER = ",";
 
+   //TODO sort on multipages - add products to
     private Map<String, String> optionsReplaceValues;
     private String columnName;
     private String sortOrder;

@@ -49,5 +49,10 @@ public class PathNamesRepository {
                                 .addStoreSettingOption("Default Items Per Page (Admin)", "Option",
                                         ""));
     }
+
+    public IPathnames filterPathnames() {
+        return new Pathnames()
+                .addSBarPathname("Catalog/Products");
+    }
 }
 
