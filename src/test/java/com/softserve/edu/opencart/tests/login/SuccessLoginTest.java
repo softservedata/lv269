@@ -20,13 +20,16 @@ public class SuccessLoginTest extends TestRunner {
     }
 
     @Test(dataProvider = "Authentication")
-    public void checkSuccessfulLogin(IUser user) throws Exception {
-        logger.info(String.format("check Successful Login of User: %s", user.getEmail()));
-        reporter.info(String.format("check Successful Login of User: %s", user.getEmail()));
+    public void checkSuccessfulLogin(IUser user)  {
+        logger.info(String.format("start check Successful Login of User: %s", user.getEmail()));
+        reporter.info(String.format("start check Successful Login of User: %s", user.getEmail()));
 
         MyAccountPage myAccountPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount()
                 .gotoLoginForLoginPageToMyAccountPage(user);
         Assert.assertEquals(myAccountPage.gotoEditAccountPageFromRightColumn().getEmailText(), user.getEmail());
         Application.get().logout();
+        logger.info(String.format("finish check Successful Login of User: %s", user.getEmail()));
+        reporter.info(String.format("finish check Successful Login of User: %s", user.getEmail()));
+
     }
 }

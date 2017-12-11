@@ -20,23 +20,30 @@ public class TestLoginPage extends TestRunner {
     }
 
     @Test(dataProvider = "Authentication")
-    public void checkImpossibilityOfCopyingPassword(IUser user) throws Exception {
-        logger.info(String.format("check Impossibility Of Copying Password: %s of User: %s", user.getPassword(), user.getEmail()));
-        reporter.info(String.format("check Impossibility Of Copying Password: %s of User: %s", user.getPassword(), user.getEmail()));
+    public void checkImpossibilityOfCopyingPassword(IUser user)  {
+        logger.info(String.format("start check Impossibility Of Copying Password: %s of User: %s", user.getPassword(), user.getEmail()));
+        reporter.info(String.format("start check Impossibility Of Copying Password: %s of User: %s", user.getPassword(), user.getEmail()));
 
         LoginPage loginPage = Application.get().login();
         loginPage.inputPassword(user.getPassword());
         Assert.assertNotEquals(loginPage.getPasswordFieldText(), user.getPassword());
+        logger.info(String.format("finish check Impossibility Of Copying Password: %s of User: %s", user.getPassword(), user.getEmail()));
+        reporter.info(String.format("finish check Impossibility Of Copying Password: %s of User: %s", user.getPassword(), user.getEmail()));
+
     }
 
     @Test(dataProvider = "Authentication")
-    public void checkLoginField(IUser user) throws Exception {
-        logger.info(String.format("check Login field with login: %s",  user.getEmail()));
-        reporter.info(String.format("check Login field with login: %s",  user.getEmail()));
+    public void checkLoginField(IUser user){
+        logger.info(String.format("start check Login field with login: %s",  user.getEmail()));
+        reporter.info(String.format("start check Login field with login: %s",  user.getEmail()));
 
         LoginPage loginPage = Application.get().login();
         loginPage.inputEMailAdress(user.getEmail());
         Assert.assertNotEquals(loginPage.getEmailAddressFieldText(), user.getEmail());
+
+        logger.info(String.format("finish check Login field with login: %s",  user.getEmail()));
+        reporter.info(String.format("finish check Login field with login: %s",  user.getEmail()));
+
     }
 
 

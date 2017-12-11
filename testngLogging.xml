@@ -27,6 +27,11 @@
                     <include name="checkSuccessfulLogin"/>
                 </methods>
             </class>
+            <class name="com.softserve.edu.opencart.tests.login.NegativeLoginTest">
+                <methods>
+                    <include name="checkNegativeLogin"/>
+                </methods>
+            </class>
 
         </classes>
     </test>

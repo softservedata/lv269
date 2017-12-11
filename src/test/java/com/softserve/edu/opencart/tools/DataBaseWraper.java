@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.tools;
 
+import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -30,9 +32,9 @@ public class DataBaseWraper {
 
                 tempConnection = getConnection();
             } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
+                ErrorUtils.createSQLException(tempConnection==null, String.format("SQL Exception: %s", e));
 
+            } finally {
                 return tempConnection;
             }
         }

@@ -20,13 +20,16 @@ public class NegativeLoginTest extends TestRunner {
 
     @Test(dataProvider = "Authentication")
     public void checkNegativeLogin(IUser user) {
-        logger.info(String.format("check Negative Logining of User: %s", user.getEmail()));
-        reporter.info(String.format("check Negative Logining of User: %s", user.getEmail()));
+        logger.info(String.format("start check Negative Logining of User: %s", user.getEmail()));
+        reporter.info(String.format("start check Negative Logining of User: %s", user.getEmail()));
 
         LoginPage loginPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount();
         loginPage = loginPage.gotoLoginForLoginPageToWarning(user);
         String actual = loginPage.getWarningDangerText();
 
         Assert.assertEquals(actual, LoginPage.EXPECTED_FIRST_WARNING);
+        logger.info(String.format("finish check Negative Logining of User: %s", user.getEmail()));
+        reporter.info(String.format("finish check Negative Logining of User: %s", user.getEmail()));
+
     }
 }

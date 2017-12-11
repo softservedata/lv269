@@ -6,8 +6,6 @@ import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
 import com.softserve.edu.opencart.tools.NumberUtils;
 import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -21,11 +19,11 @@ public class ProductPage extends ANavigatePanelComponent {
 
         private WebElement descriptionBody;
 
-        public Description() {
+        private Description() {
             descriptionBody = search.id("tab-description");
         }
 
-        public WebElement getDescriptionBody() {
+        private WebElement getDescriptionBody() {
             return descriptionBody;
         }
     }
@@ -35,11 +33,11 @@ public class ProductPage extends ANavigatePanelComponent {
     private class Specification {
         private WebElement specificationBody;
 
-        public Specification() {
+        private Specification() {
             specificationBody = search.id("tab-specification");
         }
 
-        public WebElement getSpecificationBody() {
+        private WebElement getSpecificationBody() {
             return specificationBody;
         }
     }
@@ -67,23 +65,23 @@ public class ProductPage extends ANavigatePanelComponent {
             return form;
         }
 
-        public WebElement getNameField() {
+        private WebElement getNameField() {
             return nameField;
         }
 
-        public WebElement getTextField() {
+        private WebElement getTextField() {
             return textField;
         }
 
-        public WebElement getButton() {
+        private WebElement getButton() {
             return button;
         }
 
-        public List<WebElement> getRating() {
+        private List<WebElement> getRating() {
             return rating;
         }
 
-        public List<WebElement> getReviewsExist() {
+        private List<WebElement> getReviewsExist() {
             return reviewsExist;
         }
     }
@@ -124,7 +122,7 @@ public class ProductPage extends ANavigatePanelComponent {
         return price;
     }
 
-    public WebElement getQuantityField() {
+    private WebElement getQuantityField() {
         return quantityField;
     }
 
@@ -132,37 +130,37 @@ public class ProductPage extends ANavigatePanelComponent {
         return review.getReviewsExist();
     }
 
-    public Description getDescription() {
+    private Description getDescription() {
         return description;
     }
 
-    public Specification getSpecification() {
+    private Specification getSpecification() {
         return specification;
     }
 
-    public Review getReview() {
+    private Review getReview() {
         return review;
     }
 
-    public WebElement getAddToCart() {
+    private WebElement getAddToCart() {
         return addToCart;
     }
 
-    public WebElement getAddToWish() {
+    private WebElement getAddToWish() {
         return addToWish;
     }
 
-    public List<WebElement> getNavTab() {
+    private List<WebElement> getNavTab() {
         return navTab;
     }
 
     // get Functional
 
-    public String getNameText() {
+    private String getNameText() {
         return getName().getText();
     }
 
-    public String getPriceText() {
+    private String getPriceText() {
         return getPrice().getText();
     }
 
@@ -170,7 +168,7 @@ public class ProductPage extends ANavigatePanelComponent {
         return NumberUtils.extractDouble(RegexPatterns.NUMBER_DOUBLE.toString(), getPriceText());
     }
 
-    public String getQuantityFieldText() {
+    private String getQuantityFieldText() {
         return getQuantityField().getText();
     }
 
@@ -217,11 +215,11 @@ public class ProductPage extends ANavigatePanelComponent {
         getQuantityField().sendKeys(quantity);
     }
 
-    protected void clickAddToCart() {
+    private void clickAddToCart() {
         getAddToCart().click();
     }
 
-    protected void clickAddToWish() {
+    private void clickAddToWish() {
         getAddToWish().click();
     }
 
@@ -297,7 +295,7 @@ public class ProductPage extends ANavigatePanelComponent {
         return getReview().getReviewsExist().size();
     }
 
-   /* // Alert
+   /* // Alert. It can use for refactoring.
 
     private WebElement alertSuccess;
     private WebElement alertDanger;
@@ -350,13 +348,13 @@ public class ProductPage extends ANavigatePanelComponent {
 */
     // Business Logic
 
-    public void inputReviewNameField(String name) {
+    private void inputReviewNameField(String name) {
         clickReviewNameField();
         clearReviewNameField();
         setReviewNameField(name);
     }
 
-    public void inputReviewTextField(String text) {
+    private void inputReviewTextField(String text) {
         clickReviewTextField();
         clearReviewTextField();
         setReviewTextField(text);
@@ -403,13 +401,13 @@ public class ProductPage extends ANavigatePanelComponent {
         createAlertDanger();
     }
 
-    public ProductPage checkClickToAddToCart () {
+    public ProductPage checkClickToAddToCart() {
         clickAddToCart();
         Application.get().browser().refreshPage();
         return new ProductPage();
     }
 
-    public ProductPage checkClickToAddToWish () {
+    public ProductPage checkClickToAddToWish() {
         clickAddToWish();
         Application.get().browser().refreshPage();
         return new ProductPage();

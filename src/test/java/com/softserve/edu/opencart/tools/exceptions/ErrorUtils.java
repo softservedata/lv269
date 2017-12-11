@@ -84,4 +84,12 @@ public final class ErrorUtils {
         }
     }
 
+    public static void createSQLException(boolean isThrown, String message) {
+        if (isThrown) {
+            // TODO Develop Custom Exception
+            throw new GeneralException(message);
+        }
+    }
+
+
 }

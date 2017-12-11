@@ -38,7 +38,7 @@ public class FieldNameTest extends ALoginForTest {
     public void testNotValidData(IProduct product, IReview myReview) {
         logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
                 myReview.getCriterion()));
-        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+        reporter.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
                 myReview.getCriterion()));
 
         Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview);
@@ -48,7 +48,7 @@ public class FieldNameTest extends ALoginForTest {
     public void testValidData(IProduct product, IReview myReview) {
         logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
                 myReview.getCriterion()));
-        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+        reporter.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
                 myReview.getCriterion()));
 
         Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview);
