@@ -60,6 +60,28 @@
 	<!-- </repository> -->
 	<!-- </repositories> -->
 
+<!-- 	<repositories> -->
+<!-- 		<repository> -->
+<!-- 			<id>mseng-visualstudio.com-zcalvinmaven</id> -->
+<!-- 			<url>https://mseng.pkgs.visualstudio.com/_packaging/zCalvinMaven2/maven/v1</url> -->
+<!-- 			<releases> -->
+<!-- 				<enabled>true</enabled> -->
+<!-- 			</releases> -->
+<!-- 			<snapshots> -->
+<!-- 				<enabled>true</enabled> -->
+<!-- 			</snapshots> -->
+<!-- 		</repository> -->
+<!-- 	</repositories> -->
+
+	<repositories>
+		<repository>
+			<id>ms-repo</id>
+			<name>Microsoft</name>
+<!-- 			<url>http://clojars.org/repo/</url> -->
+			<url>https://mvnrepository.com/artifact/com.microsoft.azure/azure-storage</url>
+		</repository>
+	</repositories>
+   
 	<dependencies>
 		<!-- - - - Test - - - -->
 		<dependency>
@@ -111,6 +133,17 @@
 			<scope>runtime</scope>
 		</dependency>
 		<!-- - - - DB Access - - - -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.microsoft.sqlserver</groupId> -->
+<!-- 			<artifactId>mssql-jdbc</artifactId> -->
+<!-- 			<version>6.2.2</version> -->
+<!-- 		</dependency> -->
+		<dependency>
+		    <groupId>com.microsoft.sqlserver</groupId>
+		    <artifactId>sqljdbc4</artifactId>
+		    <version>4.0</version>
+<!-- 			<version>4.0.2206.100</version> -->
+		</dependency>		
 		<dependency>
 			<groupId>net.sourceforge.jtds</groupId>
 			<artifactId>jtds</artifactId>
