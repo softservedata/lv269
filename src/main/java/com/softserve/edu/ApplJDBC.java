@@ -6,14 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.softserve.edu.opencart.tools.EnvironmentVariables;
+
 public class ApplJDBC {
     private static Connection con = null;
     //private static String username = "ssu-oms";
     //private static String password = "ssu-oms";
     //private static String username = "db269";
     //private static String password = "db269";
-    private static String username = "root";
-    private static String password = "root";
+    private static String username;
+    private static String password;
+//    private static String username = "root";
+//    private static String password = "root";
     //private static String username = "postgres";
     //private static String password = "postgres";
     // Microsoft
@@ -34,7 +38,8 @@ public class ApplJDBC {
     //private static String URL = "jdbc:jtds:sqlserver://ssu-sql12/ssu-oms;instance=tc;";
     //private static String URL = "jdbc:jtds:sqlserver://CLASS02/Lv169OMS;instance=SQLEXPRESS;";
     // MySQL
-    private static String URL = "jdbc:mysql://192.168.195.250:3306/lv269";
+    private static String URL;
+    //private static String URL = "jdbc:mysql://192.168.195.250:3306/lv269";
     ////private static String URL = "jdbc:mysql://localhost:3306/lv269";
     //private static String URL = "jdbc:mysql://localhost:3306/lv257Test";
     //private static String URL = "jdbc:mysql://localhost:3306/lv235Test";
@@ -59,6 +64,10 @@ public class ApplJDBC {
         //
         //DriverManager.registerDriver(new org.postgresql.Driver());
         //
+        EnvironmentVariables environmentVariables = new EnvironmentVariables();
+        URL = environmentVariables.getDatabaseConnection();
+        username = environmentVariables.getDatabaseLogin();
+        password = environmentVariables.getDatabasePassword();
         // Load the driver
         con = DriverManager.getConnection(URL, username, password);
         if (con != null) {
@@ -110,13 +119,26 @@ public class ApplJDBC {
         //st.execute("INSERT INTO MyUsers (FirstName,Mail,Class) VALUES ('Taras2','a@i.ua','11');");
         //st.execute("INSERT INTO MyUsers (FirstName,Mail,Class) VALUES ('Petro2','p@i.ua','12');");
         //
-        ResultSet rs = st.executeQuery("select * from MyUsers;");
+        // SHOW TABLES;
+        //DatabaseMetaData md = con.getMetaData();
+        //ResultSet rs = md.getTables(null, null, "%", null);
+        //while (rs.next()) {
+        //  System.out.println(rs.getString(3));
+        //}
+        //
+        //st.execute("UPDATE oc_customer_login SET total='1' WHERE email LIKE 'jar%';");
+        //ResultSet rs = st.executeQuery("select * from oc_customer;");
+        ResultSet rs = st.executeQuery("select * from oc_customer_login;");
         //ResultSet rs = st.executeQuery("select * from Users;");
         //ResultSet rs = st.executeQuery("select user_id, email, first_name, login, password from Users;");
         //
         int columnCount = rs.getMetaData().getColumnCount();
         // Resultset.getMetaData () get the information
         // output file
+        for (int i = 1; i <= columnCount; i++) {
+            System.out.print(rs.getMetaData().getColumnName(i) + "\t");
+        }
+        System.out.println();
         while (rs.next()) {
             for (int i = 1; i <= columnCount; i++) {
                 System.out.print(rs.getString(i) + "\t");
