@@ -49,6 +49,7 @@ public class AppTest {
         }
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery("select * from oc_customer_login;");
+        //ResultSet rs = st.executeQuery("select * from oc_customer;");
         int columnCount = rs.getMetaData().getColumnCount();
         for (int i = 1; i <= columnCount; i++) {
             System.out.print(rs.getMetaData().getColumnName(i) + "\t");

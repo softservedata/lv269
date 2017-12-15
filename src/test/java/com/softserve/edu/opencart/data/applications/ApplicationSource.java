@@ -34,15 +34,20 @@ public class ApplicationSource implements IApplicationSource {
     //
     private String adminLoginUrl;
     private String adminLogoutUrl;
+    //
+    // Database Connection
+    private String databaseUrl;
+    private String databaseLogin;
+    private String databasePassword;
     
     // TODO Develop Builder
-
     public ApplicationSource(String browserName, String driverPath,
             long implicitWaitTimeOut, long implicitLoadTimeOut,
             long implicitScriptTimeOut, long explicitTimeOut,
             String searchStrategy, boolean consoleOutput,
             String baseUrl, String userLoginUrl, String userLogoutUrl,
-            String adminLoginUrl, String adminLogoutUrl) {
+            String adminLoginUrl, String adminLogoutUrl,
+            String databaseUrl, String databaseLogin, String databasePassword) {
         this.browserName = browserName;
         this.driverPath = driverPath;
         this.implicitWaitTimeOut = implicitWaitTimeOut;
@@ -56,6 +61,9 @@ public class ApplicationSource implements IApplicationSource {
         this.userLogoutUrl = userLogoutUrl;
         this.adminLoginUrl = adminLoginUrl;
         this.adminLogoutUrl = adminLogoutUrl;
+        this.databaseUrl = databaseUrl;
+        this.databaseLogin = databaseLogin;
+        this.databasePassword = databasePassword;
     }
 
     // setters
@@ -86,6 +94,18 @@ public class ApplicationSource implements IApplicationSource {
 
     public void setSearchStrategy(String searchStrategy) {
         this.searchStrategy = searchStrategy;
+    }
+
+    public void setDatabaseUrl(String databaseUrl) {
+        this.databaseUrl = databaseUrl;
+    }
+    
+    public void setDatabaseLogin(String databaseLogin) {
+        this.databaseLogin = databaseLogin;
+    }
+
+    public void setDatabasePassword(String databasePassword) {
+        this.databasePassword = databasePassword;
     }
 
     public void setConsoleOutput(boolean consoleOutput) {
@@ -140,6 +160,18 @@ public class ApplicationSource implements IApplicationSource {
 
     public String getSearchStrategy() {
         return searchStrategy;
+    }
+
+    public String getDatabaseUrl() {
+        return databaseUrl;
+    }
+
+    public String getDatabaseLogin() {
+        return databaseLogin;
+    }
+
+    public String getDatabasePassword() {
+        return databasePassword;
     }
 
     public boolean getConsoleOutput() {

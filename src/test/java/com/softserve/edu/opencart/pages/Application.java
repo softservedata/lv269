@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.pages;
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.pages.user.HomePage;
+import com.softserve.edu.opencart.tools.ConnectionManager;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
 import com.softserve.edu.opencart.tools.browsers.BrowserWrapper;
 import com.softserve.edu.opencart.tools.browsers.CaptureUtils;
@@ -22,6 +23,7 @@ public class Application {
     private ReporterWrapper reporter;
     private BrowserWrapper browser;
     private ISearch search;
+    private ConnectionManager connectionManager;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
@@ -55,11 +57,15 @@ public class Application {
         if (instance != null) {
             // TODO Change for parallel work
             instance.browser().quit();
+            instance.connectionManager().closeAllConnections();
             instance = null;
         }
     }
 
+    // getters
+
     // TODO Change for parallel work
+    // TODO remove get
     public IApplicationSource getApplicationSource() {
         return applicationSource;
     }
@@ -80,6 +86,12 @@ public class Application {
         return search;
     }
 
+    public ConnectionManager connectionManager() {
+        return connectionManager;
+    }
+
+    // Initialization
+    
     // TODO Change for parallel work
     public void initCaptureUtils() {
         // TODO  Add parameters to applicationSource
@@ -97,6 +109,12 @@ public class Application {
     public void initSearch(IApplicationSource applicationSource) {
         this.search = new Search(applicationSource);
     }
+
+    public void initConnectionManager(IApplicationSource applicationSource) {
+        this.connectionManager = new ConnectionManager(applicationSource);
+    }
+
+    // Pages
 
     public HomePage loadHomePage() {
         browser().openUrl(applicationSource.getBaseUrl());

@@ -1,10 +1,14 @@
 package com.softserve.edu.opencart.data.applications;
 
+import com.softserve.edu.opencart.tools.EnvironmentVariables;
+
 public class ApplicationSourceRepository {
 
     private static volatile ApplicationSourceRepository instance = null;
+    private EnvironmentVariables environmentVariables;
 
     private ApplicationSourceRepository() {
+        environmentVariables = new EnvironmentVariables();
     }
 
     public static ApplicationSourceRepository get() {
@@ -22,6 +26,7 @@ public class ApplicationSourceRepository {
         return chromeImplicitServer7();
     }
 
+    // TODO Private
     public String phantomJSDriverPathWindows() {
         return ApplicationSourceRepository.class
                 .getResource("/lib/phantomjs.exe").getPath().substring(1);
@@ -54,6 +59,7 @@ public class ApplicationSourceRepository {
         return "/var/lib/jenkins/workspace/chromedriver215";
     }
 
+    // Public
     public IApplicationSource chromeImplicitServer7() {
         //System.out.println("Full Path = " + ApplicationSourceRepository.class
         //        .getResource("/lib/geckodriver.exe").getPath());
@@ -65,7 +71,10 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
-                "http://server7.pp.ua/admin/index.php?route=common/logout");
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
+                environmentVariables.getDatabaseLogin(),
+                environmentVariables.getDatabasePassword());
     }
 
     public IApplicationSource chromeImplicitServer7WithoutUIWindows() {
@@ -79,7 +88,10 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
-                "http://server7.pp.ua/admin/index.php?route=common/logout");
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
+                environmentVariables.getDatabaseLogin(),
+                environmentVariables.getDatabasePassword());
     }
 
     public IApplicationSource chromeImplicitServer7WithoutUILinux() {
@@ -93,7 +105,10 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
-                "http://server7.pp.ua/admin/index.php?route=common/logout");
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
+                environmentVariables.getDatabaseLogin(),
+                environmentVariables.getDatabasePassword());
     }
 
     public IApplicationSource chromeImplicitServer7WithoutUILinux215() {
@@ -107,7 +122,10 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
-                "http://server7.pp.ua/admin/index.php?route=common/logout");
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
+                environmentVariables.getDatabaseLogin(),
+                environmentVariables.getDatabasePassword());
     }
 
     public IApplicationSource chromeVisibleServer7() {
@@ -121,7 +139,10 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
-                "http://server7.pp.ua/admin/index.php?route=common/logout");
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
+                environmentVariables.getDatabaseLogin(),
+                environmentVariables.getDatabasePassword());
     }
 
     public IApplicationSource firefoxImplicitServer7() {
@@ -135,7 +156,10 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
-                "http://server7.pp.ua/admin/index.php?route=common/logout");
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
+                environmentVariables.getDatabaseLogin(),
+                environmentVariables.getDatabasePassword());
     }
 
     public IApplicationSource phantomJSImplicitServer7Windows() {
@@ -149,7 +173,10 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
-                "http://server7.pp.ua/admin/index.php?route=common/logout");
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
+                environmentVariables.getDatabaseLogin(),
+                environmentVariables.getDatabasePassword());
     }
 
     public IApplicationSource phantomJSImplicitServer7Linux() {
@@ -163,7 +190,10 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
-                "http://server7.pp.ua/admin/index.php?route=common/logout");
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
+                environmentVariables.getDatabaseLogin(),
+                environmentVariables.getDatabasePassword());
     }
 
 }
