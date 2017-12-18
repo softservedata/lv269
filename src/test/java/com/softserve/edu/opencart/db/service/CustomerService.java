@@ -1,49 +1,54 @@
 package com.softserve.edu.opencart.db.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.softserve.edu.opencart.data.users.IUser;
+import com.softserve.edu.opencart.db.dao.CustomerDao;
 import com.softserve.edu.opencart.db.entity.CustomerDB;
+import com.softserve.edu.opencart.db.entity.CustomerDB.CustomerDBFields;
 
 public class CustomerService {
+    private CustomerDao customerDao;
+    // private AdressDao adressDao;
 
-    private IUser adminUserToAdminUserDB(CustomerDB customerDB) {
-//        return new AdminUserDB(0L, adminUser.getFirstname(),
-//                adminUser.getLastname(), adminUser.getMail(),
-//                adminUser.getUsername(), adminUser.getPassword());
-        return null;
+    public CustomerService() {
+        customerDao = new CustomerDao();
     }
 
-    public IUser getCustomertByEmail(String email) {
-//        return AdminUserRepository.get().adminUserConvert(AdminUserDao.get()
-//                .getByFieldName(AdminUserDBFields.USERNAME.toString(), login).get(0));
-        return null;
+    public String[] getCustomerByEmail(String email) {
+        return customerDao.getFields(customerDao
+                .getByFieldName(CustomerDBFields.EMAIL.toString(), email).get(0));
     }
 
-    public List<IUser> getAllCustomers() {
-//        List<IAdminUser> adminUsers = new ArrayList<IAdminUser>(); 
-//        for (AdminUserDB adminUserDB : AdminUserDao.get().getAll()) {
-//            adminUsers.add(AdminUserRepository.get().adminUserConvert(adminUserDB));
-//        }
-//        return adminUsers;
-        return null;
+    public List<String[]> getAllCustomers() {
+        List<String[]> result = new ArrayList<>();
+        for (CustomerDB customerDB : customerDao.getAll()) {
+            result.add(customerDao.getFields(customerDB));
+        }
+        return result;
     }
 
-    public void updateCustomer(IUser user) {}
-    
+    public void updateCustomer(IUser user) {
+        // TODO
+        customerDao.updateByFieldName(CustomerDBFields.FIRSTNAME.toString(), user.getFirstname(),
+                CustomerDBFields.EMAIL.toString(), user.getEmail());
+        customerDao.updateByFieldName(CustomerDBFields.LASTNAME.toString(), user.getLastname(),
+                CustomerDBFields.EMAIL.toString(), user.getEmail());
+        customerDao.updateByFieldName(CustomerDBFields.TELEPHONE.toString(), user.getPhoneNumber(),
+                CustomerDBFields.EMAIL.toString(), user.getEmail());
+    }
+
     public boolean deleteCustomerByEmail(String email) {
-        //return deleteUsersById(getAdminUserIdByLogin(login));
-        return false;
+        return customerDao.deleteByFieldName(CustomerDBFields.EMAIL.toString(), email);
     }
 
     public boolean deleteUsersById(Long id) {
-        //return AdminUserDao.get().deleteById(id);
-        return false;
-   }
+        return customerDao.deleteById(id);
+    }
 
     public boolean delete(IUser user) {
-        //return deleteUsersByLogin(adminUser.getUsername());
-        return false;
+        return deleteCustomerByEmail(user.getEmail());
     }
 
 }

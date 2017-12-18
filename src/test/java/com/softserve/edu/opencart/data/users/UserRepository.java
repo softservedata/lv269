@@ -1,6 +1,9 @@
 package com.softserve.edu.opencart.data.users;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.softserve.edu.opencart.db.service.CustomerService;
 
 public final class UserRepository {
 
@@ -81,10 +84,46 @@ public final class UserRepository {
         // return new UserUtils(new ExcelUtils("/existUsers.xlsx")).getAllUsers();
     }
 
-    // TODO
     public List<IUser> fromDB() {
-        // TODO
-        return null;
-        //return new UserUtils(new ExcelUtils("/existUsers.xlsx")).getAllUsers();
+        List<IUser> result = new ArrayList<>();
+        for (String[] current : new CustomerService().getAllCustomers()) {
+            result.add(User.get()
+                .setFirstname(current[1])
+                .setLastname(current[2])
+                .setEmail(current[3])
+                .setPhoneNumber(current[4])
+                .setAddressFirst("default")
+                .setCity("default")
+                .setPostCode("default")
+                .setCountry("default")
+                .setRegion("default")
+                .setPassword("default")
+                .setAddressSecond("default")
+                .setCompany("default")
+                .setFax("default")
+                .setSubscribe(true)
+                .build());
+        }
+        return result;
+    }
+
+    public IUser fromDBbyEmail(String email) {
+        String[] current = new CustomerService().getCustomerByEmail(email);
+        return User.get()
+                .setFirstname(current[1])
+                .setLastname(current[2])
+                .setEmail(current[3])
+                .setPhoneNumber(current[4])
+                .setAddressFirst("default")
+                .setCity("default")
+                .setPostCode("default")
+                .setCountry("default")
+                .setRegion("default")
+                .setPassword("default")
+                .setAddressSecond("default")
+                .setCompany("default")
+                .setFax("default")
+                .setSubscribe(true)
+                .build();
     }
 }

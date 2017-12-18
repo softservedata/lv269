@@ -13,7 +13,7 @@ public class CustomerLoginDao extends ADaoCRUD<CustomerLoginDB> {
         }
     }
 
-    protected CustomerLoginDB createInstance(String[] args) {
+    public CustomerLoginDB createInstance(String[] args) {
         return new CustomerLoginDB(Long.parseLong(args[0] == null ? "0" : args[0]),
                 args[1] == null ? new String() : args[1],
                 args[2] == null ? new String() : args[2],
@@ -22,7 +22,7 @@ public class CustomerLoginDao extends ADaoCRUD<CustomerLoginDB> {
                 args[5] == null ? new String() : args[5]);
     }
 
-    protected String[] getFields(CustomerLoginDB entity) {
+    public String[] getFields(CustomerLoginDB entity) {
         // String[] fields = new String[UserDB.class.getDeclaredFields().length];
         String[] fields = new String[6];
         fields[0] = entity.getCustomerLoginId().toString();

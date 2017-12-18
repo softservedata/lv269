@@ -30,6 +30,7 @@ abstract class ADaoRead<TEntity> extends ADaoInit implements IDaoRead<TEntity> {
 	protected ADaoRead() {
 		this.sqlQueries = new HashMap<Enum<?>, Enum<?>>();
 		// TODO Call init
+		init();
 	}
 
 	// TODO Use Builder

@@ -7,6 +7,7 @@ public final class TimeUtils {
 
     public static enum TimeTemplates {
         TIME_REPORT("yyyy/MM/dd HH:mm:ss"),
+        TIME_DB("yyyy-MM-dd HH:mm:ss.S"),
         TIME_FULL("yyyy_MM_dd_HH-mm-ss"),
         TIME_HHMMSS("HH-mm-ss"),
         TIME_MMSS("mm-ss");
@@ -35,6 +36,10 @@ public final class TimeUtils {
 
     public String getTimeText() {
         return simpleDateFormat.format(new Date());
+    }
+
+    public String getTimeText(long date) {
+        return simpleDateFormat.format(new Date(date));
     }
 
 }

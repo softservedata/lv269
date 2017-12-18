@@ -7,12 +7,14 @@ public class CustomerDao extends ADaoCRUD<CustomerDB> {
 
     // TODO Create abstract method in ADao
     protected void init() {
+        System.out.println("***CustomerDao init()");
         for (CustomerDBQueries customerDBQueries : CustomerDBQueries.values()) {
             sqlQueries.put(customerDBQueries.getQueryName(), customerDBQueries);
         }
+        System.out.println("***CustomerDao sqlQueries: " + sqlQueries);
     }
 
-    protected CustomerDB createInstance(String[] args) {
+    public CustomerDB createInstance(String[] args) {
         return new CustomerDB(Long.parseLong(args[0] == null ? "0" : args[0]),
                 args[1] == null ? new String() : args[1],
                 args[2] == null ? new String() : args[2],
@@ -21,7 +23,7 @@ public class CustomerDao extends ADaoCRUD<CustomerDB> {
                 Long.parseLong(args[5] == null ? "0" : args[5]));
     }
 
-    protected String[] getFields(CustomerDB entity) {
+    public String[] getFields(CustomerDB entity) {
         // String[] fields = new String[UserDB.class.getDeclaredFields().length];
         String[] fields = new String[6];
         fields[0] = entity.getCustomerId().toString();
