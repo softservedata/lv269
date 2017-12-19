@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -54,7 +55,7 @@ public class BrowserWrapper {
             options.addArguments("--headless");
             WebDriver driver = new ChromeDriver(options);
             driver.manage().window().maximize();
-//            System.out.println("\t\t\t*** ChromeWithoutUI: new ChromeDriver(options)");
+            System.out.println("\t\t\t*** ChromeWithoutUI: new ChromeDriver(options)");
             return driver;
         }
     }
@@ -78,7 +79,6 @@ public class BrowserWrapper {
         FIREFOX5X_WITHOUTUI("FireFox5xWithoutUI", new FirefoxWithoutUI()),
         CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         CHROME_WITHOUTUI("ChromeWithoutUI", new ChromeWithoutUI()),
-
         PHANTOM_JS("PhantomJS", new PhantomJS());
         //
         private String browserName;
@@ -139,9 +139,9 @@ public class BrowserWrapper {
     public File getScreenshot() {
         return ((TakesScreenshot)getDriver()).getScreenshotAs(OutputType.FILE);
     }
-
+    
     public String getSourceCode() {
-        return getDriver().getPageSource();
+        return getDriver().getPageSource();   
     }
 
     public void openUrl(String url) {

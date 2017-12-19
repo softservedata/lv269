@@ -6,6 +6,7 @@ import com.softserve.edu.opencart.data.users.IUser;
 import com.softserve.edu.opencart.pages.admin.LoginAdminPage;
 import com.softserve.edu.opencart.pages.admin.LogoutAdminPage;
 import com.softserve.edu.opencart.pages.user.HomePage;
+import com.softserve.edu.opencart.tools.ConnectionManager;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tests.TestContextAttributes;
@@ -31,8 +32,8 @@ public class Application {
     private CaptureUtils captureUtils;
     private ReporterWrapper reporter;
     private BrowserWrapper browser;
-    private DataBaseWraper dataBase;
     private ISearch search;
+    private ConnectionManager connectionManager;
     private FileManager fileManager;
     private Operations operations;
     // etc.
@@ -58,9 +59,9 @@ public class Application {
                     instance.initBrowser(applicationSource);
                     instance.initSearch(applicationSource);
                     instance.initFileManager(applicationSource);
-                    instance.initDataBase(applicationSource);
                     instance.initOperations(applicationSource);
                     // initAccessToDB();
+                    instance.initConnectionManager(applicationSource);
                 }
             }
         }
@@ -71,17 +72,15 @@ public class Application {
         if (instance != null) {
             // TODO Change for parallel work
             instance.browser().quit();
+            instance.connectionManager().closeAllConnections();
             instance = null;
         }
     }
 
-    public static void closeDB()  {
-        if (instance != null) {
-            instance.getDataBase().close();
-        }
-    }
+    // getters
 
     // TODO Change for parallel work
+    // TODO remove get
     public IApplicationSource getApplicationSource() {
         return applicationSource;
     }
@@ -109,6 +108,12 @@ public class Application {
     public Operations operations() {
         return operations;
     }
+
+    public ConnectionManager connectionManager() {
+        return connectionManager;
+    }
+
+    // Initialization
 
     // TODO Change for parallel work
     public void initCaptureUtils() {
@@ -138,6 +143,12 @@ public class Application {
     public void initOperations (IApplicationSource applicationSource) {
         this.operations = new Operations();
     }
+
+    public void initConnectionManager(IApplicationSource applicationSource) {
+        this.connectionManager = new ConnectionManager(applicationSource);
+    }
+
+    // Pages
 
     public HomePage loadHomePage() {
         browser().openUrl(applicationSource.getBaseUrl());
