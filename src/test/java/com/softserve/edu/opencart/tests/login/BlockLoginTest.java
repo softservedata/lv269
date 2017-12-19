@@ -28,7 +28,7 @@ public class BlockLoginTest extends TestRunner {
         Application.get().unlockUserByQuery((IUser) result.getParameters()[0]);
         logger.debug(String.format("unBlocking of User: %s, after test", ((IUser) result.getParameters()[0]).getEmail()));
         reporter.debug(String.format("unBlocking of User: %s, after test", ((IUser) result.getParameters()[0]).getEmail()));
-        Application.closeDB();
+
     }
 
     @Test(dataProvider = "Authentication")

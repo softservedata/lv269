@@ -52,10 +52,6 @@ public class ApplicationSourceRepository {
                 .getResource("/lib/chromedriver.exe").getPath().substring(1);
     }
 
-    public String phantomJSDriverPathWindows() {
-        return ApplicationSourceRepository.class
-                .getResource("/lib/phantomjs.exe").getPath().substring(1);
-    }
 
     public String chromeDriverPathLinux() {
         //return ApplicationSourceRepository.class
@@ -93,32 +89,16 @@ public class ApplicationSourceRepository {
         return new ApplicationSource("ChromeTemporary", chromeDriverPathWindows(),
                 10L, 30L, 10L, 5L,
                 "Present", true,
-                "http://server7.pp.ua/",
-                "http://server7.pp.ua/index.php?route=account/login",
-                "http://server7.pp.ua/index.php?route=account/logoutAdmin",
-                "http://server7.pp.ua/admin/",
-                "http://server7.pp.ua/admin/index.php?route=common/logout");
-        environmentVariables.getDatabaseConnection(),
-                environmentVariables.getDatabaseLogin(),
-                environmentVariables.getDatabasePassword());
-    }
-
-    public IApplicationSource chromeImplicitServer7WithoutUIWindows() {
-        //System.out.println("Full Path = " + ApplicationSourceRepository.class
-        //        .getResource("/lib/geckodriver.exe").getPath());
-        System.out.println("Path = " + chromeDriverPathWindows());
-        return new ApplicationSource("ChromeWithoutUI", chromeDriverPathWindows(),
-                10L, 30L, 10L, 5L,
-                "Implicit", true,
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
-                "http://server7.pp.ua/admin/index.php?route=common/logout");
-        environmentVariables.getDatabaseConnection(),
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
                 environmentVariables.getDatabaseLogin(),
                 environmentVariables.getDatabasePassword());
     }
+
 
     public IApplicationSource chromeImplicitServer7WithoutUIWindows() {
         //System.out.println("Full Path = " + ApplicationSourceRepository.class
@@ -133,9 +113,6 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/admin/",
                 "http://server7.pp.ua/admin/index.php?route=common/logout",
                 environmentVariables.getDatabaseConnection(),
-                environmentVariables.getDatabaseLogin(),
-                environmentVariables.getDatabasePassword());
-        environmentVariables.getDatabaseConnection(),
                 environmentVariables.getDatabaseLogin(),
                 environmentVariables.getDatabasePassword());
     }
@@ -185,8 +162,8 @@ public class ApplicationSourceRepository {
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",
                 "http://server7.pp.ua/admin/",
-                "http://server7.pp.ua/admin/index.php?route=common/logout");
-        environmentVariables.getDatabaseConnection(),
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
                 environmentVariables.getDatabaseLogin(),
                 environmentVariables.getDatabasePassword());
     }

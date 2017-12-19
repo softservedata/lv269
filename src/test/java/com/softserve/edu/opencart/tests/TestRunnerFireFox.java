@@ -13,7 +13,7 @@ public abstract class TestRunnerFireFox extends TestRunner {
         logger.info("@BeforeClass for " + this.getClass().getName());
 
         //
-        Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7WithoutUIWindows());
+        Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
         //Application.get(ApplicationSourceRepository.get().chromeVisibleServer7());
         //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
 

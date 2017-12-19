@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.pages;
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.data.users.IUser;
+import com.softserve.edu.opencart.db.service.CustomerLoginService;
 import com.softserve.edu.opencart.pages.admin.LoginAdminPage;
 import com.softserve.edu.opencart.pages.admin.LogoutAdminPage;
 import com.softserve.edu.opencart.pages.user.HomePage;
@@ -181,20 +182,13 @@ public class Application {
         return new LogoutAdminPage();
     }
 
-    public void initDataBase(IApplicationSource applicationSource)   {
-        this.dataBase = new DataBaseWraper();
-    }
 
-    public DataBaseWraper getDataBase() {
-        return dataBase;
-    }
 
-    public void executeQuery(String query)   {
-        getDataBase().executeQuery(query);
-    }
+
 
     public void unlockUserByQuery(IUser user)   {
-        getDataBase().executeQuery(String.format(DELETE_UNBLOCK_USER, user.getEmail()));
+        new CustomerLoginService().deleteCustomerLoginByEmail(user.getEmail());
+//        getDataBase().executeQuery(String.format(DELETE_UNBLOCK_USER, user.getEmail()));
     }
 
 }

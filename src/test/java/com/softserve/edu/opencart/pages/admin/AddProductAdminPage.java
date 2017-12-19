@@ -107,7 +107,7 @@ public class AddProductAdminPage extends AHeaderComponentAdmin{
                 break;
             }
         }
-        ErrorUtils.createOptionNotFound(result == null, String.format(NO_SUCH_TAB, tabName));
+        ErrorUtils.createOptionNotFoundInSBarException(result == null, String.format(NO_SUCH_TAB, tabName));
         return result;
     }
 

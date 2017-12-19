@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.softserve.edu.opencart.tools.EnvironmentVariables;
+
 
 public class ApplJDBC {
     private static Connection con = null;
@@ -64,20 +64,20 @@ public class ApplJDBC {
         //
         //DriverManager.registerDriver(new org.postgresql.Driver());
         //
-        EnvironmentVariables environmentVariables = new EnvironmentVariables();
-        URL = environmentVariables.getDatabaseConnection();
-        username = environmentVariables.getDatabaseLogin();
-        password = environmentVariables.getDatabasePassword();
-        // Load the driver
-        con = DriverManager.getConnection(URL, username, password);
-        if (con != null) {
-            System.out.println("Connection Successful! \n");
-        }
-        else {
-            System.out.println("Connection ERROR \n");
-            System.exit(1);
-        }
-        Statement st = con.createStatement();
+//        EnvironmentVariables environmentVariables = new EnvironmentVariables();
+//        URL = environmentVariables.getDatabaseConnection();
+//        username = environmentVariables.getDatabaseLogin();
+//        password = environmentVariables.getDatabasePassword();
+//        // Load the driver
+//        con = DriverManager.getConnection(URL, username, password);
+//        if (con != null) {
+//            System.out.println("Connection Successful! \n");
+//        }
+//        else {
+//            System.out.println("Connection ERROR \n");
+//            System.exit(1);
+//        }
+//        Statement st = con.createStatement();
         // Statement allows you to send inquiries database
         //ResultSet rs = st.executeQuery("select * from TUser");
         //ResultSet rs = st.executeQuery("select * from Users");
@@ -127,31 +127,31 @@ public class ApplJDBC {
         //}
         //
         //st.execute("UPDATE oc_customer_login SET total='1' WHERE email LIKE 'jar%';");
-        //ResultSet rs = st.executeQuery("select * from oc_customer;");
-        ResultSet rs = st.executeQuery("select * from oc_customer_login;");
-        //ResultSet rs = st.executeQuery("select * from Users;");
-        //ResultSet rs = st.executeQuery("select user_id, email, first_name, login, password from Users;");
-        //
-        int columnCount = rs.getMetaData().getColumnCount();
-        // Resultset.getMetaData () get the information
-        // output file
-        for (int i = 1; i <= columnCount; i++) {
-            System.out.print(rs.getMetaData().getColumnName(i) + "\t");
-        }
-        System.out.println();
-        while (rs.next()) {
-            for (int i = 1; i <= columnCount; i++) {
-                System.out.print(rs.getString(i) + "\t");
-            }
-            System.out.println();
-        }
-        System.out.println();
-        if (rs != null) {
-            rs.close(); }
-        if (st != null) {
-            st.close(); }
-        if (con != null) {
-            con.close(); }
-        System.out.println("DONE");
+//        //ResultSet rs = st.executeQuery("select * from oc_customer;");
+//        ResultSet rs = st.executeQuery("select * from oc_customer_login;");
+//        //ResultSet rs = st.executeQuery("select * from Users;");
+//        //ResultSet rs = st.executeQuery("select user_id, email, first_name, login, password from Users;");
+//        //
+//        int columnCount = rs.getMetaData().getColumnCount();
+//        // Resultset.getMetaData () get the information
+//        // output file
+//        for (int i = 1; i <= columnCount; i++) {
+//            System.out.print(rs.getMetaData().getColumnName(i) + "\t");
+//        }
+//        System.out.println();
+//        while (rs.next()) {
+//            for (int i = 1; i <= columnCount; i++) {
+//                System.out.print(rs.getString(i) + "\t");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println();
+//        if (rs != null) {
+//            rs.close(); }
+//        if (st != null) {
+//            st.close(); }
+//        if (con != null) {
+//            con.close(); }
+//        System.out.println("DONE");
     }
 }
