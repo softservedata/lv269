@@ -76,14 +76,14 @@
 <!-- 		</repository> -->
 <!-- 	</repositories> -->
 
-	<repositories>
-		<repository>
-			<id>ms-repo</id>
-			<name>Microsoft</name>
-<!-- 			<url>http://clojars.org/repo/</url> -->
-			<url>https://mvnrepository.com/artifact/com.microsoft.azure/azure-storage</url>
-		</repository>
-	</repositories>
+	<!--<repositories>-->
+		<!--<repository>-->
+			<!--<id>ms-repo</id>-->
+			<!--<name>Microsoft</name>-->
+<!--&lt;!&ndash; 			<url>http://clojars.org/repo/</url> &ndash;&gt;-->
+			<!--<url>https://mvnrepository.com/artifact/com.microsoft.azure/azure-storage</url>-->
+		<!--</repository>-->
+	<!--</repositories>-->
    
 	<dependencies>
 		<!-- - - - Test - - - -->
@@ -141,12 +141,12 @@
 <!-- 			<artifactId>mssql-jdbc</artifactId> -->
 <!-- 			<version>6.2.2</version> -->
 <!-- 		</dependency> -->
-		<dependency>
-		    <groupId>com.microsoft.sqlserver</groupId>
-		    <artifactId>sqljdbc4</artifactId>
-		    <version>4.0</version>
-<!-- 			<version>4.0.2206.100</version> -->
-		</dependency>		
+		<!--<dependency>-->
+		    <!--<groupId>com.microsoft.sqlserver</groupId>-->
+		    <!--<artifactId>sqljdbc4</artifactId>-->
+		    <!--<version>4.0</version>-->
+<!--&lt;!&ndash; 			<version>4.0.2206.100</version> &ndash;&gt;-->
+		<!--</dependency>		-->
 		<dependency>
 			<groupId>net.sourceforge.jtds</groupId>
 			<artifactId>jtds</artifactId>
