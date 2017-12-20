@@ -26,6 +26,11 @@ public class StartElm {
         getCart();
     }
 
+    // TODO delete
+    public ISearch getSearch() {
+        return Application.get().search();
+    }
+    
     public WebElement getCurrency() {
         return search.cssSelector(".btn.btn-link.dropdown-toggle");
     }
@@ -51,11 +56,14 @@ public class StartElm {
     }
 
     public WebElement getSearchProductField() {
-        return search.name("search");
+        //System.out.println("----------------------------------");
+        //return search.name("search");
+        return getSearch().name("search");
     }
 
     public WebElement getSearchProductButton() {
-        return search.cssSelector(".btn.btn-default.btn-lg");
+        //return search.cssSelector(".btn.btn-default.btn-lg");
+        return getSearch().cssSelector(".btn.btn-default.btn-lg");
     }
 
     public WebElement getCart() {

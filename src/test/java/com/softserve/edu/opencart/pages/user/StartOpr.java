@@ -10,10 +10,17 @@ public class StartOpr {
     private RegElm regElm;
     
     public StartOpr() {
+        //System.out.println("StartOpr() ADDR = " + startElm);
         this.startElm = new StartElm();    
     }
-    
+
+    // TODO delete
+    //public StartOpr(StartElm startElm) {
+    //    this.startElm = startElm;    
+    //}
+
     public StartElm getStartElm() {
+        //System.out.println("+++++++++++++++++ startElm = " + startElm);
         return startElm;
     }
 
@@ -93,6 +100,7 @@ public class StartOpr {
      }
 
      public void clickSearchProductField() {
+         //System.out.println("ADDR getStartElm().getSearchProductField() " + getStartElm().getSearchProductField());
          getStartElm().getSearchProductField().click();
      }
 

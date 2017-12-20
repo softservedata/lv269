@@ -8,7 +8,13 @@ public class StartBlg {
         this.startOpr = new StartOpr();
     }
 
+    // TODO delete
+    //public StartBlg(StartOpr startOpr) {
+    //    this.startOpr = startOpr;
+    //}
+
     public StartOpr getStartOpr() {
+        //System.out.println("\t***getStartOpr() DONE");
         return startOpr;
     }
 
@@ -19,6 +25,7 @@ public class StartBlg {
         getStartOpr().clearSearchProductField();
         getStartOpr().setSearchProductField(text);
         getStartOpr().clickSearchProductButton();
+        //System.out.println("searchBytext(String text) DONE");
         return this;
     }
     
@@ -26,4 +33,11 @@ public class StartBlg {
         getStartOpr().clickRegister();
         return new RegAccBlg();
     }
+
+    public int getResult() {
+        // TODO
+        System.out.println("getResult() DONE");
+        return 1;
+    }
+
 }
