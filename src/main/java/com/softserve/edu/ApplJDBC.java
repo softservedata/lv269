@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.softserve.edu.opencart.tools.EnvironmentVariables;
+//import com.softserve.edu.opencart.tools.EnvironmentVariables;
 
 public class ApplJDBC {
     private static Connection con = null;
@@ -64,10 +64,12 @@ public class ApplJDBC {
         //
         //DriverManager.registerDriver(new org.postgresql.Driver());
         //
-        EnvironmentVariables environmentVariables = new EnvironmentVariables();
-        URL = environmentVariables.getDatabaseConnection();
-        username = environmentVariables.getDatabaseLogin();
-        password = environmentVariables.getDatabasePassword();
+        // TODO UNCOMMENT
+        //EnvironmentVariables environmentVariables = new EnvironmentVariables();
+        //URL = environmentVariables.getDatabaseConnection();
+        //username = environmentVariables.getDatabaseLogin();
+        //password = environmentVariables.getDatabasePassword();
+        //
         // Load the driver
         con = DriverManager.getConnection(URL, username, password);
         if (con != null) {

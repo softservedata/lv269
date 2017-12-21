@@ -63,6 +63,7 @@ hs_err_pid*
 /**/*.iml
 
 # Ignore binary
+/.allure/
 *.bin
 
 # Ignore log
