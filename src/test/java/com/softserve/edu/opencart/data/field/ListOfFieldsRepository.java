@@ -27,12 +27,12 @@ public final class ListOfFieldsRepository {
         List<Object[]> negativeData = new ArrayList<Object[]>()
         {
             {
-                add(new Object[] {UserRepository.get().userZvarych(), UserRepository.get().userWithoutName(), AlertsText.FIRST_NAME_MUST_BE_1_TO_32.toString()});
-                add(new Object[] {UserRepository.get().userZvarych(), UserRepository.get().userWithoutLastName(), AlertsText.LAST_NAME_MUST_BE_1_TO_32.toString()});
-                add(new Object[] {UserRepository.get().userZvarych(), UserRepository.get().userWithoutAddress(), AlertsText.ADDRESS_MUST_BE_3_TO_128.toString()});
-                add(new Object[] {UserRepository.get().userZvarych(), UserRepository.get().userWithoutCity(), AlertsText.CITY_MUST_BE_2_TO_128.toString()});
-                add(new Object[] {UserRepository.get().userZvarych(), UserRepository.get().userWithoutCountry(), AlertsText.NOT_SELECTED_COUNTRY.toString()});
-                add(new Object[] {UserRepository.get().userZvarych(), UserRepository.get().userWithoutRegion(), AlertsText.NOT_SELECTED_REGION.toString()});
+                add(new Object[] { UserRepository.get().userWithoutName(), AlertsText.FIRST_NAME_MUST_BE_1_TO_32.toString()});
+                //add(new Object[] {UserRepository.get().userZvarych(), UserRepository.get().userWithoutLastName(), AlertsText.LAST_NAME_MUST_BE_1_TO_32.toString()});
+                //add(new Object[] {UserRepository.get().userZvarych(), UserRepository.get().userWithoutAddress(), AlertsText.ADDRESS_MUST_BE_3_TO_128.toString()});
+                //add(new Object[] {UserRepository.get().userZvarych(), UserRepository.get().userWithoutCity(), AlertsText.CITY_MUST_BE_2_TO_128.toString()});
+               // add(new Object[] {UserRepository.get().userZvarych(), UserRepository.get().userWithoutCountry(), AlertsText.NOT_SELECTED_COUNTRY.toString()});
+               // add(new Object[] {UserRepository.get().userZvarych(), UserRepository.get().userWithoutRegion(), AlertsText.NOT_SELECTED_REGION.toString()});
             }
         };
 

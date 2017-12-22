@@ -677,6 +677,10 @@ abstract class AHeaderComponent {
     // setLoginData(user);
     // return new CommonPage();
     // }
+    public RegisterPage gotoRegistePageFromMyAccount() {
+        clickMyAccountOptionRegister();
+        return new RegisterPage();
+    }
 
     public LoginPage gotoLoginPageFromMyAccount() {
         clickMyAccountOptionLogin();

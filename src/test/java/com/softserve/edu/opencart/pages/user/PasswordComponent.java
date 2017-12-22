@@ -38,9 +38,7 @@ public class PasswordComponent {
 		getFieldPassword().click();
 	}
 
-	public void setFieldPassword(String text) {
-		getFieldPassword().sendKeys(text);
-	}
+
 
 	public void clearFieldPassword() {
 		getFieldPassword().clear();
@@ -50,12 +48,21 @@ public class PasswordComponent {
 		getFieldConfirmPassword().click();
 	}
 
-	public void setFieldConfirmPassword(String text) {
-		getFieldConfirmPassword().sendKeys(text);
-	}
+
 
 	public void clearFieldConfirmPassword() {
 		getFieldConfirmPassword().clear();
 	}
+	public void setFieldPassword(String text) {
+		clickFieldPassword();
+		clearFieldPassword();
+		getFieldPassword().sendKeys(text);
+	}
+	public void setFieldConfirmPassword(String text) {
+		clickFieldConfirmPassword();
+		clearFieldConfirmPassword();
+		getFieldConfirmPassword().sendKeys(text);
+	}
+
 
 }

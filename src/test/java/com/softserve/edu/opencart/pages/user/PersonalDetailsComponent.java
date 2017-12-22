@@ -57,60 +57,64 @@ public class PersonalDetailsComponent {
 	public void clickFieldFirstName() {
 		getFieldFirstName().click();
 	}
-
-	public void setFieldFirstName(String text) {
-		getFieldFirstName().sendKeys(text);
+	public void clickFieldLastName() {
+		getFieldLastName().click();
+	}
+	public void clickFieldEmail() {
+		getFieldEmail().click();
+	}
+	public void clickFieldTelephone() {
+		getFieldTelephone().click();
+	}
+	public void clickFieldFax() {
+		getFieldFax().click();
 	}
 
 	public void clearFieldFirstName() {
 		getFieldFirstName().clear();
 	}
-
-	public void clickFieldLastName() {
-		getFieldLastName().click();
-	}
-
-	public void setFieldLastName(String text) {
-		getFieldLastName().sendKeys(text);
-	}
-
-	public void clearFieldLastName() {
-		getFieldLastName().clear();
-	}
-
-	public void clickFieldEmail() {
-		getFieldEmail().click();
-	}
-
-	public void setFieldEmail(String text) {
-		getFieldEmail().sendKeys(text);
-	}
-
-	public void clearFieldEmail() {
-		getFieldEmail().clear();
-	}
-
-	public void clickFieldTelephone() {
-		getFieldTelephone().click();
-	}
-
-	public void setFieldTelephone(String text) {
-		getFieldTelephone().sendKeys(text);
-	}
-
 	public void clearFieldTelephone() {
 		getFieldTelephone().clear();
 	}
-
-	public void clickFieldFax() {
-		getFieldFax().click();
+	public void clearFieldLastName() {
+		getFieldLastName().clear();
 	}
-
-	public void setFieldFax(String text) {
-		getFieldFax().sendKeys(text);
+	public void clearFieldEmail() {
+		getFieldEmail().clear();
 	}
-
 	public void clearFieldFax() {
 		getFieldFax().clear();
 	}
+
+	public void setFieldFirstName(String text) {
+		clickFieldFirstName();
+		clearFieldFirstName();
+		getFieldFirstName().sendKeys(text);
+	}
+
+	public void setFieldLastName(String text) {
+		clickFieldLastName();
+		clearFieldLastName();
+		getFieldLastName().sendKeys(text);
+	}
+
+	public void setFieldEmail(String text) {
+		clickFieldEmail();
+		clearFieldEmail();
+		getFieldEmail().sendKeys(text);
+	}
+
+	public void setFieldTelephone(String text) {
+		clickFieldTelephone();
+		clearFieldTelephone();
+		getFieldTelephone().sendKeys(text);
+	}
+
+	public void setFieldFax(String text) {
+		clickFieldFax();
+		clearFieldFax();
+		getFieldFax().sendKeys(text);
+	}
+
+
 }
