@@ -19,7 +19,9 @@ public abstract class TestRunnerPhantomJS extends TestRunner{
     @BeforeClass
     public void beforeClass(ITestContext context) {
         logger.info("@BeforeTest for " + this.getClass().getName());
-        Application.get(ApplicationSourceRepository.get().phantomJSImplicitServer7Windows());
+        Application.get(ApplicationSourceRepository.get()
+                .phantomJSImplicitServer7Windows());
+                //.chromeImplicitServer7());
         reporter = Application.get().reporter();
     }
 
