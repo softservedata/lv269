@@ -54,8 +54,8 @@ public final class CaptureUtils {
         // + CaptureScreen.class.getResource("/").getPath().substring(1)
         // + getRelativePathFileName());
         System.out.println("\t***** System.getProperty(SERVER_DIRECTORY) = " + System.getProperty(SERVER_DIRECTORY));
-        String basePath = new String();
-        if (System.getProperty(SERVER_DIRECTORY).equalsIgnoreCase(SERVER_ABSENT)) {
+        String basePath = System.getProperty(SERVER_DIRECTORY);
+        if (basePath.equalsIgnoreCase(SERVER_ABSENT)) {
             basePath = getRelativePath();
         }
         System.out.println("\t***** basePath = " + basePath);
