@@ -14,8 +14,10 @@ public final class CaptureUtils {
 
     private final String IMAGE_SUFFIX = "_CaptureScreenImage.png";
     private final String SOURCE_SUFFIX = "_CaptureSourceCode.txt";
-    private final String DEFAULT_DIRECTORY = "test-output";
     private final String MAVEN_DIRECTORY = "surefire.reports.directory";
+    private final String DEFAULT_DIRECTORY = "test-output";
+    private final String SERVER_DIRECTORY = "surefire.jenkins.server";
+    private final String SERVER_ABSENT = "absent";
     private final String SLASH = "/";
     private final String FAILED_TO_CREATE = "Failed to create screenshot: %s";
     private TimeUtils timeUtils;
@@ -51,7 +53,13 @@ public final class CaptureUtils {
         // System.out.println("\t\t\t+++ getAbsolutePathFileName() = "
         // + CaptureScreen.class.getResource("/").getPath().substring(1)
         // + getRelativePathFileName());
-        return getRelativePath() + getRelativeFileName() + IMAGE_SUFFIX;
+        System.out.println("\t***** System.getProperty(SERVER_DIRECTORY) = " + System.getProperty(SERVER_DIRECTORY));
+        String basePath = new String();
+        if (System.getProperty(SERVER_DIRECTORY).equalsIgnoreCase(SERVER_ABSENT)) {
+            basePath = getRelativePath();
+        }
+        System.out.println("\t***** basePath = " + basePath);
+        return basePath + getRelativeFileName() + IMAGE_SUFFIX;
     }
 
     private String getAbsolutePathSourceFileName() {
