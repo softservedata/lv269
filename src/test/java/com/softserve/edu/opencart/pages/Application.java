@@ -4,6 +4,7 @@ import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.pages.user.HomePage;
 import com.softserve.edu.opencart.tools.ConnectionManager;
+import com.softserve.edu.opencart.tools.FlexAssert;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
 import com.softserve.edu.opencart.tools.browsers.BrowserWrapper;
 import com.softserve.edu.opencart.tools.browsers.CaptureUtils;
@@ -21,6 +22,7 @@ public class Application {
     private IApplicationSource applicationSource;
     private CaptureUtils captureUtils;
     private ReporterWrapper reporter;
+    private FlexAssert flexAssert;
     private BrowserWrapper browser;
     private ISearch search;
     private ConnectionManager connectionManager;
@@ -44,6 +46,7 @@ public class Application {
                     instance = new Application(applicationSource);
                     instance.initCaptureUtils();
                     instance.initReporter(applicationSource);
+                    instance.initFlexAssert();
                     instance.initBrowser(applicationSource);
                     instance.initSearch(applicationSource);
                     // initAccessToDB();
@@ -79,6 +82,10 @@ public class Application {
         return reporter;
     }
 
+    public FlexAssert flexAssert() {
+        return flexAssert;
+    }
+
     public BrowserWrapper browser() {
         return browser;
     }
@@ -94,24 +101,28 @@ public class Application {
     // Initialization
     
     // TODO Change for parallel work
-    public void initCaptureUtils() {
+    private void initCaptureUtils() {
         // TODO  Add parameters to applicationSource
         this.captureUtils = new CaptureUtils();
     }
 
-    public void initReporter(IApplicationSource applicationSource) {
+    private void initReporter(IApplicationSource applicationSource) {
         this.reporter = new ReporterWrapper(applicationSource);
     }
 
-    public void initBrowser(IApplicationSource applicationSource) {
+    private void initFlexAssert() {
+        this.flexAssert = new FlexAssert(reporter());
+    }
+    
+    private void initBrowser(IApplicationSource applicationSource) {
         this.browser = new BrowserWrapper(applicationSource);
     }
 
-    public void initSearch(IApplicationSource applicationSource) {
+    private void initSearch(IApplicationSource applicationSource) {
         this.search = new Search(applicationSource);
     }
 
-    public void initConnectionManager(IApplicationSource applicationSource) {
+    private void initConnectionManager(IApplicationSource applicationSource) {
         this.connectionManager = new ConnectionManager(applicationSource);
     }
 

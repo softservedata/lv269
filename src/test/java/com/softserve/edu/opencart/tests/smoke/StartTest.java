@@ -23,7 +23,7 @@ public class StartTest extends TestRunner {
     public Object[][] searchData() {
         return new Object[][] { 
             { "MacBook"},
-            { "iPhone"},
+            //{ "iPhone"},
             //{ "Canon EOS 5D"},
             };
     }
@@ -63,6 +63,46 @@ public class StartTest extends TestRunner {
         //driver.quit();
     }
 
+    @Test(dataProvider = "searchData")
+    public void checkSearchProductFlex(String text) throws Exception {
+        //
+        // Precondition
+        //
+        //System.setProperty("webdriver.chrome.driver",
+        //        "C:/Program Files/Java/Selenium360/chromedriver.exe");
+        //WebDriver driver = new ChromeDriver();
+        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //
+        //driver.get("http://server7.pp.ua");
+        //Thread.sleep(1000);
+        //
+        Application.get().loadHomePage();
+        StartBlg startBlg = new StartBlg();
+        Thread.sleep(1000);
+        //
+        // Steps
+        //
+        startBlg = startBlg.searchBytext(text);
+        Thread.sleep(1000);
+        //
+        // Check
+        //
+        //Assert.assertEquals(actualPrice, expectedPrice, 0.001);
+        // TODO getPrices(detailCurency)
+        flexAssert.assertEquals(startBlg.getStartOpr().getSearchProductFieldText(), text + "1");
+        Thread.sleep(1000);
+        //flexAssert.assertTrue(false);
+        //Thread.sleep(1000);
+        //flexAssert.assertEquals("1+2", "2+1");
+        //
+        // Return to previous state
+        //
+        //Thread.sleep(2000);
+        //driver.quit();
+        flexAssert.assertAll();
+    }
+
+    
     @DataProvider//(parallel = true)
     public Object[][] registerUser() {
         return new Object[][] { 
@@ -107,7 +147,7 @@ public class StartTest extends TestRunner {
         //driver.quit();
     }
 
-    @Test(dataProvider = "registerUser")
+    //@Test(dataProvider = "registerUser")
     public void checkRegisterUserMock(IUser newUser) throws Exception {
         //
         // Precondition

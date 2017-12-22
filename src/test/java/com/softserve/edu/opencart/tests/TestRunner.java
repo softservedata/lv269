@@ -12,11 +12,13 @@ import org.testng.annotations.BeforeMethod;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.tools.FlexAssert;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
 
 public abstract class TestRunner {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     protected ReporterWrapper reporter;
+    protected FlexAssert flexAssert;
 
     // Use, if class Application is not singleton
     // protected Application application;
@@ -36,9 +38,10 @@ public abstract class TestRunner {
         //Application.get(ApplicationUtils
         //        .updateAll(ApplicationSourcesRepository.getChromeTraining(), context));
         reporter = Application.get().reporter();
+        flexAssert = Application.get().flexAssert();
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void afterClass() {
         logger.info("@AfterClass for " + this.getClass().getName());
         //System.out.println("@AfterClass");
@@ -51,14 +54,16 @@ public abstract class TestRunner {
         logger.debug("@BeforeMethod for " + this.getClass().getName());
         //logger.info("@BeforeMethod for " + this.getClass().getName());
         //System.out.println("@BeforeMethod");
+        flexAssert.initResult();
     }
 
-    @AfterMethod
+    @AfterMethod//(alwaysRun = true)
     public void afterMethod(ITestResult result) {
         Reporter.setCurrentTestResult(result);
         logger.debug("@AfterMethod for " + this.getClass().getName());
         //logger.info("@AfterMethod for " + this.getClass().getName());
         //System.out.println("@AfterMethod");
+        flexAssert.assertAll();
     }
 
 }

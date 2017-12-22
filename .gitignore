@@ -38,6 +38,7 @@ hs_err_pid*
 /build/
 /doc/
 /test-output/
+/allure-results/
 /.classpath
 /.project
 /.checkstyle
@@ -53,6 +54,7 @@ hs_err_pid*
 /**/bin/
 /**/build/
 /**/test-output/
+/**/allure-results/
 /**/report/
 /**/.classpath
 /**/.project
