@@ -3,16 +3,13 @@ package com.softserve.edu.opencart.pages;
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.data.users.IUser;
-import com.softserve.edu.opencart.db.service.CustomerLoginService;
 import com.softserve.edu.opencart.pages.admin.LoginAdminPage;
 import com.softserve.edu.opencart.pages.admin.LogoutAdminPage;
 import com.softserve.edu.opencart.pages.user.HomePage;
-import com.softserve.edu.opencart.tools.ConnectionManager;
 import com.softserve.edu.opencart.pages.user.LoginPage;
 import com.softserve.edu.opencart.pages.user.LogoutPage;
 import com.softserve.edu.opencart.tests.TestContextAttributes;
 import com.softserve.edu.opencart.tools.*;
-import com.softserve.edu.opencart.tools.FlexAssert;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
 import com.softserve.edu.opencart.tools.browsers.BrowserWrapper;
 import com.softserve.edu.opencart.tools.browsers.CaptureUtils;
@@ -35,6 +32,7 @@ public class Application {
     private ReporterWrapper reporter;
     private FlexAssert flexAssert;
     private BrowserWrapper browser;
+    private DataBaseWraper dataBase;
     private ISearch search;
     private ConnectionManager connectionManager;
     private FileManager fileManager;
@@ -63,6 +61,7 @@ public class Application {
                     instance.initBrowser(applicationSource);
                     instance.initSearch(applicationSource);
                     instance.initFileManager(applicationSource);
+                    instance.initDataBase(applicationSource);
                     instance.initOperations(applicationSource);
                     // initAccessToDB();
                     instance.initConnectionManager(applicationSource);
@@ -71,7 +70,7 @@ public class Application {
         }
         return instance;
     }
-    
+
     public static void remove() {
         if (instance != null) {
             // TODO Change for parallel work
@@ -81,10 +80,13 @@ public class Application {
         }
     }
 
-    // getters
+    public static void closeDB()  {
+        if (instance != null) {
+            instance.getDataBase().close();
+        }
+    }
 
     // TODO Change for parallel work
-    // TODO remove get
     public IApplicationSource getApplicationSource() {
         return applicationSource;
     }
@@ -121,15 +123,13 @@ public class Application {
         return connectionManager;
     }
 
-    // Initialization
-
     // TODO Change for parallel work
-    private void initCaptureUtils() {
+    public void initCaptureUtils() {
         // TODO  Add parameters to applicationSource
         this.captureUtils = new CaptureUtils();
     }
 
-    private void initReporter(IApplicationSource applicationSource) {
+    public void initReporter(IApplicationSource applicationSource) {
         this.reporter = new ReporterWrapper(applicationSource);
     }
 
@@ -137,15 +137,17 @@ public class Application {
         this.flexAssert = new FlexAssert(reporter());
     }
 
-    private void initBrowser(IApplicationSource applicationSource) {
+    public void initBrowser(IApplicationSource applicationSource) {
         this.browser = new BrowserWrapper(applicationSource);
     }
 
-    private void initSearch(IApplicationSource applicationSource) {
+    public void initSearch(IApplicationSource applicationSource) {
         this.search = new Search(applicationSource);
     }
 
     private void initConnectionManager(IApplicationSource applicationSource) {
+        this.connectionManager = new ConnectionManager(applicationSource);
+    }
 
     private void initFileManager(IApplicationSource applicationSource) {
         fileManager = new FileManager();
@@ -157,12 +159,6 @@ public class Application {
         this.operations = new Operations();
     }
 
-    public void initConnectionManager(IApplicationSource applicationSource) {
-        this.connectionManager = new ConnectionManager(applicationSource);
-    }
-
-    // Pages
-
     public HomePage loadHomePage() {
         browser().openUrl(applicationSource.getBaseUrl());
         // TODO Remove getBrowser().getDriver()
@@ -171,13 +167,13 @@ public class Application {
     }
 
     public LoginPage login() {
-    	browser().openUrl(applicationSource.getUserLoginUrl());
+        browser().openUrl(applicationSource.getUserLoginUrl());
         //return new LoginPage(getBrowser().getDriver());
         return new LoginPage();
     }
 
     public LogoutPage logout() {
-    	browser().openUrl(applicationSource.getUserLogoutUrl());
+        browser().openUrl(applicationSource.getUserLogoutUrl());
         //return new LogoutPage(getBrowser().getDriver());
         return new LogoutPage();
     }
@@ -194,13 +190,20 @@ public class Application {
         return new LogoutAdminPage();
     }
 
+    public void initDataBase(IApplicationSource applicationSource)   {
+        this.dataBase = new DataBaseWraper();
+    }
 
+    public DataBaseWraper getDataBase() {
+        return dataBase;
+    }
 
-
+    public void executeQuery(String query)   {
+        getDataBase().executeQuery(query);
+    }
 
     public void unlockUserByQuery(IUser user)   {
-        new CustomerLoginService().deleteCustomerLoginByEmail(user.getEmail());
-//        getDataBase().executeQuery(String.format(DELETE_UNBLOCK_USER, user.getEmail()));
+        getDataBase().executeQuery(String.format(DELETE_UNBLOCK_USER, user.getEmail()));
     }
 
 }

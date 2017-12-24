@@ -22,6 +22,7 @@ public abstract class TestRunnerChromeWithoutUI extends TestRunner{
         Application.get(ApplicationSourceRepository.get()
                 .chromeImplicitServer7WithoutUIWindows());
         reporter = Application.get().reporter();
+        flexAssert = Application.get().flexAssert();
     }
 
 }
