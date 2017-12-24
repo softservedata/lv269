@@ -49,4 +49,5 @@ public class ForgotPasswordPage extends AColumnRightGuestComponent{
         clickContinueButton();
         return new LoginPage();
     }
+   // public
 }

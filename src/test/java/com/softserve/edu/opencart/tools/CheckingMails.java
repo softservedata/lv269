@@ -62,14 +62,4 @@ public final class CheckingMails {
         return url;
     }
 
-//    public static void main(String[] args) {
-//
-//        String host = "pop.gmail.com";
-//        String mailStoreType = "pop3";
-//        String username = "zvartestopen@gmail.com";
-//        String password = "vitochka24";
-//
-//        check(host, mailStoreType, username, password);
-//
-//    }
 }

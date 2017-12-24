@@ -92,7 +92,83 @@ public final class UserRepository {
                 .setPassword("vitochka24")
                 .setAddressSecond("Volodymyra Velykogo")
                 .setCompany("Softserve.edu")
-                .setFax("000")
+                .setFax("0000000000")
+                .setSubscribe(false)
+                .build();
+
+    }
+    public IUser userWithoutEmail(){
+        return User.get()
+                .setFirstname("Mirek")
+                .setLastname("Zvarych")
+                .setEmail("")
+                .setPhoneNumber("000000")
+                .setAddressFirst("Naukova")
+                .setCity("Lviv")
+                .setPostCode("7902")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("vitochka24")
+                .setAddressSecond("Volodymyra Velykogo")
+                .setCompany("Softserve.edu")
+                .setFax("0000000000")
+                .setSubscribe(false)
+                .build();
+
+    }
+    public IUser userWithoutTelephon(){
+        return User.get()
+                .setFirstname("Mirek")
+                .setLastname("Zvarych")
+                .setEmail("mirekzvar@gmail.com")
+                .setPhoneNumber("")
+                .setAddressFirst("Naukova")
+                .setCity("Lviv")
+                .setPostCode("7902")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("vitochka24")
+                .setAddressSecond("Volodymyra Velykogo")
+                .setCompany("Softserve.edu")
+                .setFax("0000000000")
+                .setSubscribe(false)
+                .build();
+
+    }
+    public IUser userWithoutPass(){
+        return User.get()
+                .setFirstname("Mirek")
+                .setLastname("Zvarych")
+                .setEmail("mirekzvar@gmail.com")
+                .setPhoneNumber("000000")
+                .setAddressFirst("Naukova")
+                .setCity("Lviv")
+                .setPostCode("7902")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("")
+                .setAddressSecond("Volodymyra Velykogo")
+                .setCompany("Softserve.edu")
+                .setFax("0000000000")
+                .setSubscribe(false)
+                .build();
+
+    }
+    public IUser userWithoutConfirmPass(){
+        return User.get()
+                .setFirstname("Mirek")
+                .setLastname("Zvarych")
+                .setEmail("mirekzvar@gmail.com")
+                .setPhoneNumber("000000")
+                .setAddressFirst("Naukova")
+                .setCity("Lviv")
+                .setPostCode("7902")
+                .setCountry("Ukraine")
+                .setRegion("L'vivs'ka Oblast'")
+                .setPassword("vitochka24")
+                .setAddressSecond("Volodymyra Velykogo")
+                .setCompany("Softserve.edu")
+                .setFax("")
                 .setSubscribe(false)
                 .build();
 
@@ -112,7 +188,7 @@ public final class UserRepository {
                 .setPassword("vitochka24")
                 .setAddressSecond("Volodymyra Velukogo")
                 .setCompany("Softserve.edu")
-                .setFax("000")
+                .setFax("0000000000")
                 .setSubscribe(false)
                 .build();
 
@@ -131,7 +207,7 @@ public final class UserRepository {
                 .setPassword("vitochka24")
                 .setAddressSecond("Volodymyra Velukogo")
                 .setCompany("Softserve.edu")
-                .setFax("000")
+                .setFax("0000000000")
                 .setSubscribe(false)
                 .build();
 
@@ -150,7 +226,7 @@ public final class UserRepository {
                 .setPassword("vitochka24")
                 .setAddressSecond("Volodymyra Velukogo")
                 .setCompany("Softserve.edu")
-                .setFax("000")
+                .setFax("0000000000")
                 .setSubscribe(false)
                 .build();
 
@@ -169,7 +245,7 @@ public final class UserRepository {
                 .setPassword("vitochka24")
                 .setAddressSecond("Volodymyra Velukogo")
                 .setCompany("Softserve.edu")
-                .setFax("000")
+                .setFax("0000000000")
                 .setSubscribe(false)
                 .build();
 
@@ -188,7 +264,7 @@ public final class UserRepository {
                 .setPassword("vitochka24")
                 .setAddressSecond("Volodymyra Velukogo")
                 .setCompany("Softserve.edu")
-                .setFax("000")
+                .setFax("0000000000")
                 .setSubscribe(false)
                 .build();
 
@@ -197,7 +273,7 @@ public final class UserRepository {
         return User.get()
                 .setFirstname("Mirek")
                 .setLastname("Zvarych")
-                .setEmail("WithoutRegion")
+                .setEmail("mirekzvar@gmail.com")
                 .setPhoneNumber("000000")
                 .setAddressFirst("Naukova")
                 .setCity("Lviv")
@@ -207,7 +283,26 @@ public final class UserRepository {
                 .setPassword("vitochka24")
                 .setAddressSecond("Volodymyra Velukogo")
                 .setCompany("Softserve.edu")
-                .setFax("000")
+                .setFax("0000000000")
+                .setSubscribe(false)
+                .build();
+
+    }
+    public IUser userForChangePass(){
+        return User.get()
+                .setFirstname("Mirek")
+                .setLastname("Zvarych")
+                .setEmail("zvartestopen@gmail.com")
+                .setPhoneNumber("000000")
+                .setAddressFirst("Naukova")
+                .setCity("Lviv")
+                .setPostCode("pop.gmail.com")
+                .setCountry("Ukraine")
+                .setRegion("--- Please Select ---")
+                .setPassword("vitochka24")
+                .setAddressSecond("Volodymyra Velukogo")
+                .setCompany("Softserve.edu")
+                .setFax("pop3")
                 .setSubscribe(false)
                 .build();
 

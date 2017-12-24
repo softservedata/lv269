@@ -33,13 +33,17 @@ public class EditPositiveAddressTest extends TestRunnerFireFox {
         logger.info(String.format("check Positive value fields Address :  of User: %s",user.getEmail()));
         reporter.info(String.format("check Positive value fields Address:  of User: %s", user.getEmail()));
 
-        EditAddressPage editAddressPage = Application.get().loadHomePage().gotoLoginPageFromMyAccount()
+        EditAddressPage editAddressPage = Application.get()
+                .loadHomePage()
+                .gotoLoginPageFromMyAccount()
                 .gotoLoginForLoginPageToMyAccountPage(user)
-                .gotoAddressBookPageRightColumn().modifyAddressBookData(user);
+                .gotoAddressBookPageRightColumn()
+                .modifyAddressBookData(user);
 
         editAddressPage.changeFieldAddress(user);
-        String actual = editAddressPage.saveChangesAddress().getSuccessText();
-        //String actual = editAddressPage.getWarningDangerTextforField();
+        String actual = editAddressPage
+                .saveChangesAddress()
+                .getSuccessText();
 
         Assert.assertEquals(actual, expected);
     }

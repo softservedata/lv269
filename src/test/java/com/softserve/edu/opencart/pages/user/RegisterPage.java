@@ -91,7 +91,7 @@ public class RegisterPage extends AColumnRightGuestComponent {
 		addressComponent.selectFieldCountry(user.getCountry());
 		addressComponent.selectFieldRegion(user.getRegion());
 		passwordComponent.setFieldPassword(user.getPassword());
-		passwordComponent.setFieldConfirmPassword(user.getPassword());
+		passwordComponent.setFieldConfirmPassword(user.getFax());
 		clickCheckPrivacyPolicy();
 
 	}

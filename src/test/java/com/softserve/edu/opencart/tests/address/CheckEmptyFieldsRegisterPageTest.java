@@ -15,14 +15,13 @@ import java.util.List;
 
 public class CheckEmptyFieldsRegisterPageTest extends TestRunnerFireFox {
 
-    @DataProvider(name = "editAddress")
+    @DataProvider(name = "notValidRegistration")
     public Iterator<Object[]> userData() {
-        List<Object[]> data = ListOfFieldsRepository.get().nehgativeFields().getData();
+        List<Object[]> data = ListOfFieldsRepository.get().nehgativeFieldsForRegistration().getData();
         return data.iterator();
     }
-    @Test(dataProvider = "editAddress")
-   // public void checkEmptyField(IUser user, IUser wrongField, String expected) {
-        public void checkEmptyField( IUser wrongField, String expected) throws InterruptedException {
+    @Test(dataProvider = "notValidRegistration")
+        public void checkEmptyField( IUser wrongField, String expected){
         logger.info(String.format("check Empty Field:  of User: %s", wrongField.getClass().getName()));
         reporter.info(String.format("check Empty Address:  of User: %s", wrongField.getClass().getName()));
 
@@ -30,7 +29,6 @@ public class CheckEmptyFieldsRegisterPageTest extends TestRunnerFireFox {
 
         registerPage.changeFieldRegister(wrongField);
         registerPage.gotoRegisterSuccessPage();
-        //Thread.sleep(10000);
 
         String actual = registerPage.getWarningDangerTextforField();
         Assert.assertEquals(actual, expected);
