@@ -6,9 +6,9 @@ import com.softserve.edu.opencart.tools.ReporterWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeClass;
 
-public abstract class TestRunnerPhantomJS extends TestRunner{
+public abstract class TestRunnerChromeWithoutUI extends TestRunner{
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     protected ReporterWrapper reporter;
 
@@ -20,8 +20,7 @@ public abstract class TestRunnerPhantomJS extends TestRunner{
     public void beforeClass(ITestContext context) {
         logger.info("@BeforeTest for " + this.getClass().getName());
         Application.get(ApplicationSourceRepository.get()
-                .phantomJSImplicitServer7Windows());
-                //.chromeImplicitServer7());
+                .chromeImplicitServer7WithoutUIWindows());
         reporter = Application.get().reporter();
     }
 

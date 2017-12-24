@@ -3,13 +3,13 @@ package com.softserve.edu.opencart.tests.smoke;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.ProductPage;
-import com.softserve.edu.opencart.tests.TestRunnerPhantomJS;
+import com.softserve.edu.opencart.tests.TestRunnerChromeWithoutUI;
 import org.testng.annotations.Test;
 
 /**
  * Created by Serhiienko.
  */
-public class ProductPageTest extends TestRunnerPhantomJS {
+public class ProductPageTest extends TestRunnerChromeWithoutUI {
 
     @Test
     public void testCheckProductPage() {

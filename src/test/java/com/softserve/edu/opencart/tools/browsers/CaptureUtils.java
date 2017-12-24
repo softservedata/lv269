@@ -23,9 +23,9 @@ public final class CaptureUtils {
     private TimeUtils timeUtils;
 
     public CaptureUtils() {
-        this.timeUtils = new TimeUtils(TimeUtils.TimeTemplates.TIME_FULL);    
+        this.timeUtils = new TimeUtils(TimeUtils.TimeTemplates.TIME_FULL);
     }
-    
+
     private String getOutputDirectory() {
         String outputDirectory = System.getProperty(MAVEN_DIRECTORY);
         if ((outputDirectory == null) || (outputDirectory.isEmpty())) {
@@ -88,7 +88,7 @@ public final class CaptureUtils {
     }
 
     public String takeSourceCode(String absolutePathFileName) {
-        // TODO get partial HTML code from srcFile 
+        // TODO get partial HTML code from srcFile
         String srcFile = Application.get().browser().getSourceCode();
         // System.out.println("\t\t srcFile = " + srcFile);
         try {
