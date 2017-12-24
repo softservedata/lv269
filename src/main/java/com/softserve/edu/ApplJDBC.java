@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+//import com.softserve.edu.opencart.tools.EnvironmentVariables;
 
 
 public class ApplJDBC {
@@ -64,6 +65,22 @@ public class ApplJDBC {
         //
         //DriverManager.registerDriver(new org.postgresql.Driver());
         //
+        // TODO UNCOMMENT
+        //EnvironmentVariables environmentVariables = new EnvironmentVariables();
+        //URL = environmentVariables.getDatabaseConnection();
+        //username = environmentVariables.getDatabaseLogin();
+        //password = environmentVariables.getDatabasePassword();
+        //
+        // Load the driver
+        con = DriverManager.getConnection(URL, username, password);
+        if (con != null) {
+            System.out.println("Connection Successful! \n");
+        }
+        else {
+            System.out.println("Connection ERROR \n");
+            System.exit(1);
+        }
+        Statement st = con.createStatement();
 //        EnvironmentVariables environmentVariables = new EnvironmentVariables();
 //        URL = environmentVariables.getDatabaseConnection();
 //        username = environmentVariables.getDatabaseLogin();
