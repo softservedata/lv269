@@ -14,16 +14,18 @@ public final class CaptureUtils {
 
     private final String IMAGE_SUFFIX = "_CaptureScreenImage.png";
     private final String SOURCE_SUFFIX = "_CaptureSourceCode.txt";
-    private final String DEFAULT_DIRECTORY = "test-output";
     private final String MAVEN_DIRECTORY = "surefire.reports.directory";
+    private final String DEFAULT_DIRECTORY = "test-output";
+    private final String SERVER_DIRECTORY = "surefire.jenkins.server";
+    private final String SERVER_ABSENT = "absent";
     private final String SLASH = "/";
     private final String FAILED_TO_CREATE = "Failed to create screenshot: %s";
     private TimeUtils timeUtils;
 
     public CaptureUtils() {
-        this.timeUtils = new TimeUtils(TimeUtils.TimeTemplates.TIME_FULL);    
+        this.timeUtils = new TimeUtils(TimeUtils.TimeTemplates.TIME_FULL);
     }
-    
+
     private String getOutputDirectory() {
         String outputDirectory = System.getProperty(MAVEN_DIRECTORY);
         if ((outputDirectory == null) || (outputDirectory.isEmpty())) {
@@ -51,7 +53,13 @@ public final class CaptureUtils {
         // System.out.println("\t\t\t+++ getAbsolutePathFileName() = "
         // + CaptureScreen.class.getResource("/").getPath().substring(1)
         // + getRelativePathFileName());
-        return getRelativePath() + getRelativeFileName() + IMAGE_SUFFIX;
+        System.out.println("\t***** System.getProperty(SERVER_DIRECTORY) = " + System.getProperty(SERVER_DIRECTORY));
+        String basePath = System.getProperty(SERVER_DIRECTORY);
+        if (basePath.equalsIgnoreCase(SERVER_ABSENT)) {
+            basePath = getRelativePath();
+        }
+        System.out.println("\t***** basePath = " + basePath);
+        return basePath + getRelativeFileName() + IMAGE_SUFFIX;
     }
 
     private String getAbsolutePathSourceFileName() {
@@ -80,7 +88,7 @@ public final class CaptureUtils {
     }
 
     public String takeSourceCode(String absolutePathFileName) {
-        // TODO get partial HTML code from srcFile 
+        // TODO get partial HTML code from srcFile
         String srcFile = Application.get().browser().getSourceCode();
         // System.out.println("\t\t srcFile = " + srcFile);
         try {
