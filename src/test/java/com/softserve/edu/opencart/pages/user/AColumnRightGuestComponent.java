@@ -63,15 +63,15 @@ public class AColumnRightGuestComponent extends AColumnRightPartitionalComponent
         clickLoginRightColumn();
         return new LoginPage();
     }
-    //    public RegisterPage gotoRegisterPageRightColumn() {
-//        clickRegisterRightColumn();
-//        return new RegisterPage(driver);
-//    }
+      public RegisterPage gotoRegisterPageRightColumn() {
+        clickRegisterRightColumn();
+       return new RegisterPage();
+   }
 
-//    public ForgotPasswordPage gotoAdressBookPageRightColumn() {
-//        clickForgotttenPasswordRightColumn();
-//        return new ForgotPasswordPage(driver);
-//    }
+    public ForgotPasswordPage gotoForgotPasswordPageRightColumn() {
+        clickForgotttenPasswordRightColumn();
+       return new ForgotPasswordPage();
+   }
 
     public LoginPage gotoMyAccountPageRightColumn() {
         clickMyAccountRigthPanel();

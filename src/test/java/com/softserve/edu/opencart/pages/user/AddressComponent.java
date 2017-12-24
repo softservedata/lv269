@@ -14,37 +14,37 @@ public class AddressComponent {
 	
 	protected final ISearch search;
 
+	private WebElement fieldFirstAddress;
+	private WebElement fieldSecondAddress;
 	private WebElement fieldCompany;
-	private WebElement fieldAddressFirst;
-	private WebElement fieldAddressSecond;
 	private WebElement fieldCity;
 	private WebElement fieldPostCode;
-	private Select country;
-	private Select zone;
+	private Select fieldCountry;
+	private Select fieldRegion;
 
 	public AddressComponent() {
 		this.search = Application.get().search();
 		fieldCompany = search.id("input-company");
-		fieldAddressFirst = search.id("input-address-1");
-		fieldAddressSecond = search.id("input-address-2");
+		fieldFirstAddress = search.id("input-address-1");
+		fieldSecondAddress = search.id("input-address-2");
 		fieldCity = search.id("input-city");
 		fieldPostCode = search.id("input-postcode");
-		country = new Select(search.id("input-country"));
-		zone = new Select(search.id("input-zone"));
+		fieldCountry = new Select(search.id("input-country"));
+		fieldRegion = new Select(search.id("input-zone"));
 	}
 
 	// get Data
 
+	public WebElement getFieldFirstAddress() {
+		return fieldFirstAddress;
+	}
+
+	public WebElement getFieldSecondAddress() {
+		return fieldSecondAddress;
+	}
+
 	public WebElement getFieldCompany() {
 		return fieldCompany;
-	}
-
-	public WebElement getFieldAddressFirst() {
-		return fieldAddressFirst;
-	}
-
-	public WebElement getFieldAddressSecond() {
-		return fieldAddressSecond;
 	}
 
 	public WebElement getFieldCity() {
@@ -55,83 +55,97 @@ public class AddressComponent {
 		return fieldPostCode;
 	}
 
-	public Select getCountry() {
-		return country;
+	public Select getFieldCountry() {
+		return fieldCountry;
 	}
 
-	public Select getZone() {
-		return zone;
+	public Select getFieldRegion() {
+		return fieldRegion;
 	}
-
 	// set Data
+
+	public void clickFieldFirstAddress() {
+		getFieldFirstAddress().click();
+	}
+
+	public void clickFieldSecondAddress() {
+		getFieldSecondAddress().click();
+	}
 
 	public void clickFieldCompany() {
 		getFieldCompany().click();
-	}
-
-	public void setFieldCompany(String text) {
-		getFieldCompany().sendKeys(text);
-	}
-
-	public void clearFieldCompany() {
-		getFieldCompany().clear();
-	}
-
-	public void clickFieldAddressFirst() {
-		getFieldAddressFirst().click();
-	}
-
-	public void setFieldAddressFirst(String text) {
-		getFieldAddressFirst().sendKeys(text);
-	}
-
-	public void clearFieldAddressFirst() {
-		getFieldAddressFirst().clear();
-	}
-
-	public void clickFieldAddressSecond() {
-		getFieldAddressSecond().click();
-	}
-
-	public void setFieldAddressSecond(String text) {
-		getFieldAddressSecond().sendKeys(text);
-	}
-
-	public void clearFieldAddressSecond() {
-		getFieldAddressSecond().clear();
 	}
 
 	public void clickFieldCity() {
 		getFieldCity().click();
 	}
 
-	public void setFieldCity(String text) {
-		getFieldCity().sendKeys(text);
+	public void clickFieldPostCode() {
+		getFieldPostCode().click();
+	}
+
+	public void selectFieldCountry(String text) {
+		getFieldCountry().selectByVisibleText(text);
+		//operations.selectByVisibleText(getFieldCountry(), text);
+	}
+
+	public void selectFieldRegion(String text) {
+		getFieldRegion().selectByVisibleText(text);
+		//operations.selectByVisibleText(getFieldRegion(), text);
+	}
+
+	public void clearFieldFirstAddress() {
+		getFieldFirstAddress().clear();
+	}
+
+	public void clearFieldSecondAddress() {
+		getFieldSecondAddress().clear();
+	}
+
+	public void clearFieldCompany() {
+		getFieldCompany().clear();
 	}
 
 	public void clearFieldCity() {
 		getFieldCity().clear();
 	}
 
-	public void clickFieldPostCode() {
-		getFieldPostCode().click();
+	public void cleareFieldPostCode() {
+		getFieldPostCode().clear();
+	}
+
+
+	public void setFieldFirstAddress(String text) {
+		clickFieldFirstAddress();
+		clearFieldFirstAddress();
+		getFieldFirstAddress().sendKeys(text);
+	}
+
+	public void setFieldSecondAddress(String text) {
+		clickFieldSecondAddress();
+		clearFieldSecondAddress();
+		getFieldSecondAddress().sendKeys(text);
+	}
+
+	public void setFieldCompany(String text) {
+		clickFieldCompany();
+		clearFieldCompany();
+		getFieldCompany().sendKeys(text);
+	}
+
+	public void setFieldCity(String text) {
+		clickFieldCity();
+		clearFieldCity();
+		getFieldCity().sendKeys(text);
 	}
 
 	public void setFieldPostCode(String text) {
+		clickFieldPostCode();
+		cleareFieldPostCode();
 		getFieldPostCode().sendKeys(text);
-	}
-
-	public void clearFieldPostCode() {
-		getFieldPostCode().clear();
 	}
 
 	// set Functional
 
-	public void selectCountry(String text) {
-		getCountry().selectByVisibleText(text);
-	}
 
-	public void selectZone(String text) {
-		getZone().selectByVisibleText(text);
-	}
 }

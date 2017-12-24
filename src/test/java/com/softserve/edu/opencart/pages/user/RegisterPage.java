@@ -2,6 +2,7 @@ package com.softserve.edu.opencart.pages.user;
 
 import java.util.List;
 
+import com.softserve.edu.opencart.data.users.IUser;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -10,24 +11,22 @@ import org.openqa.selenium.WebElement;
 
 public class RegisterPage extends AColumnRightGuestComponent {
 	
-	private PersonalDetailsComponent personalDetailsPage;
-	private AddressComponent addressPage;
-	private PasswordComponent passwordPage;
+	private PersonalDetailsComponent personalDetailsComponent;
+	private AddressComponent addressComponent;
+	private PasswordComponent passwordComponent;
 	
 	private WebElement linkToLogin;
-	private List<WebElement> radioNewsSubscribe; // ?
-	private WebElement linkPrivacyPolicy;
+	private List<WebElement> radioNewsSubscribe;
 	private WebElement checkPrivacyPolicy;
 	private WebElement submitButton;
 
 	public RegisterPage() {
 		super();
-		personalDetailsPage = new PersonalDetailsComponent();
-		addressPage = new AddressComponent();
-		passwordPage = new PasswordComponent();
+		this.personalDetailsComponent = new PersonalDetailsComponent();
+		this.addressComponent = new AddressComponent();
+		this.passwordComponent = new PasswordComponent();
 		linkToLogin = search.cssSelector("#content>p>a");
 		radioNewsSubscribe = search.cssSelectors(".radio-inline"); // ?
-		linkPrivacyPolicy = search.cssSelector(".pull-right > a");
 		checkPrivacyPolicy = search.cssSelector(".pull-right > input");
 		submitButton = search.cssSelector(".btn.btn-primary");
 	}
@@ -36,29 +35,12 @@ public class RegisterPage extends AColumnRightGuestComponent {
 
 	// get Data
 	
-	public PersonalDetailsComponent getPersonalDetailsPage() {
-		return personalDetailsPage;
-	}
-
-	public AddressComponent getAddressPage() {
-		return addressPage;
-	}
-
-	public PasswordComponent getPasswordPage() {
-		return passwordPage;
-	}
-	
 	public WebElement getLinkToLogin() {
 		return linkToLogin;
 	}
 
 	public List<WebElement> getRadioNewsSubscribe() {
-		return radioNewsSubscribe;
-	}
-
-	public WebElement getLinkPrivacyPolicy() {
-		return linkPrivacyPolicy;
-	}
+		return radioNewsSubscribe;	}
 
 	public WebElement getCheckPrivacyPolicy() {
 		return checkPrivacyPolicy;
@@ -70,11 +52,12 @@ public class RegisterPage extends AColumnRightGuestComponent {
 
 	// get Functional
 
-	// set Data
+	public String getWarningDangerTextforField() {
+		return getAlertTextDangerText();
 
-	public void clickLinkPrivacyPolicy() {
-		getLinkPrivacyPolicy().click();
 	}
+
+	// set Data
 
 	public void clickSubmitButton() {
 		getSubmitButton().click();
@@ -97,11 +80,21 @@ public class RegisterPage extends AColumnRightGuestComponent {
 
 	// Business Logic
 
-	public LoginPage gotoLinkToLogin() {
-		getLinkToLogin().click();
-		return new LoginPage();
-	}
+	public void changeFieldRegister(IUser user){
 
+		personalDetailsComponent.setFieldFirstName(user.getFirstname());
+		personalDetailsComponent.setFieldLastName(user.getLastname());
+		personalDetailsComponent.setFieldEmail(user.getEmail());
+		personalDetailsComponent.setFieldTelephone(user.getPhoneNumber());
+		addressComponent.setFieldFirstAddress(user.getAddressFirst());
+		addressComponent.setFieldCity(user.getCity());
+		addressComponent.selectFieldCountry(user.getCountry());
+		addressComponent.selectFieldRegion(user.getRegion());
+		passwordComponent.setFieldPassword(user.getPassword());
+		passwordComponent.setFieldConfirmPassword(user.getFax());
+		clickCheckPrivacyPolicy();
+
+	}
 	public RegisterSuccessPage gotoRegisterSuccessPage() {
 		clickSubmitButton();
 		return new RegisterSuccessPage();

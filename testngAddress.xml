@@ -14,9 +14,15 @@
                 </methods>
             </class>
 
-            <class name="com.softserve.edu.opencart.tests.address.EditAddressTest">
+            <class name="com.softserve.edu.opencart.tests.address.EditNegativeAddressTest">
                 <methods>
                     <include name="checkEmptyField"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.opencart.tests.address.EditPositiveAddressTest">
+                <methods>
+                    <include name="checkPositiveValueField"/>
                 </methods>
             </class>
 
