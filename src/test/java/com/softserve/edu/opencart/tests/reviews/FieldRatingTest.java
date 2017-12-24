@@ -32,8 +32,8 @@ public class FieldRatingTest extends ALoginForTest {
         logger.info(message);
         reporter.info(message);
 
-        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview));
-        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview));
+        flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview));
+        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview));
     }
 
     @Test(dataProvider = "ratingData")
@@ -43,8 +43,8 @@ public class FieldRatingTest extends ALoginForTest {
         logger.info(message);
         reporter.info(message);
 
-        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview));
-        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview));
+        flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview));
+        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview));
     }
 
 }

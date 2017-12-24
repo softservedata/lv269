@@ -30,8 +30,8 @@ public class PositiveUserLoginTest extends ALoginForTest {
         logger.info(message);
         reporter.info(message);
 
-        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
-        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
+        flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
+        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
     }
 
 }

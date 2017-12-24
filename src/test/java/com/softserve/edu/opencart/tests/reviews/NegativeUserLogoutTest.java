@@ -29,7 +29,7 @@ public class NegativeUserLogoutTest extends TestRunnerChromeWithoutUI {
         logger.info(message);
         reporter.info(message);
 
-        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFieldsUserLogOut(myReview));
-        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFieldsUserLogOut(myReview));
+        flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFieldsUserLogOut(myReview));
+        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFieldsUserLogOut(myReview));
     }
 }

@@ -41,8 +41,8 @@ public class FieldTextTest extends ALoginForTest {
         logger.info(message);
         reporter.info(message);
 
-        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview));
-        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview));
+        flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview));
+        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview));
     }
 
     @Test(dataProvider = "validTextData")
@@ -52,8 +52,8 @@ public class FieldTextTest extends ALoginForTest {
         logger.info(message);
         reporter.info(message);
 
-        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
-        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
+        flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
+        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
     }
 
 }
