@@ -35,7 +35,6 @@ public abstract class ASearch implements ISearch {
             return getWebElement(by);
         } catch (Exception e) {
             throw new ScreenCaptureException(String.format(NO_SUCH_ELEMENT, by.toString()));
-            //throw new RuntimeException(String.format(NO_SUCH_ELEMENT, by.toString()));
         }
     }
 
@@ -225,43 +224,43 @@ public abstract class ASearch implements ISearch {
 
     @Override
     public boolean isVisibleId(String id) {
-        return ((WebElement)((JavascriptExecutor) Application.get().browser().getDriver())
+        return ((WebElement) ((JavascriptExecutor) Application.get().browser().getDriver())
                 .executeScript("return document.getElementById(arguments[0])", id) != null);
     }
 
     @Override
     public boolean isVisibleName(String name) {
-        return (names(name).size()>0);
+        return (names(name).size() > 0);
     }
 
     @Override
     public boolean isVisibleXpath(String xpath) {
-        return (xpaths(xpath).size() >0);
+        return (xpaths(xpath).size() > 0);
     }
 
     @Override
     public boolean isVisibleCssSelector(String cssSelector) {
-        return (cssSelectors(cssSelector).size() >0);
+        return (cssSelectors(cssSelector).size() > 0);
     }
 
     @Override
     public boolean isVisibleClassName(String className) {
-        return (classNames(className).size() >0);
+        return (classNames(className).size() > 0);
     }
 
     @Override
     public boolean isVisiblePartialLinkText(String partialLinkText) {
-        return (partialLinkTexts(partialLinkText).size() >0);
+        return (partialLinkTexts(partialLinkText).size() > 0);
     }
 
     @Override
     public boolean isVisibleLinkText(String linkText) {
-        return (linkTexts(linkText).size() >0);
+        return (linkTexts(linkText).size() > 0);
     }
 
     @Override
     public boolean isVisibleTagName(String tagName) {
-        return (tagNames(tagName).size() >0);
+        return (tagNames(tagName).size() > 0);
     }
 
 }

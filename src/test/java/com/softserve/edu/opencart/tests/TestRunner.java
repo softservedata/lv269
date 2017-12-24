@@ -41,7 +41,7 @@ public abstract class TestRunner {
         flexAssert = Application.get().flexAssert();
     }
 
-    @AfterClass(alwaysRun = true)
+    @AfterClass//(alwaysRun = true)
     public void afterClass() {
         logger.info("@AfterClass for " + this.getClass().getName());
         //System.out.println("@AfterClass");

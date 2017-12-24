@@ -369,7 +369,39 @@ public class ProductPage extends ANavigatePanelComponent {
         review = new Review();
     }
 
-    public void validReviewFields(IReview myReview) {
+    public boolean validReviewFields(IReview myReview) {
+        newReview(myReview);
+        return isPresentAlertSuccess();
+    }
+
+    public boolean validReviewFieldsUserLogOut(IReview myReview) {
+        newReview(myReview);
+        return isPresentAlertDanger();
+    }
+
+    public boolean notValidReviewFields(IReview myReview) {
+        newReview(myReview);
+        return isPresentAlertDanger();
+    }
+
+    public boolean onlyReviewRating(IReview myReview) {
+        clickReview();
+        setReviewRating(myReview.getRating());
+        clickReviewButton();
+        review = new Review();
+        return isPresentAlertDanger();
+    }
+
+    public boolean reviewWithOutRating(IReview myReview) {
+        clickReview();
+        inputReviewNameField(myReview.getName());
+        inputReviewTextField(myReview.getText());
+        clickReviewButton();
+        review = new Review();
+        return isPresentAlertDanger();
+    }
+
+ /*   public void validReviewFields(IReview myReview) {
         newReview(myReview);
         createAlertSuccess();
     }
@@ -378,7 +410,6 @@ public class ProductPage extends ANavigatePanelComponent {
         newReview(myReview);
         createAlertDanger();
     }
-
     public void notValidReviewFields(IReview myReview) {
         newReview(myReview);
         createAlertDanger();
@@ -399,7 +430,7 @@ public class ProductPage extends ANavigatePanelComponent {
         clickReviewButton();
         review = new Review();
         createAlertDanger();
-    }
+    }*/
 
     public ProductPage checkClickToAddToCart() {
         clickAddToCart();

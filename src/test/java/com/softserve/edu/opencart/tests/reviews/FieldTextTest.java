@@ -5,6 +5,7 @@ import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.reviews.IReview;
 import com.softserve.edu.opencart.data.reviews.ReviewRepository;
 import com.softserve.edu.opencart.pages.Application;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -35,22 +36,24 @@ public class FieldTextTest extends ALoginForTest {
 
     @Test(dataProvider = "notValidTextData")
     public void testNotValidData(IProduct product, IReview myReview) {
-        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
-                myReview.getCriterion()));
-        reporter.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
-                myReview.getCriterion()));
+        String message = String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion());
+        logger.info(message);
+        reporter.info(message);
 
-        Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview);
+        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview));
+        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview));
     }
 
     @Test(dataProvider = "validTextData")
     public void testValidData(IProduct product, IReview myReview) {
-        logger.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
-                myReview.getCriterion()));
-        reporter.info(String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
-                myReview.getCriterion()));
+        String message = String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
+                myReview.getCriterion());
+        logger.info(message);
+        reporter.info(message);
 
-        Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview);
+        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
+        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
     }
 
 }
