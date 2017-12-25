@@ -26,6 +26,18 @@
                 </methods>
             </class>
 
+            <class name="com.softserve.edu.opencart.tests.address.CheckEmptyFieldsRegisterPageTest">
+                <methods>
+                    <include name="checkEmptyField"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.opencart.tests.address.ForgottenPasswordTest">
+                <methods>
+                    <include name="checkForgottenPassword"/>
+                </methods>
+            </class>
+
         </classes>
     </test>
 </suite>

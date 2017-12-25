@@ -36,7 +36,7 @@ public class DBTest extends TestRunner {
         System.out.println("User Quantity = " + UserRepository.get().fromDB().size());
     }
 
-    @Test
+    //@Test
     public void checkCustomerLogin() throws Exception {
         System.out.println("***Before ...");
         for (String[] current : customerLoginService.getAllCustomerLogins()) {
@@ -55,6 +55,15 @@ public class DBTest extends TestRunner {
             }
             System.out.println();
         }
+    }
+    @Test
+    public void checkCustomer() throws Exception {
+        customerService.deleteCustomerByEmail("testfordelete@mail.ru");
+        System.out.println("***After Update ...");
+        for (IUser user : UserRepository.get().fromDB()) {
+            System.out.println("EMail = " + user.getEmail());
+        }
+        System.out.println("User Quantity = " + UserRepository.get().fromDB().size());
     }
 
 }

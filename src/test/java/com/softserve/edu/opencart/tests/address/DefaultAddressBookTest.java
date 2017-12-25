@@ -31,7 +31,7 @@ public class DefaultAddressBookTest extends TestRunnerFireFox {
         addressBookPage.deleteAddressBookEntries(user);
 
         String actual = addressBookPage.getWarningDeleteAddressText();
-        Assert.assertEquals(actual, expected);
+        flexAssert.assertEquals(actual, expected);
     }
 
 }

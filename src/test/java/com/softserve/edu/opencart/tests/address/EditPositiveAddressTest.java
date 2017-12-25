@@ -45,7 +45,7 @@ public class EditPositiveAddressTest extends TestRunnerFireFox {
                 .saveChangesAddress()
                 .getSuccessText();
 
-        Assert.assertEquals(actual, expected);
+        flexAssert.assertEquals(actual, expected);
     }
 
 }

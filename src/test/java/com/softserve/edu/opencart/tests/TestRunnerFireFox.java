@@ -15,9 +15,10 @@ public abstract class TestRunnerFireFox extends TestRunner {
         //
         Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
         //Application.get(ApplicationSourceRepository.get().chromeVisibleServer7());
-        Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
+        //Application.get(ApplicationSourceRepository.get().firefoxImplicitServer7());
 
         reporter = Application.get().reporter();
+        flexAssert = Application.get().flexAssert();
     }
 
 }

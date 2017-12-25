@@ -22,8 +22,8 @@ public class CheckEmptyFieldsRegisterPageTest extends TestRunnerFireFox {
     }
     @Test(dataProvider = "notValidRegistration")
         public void checkEmptyField( IUser wrongField, String expected){
-        logger.info(String.format("check Empty Field:  of User: %s", wrongField.getClass().getName()));
-        reporter.info(String.format("check Empty Address:  of User: %s", wrongField.getClass().getName()));
+        logger.info(String.format("check Empty Fields:  of User: %s", wrongField.getClass().getName()));
+        reporter.info(String.format("check Empty Fields:  of User: %s", wrongField.getClass().getName()));
 
         RegisterPage registerPage = Application.get().loadHomePage().gotoRegistePageFromMyAccount();
 
@@ -31,7 +31,7 @@ public class CheckEmptyFieldsRegisterPageTest extends TestRunnerFireFox {
         registerPage.gotoRegisterSuccessPage();
 
         String actual = registerPage.getWarningDangerTextforField();
-        Assert.assertEquals(actual, expected);
+        flexAssert.assertEquals(actual, expected);
 
     }
 }

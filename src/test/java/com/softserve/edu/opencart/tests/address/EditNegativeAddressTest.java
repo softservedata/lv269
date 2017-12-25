@@ -40,7 +40,7 @@ public class EditNegativeAddressTest extends TestRunnerFireFox {
         editAddressPage.saveChangesAddress();
         String actual = editAddressPage.getWarningDangerTextforField();
 
-        Assert.assertEquals(actual, expected);
+        flexAssert.assertEquals(actual, expected);
     }
 
 }

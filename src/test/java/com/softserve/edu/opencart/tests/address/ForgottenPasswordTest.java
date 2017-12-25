@@ -22,6 +22,8 @@ public class ForgottenPasswordTest extends TestRunnerFireFox {
 
     @Test(dataProvider ="mailAPI" )
     public void checkForgottenPassword(IUser user, String expected){
+        logger.info(String.format("check Forgotten password: %s",user.getEmail()));
+        reporter.info(String.format("check Forgotten password: %s", user.getEmail()));
         LoginPage loginPage = Application.get()
                 .loadHomePage()
                 .gotoLoginPageFromMyAccount()
@@ -31,6 +33,6 @@ public class ForgottenPasswordTest extends TestRunnerFireFox {
                 .saveChangesAccount(user);
 
         String actual = loginPage.getAlertSuccessText();
-        Assert.assertEquals(actual, expected);
+        flexAssert.assertEquals(actual, expected);
     }
 }
