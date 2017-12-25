@@ -31,13 +31,16 @@ public class ReviewDB implements IEntity {
         // INSERT with productId ...
         // GET_BY_ID, GET_BY_FIELD, GET_RANGE, GET_ALL, DELETE_BY_CUSTOMER_ID, DELETE_BY_ID
 
-        DELETE_BY_DAY(QueryNames.DELETE_BY_FIELD, "DELETE FROM oc_customer WHERE date_added like '%s%';"),
+        //use for DELETE_BY_DAY
+        DELETE_BY_FIELD(QueryNames.DELETE_BY_FIELD, "DELETE FROM oc_review WHERE %s like '%s%%';"),
 
-        GET_ALL_VISIBLE_BY_PRODUCT_ID(QueryNames.GET_BY_FIELD,
-                "select * from oc_review where status=1 and product_id = $s;"),
+        //use for GET_ALL_VISIBLE
+        GET_BY_FIELD(QueryNames.GET_BY_FIELD,
+                "select * from oc_review where %s = %s;");
 
-        MAKE_VISIBLE(QueryNames.UPDATE_BY_FIELD,
-                "update oc_review set status = 1, date_modified = now() where productId = %s and date_added like '%s%';");
+        // TODO
+        //UPDATE_BY_FIELDS(QueryNames.UPDATE_BY_FIELD,
+        //        "update oc_review set status = 1, date_modified = now() where productId = %s and date_added like '%s%';");
 
 
         //
