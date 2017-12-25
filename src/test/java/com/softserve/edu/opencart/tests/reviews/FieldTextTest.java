@@ -5,6 +5,7 @@ import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.reviews.IReview;
 import com.softserve.edu.opencart.data.reviews.ReviewRepository;
 import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.tests.ATestRunnerReview;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -14,7 +15,7 @@ import static com.softserve.edu.opencart.tests.TestContextAttributes.REVIEW_FIEL
 /**
  * Created by Serhiienko.
  */
-public class FieldTextTest extends ALoginForTest {
+public class FieldTextTest extends ATestRunnerReview {
 
     @DataProvider
     public Object[][] notValidTextData() {
@@ -41,8 +42,8 @@ public class FieldTextTest extends ALoginForTest {
         logger.info(message);
         reporter.info(message);
 
-        flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview));
-        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview));
+        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview));
+        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).notValidReviewFields(myReview));
     }
 
     @Test(dataProvider = "validTextData")
@@ -52,8 +53,8 @@ public class FieldTextTest extends ALoginForTest {
         logger.info(message);
         reporter.info(message);
 
-        flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
-        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
+        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
+        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFields(myReview));
     }
 
 }

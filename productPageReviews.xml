@@ -4,8 +4,7 @@
 <suite name="Review">
 
     <!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
-
-   <!-- <test verbose="7" name="ProductPageSmoke">
+    <test verbose="7" name="ProductPageSmoke">
         <classes>
             <class name="com.softserve.edu.opencart.tests.smoke.ProductPageTest">
                 <methods>
@@ -13,7 +12,7 @@
                 </methods>
             </class>
         </classes>
-    </test>-->
+    </test>
 
     <test verbose="7" name="ReviewsForm User Logout/Login">
         <classes>
@@ -30,7 +29,7 @@
             </class>
         </classes>
     </test>
-   <!-- <test verbose="7" name="ReviewFieldsTest">
+    <test verbose="7" name="ReviewFieldsTest">
         <classes>
             <class name="com.softserve.edu.opencart.tests.reviews.FieldRatingTest">
                 <methods>
@@ -48,6 +47,6 @@
                 </methods>
             </class>
         </classes>
-    </test>-->
+    </test>
 
 </suite>

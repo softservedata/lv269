@@ -30,6 +30,15 @@ public class ReviewRepository {
                 .build();
     }
 
+    public IReview validNameValidTextWithOutRating() {
+        return Review.get()
+                .setCriterion("validNameValidTextWithRating")
+                .setName("Name")
+                .setText("Input valid review there.")
+                .setRating(null)
+                .build();
+    }
+
     public IReview notValidShortNameValidTextWithRating() {
         return Review.get()
                 .setCriterion("notValidShortNameValidTextWithRating")

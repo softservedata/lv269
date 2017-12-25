@@ -5,6 +5,7 @@ import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.data.reviews.IReview;
 import com.softserve.edu.opencart.data.reviews.ReviewRepository;
 import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.tests.ATestRunnerReview;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -16,12 +17,19 @@ import static com.softserve.edu.opencart.tests.TestContextAttributes.REVIEW_FIEL
  * Created by Serhiienko.
  */
 
-public class FieldRatingTest extends ALoginForTest {
+public class FieldRatingTest extends ATestRunnerReview {
 
     @DataProvider
     public Object[][] ratingData() {
         return new Object[][]{
                 {ProductRepository.get().macBook(), ReviewRepository.get().validNameValidTextWithRating()},
+        };
+    }
+
+    @DataProvider
+    public Object[][] withOutRatingData() {
+        return new Object[][]{
+                {ProductRepository.get().macBook(), ReviewRepository.get().validNameValidTextWithOutRating()},
         };
     }
 
@@ -32,19 +40,19 @@ public class FieldRatingTest extends ALoginForTest {
         logger.info(message);
         reporter.info(message);
 
-        flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview));
-        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview));
+        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview));
+        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview));
     }
 
-    @Test(dataProvider = "ratingData")
+    @Test(dataProvider = "withOutRatingData")
     public void testValidDataWithOutRating(IProduct product, IReview myReview) {
         String message = String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
                 myReview.getCriterion());
         logger.info(message);
         reporter.info(message);
 
-        flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview));
-        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview));
+        //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview));
+        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview));
     }
 
 }
