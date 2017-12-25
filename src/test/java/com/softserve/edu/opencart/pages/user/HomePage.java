@@ -36,7 +36,7 @@ public class HomePage extends AHeaderComponent {
     }
     
     @Override
-    public String getPriceSymbolByProductName(String productName) {
+    public char getPriceSymbolByProductName(String productName) {
         return super.getPriceSymbolByProductName(productName);
     }
 
@@ -69,7 +69,7 @@ public class HomePage extends AHeaderComponent {
         return new HomePage();
     }
     
-    public String getPriceSymbolByProduct(Product product) {
+    public char getPriceSymbolByProduct(Product product) {
         return getPriceSymbolByProductName(product.getName());
     }
     

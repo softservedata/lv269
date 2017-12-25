@@ -65,11 +65,11 @@ public final class NumberUtils {
         return result;
     }
     
-    public static String extractSymbol(String pattern,  String text) {
-		String result = null;
+    public static char extractSymbol(String pattern,  String text) {
+		char result = '\u0000';
 		String extractText = extractString(pattern, text);
 		if(!text.isEmpty()) {
-			result = extractText;
+			result = extractText.charAt(0);
 		}
 		return result;
 	}

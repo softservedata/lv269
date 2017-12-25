@@ -48,6 +48,6 @@ public class TestCurrency extends TestRunner{
         Assert.assertEquals(Application.get()
         		.loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceSymbolByProduct(product), 
-                product.getPrices().get(detailCurency.getOptionName()).getSymbol(), SYMBOLS_NOT_EQUALS.toString());
+                product.getPrices().get(detailCurency.getOptionName()).getSymbolAsciiCode(), SYMBOLS_NOT_EQUALS.toString());
     }
 }

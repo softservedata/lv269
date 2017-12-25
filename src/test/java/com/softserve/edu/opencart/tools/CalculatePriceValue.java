@@ -18,4 +18,16 @@ public class CalculatePriceValue {
 		return Double.parseDouble(String.format("%.2f", defaultValue * DOLLAR_VALUE).replace(",","."));
 	}
 	
+	public static double euroPrice(double defaultValue, double euroValue) {
+		return Double.parseDouble(String.format("%.2f", defaultValue * euroValue).replace(",","."));
+	}
+	
+	public static double poundPrice(double defaultValue, double poundValue) {
+		return Double.parseDouble(String.format("%.2f", defaultValue * poundValue).replace(",","."));
+	}
+	
+	public static double dollarPrice(double defaultValue, double dollarValue) {
+		return Double.parseDouble(String.format("%.2f", defaultValue * dollarValue).replace(",","."));
+	}
+	
 }
