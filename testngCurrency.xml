@@ -16,6 +16,11 @@
 					<include name="checkChangeCurrencyByPrice" />
 				</methods>
 			</class>
+			<class name="com.softserve.edu.opencart.tests.currency.TestCurrencyDB">
+				<methods>
+					<include name="checkChangeCurrencyByPrice" />
+				</methods>
+			</class>
 		</classes>
 	</test>
 </suite>

@@ -43,8 +43,10 @@ public class ConnectionManager {
         // Lazy Initialization
         if (connection == null) {
             try {
-                connection = DriverManager.getConnection(applicationSource.getDatabaseUrl(),
-                        applicationSource.getDatabaseLogin(), applicationSource.getDatabasePassword());
+//                connection = DriverManager.getConnection(applicationSource.getDatabaseUrl(),
+//                        applicationSource.getDatabaseLogin(), applicationSource.getDatabasePassword());
+                connection = DriverManager.getConnection("jdbc:mysql://77.120.103.50:3310/pekelis_db",
+                        "pekelis_usr", "B6y0N7i5");
             } catch (SQLException e) {
                 throw new GeneralException(FAILED_CREATE_CONNECTION, e);
                 //throw new RuntimeException(FAILED_CREATE_CONNECTION, e);
