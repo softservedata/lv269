@@ -6,6 +6,10 @@ import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.tests.TestRunner;
+
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -18,6 +22,7 @@ import static com.softserve.edu.opencart.tests.TestContextAttributes.SYMBOLS_NOT
 /**
  * @author Yurii Ivanytskyi
  */
+@Epic("***TestCurrency***")
 public class TestCurrency extends TestRunner{
 
     @BeforeClass
@@ -33,6 +38,7 @@ public class TestCurrency extends TestRunner{
             { CurrencyRepository.get().poundSterling(), ProductRepository.get().iPhone() } };
     }
 
+    @Description("Test Description: class TestCurrency; checkChangeCurrencyByPrice().")
     @Test(dataProvider = "currencyData")
     public void checkChangeCurrencyByPrice(IDetailCategory detailCurency, Product product) {
     	logger.info(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));

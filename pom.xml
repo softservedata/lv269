@@ -499,6 +499,48 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>ivanytsky</id>
+			<!-- 			<activation> -->
+			<!-- 				<activeByDefault>true</activeByDefault> -->
+			<!-- 			</activation> -->
+			
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>${maven.surefire.plugin.version}</version>
+						<configuration>
+							<argLine>-Xms256m -Xmx512m</argLine>
+							<systemPropertyVariables>
+								<allure.results.directory>
+									${allure.results.directory}
+								</allure.results.directory>
+								<surefire.reports.directory>
+									${testng.reports.directory}
+								</surefire.reports.directory>
+								<selenium-version>
+									${org.seleniumhq.selenium.version}
+								</selenium-version>
+								<database-connection>
+									${database.connection}
+								</database-connection>
+								<database-login>
+									${database.login}
+								</database-login>
+								<database-password>
+									${database.password}
+								</database-password>
+							</systemPropertyVariables>
+							<suiteXmlFiles>
+								<suiteXmlFile>testngCurrency.xml</suiteXmlFile>
+							</suiteXmlFiles>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
 </project>
