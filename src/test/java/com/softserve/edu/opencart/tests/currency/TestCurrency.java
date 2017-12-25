@@ -47,7 +47,7 @@ public class TestCurrency extends TestRunner{
         reporter.debug(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));
         Assert.assertEquals(Application.get()
         		.loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
-                .getPriceSymbolByProduct(product), 
+                .getPriceSymbolAsciiByProduct(product), 
                 product.getPrices().get(detailCurency.getOptionName()).getSymbolAsciiCode(), SYMBOLS_NOT_EQUALS.toString());
     }
 }

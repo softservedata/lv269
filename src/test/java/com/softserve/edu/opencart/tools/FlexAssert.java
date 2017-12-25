@@ -77,6 +77,26 @@ public final class FlexAssert {
                     e.toString(), getStackTrace()));
         }
     }
+    
+    public void assertEquals(Double actual, Double expected, String message) {
+        try {
+            Assert.assertEquals(actual, expected, 0.001, message);
+        } catch (AssertionError e) {
+            //System.out.println("\t***** e.toString() = " + e.toString());
+            verify(actual.equals(expected), String.format(ERROR_ASSERT_MESSAGE,
+                    e.toString(), getStackTrace()));
+        }
+    }
+    
+    public void assertEquals(Integer actual, Integer expected, String message) {
+        try {
+            Assert.assertEquals(actual, expected, message);
+        } catch (AssertionError e) {
+            //System.out.println("\t***** e.toString() = " + e.toString());
+            verify(actual.equals(expected), String.format(ERROR_ASSERT_MESSAGE,
+                    e.toString(), getStackTrace()));
+        }
+    }
 
     public void assertTrue(boolean condition) {
         try {
