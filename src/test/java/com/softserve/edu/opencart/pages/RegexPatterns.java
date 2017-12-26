@@ -5,7 +5,8 @@ public enum RegexPatterns {
     FIRST_DIGITS("^\\d+"),
     LAST_DOUBLE("\\d+\\.\\d+$"),
     NUMBER_DOUBLE("\\d+\\.\\d+"),
-    DELETE_SERVER("http://[^/]+/");
+    DELETE_SERVER("http://[^/]+/"),
+    PRICE_SYMBOL("[€\\£\\$]");
     //
     private String field;
 

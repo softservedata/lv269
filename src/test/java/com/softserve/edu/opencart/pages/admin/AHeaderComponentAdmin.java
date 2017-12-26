@@ -289,7 +289,7 @@ abstract class AHeaderComponentAdmin {
         }
 
         public int getOptionAmountByPartialName(String value) {
-            return NumberUtils.stringToInt(operations.getText(search.cssSelector(OPTION_AMOUNT_TEXT_CSS,
+            return RegexUtils.stringToInt(operations.getText(search.cssSelector(OPTION_AMOUNT_TEXT_CSS,
                     getOptionByPartialName(value))));
         }
     }

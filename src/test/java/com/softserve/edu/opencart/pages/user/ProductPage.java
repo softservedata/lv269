@@ -4,7 +4,7 @@ import com.softserve.edu.opencart.data.reviews.IReview;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
-import com.softserve.edu.opencart.tools.NumberUtils;
+import com.softserve.edu.opencart.tools.RegexUtils;
 import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
 import org.openqa.selenium.WebElement;
 
@@ -165,7 +165,7 @@ public class ProductPage extends ANavigatePanelComponent {
     }
 
     public double getPriceAmount() {
-        return NumberUtils.extractDouble(RegexPatterns.NUMBER_DOUBLE.toString(), getPriceText());
+        return RegexUtils.extractDouble(RegexPatterns.NUMBER_DOUBLE.toString(), getPriceText());
     }
 
     private String getQuantityFieldText() {
@@ -173,7 +173,7 @@ public class ProductPage extends ANavigatePanelComponent {
     }
 
     public int getQuantityFieldAmount() {
-        return NumberUtils.extractNumber(RegexPatterns.FIRST_DIGITS.toString(), getQuantityFieldText());
+        return RegexUtils.extractNumber(RegexPatterns.FIRST_DIGITS.toString(), getQuantityFieldText());
     }
 
     public String getDescriptionText() {
