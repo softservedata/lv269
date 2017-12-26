@@ -3,11 +3,11 @@ package com.softserve.edu.opencart.tools;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class NumberUtils {
+public final class RegexUtils {
 
     private final static String EXTRACT_NUMBER_MESSAGE = "NumberFormatException for pattern =  %s text =  %s";
 
-    private NumberUtils() {
+    private RegexUtils() {
     }
 
     public static String extractString(String pattern, String text) {
@@ -48,4 +48,14 @@ public final class NumberUtils {
         }
         return result;
     }
+    
+    public static String extractPathWithoutServer(String pattern, String text) {
+        String result = text;
+        Matcher matcher = Pattern.compile(pattern).matcher(text);
+        if (matcher.find()) {
+                result = text.substring(matcher.end()-1);
+        }
+        return result;
+    }
+    
 }

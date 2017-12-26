@@ -4,7 +4,8 @@ public enum RegexPatterns {
     ALL_DIGITS("\\d+"),
     FIRST_DIGITS("^\\d+"),
     LAST_DOUBLE("\\d+\\.\\d+$"),
-    NUMBER_DOUBLE("\\d+\\.\\d+");
+    NUMBER_DOUBLE("\\d+\\.\\d+"),
+    DELETE_SERVER("http://[^/]+/");
     //
     private String field;
 

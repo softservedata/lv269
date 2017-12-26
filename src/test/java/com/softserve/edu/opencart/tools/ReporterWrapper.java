@@ -4,6 +4,7 @@ import org.testng.Reporter;
 
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.pages.Application;
+import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.tools.browsers.CaptureUtils;
 
 public class ReporterWrapper {
@@ -95,14 +96,17 @@ public class ReporterWrapper {
 
     public String addHtmlSourceCode() {
         String sourceCodeFileName = captureUtils.takeSourceCode(); 
-        display(String.format(SOURCECODE_FILENAME, sourceCodeFileName, sourceCodeFileName));
+        display(String.format(SOURCECODE_FILENAME,
+                RegexUtils.extractPathWithoutServer(RegexPatterns.DELETE_SERVER.toString(), sourceCodeFileName),
+                sourceCodeFileName));
         return sourceCodeFileName;
     }
 
     public String addScreenShot() {
       String screenFileName = captureUtils.takeScreen();
       display(String.format(SCREENSHOT_FILENAME, screenFileName));
-      display(String.format(IMG_TEMPLATE, screenFileName));
+      display(String.format(IMG_TEMPLATE,
+              RegexUtils.extractPathWithoutServer(RegexPatterns.DELETE_SERVER.toString(), screenFileName)));
       return screenFileName;
   }
 

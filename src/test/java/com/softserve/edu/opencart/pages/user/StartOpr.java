@@ -2,7 +2,7 @@ package com.softserve.edu.opencart.pages.user;
 
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
-import com.softserve.edu.opencart.tools.NumberUtils;
+import com.softserve.edu.opencart.tools.RegexUtils;
 
 public class StartOpr {
     
@@ -44,7 +44,7 @@ public class StartOpr {
     }
 
     public int getWishListNumber() {
-        return NumberUtils.extractNumber(RegexPatterns.ALL_DIGITS.toString(), getWishListText());
+        return RegexUtils.extractNumber(RegexPatterns.ALL_DIGITS.toString(), getWishListText());
     }
 
     public String getShoppingCartText() {

@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.RegexPatterns;
-import com.softserve.edu.opencart.tools.NumberUtils;
+import com.softserve.edu.opencart.tools.RegexUtils;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
 import com.softserve.edu.opencart.tools.search.ISearch;
 
@@ -76,7 +76,7 @@ public class ProductComponent {
     }
 
     public double getPriceAmount() {
-        return NumberUtils.extractDouble(RegexPatterns.NUMBER_DOUBLE.toString(), getPriceText());
+        return RegexUtils.extractDouble(RegexPatterns.NUMBER_DOUBLE.toString(), getPriceText());
     }
 
     // set Data

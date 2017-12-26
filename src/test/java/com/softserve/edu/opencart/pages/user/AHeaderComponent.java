@@ -12,7 +12,7 @@ import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.GeneralLocators;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.pages.TagAttribute;
-import com.softserve.edu.opencart.tools.NumberUtils;
+import com.softserve.edu.opencart.tools.RegexUtils;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
 import com.softserve.edu.opencart.tools.exceptions.ErrorUtils;
 import com.softserve.edu.opencart.tools.search.ISearch;
@@ -262,7 +262,7 @@ abstract class AHeaderComponent {
     }
 
     public int getWishListNumber() {
-        return NumberUtils.extractNumber(RegexPatterns.ALL_DIGITS.toString(), getWishListText());
+        return RegexUtils.extractNumber(RegexPatterns.ALL_DIGITS.toString(), getWishListText());
     }
 
     public String getShoppingCartText() {
@@ -286,11 +286,11 @@ abstract class AHeaderComponent {
     }
 
     public int getCartAmount() {
-        return NumberUtils.extractNumber(RegexPatterns.FIRST_DIGITS.toString(), getCartTotalText());
+        return RegexUtils.extractNumber(RegexPatterns.FIRST_DIGITS.toString(), getCartTotalText());
     }
 
     public double getCartSum() {
-        return NumberUtils.extractDouble(RegexPatterns.LAST_DOUBLE.toString(), getCartTotalText());
+        return RegexUtils.extractDouble(RegexPatterns.LAST_DOUBLE.toString(), getCartTotalText());
     }
 
     public List<String> getMenuTopTexts() {
