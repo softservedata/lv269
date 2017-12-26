@@ -1,11 +1,15 @@
 package com.softserve.edu.opencart.tools;
 
+import java.nio.file.Files;
+
 import org.testng.Reporter;
 
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.RegexPatterns;
 import com.softserve.edu.opencart.tools.browsers.CaptureUtils;
+
+import io.qameta.allure.Attachment;
 
 public class ReporterWrapper {
     
@@ -107,7 +111,19 @@ public class ReporterWrapper {
       display(String.format(SCREENSHOT_FILENAME, screenFileName));
       display(String.format(IMG_TEMPLATE,
               RegexUtils.extractPathWithoutServer(RegexPatterns.DELETE_SERVER.toString(), screenFileName)));
+      //saveImageAttachAllure(screenFileName);
       return screenFileName;
-  }
+    }
+
+    // TODO Add method saveImageAttachAllure
+//    @Attachment(value = "{0}", type = "image/png")
+//    public static byte[] saveImageAttachAllure(String attachName) {
+//        try {
+//            return Files.readAllBytes(attachName);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return new byte[0];
+//    }
 
 }

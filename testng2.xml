@@ -11,19 +11,20 @@
 	<test verbose="5" name="Test1">
 		<parameter name="number" value="2" />
 
-		<classes>
+			<classes>
+
 <!-- 			<class name="com.softserve.edu.AllureTest"> -->
 <!-- 				<methods> -->
 <!-- 					<include name="testAllure1" /> -->
 <!-- 				</methods> -->
 <!-- 			</class> -->
 
-			<class name="com.softserve.edu.opencart.tests.smoke.StartTest">
-				<methods>
+				<class name="com.softserve.edu.opencart.tests.smoke.StartTest">
+					<methods>
 <!-- 					<include name="checkRegisterUser" /> -->
 					<include name="checkSearchProductFlex" />
 					</methods>
-			</class>
+				</class>
 
 <!-- 			<class name="com.softserve.edu.AppTest"> -->
 <!-- 				<methods> -->

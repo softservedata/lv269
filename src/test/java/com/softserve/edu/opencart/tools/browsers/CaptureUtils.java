@@ -73,12 +73,17 @@ public final class CaptureUtils {
 //        return getRelativeFileName() + SOURCE_SUFFIX;
 //    }
 
+    public File takeScreenFile() {
+        return Application.get().browser().getScreenshot();
+    }
+
     /**
      * @return Absolute path of filename.
      */
     public String takeScreen(String absolutePathFileName) {
         // TODO Zoom page before take screen or move to element
-        File srcFile = Application.get().browser().getScreenshot();
+        //File srcFile = Application.get().browser().getScreenshot();
+        File srcFile = takeScreenFile();
         try {
             FileUtils.copyFile(srcFile, new File(absolutePathFileName));
         } catch (IOException e) {

@@ -15,8 +15,12 @@ import com.softserve.edu.opencart.pages.user.StartBlg;
 import com.softserve.edu.opencart.pages.user.StartElm;
 import com.softserve.edu.opencart.tests.TestRunner;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+
 //@RunWith(PowerMockRunner.class)
 //@PrepareForTest({ StartTest.class })
+@Epic("AllureTest")
 public class StartTest extends TestRunner {
     
     @DataProvider//(parallel = true)
@@ -63,6 +67,7 @@ public class StartTest extends TestRunner {
         //driver.quit();
     }
 
+    @Description("Test Description: class AllureTest; testAllure1().")
     @Test(dataProvider = "searchData")
     public void checkSearchProductFlex(String text) throws Exception {
         //
