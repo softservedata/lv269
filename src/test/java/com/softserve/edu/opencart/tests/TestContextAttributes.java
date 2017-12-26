@@ -6,6 +6,7 @@ public enum TestContextAttributes {
     DEFAULT_SETTING_OPTIONS_LIST ("DefaultSettingOptionsList"),
     TOKEN ("Token"),
     PRODUCT_ADMIN_PAGE("ProductAdminPage"),
+    CUSTOMER_PASS("CustomerPassword"),
     REVIEW_FIELD_MESSAGE("Check field for %s using: %s"),
 	PRICES_NOT_EQUALS("Prices not equals:"),
 	SYMBOLS_NOT_EQUALS("Symbols not equals:"),

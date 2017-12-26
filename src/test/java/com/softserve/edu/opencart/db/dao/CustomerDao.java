@@ -30,7 +30,7 @@ public class CustomerDao extends ADaoCRUD<CustomerDB> {
         fields[1] = entity.getFirstname();
         fields[2] = entity.getLastname();
         fields[3] = entity.getEmail();
-        fields[4] = entity.getTelephone();
+        fields[4] = entity.getPassword();
         fields[5] = entity.getAddressId().toString();
         return fields;
     }

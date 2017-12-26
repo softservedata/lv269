@@ -57,4 +57,14 @@ public final class ListOfFieldsRepository {
 
         return new ListOfFields(negativeData);
     }
+    public IListOfFields fieldsForRegistration(){
+        List<Object[]> positiveData = new ArrayList<Object[]>()
+        {
+            {
+                add(new Object[] {UserRepository.get().userTestRegistration()});
+            }
+        };
+
+        return new ListOfFields(positiveData);
+    }
 }

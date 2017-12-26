@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Yurii Ivanytskyi
  */
-public class RegisterSuccessPage extends AColumnRightGuestComponent{
+public class RegisterSuccessPage extends AHeaderComponent{
 	
 	private WebElement tittleSuccess;
 	private WebElement linkToContactUs;
@@ -13,9 +13,9 @@ public class RegisterSuccessPage extends AColumnRightGuestComponent{
 	
 	public RegisterSuccessPage() {
 		super();
-		tittleSuccess = search.cssSelector("#content>h1");
-		linkToContactUs = search.cssSelector("#content>p>a");
-		continueButton = search.cssSelector(".btn.btn-primary");
+		//tittleSuccess = search.cssSelector("#content>h1");
+		//linkToContactUs = search.cssSelector("#content>p>a");
+		//continueButton = search.cssSelector(".btn.btn-primary");
 	}
 
 	public WebElement getTittleSuccess() {

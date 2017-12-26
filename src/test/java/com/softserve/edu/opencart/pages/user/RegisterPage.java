@@ -95,6 +95,22 @@ public class RegisterPage extends AColumnRightGuestComponent {
 		clickCheckPrivacyPolicy();
 
 	}
+
+	public void registrateUser(IUser user){
+
+		personalDetailsComponent.setFieldFirstName(user.getFirstname());
+		personalDetailsComponent.setFieldLastName(user.getLastname());
+		personalDetailsComponent.setFieldEmail(user.getEmail());
+		personalDetailsComponent.setFieldTelephone(user.getPhoneNumber());
+		addressComponent.setFieldFirstAddress(user.getAddressFirst());
+		addressComponent.setFieldCity(user.getCity());
+		addressComponent.selectFieldCountry(user.getCountry());
+		addressComponent.selectFieldRegion(user.getRegion());
+		passwordComponent.setFieldPassword(user.getPassword());
+		passwordComponent.setFieldConfirmPassword(user.getPassword());
+		clickCheckPrivacyPolicy();
+
+	}
 	public RegisterSuccessPage gotoRegisterSuccessPage() {
 		clickSubmitButton();
 		return new RegisterSuccessPage();

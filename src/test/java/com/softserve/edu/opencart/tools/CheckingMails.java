@@ -29,9 +29,8 @@ public final class CheckingMails {
             Folder emailFolder = store.getFolder("INBOX");
             emailFolder.open(Folder.READ_WRITE);
 
-            // retrieve the messages from the folder in an array and print it
+            // retrieve the messages from the folder in an array
             Message[] messages = emailFolder.getMessages();
-            System.out.println("messages.length---" + messages.length);
 
             for (int i = 0, n = messages.length; i < n; i++) {
                 Message message = messages[i];

@@ -77,6 +77,15 @@ public final class FlexAssert {
                     e.toString(), getStackTrace()));
         }
     }
+    public void assertNotEquals(String actual, String expected) {
+        try {
+            Assert.assertNotEquals(actual, expected);
+        } catch (AssertionError e) {
+            //System.out.println("\t***** e.toString() = " + e.toString());
+            verify(actual.equals(expected), String.format(ERROR_ASSERT_MESSAGE,
+                    e.toString(), getStackTrace()));
+        }
+    }
 
     public void assertTrue(boolean condition) {
         try {

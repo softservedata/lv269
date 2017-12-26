@@ -32,8 +32,8 @@ public class ResetPasswordPage extends AColumnRightGuestComponent {
     public void clickBackButton(){getBackButton().click();}
 
     public LoginPage saveChangesAccount(IUser user) {
-        passwordComponent.setFieldPassword(user.getPassword());
-        passwordComponent.setFieldConfirmPassword(user.getPassword());
+        passwordComponent.setFieldPassword(user.getPhoneNumber());
+        passwordComponent.setFieldConfirmPassword(user.getPhoneNumber());
         clickContinueButton();
         return new LoginPage();
     }

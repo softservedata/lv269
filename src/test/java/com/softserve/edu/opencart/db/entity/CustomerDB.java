@@ -8,6 +8,7 @@ public class CustomerDB implements IEntity {
         LASTNAME("lastname"),
         EMAIL("email"),
         TELEPHONE("telephone"),
+        PASSWORD("password"),
         ADDRESS_ID("address_id");
         //
         private String field;
@@ -25,7 +26,8 @@ public class CustomerDB implements IEntity {
     public static enum CustomerDBQueries {
         INSERT(QueryNames.INSERT, "INSERT INTO oc_customer (firstname, lastname, email, telephone, address_id) VALUES ('%s', '%s', '%s', '%s', '%s');"),
         GET_BY_ID(QueryNames.GET_BY_ID, "SELECT customer_id, firstname, lastname, email, telephone, address_id FROM oc_customer WHERE customer_id = %s;"),
-        GET_BY_FIELD(QueryNames.GET_BY_FIELD, "SELECT customer_id, firstname, lastname, email, telephone, address_id FROM oc_customer WHERE %s = '%s';"),
+        GET_BY_FIELD(QueryNames.GET_BY_FIELD, "SELECT customer_id, firstname, lastname, email, password, address_id FROM oc_customer WHERE %s = '%s';"),
+        GET_PASS_BY_FIELD(QueryNames.GET_PASS_BY_FIELD, "SELECT  email, password FROM oc_customer WHERE %s = '%s';"),
         // GET_RANGE(QueryNames.GET_ALL, "SELECT id_user, id_role, login, passwd FROM oc_customer LIMIT %s, %s;"),
         GET_ALL(QueryNames.GET_ALL, "SELECT customer_id, firstname, lastname, email, telephone, address_id FROM oc_customer;"),
         UPDATE_BY_FIELD(QueryNames.UPDATE_BY_FIELD, "UPDATE oc_customer SET %s = '%s' WHERE %s = '%s';"),
@@ -59,18 +61,20 @@ public class CustomerDB implements IEntity {
     private String email;
     private String telephone;
     private Long addressId;
+    private String password;
 
     // TODO Create Factory, Builder
     public CustomerDB(Long customerId,
             String firstname, String lastname, String email,
-            String telephone, Long addressId) {
+            String password, Long addressId) {
         this.customerId = customerId;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.telephone = telephone;
+        this.password = password;
         this.addressId = addressId;
     }
+
 
     // implements IEntity
     
@@ -95,9 +99,8 @@ public class CustomerDB implements IEntity {
     public String getEmail() {
         return email;
     }
-
-    public String getTelephone() {
-        return telephone;
+    public String getPassword() {
+        return password;
     }
 
     public Long getAddressId() {
@@ -122,8 +125,8 @@ public class CustomerDB implements IEntity {
         this.email = email;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setAddressId(Long addressId) {

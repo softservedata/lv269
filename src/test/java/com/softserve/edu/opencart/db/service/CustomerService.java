@@ -20,6 +20,13 @@ public class CustomerService {
         return customerDao.getFields(customerDao
                 .getByFieldName(CustomerDBFields.EMAIL.toString(), email).get(0));
     }
+    public String getPassHashByEmail(String email) {
+        return getCustomerByEmail(email)[4];
+    }
+
+    public String getEmailFromCustomer(String email){
+        return getCustomerByEmail(email)[3];
+    }
 
     public List<String[]> getAllCustomers() {
         List<String[]> result = new ArrayList<>();
@@ -36,6 +43,11 @@ public class CustomerService {
         customerDao.updateByFieldName(CustomerDBFields.LASTNAME.toString(), user.getLastname(),
                 CustomerDBFields.EMAIL.toString(), user.getEmail());
         customerDao.updateByFieldName(CustomerDBFields.TELEPHONE.toString(), user.getPhoneNumber(),
+                CustomerDBFields.EMAIL.toString(), user.getEmail());
+    }
+    public void updateCustomerPass(IUser user,String password) {
+        // TODO
+        customerDao.updateByFieldName(CustomerDBFields.PASSWORD.toString(), password,
                 CustomerDBFields.EMAIL.toString(), user.getEmail());
     }
 
