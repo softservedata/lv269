@@ -57,18 +57,47 @@ public interface ISearch {
 
     List<WebElement> names(String name);
 
+    List<WebElement> names(String name, WebElement fromWebElement);
+
     List<WebElement> xpaths(String xpath);
 
     List<WebElement> xpaths(String xpath, WebElement fromWebElement);
 
     List<WebElement> cssSelectors(String cssSelector);
 
+    List<WebElement> cssSelectors(String cssSelector, WebElement fromWebElement);
+
     List<WebElement> classNames(String className);
+
+    List<WebElement> classNames(String className, WebElement fromWebElement);
 
     List<WebElement> partialLinkTexts(String partialLinkText);
 
+    List<WebElement> partialLinkTexts(String partialLinkText, WebElement fromWebElement);
+
     List<WebElement> linkTexts(String linkText);
+
+    List<WebElement> linkTexts(String linkText, WebElement fromWebElement);
 
     List<WebElement> tagNames(String tagName);
 
+    List<WebElement> tagNames(String tagName, WebElement fromWebElement);
+
+    //IsVisible
+
+    boolean isVisibleId(String id);
+
+    boolean isVisibleName(String name);
+
+    boolean isVisibleXpath(String xpath);
+
+    boolean isVisibleCssSelector(String cssSelector);
+
+    boolean isVisibleClassName(String className);
+
+    boolean isVisiblePartialLinkText(String partialLinkText);
+
+    boolean isVisibleLinkText(String linkText);
+
+    boolean isVisibleTagName(String tagName);
 }

@@ -74,6 +74,10 @@ public class ProductComponent {
     public String getPriceText() {
         return getPrice().getText();
     }
+    
+    public int getPriceSymbol() {
+    	return NumberUtils.extractSymbol(RegexPatterns.PRICE_SYMBOL.toString(), getPriceText());
+    }
 
     public double getPriceAmount() {
         return RegexUtils.extractDouble(RegexPatterns.NUMBER_DOUBLE.toString(), getPriceText());
@@ -96,5 +100,7 @@ public class ProductComponent {
     // set Functional
 
     // Business Logic
+
+
 
 }

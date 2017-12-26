@@ -1,12 +1,12 @@
 package com.softserve.edu.opencart.pages.user;
 
-import java.util.List;
-
-import org.openqa.selenium.By;
-
-import com.softserve.edu.opencart.data.categories.DetailCategory;
+import com.softserve.edu.opencart.data.categories.IDetailCategory;
+import com.softserve.edu.opencart.data.products.IProduct;
 import com.softserve.edu.opencart.data.products.Product;
 import com.softserve.edu.opencart.pages.Application;
+import org.openqa.selenium.By;
+
+import java.util.List;
 
 public class HomePage extends AHeaderComponent {
 
@@ -34,6 +34,11 @@ public class HomePage extends AHeaderComponent {
     public String getPriceTextByProductName(String productName) {
         return super.getPriceTextByProductName(productName);
     }
+    
+    @Override
+    public int getPriceSymbolAsciiByProductName(String productName) {
+        return super.getPriceSymbolAsciiByProductName(productName);
+    }
 
     @Override
     public double getPriceAmountByProductName(String productName) {
@@ -56,14 +61,18 @@ public class HomePage extends AHeaderComponent {
 
     // Business Logic
     
-    public HomePage chooseCurrencyByDetailCategory(DetailCategory detailCategory) {
+    public HomePage chooseCurrencyByDetailCategory(IDetailCategory detailCategory) {
         logger.debug("Choose detailCategory.getOptionName() = " + detailCategory.getOptionName());
         reporter.debug("Choose detailCategory.getOptionName() = " + detailCategory.getOptionName());
         clickCurrencyByPartialName(detailCategory.getOptionName());
         //return new HomePage(driver); 
         return new HomePage();
     }
-
+    
+    public int getPriceSymbolAsciiByProduct(Product product) {
+        return getPriceSymbolAsciiByProductName(product.getName());
+    }
+    
     public double getPriceAmountByProduct(Product product) {
         return getPriceAmountByProductName(product.getName());
     }
@@ -77,4 +86,11 @@ public class HomePage extends AHeaderComponent {
         return new SuccesSearchPage();
     }
 
+    public HomePage gotoHomePageClickAddToWish(IProduct product) {
+        clickAddToWishByProductName(product.getName());
+        // TODO ChromeDriver/Chrome java script execution BUG!!!
+        Application.get().browser().refreshPage();
+        //try {Thread.sleep(1000);} catch (InterruptedException ex) {}
+        return new HomePage();
+    }
 }

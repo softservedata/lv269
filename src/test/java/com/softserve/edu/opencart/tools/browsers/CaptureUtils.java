@@ -23,9 +23,9 @@ public final class CaptureUtils {
     private TimeUtils timeUtils;
 
     public CaptureUtils() {
-        this.timeUtils = new TimeUtils(TimeUtils.TimeTemplates.TIME_FULL);    
+        this.timeUtils = new TimeUtils(TimeUtils.TimeTemplates.TIME_FULL);
     }
-    
+
     private String getOutputDirectory() {
         String outputDirectory = System.getProperty(MAVEN_DIRECTORY);
         if ((outputDirectory == null) || (outputDirectory.isEmpty())) {

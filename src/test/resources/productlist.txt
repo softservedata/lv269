@@ -1,0 +1,20 @@
+60,Apple Cinema 30",Product 15,100.0000,990,Enabled,Enabled
+30,Canon EOS 5D,Product 3,100.0000,6,Enabled,Enabled
+47,HP LP3065,Product 21,100.0000,1000,Enabled,Enabled
+28,HTC Touch HD,Product 1,100.0000,939,Enabled,Enabled
+41,iMac,Product 14,100.0000,976,Enabled,Enabled
+40,iPhone,product 11,101.0000,969,Enabled,Enabled
+48,iPod Classic,product 20,100.0000,995,Enabled,Enabled
+36,iPod Nano,Product 9,100.0000,994,Enabled,Enabled
+34,iPod Shuffle,Product 7,100.0000,1000,Enabled,Enabled
+32,iPod Touch,Product 5,100.0000,999,Enabled,Enabled
+43,MacBook,Product 16,430.0000,929,Enabled,Enabled
+44,MacBook Air,Product 17,1000.0000,999,Enabled,Enabled
+45,MacBook Pro,Product 18,2000.0000,998,Enabled,Enabled
+31,Nikon D300,Product 4,80.0000,1000,Enabled,Enabled
+58,Palm Treo 750,Model 22,200.0300,50,Disabled,Enabled
+29,Palm Treo Pro,Product 2,279.9900,999,Enabled,Enabled
+35,Product 8,Product 8,100.0000,1000,Enabled,Disabled
+49,Samsung Galaxy Tab 10.1,SAM1,199.9900,0,Enabled,Enabled
+33,Samsung SyncMaster 941BW,Product 6,200.0000,999,Enabled,Enabled
+46,Sony VAIO,Product 19,1000.0000,1000,Enabled,Enabled

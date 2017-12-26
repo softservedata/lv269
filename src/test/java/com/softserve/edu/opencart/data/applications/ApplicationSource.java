@@ -39,7 +39,7 @@ public class ApplicationSource implements IApplicationSource {
     private String databaseUrl;
     private String databaseLogin;
     private String databasePassword;
-    
+
     // TODO Develop Builder
     public ApplicationSource(String browserName, String driverPath,
             long implicitWaitTimeOut, long implicitLoadTimeOut,
@@ -67,7 +67,7 @@ public class ApplicationSource implements IApplicationSource {
     }
 
     // setters
-    
+
     public void setBrowserName(String browserName) {
         this.browserName = browserName;
     }
@@ -99,7 +99,7 @@ public class ApplicationSource implements IApplicationSource {
     public void setDatabaseUrl(String databaseUrl) {
         this.databaseUrl = databaseUrl;
     }
-    
+
     public void setDatabaseLogin(String databaseLogin) {
         this.databaseLogin = databaseLogin;
     }

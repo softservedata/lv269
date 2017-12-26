@@ -2,17 +2,25 @@ package com.softserve.edu.opencart.pages;
 
 import com.softserve.edu.opencart.data.applications.ApplicationSourceRepository;
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
+import com.softserve.edu.opencart.data.users.IUser;
+import com.softserve.edu.opencart.pages.admin.LoginAdminPage;
+import com.softserve.edu.opencart.pages.admin.LogoutAdminPage;
 import com.softserve.edu.opencart.pages.user.HomePage;
-import com.softserve.edu.opencart.tools.ConnectionManager;
-import com.softserve.edu.opencart.tools.FlexAssert;
+import com.softserve.edu.opencart.pages.user.LoginPage;
+import com.softserve.edu.opencart.pages.user.LogoutPage;
+import com.softserve.edu.opencart.tests.TestContextAttributes;
+import com.softserve.edu.opencart.tools.*;
 import com.softserve.edu.opencart.tools.ReporterWrapper;
 import com.softserve.edu.opencart.tools.browsers.BrowserWrapper;
 import com.softserve.edu.opencart.tools.browsers.CaptureUtils;
 import com.softserve.edu.opencart.tools.search.ISearch;
 import com.softserve.edu.opencart.tools.search.Search;
+import org.testng.ITestContext;
+
+import java.sql.SQLException;
 
 public class Application {
-
+    private final String DELETE_UNBLOCK_USER = "DELETE FROM oc_customer_login WHERE email  = '%s';";
     // Use Singleton, Repository
     private static volatile Application instance;
     //
@@ -24,8 +32,11 @@ public class Application {
     private ReporterWrapper reporter;
     private FlexAssert flexAssert;
     private BrowserWrapper browser;
+    private DataBaseWraper dataBase;
     private ISearch search;
     private ConnectionManager connectionManager;
+    private FileManager fileManager;
+    private Operations operations;
     // etc.
 
     private Application(IApplicationSource applicationSource) {
@@ -49,6 +60,9 @@ public class Application {
                     instance.initFlexAssert();
                     instance.initBrowser(applicationSource);
                     instance.initSearch(applicationSource);
+                    instance.initFileManager(applicationSource);
+                    instance.initDataBase(applicationSource);
+                    instance.initOperations(applicationSource);
                     // initAccessToDB();
                     instance.initConnectionManager(applicationSource);
                 }
@@ -56,7 +70,7 @@ public class Application {
         }
         return instance;
     }
-    
+
     public static void remove() {
         if (instance != null) {
             // TODO Change for parallel work
@@ -66,10 +80,13 @@ public class Application {
         }
     }
 
-    // getters
+    public static void closeDB()  {
+        if (instance != null) {
+            instance.getDataBase().close();
+        }
+    }
 
     // TODO Change for parallel work
-    // TODO remove get
     public IApplicationSource getApplicationSource() {
         return applicationSource;
     }
@@ -94,31 +111,37 @@ public class Application {
         return search;
     }
 
+    public FileManager fileManager() {
+        return fileManager;
+    }
+
+    public Operations operations() {
+        return operations;
+    }
+
     public ConnectionManager connectionManager() {
         return connectionManager;
     }
 
-    // Initialization
-    
     // TODO Change for parallel work
-    private void initCaptureUtils() {
+    public void initCaptureUtils() {
         // TODO  Add parameters to applicationSource
         this.captureUtils = new CaptureUtils();
     }
 
-    private void initReporter(IApplicationSource applicationSource) {
+    public void initReporter(IApplicationSource applicationSource) {
         this.reporter = new ReporterWrapper(applicationSource);
     }
 
     private void initFlexAssert() {
         this.flexAssert = new FlexAssert(reporter());
     }
-    
-    private void initBrowser(IApplicationSource applicationSource) {
+
+    public void initBrowser(IApplicationSource applicationSource) {
         this.browser = new BrowserWrapper(applicationSource);
     }
 
-    private void initSearch(IApplicationSource applicationSource) {
+    public void initSearch(IApplicationSource applicationSource) {
         this.search = new Search(applicationSource);
     }
 
@@ -126,7 +149,15 @@ public class Application {
         this.connectionManager = new ConnectionManager(applicationSource);
     }
 
-    // Pages
+    private void initFileManager(IApplicationSource applicationSource) {
+        fileManager = new FileManager();
+    }
+
+    //TODO Remake it by rules without magic numbers and symbols, with saving in the proper place
+
+    public void initOperations (IApplicationSource applicationSource) {
+        this.operations = new Operations();
+    }
 
     public HomePage loadHomePage() {
         browser().openUrl(applicationSource.getBaseUrl());
@@ -135,14 +166,44 @@ public class Application {
         return new HomePage();
     }
 
-//    public LoginPage login() {
-//        getBrowser().openUrl(applicationSource.getUserLoginUrl());
-//        return new LoginPage();
-//    }
+    public LoginPage login() {
+        browser().openUrl(applicationSource.getUserLoginUrl());
+        //return new LoginPage(getBrowser().getDriver());
+        return new LoginPage();
+    }
 
-//    public LogoutPage logout() {
-//        getBrowser().openUrl(applicationSource.getUserLogoutUrl());
-//        return new LogoutPage();
-//    }
+    public LogoutPage logout() {
+        browser().openUrl(applicationSource.getUserLogoutUrl());
+        //return new LogoutPage(getBrowser().getDriver());
+        return new LogoutPage();
+    }
+
+    public LoginAdminPage loginAdmin() {
+        browser().openUrl(applicationSource.getAdminLoginUrl());
+        //TODO Remove SearchManager
+        return new LoginAdminPage();
+    }
+
+    public LogoutAdminPage logoutAdmin(ITestContext context) {
+        browser().openUrl(applicationSource.getAdminLogoutUrl() + context.getAttribute(TestContextAttributes
+                .TOKEN.toString()));
+        return new LogoutAdminPage();
+    }
+
+    public void initDataBase(IApplicationSource applicationSource)   {
+        this.dataBase = new DataBaseWraper();
+    }
+
+    public DataBaseWraper getDataBase() {
+        return dataBase;
+    }
+
+    public void executeQuery(String query)   {
+        getDataBase().executeQuery(query);
+    }
+
+    public void unlockUserByQuery(IUser user)   {
+        getDataBase().executeQuery(String.format(DELETE_UNBLOCK_USER, user.getEmail()));
+    }
 
 }

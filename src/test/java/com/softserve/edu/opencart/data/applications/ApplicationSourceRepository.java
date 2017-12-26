@@ -42,10 +42,16 @@ public class ApplicationSourceRepository {
                 .getResource("/lib/geckodriver.exe").getPath().substring(1);
     }
 
+    public String geckoDriverPath32() {
+        return ApplicationSourceRepository.class
+                .getResource("/lib/geckodriver32.exe").getPath().substring(1);
+    }
+
     public String chromeDriverPathWindows() {
         return ApplicationSourceRepository.class
                 .getResource("/lib/chromedriver.exe").getPath().substring(1);
     }
+
 
     public String chromeDriverPathLinux() {
         //return ApplicationSourceRepository.class
@@ -76,6 +82,23 @@ public class ApplicationSourceRepository {
                 environmentVariables.getDatabaseLogin(),
                 environmentVariables.getDatabasePassword());
     }
+    public IApplicationSource chromePresentServer7() {
+        //System.out.println("Full Path = " + ApplicationSourceRepository.class
+        //        .getResource("/lib/geckodriver.exe").getPath());
+//        System.out.println("Path = " + chromeDriverPathWindows());
+        return new ApplicationSource("ChromeTemporary", chromeDriverPathWindows(),
+                10L, 30L, 10L, 5L,
+                "Present", true,
+                "http://server7.pp.ua",
+                "http://server7.pp.ua/index.php?route=account/login",
+                "http://server7.pp.ua/index.php?route=account/logout",
+                "http://server7.pp.ua/admin/",
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
+                environmentVariables.getDatabaseLogin(),
+                environmentVariables.getDatabasePassword());
+    }
+
 
     public IApplicationSource chromeImplicitServer7WithoutUIWindows() {
         //System.out.println("Full Path = " + ApplicationSourceRepository.class
@@ -118,6 +141,23 @@ public class ApplicationSourceRepository {
         return new ApplicationSource("ChromeWithoutUI", chromeDriver215PathLinux(),
                 40L, 40L, 40L, 10L,
                 "Implicit", true,
+                "http://server7.pp.ua",
+                "http://server7.pp.ua/index.php?route=account/login",
+                "http://server7.pp.ua/index.php?route=account/logout",
+                "http://server7.pp.ua/admin/",
+                "http://server7.pp.ua/admin/index.php?route=common/logout",
+                environmentVariables.getDatabaseConnection(),
+                environmentVariables.getDatabaseLogin(),
+                environmentVariables.getDatabasePassword());
+    }
+
+    public IApplicationSource chromePresentServer7WithoutUIWindows() {
+        //System.out.println("Full Path = " + ApplicationSourceRepository.class
+        //        .getResource("/lib/geckodriver.exe").getPath());
+        System.out.println("Path = " + chromeDriverPathWindows());
+        return new ApplicationSource("ChromeWithoutUI", chromeDriverPathWindows(),
+                10L, 30L, 10L, 5L,
+                "Present", true,
                 "http://server7.pp.ua",
                 "http://server7.pp.ua/index.php?route=account/login",
                 "http://server7.pp.ua/index.php?route=account/logout",

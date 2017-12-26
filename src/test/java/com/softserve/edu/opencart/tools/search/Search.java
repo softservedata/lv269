@@ -208,6 +208,10 @@ public final class Search implements ISearch {
         return getSearch().names(name);
     }
 
+    public List<WebElement> names(String name, WebElement fromWebElement) {
+        return getSearch().names(name, fromWebElement);
+    }
+
     public List<WebElement> xpaths(String xpath) {
         return getSearch().xpaths(xpath);
     }
@@ -220,20 +224,73 @@ public final class Search implements ISearch {
         return getSearch().cssSelectors(cssSelector);
     }
 
+    public List<WebElement> cssSelectors(String cssSelector, WebElement fromWebElement) {
+        return getSearch().cssSelectors(cssSelector, fromWebElement);
+    }
+
     public List<WebElement> classNames(String className) {
         return getSearch().classNames(className);
+    }
+
+    public List<WebElement> classNames(String className, WebElement fromWebElement) {
+        return getSearch().classNames(className, fromWebElement);
     }
 
     public List<WebElement> partialLinkTexts(String partialLinkText) {
         return getSearch().partialLinkTexts(partialLinkText);
     }
 
+    public List<WebElement> partialLinkTexts(String partialLinkText, WebElement fromWebElement) {
+        return getSearch().partialLinkTexts(partialLinkText, fromWebElement);
+    }
+
     public List<WebElement> linkTexts(String linkText) {
         return getSearch().linkTexts(linkText);
+    }
+
+    public List<WebElement> linkTexts(String linkText, WebElement fromWebElement) {
+        return getSearch().linkTexts(linkText, fromWebElement);
     }
 
     public List<WebElement> tagNames(String tagName) {
         return getSearch().tagNames(tagName);
     }
 
+    public List<WebElement> tagNames(String tagName, WebElement fromWebElement) {
+        return getSearch().tagNames(tagName, fromWebElement);
+    }
+
+    //IsVisible
+
+    public boolean isVisibleId(String id) {
+        return getSearch().isVisibleId(id);
+    }
+
+    public boolean isVisibleName(String name){
+        return getSearch().isVisibleName(name);
+    }
+
+    public boolean isVisibleXpath(String xpath){
+        return getSearch().isVisibleXpath(xpath);
+    }
+
+    public boolean isVisibleCssSelector(String cssSelector){
+        return getSearch().isVisibleCssSelector(cssSelector);
+    }
+
+    public boolean isVisibleClassName(String className){
+        return getSearch().isVisibleClassName(className);
+    }
+
+    public boolean isVisiblePartialLinkText(String partialLinkText){
+        return getSearch().isVisiblePartialLinkText(partialLinkText);
+    }
+
+    public boolean isVisibleLinkText(String linkText){
+        return getSearch().isVisibleLinkText(linkText);
+    }
+
+    public boolean isVisibleTagName(String tagName){
+        return isVisibleTagName(tagName);
+    }
 }

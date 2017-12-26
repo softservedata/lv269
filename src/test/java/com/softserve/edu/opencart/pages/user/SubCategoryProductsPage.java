@@ -1,11 +1,10 @@
 package com.softserve.edu.opencart.pages.user;
 
-import java.util.List;
-
+import com.softserve.edu.opencart.data.categories.DetailCategory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.softserve.edu.opencart.data.categories.DetailCategory;
+import java.util.List;
 
 public class SubCategoryProductsPage extends AColumnLeftComponent {
 

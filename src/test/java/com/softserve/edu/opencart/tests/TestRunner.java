@@ -41,7 +41,7 @@ public abstract class TestRunner {
         flexAssert = Application.get().flexAssert();
     }
 
-    @AfterClass(alwaysRun = true)
+    @AfterClass (alwaysRun = true)
     public void afterClass() {
         logger.info("@AfterClass for " + this.getClass().getName());
         //System.out.println("@AfterClass");
@@ -49,7 +49,7 @@ public abstract class TestRunner {
         Application.remove();
     }
 
-    @BeforeMethod
+    @BeforeMethod (alwaysRun = true)
     public void beforeMethod() {
         logger.debug("@BeforeMethod for " + this.getClass().getName());
         //logger.info("@BeforeMethod for " + this.getClass().getName());
@@ -57,7 +57,7 @@ public abstract class TestRunner {
         flexAssert.initResult();
     }
 
-    @AfterMethod//(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void afterMethod(ITestResult result) {
         Reporter.setCurrentTestResult(result);
         logger.debug("@AfterMethod for " + this.getClass().getName());

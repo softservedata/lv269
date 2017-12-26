@@ -1,17 +1,19 @@
 package com.softserve.edu.opencart.tools.browsers;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
-
+import com.softserve.edu.opencart.data.applications.IApplicationSource;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
-import com.softserve.edu.opencart.data.applications.IApplicationSource;
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 public class BrowserWrapper {
 
@@ -24,6 +26,16 @@ public class BrowserWrapper {
             System.setProperty("webdriver.gecko.driver",
                     applicationSource.getDriverPath());
             return new FirefoxDriver();
+        }
+    }
+
+    private static class FirefoxWithoutUI implements IBrowser {
+        public WebDriver getBrowser(IApplicationSource applicationSource) {
+            System.setProperty("webdriver.gecko.driver",
+                    applicationSource.getDriverPath());
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--headless");
+            return new FirefoxDriver(options);
         }
     }
 
@@ -64,6 +76,7 @@ public class BrowserWrapper {
     public static enum Browsers {
         DEFAULT_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         FIREFOX5X_TEMPORARY("FireFox5xTemporary", new Firefox5xTemporary()),
+        FIREFOX5X_WITHOUTUI("FireFox5xWithoutUI", new FirefoxWithoutUI()),
         CHROME_TEMPORARY("ChromeTemporary", new ChromeTemporary()),
         CHROME_WITHOUTUI("ChromeWithoutUI", new ChromeWithoutUI()),
         PHANTOM_JS("PhantomJS", new PhantomJS());
@@ -115,6 +128,10 @@ public class BrowserWrapper {
         return driver;
     }
 
+    public JavascriptExecutor getJsExecutor() {
+        return (JavascriptExecutor)getDriver();
+    }
+
     // TODO Zoom page before take screen or move to element. Yandex Ashot
     //https://github.com/assertthat/selenium-shutterbug
     //document.body.scrollHeight
@@ -131,6 +148,11 @@ public class BrowserWrapper {
         getDriver().get(url);
     }
 
+
+    public String getUrlPage () {
+        return getDriver().getCurrentUrl();
+    }
+
     public void navigateForward() {
         getDriver().navigate().forward();
     }
@@ -141,6 +163,10 @@ public class BrowserWrapper {
 
     public void refreshPage() {
         getDriver().navigate().refresh();
+    }
+
+    public void deleteAllCookies() {
+    	getDriver().manage().deleteAllCookies();
     }
 
     public void quit() {

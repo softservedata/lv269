@@ -69,7 +69,7 @@ public class HomeTest extends TestRunner {
         //Assert.assertEquals(actualPrice, expectedPrice, 0.001);
         // TODO getPrices(detailCurency)
         logger.debug("checkProduct() debug");
-        double expectedPrice = product.getPrices().get(detailCurency.getOptionName());
+        double expectedPrice = product.getPrices().get(detailCurency.getOptionName()).getValue();
         Assert.assertEquals(actualPrice, expectedPrice, 0.001);
         Thread.sleep(1000);
         //

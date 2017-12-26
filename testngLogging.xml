@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Login">
+    <!-- 3 ERROR 5 WARNING 7 INFO 9 DEBUG -->
+
+    <test verbose="9" name="TestLogining">
+        <parameter name="number" value="2"/>
+
+        <classes>
+
+            <class name="com.softserve.edu.opencart.tests.login.BlockLoginTest">
+                <methods>
+                    <include name="checkBlockUser"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.opencart.tests.login.TestLoginPage">
+                <methods>
+                    <include name="checkImpossibilityOfCopyingPassword"/>
+                    <include name="checkLoginField"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.opencart.tests.login.SuccessLoginTest">
+                <methods>
+                    <include name="checkSuccessfulLogin"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.login.NegativeLoginTest">
+                <methods>
+                    <include name="checkNegativeLogin"/>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+</suite>
