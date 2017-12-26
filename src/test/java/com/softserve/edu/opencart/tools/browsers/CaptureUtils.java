@@ -49,25 +49,29 @@ public final class CaptureUtils {
         return classPath;
     }
 
-    private String getAbsolutePathImageFileName() {
-        // System.out.println("\t\t\t+++ getAbsolutePathFileName() = "
-        // + CaptureScreen.class.getResource("/").getPath().substring(1)
-        // + getRelativePathFileName());
-        System.out.println("\t***** System.getProperty(SERVER_DIRECTORY) = " + System.getProperty(SERVER_DIRECTORY));
+    private String getServerPath() {
         String basePath = System.getProperty(SERVER_DIRECTORY);
-        if (basePath.equalsIgnoreCase(SERVER_ABSENT)) {
+        if ((basePath == null)
+                || (basePath.isEmpty())
+                || (basePath.equalsIgnoreCase(SERVER_ABSENT))) {
             basePath = getRelativePath();
         }
-        System.out.println("\t***** basePath = " + basePath);
-        return basePath + getRelativeFileName() + IMAGE_SUFFIX;
+        return basePath;
     }
 
-    private String getAbsolutePathSourceFileName() {
-        // System.out.println("\t\t\t+++ getAbsolutePathFileName() = "
-        // + CaptureScreen.class.getResource("/").getPath().substring(1)
-        // + getRelativePathFileName());
-        return getRelativePath() + getRelativeFileName() + SOURCE_SUFFIX;
-    }
+//    private String getAbsolutePathImageFileName() {
+//        // System.out.println("\t\t\t+++ getAbsolutePathFileName() = "
+//        // + CaptureScreen.class.getResource("/").getPath().substring(1)
+//        // + getRelativePathFileName());
+//        return getRelativeFileName() + IMAGE_SUFFIX;
+//    }
+//
+//    private String getAbsolutePathSourceFileName() {
+//        // System.out.println("\t\t\t+++ getAbsolutePathFileName() = "
+//        // + CaptureScreen.class.getResource("/").getPath().substring(1)
+//        // + getRelativePathFileName());
+//        return getRelativeFileName() + SOURCE_SUFFIX;
+//    }
 
     /**
      * @return Absolute path of filename.
@@ -84,11 +88,13 @@ public final class CaptureUtils {
     }
 
     public String takeScreen() {
-        return takeScreen(getAbsolutePathImageFileName());
+        String projectPathFileName = getRelativeFileName() + IMAGE_SUFFIX;
+        takeScreen(getRelativePath() + projectPathFileName);
+        return getServerPath() + projectPathFileName;
     }
 
     public String takeSourceCode(String absolutePathFileName) {
-        // TODO get partial HTML code from srcFile 
+        // TODO get partial HTML code from srcFile
         String srcFile = Application.get().browser().getSourceCode();
         // System.out.println("\t\t srcFile = " + srcFile);
         try {
@@ -100,7 +106,9 @@ public final class CaptureUtils {
     }
 
     public String takeSourceCode() {
-        return takeSourceCode(getAbsolutePathSourceFileName());
+        String projectPathFileName = getRelativeFileName() + SOURCE_SUFFIX;
+        takeSourceCode(getRelativePath() + projectPathFileName);
+        return getServerPath() + projectPathFileName;
     }
 
 }
