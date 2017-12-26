@@ -104,6 +104,15 @@ public final class FlexAssert {
                     e.toString(), getStackTrace()));
         }
     }
+    
+    public void assertTrue(boolean condition, String message) {
+        try {
+            Assert.assertTrue(condition, message);
+        } catch (AssertionError e) {
+            verify(condition, String.format(ERROR_ASSERT_MESSAGE,
+                    e.toString(), getStackTrace()));
+        }
+    }
 
     public void assertAll() {
         boolean result = getPassed();

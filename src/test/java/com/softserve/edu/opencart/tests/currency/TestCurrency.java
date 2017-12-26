@@ -39,14 +39,15 @@ public class TestCurrency extends TestRunner{
     	logger.info(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));
         reporter.display(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));
         
-        Assert.assertEquals(Application.get()
+        flexAssert.assertEquals(Application.get()
         		.loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceAmountByProduct(product), 
-                product.getPrices().get(detailCurency.getOptionName()).getValue(), 0.001, PRICES_NOT_EQUALS.toString());
+                product.getPrices().get(detailCurency.getOptionName()).getValue(), PRICES_NOT_EQUALS.toString());
         
-        Assert.assertEquals(Application.get()
+        flexAssert.assertEquals(Application.get()
         		.loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceSymbolAsciiByProduct(product), 
                 product.getPrices().get(detailCurency.getOptionName()).getSymbolAsciiCode(), SYMBOLS_NOT_EQUALS.toString());
+        flexAssert.assertAll();
     }
 }
