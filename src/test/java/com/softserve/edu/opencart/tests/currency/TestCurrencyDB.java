@@ -15,13 +15,9 @@ import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.tests.TestRunner;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-
 /**
  * @author Yurii Ivanytskyi
  */
-@Epic("TestCurrencyDB")
 public class TestCurrencyDB extends TestRunner{
 	
 	@BeforeClass
@@ -37,21 +33,20 @@ public class TestCurrencyDB extends TestRunner{
             { CurrencyRepository.get().poundSterling(), ProductRepository.get().iPhoneDB() } };
     }
 
-    @Description("Test Description: class TestCurrencyDB; checkChangeCurrencyByPrice().")
     @Test(dataProvider = "currencyData")
     public void checkChangeCurrencyByPrice(IDetailCategory detailCurency, Product product) {
     	logger.info(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));
         reporter.display(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));
         
-        reporter.debug(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));
         flexAssert.assertEquals(Application.get()
         		.loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceAmountByProduct(product), 
                 product.getPrices().get(detailCurency.getOptionName()).getValue(), PRICES_NOT_EQUALS.toString());
-        reporter.debug(String.format(STARTED_CHECK_CHANGE_CURRENCY_BY_PRICE.toString(), detailCurency.getOptionName(), product.getName()));
+        
         flexAssert.assertEquals(Application.get()
         		.loadHomePage().chooseCurrencyByDetailCategory(detailCurency)
                 .getPriceSymbolAsciiByProduct(product), 
                 product.getPrices().get(detailCurency.getOptionName()).getSymbolAsciiCode(), SYMBOLS_NOT_EQUALS.toString());
+        flexAssert.assertAll();
     }
 }

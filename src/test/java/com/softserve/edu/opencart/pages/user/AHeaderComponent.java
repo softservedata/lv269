@@ -496,7 +496,7 @@ abstract class AHeaderComponent {
     }
 
     protected int getPriceSymbolAsciiByProductName(String productName) {
-        return getProductComponentByProductName(productName).getPriceSymbol();
+        return getProductComponentByProductName(productName).getPriceAsciiSymbol();
     }
 
 

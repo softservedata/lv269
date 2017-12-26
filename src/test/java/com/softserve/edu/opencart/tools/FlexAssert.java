@@ -2,8 +2,6 @@ package com.softserve.edu.opencart.tools;
 
 import org.testng.Assert;
 
-import com.softserve.edu.opencart.pages.Application;
-
 public final class FlexAssert {
     private final String APPEND_TEXT = "\nDescription: %s";
     private final String APPEND_STACK_TRACE_ELEMENT = "\nat %s";
