@@ -75,7 +75,7 @@ public class ProductComponent {
         return getPrice().getText();
     }
     
-    public int getPriceSymbol() {
+    public int getPriceAsciiSymbol() {
     	return RegexUtils.extractSymbol(RegexPatterns.PRICE_SYMBOL.toString(), getPriceText());
     }
 

@@ -2,8 +2,6 @@ package com.softserve.edu.opencart.tools;
 
 import org.testng.Assert;
 
-import com.softserve.edu.opencart.pages.Application;
-
 public final class FlexAssert {
     private final String APPEND_TEXT = "\nDescription: %s";
     private final String APPEND_STACK_TRACE_ELEMENT = "\nat %s";
@@ -101,6 +99,15 @@ public final class FlexAssert {
     public void assertTrue(boolean condition) {
         try {
             Assert.assertTrue(condition);
+        } catch (AssertionError e) {
+            verify(condition, String.format(ERROR_ASSERT_MESSAGE,
+                    e.toString(), getStackTrace()));
+        }
+    }
+    
+    public void assertTrue(boolean condition, String message) {
+        try {
+            Assert.assertTrue(condition, message);
         } catch (AssertionError e) {
             verify(condition, String.format(ERROR_ASSERT_MESSAGE,
                     e.toString(), getStackTrace()));
