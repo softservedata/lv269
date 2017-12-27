@@ -369,7 +369,7 @@ public class ProductPage extends ANavigatePanelComponent {
         review = new Review();
     }
 
-    public boolean validReviewFields(IReview myReview) {
+    /*public boolean validReviewFields(IReview myReview) {
         newReview(myReview);
         return isPresentAlertSuccess();
     }
@@ -399,9 +399,9 @@ public class ProductPage extends ANavigatePanelComponent {
         clickReviewButton();
         review = new Review();
         return isPresentAlertDanger();
-    }
+    }*/
 
- /*   public void validReviewFields(IReview myReview) {
+    public void validReviewFields(IReview myReview) {
         newReview(myReview);
         createAlertSuccess();
     }
@@ -430,7 +430,7 @@ public class ProductPage extends ANavigatePanelComponent {
         clickReviewButton();
         review = new Review();
         createAlertDanger();
-    }*/
+    }
 
     public ProductPage checkClickToAddToCart() {
         clickAddToCart();

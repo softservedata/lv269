@@ -446,28 +446,6 @@
 			<!-- 			</activation> -->
 			<build>
 				<plugins>
-					<!--<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.6.0</version>
-						<executions>
-							<execution>
-								<id>pre-test</id>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<phase>compile</phase>
-								&lt;!&ndash; 								<phase>test</phase> &ndash;&gt;
-								<configuration>
-									<executable>testng2.bat</executable>
-									<arguments>
-										<argument>exec-maven-plugin</argument>
-										<argument>1.6.0</argument>
-									</arguments>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>

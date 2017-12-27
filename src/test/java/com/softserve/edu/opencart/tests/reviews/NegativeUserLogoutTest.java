@@ -8,12 +8,15 @@ import com.softserve.edu.opencart.data.reviews.ReviewRepository;
 import com.softserve.edu.opencart.db.service.ReviewService;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.tests.ATestRunnerReview;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
 import static com.softserve.edu.opencart.tests.TestContextAttributes.REVIEW_FIELD_MESSAGE;
 
+@Epic("Test Review Form when user is NOT authenticated.")
 public class NegativeUserLogoutTest extends ATestRunnerReview {
 
     @Override
@@ -41,6 +44,7 @@ public class NegativeUserLogoutTest extends ATestRunnerReview {
         };
     }
 
+    @Description("Use valid data in fields.")
     @Test(dataProvider = "productData")
     public void testValidFields(IProduct product, IReview myReview) {
         String message = String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
@@ -49,6 +53,7 @@ public class NegativeUserLogoutTest extends ATestRunnerReview {
         reporter.info(message);
 
         //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFieldsUserLogOut(myReview));
-        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFieldsUserLogOut(myReview));
+        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).validReviewFieldsUserLogOut(myReview));
+        Application.get().loadHomePage().goToProductPage(product).validReviewFieldsUserLogOut(myReview);
     }
 }

@@ -4,13 +4,18 @@ import com.softserve.edu.opencart.data.products.ProductRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.pages.user.ProductPage;
 import com.softserve.edu.opencart.tests.TestRunnerChromeWithoutUI;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import org.testng.annotations.Test;
 
 /**
  * Created by Serhiienko.
  */
+@Epic("Smoke ProductPageTest.")
+
 public class ProductPageTest extends TestRunnerChromeWithoutUI {
 
+    @Description("Check simple actions on ProductPage.")
     @Test
     public void testCheckProductPage() {
         logger.info("Check ProductPage.");

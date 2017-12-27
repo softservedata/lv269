@@ -6,6 +6,8 @@ import com.softserve.edu.opencart.data.reviews.IReview;
 import com.softserve.edu.opencart.data.reviews.ReviewRepository;
 import com.softserve.edu.opencart.pages.Application;
 import com.softserve.edu.opencart.tests.ATestRunnerReview;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -16,7 +18,7 @@ import static com.softserve.edu.opencart.tests.TestContextAttributes.REVIEW_FIEL
 /**
  * Created by Serhiienko.
  */
-
+@Epic("Test for Rating field in Review Form when user is authenticated.")
 public class FieldRatingTest extends ATestRunnerReview {
 
     @DataProvider
@@ -33,6 +35,7 @@ public class FieldRatingTest extends ATestRunnerReview {
         };
     }
 
+    @Description("Only Rating field is in Review Form.")
     @Test(dataProvider = "ratingData")
     public void testOnlyRatingData(IProduct product, IReview myReview) {
         String message = String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
@@ -41,9 +44,11 @@ public class FieldRatingTest extends ATestRunnerReview {
         reporter.info(message);
 
         //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview));
-        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview));
+        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview));
+        Application.get().loadHomePage().goToProductPage(product).onlyReviewRating(myReview);
     }
 
+    @Description("Valid string fields and Rating is absent in Review Form.")
     @Test(dataProvider = "withOutRatingData")
     public void testValidDataWithOutRating(IProduct product, IReview myReview) {
         String message = String.format(REVIEW_FIELD_MESSAGE.toString(), product.getName(),
@@ -52,7 +57,8 @@ public class FieldRatingTest extends ATestRunnerReview {
         reporter.info(message);
 
         //flexAssert.assertTrue(Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview));
-        Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview));
+        //Assert.assertTrue(Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview));
+        Application.get().loadHomePage().goToProductPage(product).reviewWithOutRating(myReview);
     }
 
 }

@@ -3,7 +3,6 @@ package com.softserve.edu.opencart.tools.browsers;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-
 import org.apache.commons.io.FileUtils;
 
 import com.softserve.edu.opencart.pages.Application;

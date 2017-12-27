@@ -1,7 +1,12 @@
 package com.softserve.edu.opencart.tools;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import com.softserve.edu.opencart.tests.ATestRunnerReview;
 import org.testng.Reporter;
 
 import com.softserve.edu.opencart.data.applications.IApplicationSource;
@@ -12,14 +17,14 @@ import com.softserve.edu.opencart.tools.browsers.CaptureUtils;
 import io.qameta.allure.Attachment;
 
 public class ReporterWrapper {
-    
+
     private enum ReporterTags {
         BR_DISPLAY("<br>[DISPLAY]"),
         BR_ERROR("<br>[ERROR]"),
         BR_WARNING("<br>[WARNING]"),
         BR_INFO("<br>[INFO]"),
         BR_DEBUG("<br>[DEBUG]");
-        
+
         private String field;
 
         private ReporterTags(String field) {
@@ -31,13 +36,13 @@ public class ReporterWrapper {
             return this.field;
         }
     }
-    
+
     private enum ReporterLevels {
         ERROR_LEVEL(2),
         WARNING_LEVEL(5),
         INFO_LEVEL(7),
         DEBUG_LEVEL(9);
-        
+
         private int level;
 
         private ReporterLevels(int level) {
@@ -66,64 +71,77 @@ public class ReporterWrapper {
     }
 
     private String getCurrentTime() {
-		return SPACE_SYMBOL + timeUtils.getTimeText() + SPACE_SYMBOL;
-	}
-    
-    public void display(String message){
+        return SPACE_SYMBOL + timeUtils.getTimeText() + SPACE_SYMBOL;
+    }
+
+    public void display(String message) {
         Reporter.log(ReporterTags.BR_DISPLAY.toString()
                 + getCurrentTime() + message, consoleOutput);
     }
 
-    public void error(String message){
+    public void error(String message) {
         Reporter.log(ReporterTags.BR_ERROR.toString()
-                + getCurrentTime() + message,
+                        + getCurrentTime() + message,
                 ReporterLevels.ERROR_LEVEL.getLevel(), consoleOutput);
     }
 
-    public void warning(String message){
+    public void warning(String message) {
         Reporter.log(ReporterTags.BR_WARNING.toString()
-                + getCurrentTime() + message,
+                        + getCurrentTime() + message,
                 ReporterLevels.WARNING_LEVEL.getLevel(), consoleOutput);
     }
 
-    public void info(String message){
+    public void info(String message) {
         Reporter.log(ReporterTags.BR_INFO.toString()
-                + getCurrentTime() + message,
+                        + getCurrentTime() + message,
                 ReporterLevels.INFO_LEVEL.getLevel(), consoleOutput);
     }
 
-    public void debug(String message){
+    public void debug(String message) {
         Reporter.log(ReporterTags.BR_DEBUG.toString()
-                + getCurrentTime() + message,
+                        + getCurrentTime() + message,
                 ReporterLevels.DEBUG_LEVEL.getLevel(), consoleOutput);
     }
 
     public String addHtmlSourceCode() {
-        String sourceCodeFileName = captureUtils.takeSourceCode(); 
+        String sourceCodeFileName = captureUtils.takeSourceCode();
         display(String.format(SOURCECODE_FILENAME,
                 RegexUtils.extractPathWithoutServer(RegexPatterns.DELETE_SERVER.toString(), sourceCodeFileName),
                 sourceCodeFileName));
+        //saveSourceCodeAttachAllure(sourceCodeFileName);
         return sourceCodeFileName;
     }
 
+    //TODO
+/*
+    @Attachment(value = "{0}", type = "text/plain")
+    public static byte[] saveSourceCodeAttachAllure(String attachName) {
+        try {
+            return Files.readAllBytes(Paths.get(attachName));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new byte[0];
+        }
+    }*/
+
     public String addScreenShot() {
-      String screenFileName = captureUtils.takeScreen();
-      display(String.format(SCREENSHOT_FILENAME, screenFileName));
-      display(String.format(IMG_TEMPLATE,
-              RegexUtils.extractPathWithoutServer(RegexPatterns.DELETE_SERVER.toString(), screenFileName)));
-      //saveImageAttachAllure(screenFileName);
-      return screenFileName;
+        String screenFileName = captureUtils.takeScreen();
+        display(String.format(SCREENSHOT_FILENAME, screenFileName));
+        display(String.format(IMG_TEMPLATE,
+                RegexUtils.extractPathWithoutServer(RegexPatterns.DELETE_SERVER.toString(), screenFileName)));
+        //saveImageAttachAllure(screenFileName);
+        return screenFileName;
     }
 
-    // TODO Add method saveImageAttachAllure
-//    @Attachment(value = "{0}", type = "image/png")
-//    public static byte[] saveImageAttachAllure(String attachName) {
-//        try {
-//            return Files.readAllBytes(attachName);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new byte[0];
-//    }
+   /* // TODO Add method saveImageAttachAllure
+    @Attachment(value = "{0}", type = "image/png")
+    public static byte[] saveImageAttachAllure(String attachName) {
+        try {
+            return Files.readAllBytes(Paths.get(attachName));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new byte[0];
+        }
+    }*/
 
 }
